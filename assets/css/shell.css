@@ -313,7 +313,7 @@ body.oh-theme {
 	align-items: center;
 	justify-content: space-between;
 	gap: 16px;
-	padding-block: 6px;
+	padding-block: 9px;
 	flex-wrap: wrap;
 }
 
@@ -349,34 +349,40 @@ body.oh-theme {
 .oh-header__top-actions {
 	display: flex;
 	align-items: center;
-	gap: 8px;
+	gap: 10px;
 }
 
 .oh-header__top-actions a {
 	display: inline-flex;
 	align-items: center;
-	gap: 8px;
-	padding: 6px 14px;
+	gap: 7px;
+	padding: 4px 8px;
+	border-radius: 999px;
 	color: inherit;
 	text-transform: uppercase;
 	font-weight: 500;
 	line-height: 1;
-	transition: background-color .2s ease;
+	transition: background-color .2s ease, opacity .2s ease;
 }
 
 .oh-header__top-actions a .srdev-icon {
-	width: 16px;
-	height: 16px;
+	width: 15px;
+	height: 15px;
 	fill: currentColor;
 }
 
-.oh-header__top-actions a:hover {
-	background: rgba(0, 0, 0, .18);
+.oh-header__top-actions .oh-whatsapp:hover {
+	opacity: 0.75;
 }
 
 .oh-header__top-actions .oh-call {
+	padding: 5px 14px;
 	background: var(--secondary-color);
 	color: #fff;
+}
+
+.oh-header__top-actions .oh-call:hover {
+	filter: brightness(1.08);
 }
 
 .oh-header__bar .oh-wrap {
