@@ -5,7 +5,7 @@
  * These page templates were ported VERBATIM from the previous "OMG Not
  * Production" theme (omg-jeff-demo) so the site keeps working with zero
  * changes while the new component system is built out. They still use the
- * previous markup, the previous CSS (assets/css/legacy/*) and Secure
+ * previous markup, the previous CSS (assets/css/legacy-*.css) and Secure
  * Custom Fields data.
  *
  * Do not refactor these in Phase 1. Each will be rebuilt on the new

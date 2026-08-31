@@ -71,13 +71,16 @@ function omg_hybrid_enqueue_assets() {
 	/* --------------------------------------------------------------- */
 	/*  Legacy layer — ported inner / standalone service pages only    */
 	/* --------------------------------------------------------------- */
+	// Verbatim copies of the previous theme's stylesheets. Kept at
+	// assets/css/ (not a sub-folder) so their `url('../images/…')` refs
+	// resolve to assets/images/ exactly as they did in the old theme.
 	$legacy_css = array(
-		'omg-legacy-base'       => array( '/assets/css/legacy/base.css', array( 'omg-hybrid-shell' ) ),
-		'omg-legacy-bootstrap'  => array( '/assets/css/legacy/bootstrap.min.css', array() ),
-		'omg-legacy-stellarnav' => array( '/assets/css/legacy/stellarnav.min.css', array() ),
+		'omg-legacy-base'       => array( '/assets/css/legacy-base.css', array( 'omg-hybrid-shell' ) ),
+		'omg-legacy-bootstrap'  => array( '/assets/css/legacy-bootstrap.min.css', array() ),
+		'omg-legacy-stellarnav' => array( '/assets/css/legacy-stellarnav.min.css', array() ),
 		'omg-legacy-fa'         => array( '/assets/fontawesome-6/css/all.css', array() ),
-		'omg-legacy-styles'     => array( '/assets/css/legacy/styles.css', array( 'omg-legacy-base' ) ),
-		'omg-legacy-responsive' => array( '/assets/css/legacy/responsive.css', array( 'omg-legacy-styles' ) ),
+		'omg-legacy-styles'     => array( '/assets/css/legacy-styles.css', array( 'omg-legacy-base' ) ),
+		'omg-legacy-responsive' => array( '/assets/css/legacy-responsive.css', array( 'omg-legacy-styles' ) ),
 	);
 	foreach ( $legacy_css as $handle => $conf ) {
 		wp_enqueue_style( $handle, $uri . $conf[0], $conf[1], $v( $conf[0] ) );
