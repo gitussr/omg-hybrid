@@ -91,6 +91,23 @@
 	--on-primary: #3a3a1e;
 }
 
+/* ------------------------------------------------------------------ */
+/*  omg-mega-menu bridge                                               */
+/*  The plugin's frontend CSS themes itself from --omg-primary /       */
+/*  --omg-primary-dark / --omg-on-primary (with hard-coded teal        */
+/*  fallbacks, plus a fixed :root value it prints inline in wp_head).  */
+/*  Declaring these on `body` re-resolves --color-primary against the  */
+/*  .svc-* class that also sits on <body>, and a directly-matched rule */
+/*  beats the plugin's inherited :root value. The whole mega-menu DOM  */
+/*  lives inside <body>, so the backdrop / panel / services footer all */
+/*  pick up the active service colour.                                 */
+/* ------------------------------------------------------------------ */
+body {
+	--omg-primary: var(--color-primary);
+	--omg-primary-dark: color-mix(in srgb, var(--color-primary) 82%, #000);
+	--omg-on-primary: var(--on-primary);
+}
+
 *,
 *::before,
 *::after {
