@@ -326,16 +326,20 @@
 }
 
 .oh-other-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 	gap: clamp(16px, 2vw, 28px);
 }
 
+/* Two cards per row; a lone third card wraps and centres. */
 .oh-other-card {
+	flex: 1 1 460px;
+	max-width: 620px;
 	display: flex;
-	flex-direction: column;
-	background: #fff;
-	border: 1px solid var(--color-line);
+	flex-direction: row;
+	background: var(--color-secondary);
+	border: 1px solid var(--color-primary);
 	border-radius: var(--radius);
 	overflow: hidden;
 	transition: transform .2s ease, box-shadow .2s ease;
@@ -347,9 +351,11 @@
 }
 
 .oh-other-card__media {
+	flex: 0 0 44%;
+	align-self: stretch;
 	display: block;
 	position: relative;
-	aspect-ratio: 16 / 11;
+	min-height: 210px;
 	overflow: hidden;
 	background: var(--color-secondary);
 }
@@ -383,21 +389,31 @@
 }
 
 .oh-other-card__body {
-	padding: 20px 22px 24px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	padding: clamp(18px, 2vw, 26px);
 }
 
 .oh-other-card__body h3 {
-	font-size: clamp(17px, 1.3vw, 21px);
-	margin: 0 0 8px;
+	font-family: var(--font-display);
+	font-weight: 400;
+	font-size: clamp(20px, 1.6vw, 26px);
+	margin: 0 0 10px;
+}
+
+.oh-other-card__body h3+span {
+	color: var(--color-ink-soft);
 }
 
 .oh-other-card__link {
-	margin-top: 14px;
-	display: inline-block;
+	margin-top: auto;
+	padding-top: 14px;
+	align-self: flex-start;
 	text-transform: uppercase;
 	text-decoration: underline;
 	font-weight: 600;
-	color: var(--color-primary);
+	color: var(--color-ink);
 }
 
 /* ------------------------------------------------------------------ */
@@ -738,5 +754,17 @@ a.oh-service-card:hover {
 	.oh-why__lists li::before {
 		position: static;
 		margin-right: 8px;
+	}
+}
+
+@media (max-width: 560px) {
+	.oh-other-card {
+		flex-direction: column;
+	}
+
+	.oh-other-card__media {
+		flex-basis: auto;
+		aspect-ratio: 16 / 11;
+		min-height: 0;
 	}
 }
