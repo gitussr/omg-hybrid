@@ -259,8 +259,8 @@ a.oh-service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px r
 .oh-marquee__row:hover { animation-play-state: paused; }
 .oh-marquee__track { display: flex; align-items: center; gap: clamp(32px, 5vw, 72px); margin: 0; padding: 0 clamp(16px, 2.5vw, 36px) 0 0; list-style: none; }
 .oh-marquee__track li { display: flex; flex: 0 0 auto; }
-.oh-marquee .oh-marquee__logo { height: clamp(30px, 3vw, 46px); width: auto; max-width: none; object-fit: contain; filter: grayscale(1); opacity: .6; transition: opacity .2s, filter .2s; }
-.oh-marquee .oh-marquee__logo:hover { filter: grayscale(0); opacity: 1; }
+.oh-marquee__logo { height: clamp(30px, 3vw, 46px); width: auto; max-width: none; object-fit: contain; filter: grayscale(1); opacity: .6; transition: opacity .2s, filter .2s; }
+.oh-marquee__logo:hover { filter: grayscale(0); opacity: 1; }
 @keyframes oh-marquee-scroll { to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .oh-marquee__row { animation: none; flex-wrap: wrap; justify-content: center; } .oh-marquee__track[aria-hidden="true"] { display: none; } }
 

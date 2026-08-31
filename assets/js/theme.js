@@ -108,6 +108,7 @@
 			new Swiper(el, {
 				slidesPerView: 1,
 				loop: true,
+				autoHeight: true,
 				autoplay: { delay: 6000, disableOnInteraction: false },
 				pagination: {
 					el: el.querySelector('.swiper-pagination'),
