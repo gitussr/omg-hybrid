@@ -542,19 +542,19 @@
             <a href="tel:1300300664" class="primary-btn-outline">
               call Us
               <svg class="srdev-icon">
-                <use href="<?php echo get_home_url()?>/wp-content/themes/omg-jeff-demo/assets/icons.svg#fancy-right-arrow-icom"></use>
+                <use href="<?php echo get_template_directory_uri(); ?>/assets/icons.svg#fancy-right-arrow-icom"></use>
               </svg>
             </a>
             <a href="<?php echo get_home_url()?>/contact/" class="primary-btn-outline">
               Book an Event
               <svg class="srdev-icon">
-                <use href="<?php echo get_home_url()?>/wp-content/themes/omg-jeff-demo/assets/icons.svg#fancy-right-arrow-icom"></use>
+                <use href="<?php echo get_template_directory_uri(); ?>/assets/icons.svg#fancy-right-arrow-icom"></use>
               </svg>
             </a>
             <a href="mailto:info@OMGgroup.com.au" class="primary-btn-outline">
               Email Us
               <svg class="srdev-icon">
-                <use href="<?php echo get_home_url()?>/wp-content/themes/omg-jeff-demo/assets/icons.svg#fancy-right-arrow-icom"></use>
+                <use href="<?php echo get_template_directory_uri(); ?>/assets/icons.svg#fancy-right-arrow-icom"></use>
               </svg>
             </a>
           </div>

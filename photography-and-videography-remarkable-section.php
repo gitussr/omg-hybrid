@@ -420,11 +420,11 @@
             <div class="gallery-block">
                 <div class="d-flex gap-2 flex-wrap justify-content-center">
                     <div class="img-block">
-                        <img src="http://omgstudio.test/wp-content/uploads/2026/07/omg-gallery-new-photo-1.jpg" alt="" class="img-fluid" />
+                        <img src="<?php echo esc_url( home_url() ); ?>/wp-content/uploads/2026/07/omg-gallery-new-photo-1.jpg" alt="" class="img-fluid" />
                     </div>
 
                     <div class="img-block">
-                        <img src="http://omgstudio.test/wp-content/uploads/2026/07/people-taking-photos-400-500.jpg" alt="" class="img-fluid" />
+                        <img src="<?php echo esc_url( home_url() ); ?>/wp-content/uploads/2026/07/people-taking-photos-400-500.jpg" alt="" class="img-fluid" />
                     </div>
 
                     <div class="img-block">
