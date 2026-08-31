@@ -108,6 +108,18 @@ body {
 	--omg-on-primary: var(--on-primary);
 }
 
+/* Props' primary (#DEDE6D) is too pale for text on white, so the mega
+   panel's service-column headings use the darkened variant instead.
+   Higher specificity + !important to beat the plugin's own !important. */
+.svc-props .omg-services-col-heading {
+	color: var(--omg-primary-dark) !important;
+}
+
+.svc-props .omg-services-col-heading.is-active::before,
+.svc-props .omg-services-col-link.is-active::before {
+	background: var(--omg-primary-dark);
+}
+
 *,
 *::before,
 *::after {
