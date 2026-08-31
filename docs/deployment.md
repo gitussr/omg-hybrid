@@ -31,7 +31,7 @@ Rollback: set `template` and `stylesheet` back to `omg-jeff-demo`.
 | Plugin | Role | Notes |
 |---|---|---|
 | `secure-custom-fields` | Custom fields (ACF-compatible API) | Header/footer + all ported inner pages depend on it. Field groups are DB-only (no `acf-json/`). |
-| `omg-mega-menu` | Header navigation + Quick Quote | Custom plugin, bumped to **2.1.6** in this rebuild (large "Our Services" logo card removed). Config in the `omg_mm_opts` option / *Mega Menu* admin page. |
+| `omg-mega-menu` | Header navigation + Quick Quote | Custom plugin, bumped to **2.1.6** in this rebuild (large "Our Services" logo card removed). Config in the `omg_mm_opts` option / *Mega Menu* admin page. **Frontend CSS edited in this rebuild** — see *Mega-menu palette* below. |
 | `gravityforms` (+ `gravityformszapier`, `gf-datetime-field-add-on`, `gf-google-address-autocomplete`) | Contact / Join / Partner forms | The Contact page uses GF form id 1. |
 | `classic-editor` | Editor | Matches the non-block theme. |
 | `litespeed-cache` | Page cache | The theme no longer fights it (Cloudflare no-cache headers removed — see below). |
@@ -78,6 +78,28 @@ If `recipient` is ever cleared it falls back to `admin_email`
 Verified end-to-end in Phase 7: browser 6-step wizard → AJAX → `handle_quote()`
 → `wp_mail()` → FluentSMTP (`status: sent`) → delivered with all 14 fields,
 Reply-To, and originating page URL.
+
+---
+
+## Mega-menu palette (plugin CSS edit)
+
+The mega menu renders the same on every page, so it has to pick up
+whichever service palette the current page uses. Two small edits make it
+follow `--color-primary`:
+
+1. **`omg-hybrid/assets/css/shell.css`** (theme, tracked) declares
+   `--omg-primary`, `--omg-primary-dark`, `--omg-on-primary` on `<body>`,
+   mapped to the service tokens. Because `.svc-*` also sits on `<body>`,
+   these re-resolve per page; a direct `body` rule beats the fixed
+   `:root` value the plugin prints inline in `wp_head`
+   (`OMG_Mega_Menu::css_vars()`).
+2. **`plugins/omg-mega-menu/assets/css/mega-menu-frontend.css`** (plugin,
+   **not** under the theme repo — carry these hunks manually on deploy):
+   - `.omg-backdrop` background `#bf2525ab` → `color-mix(... var(--omg-primary) 67%, transparent)`
+   - `.omg-services-footer` / `.omg-footer-btn` text `#fff` → `var(--omg-on-primary, #fff)` (keeps the bar legible on the pale Props yellow)
+
+The plugin's other frontend colours already used `var(--omg-primary, …)`,
+so step 1 alone re-themes the panel headings, links and active markers.
 
 ---
 
