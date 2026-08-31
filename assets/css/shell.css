@@ -375,14 +375,18 @@ body.oh-theme {
 	opacity: 0.75;
 }
 
+/* The top bar itself is --color-primary, so the Call button inverts the
+   palette: a solid --on-primary fill with --color-primary text/icon. This
+   keeps it readable and visibly on-theme on all four services. */
 .oh-header__top-actions .oh-call {
 	padding: 5px 14px;
-	background: var(--secondary-color);
-	color: #fff;
+	background: var(--on-primary);
+	color: var(--color-primary);
+	font-weight: 600;
 }
 
 .oh-header__top-actions .oh-call:hover {
-	filter: brightness(1.08);
+	filter: brightness(0.94);
 }
 
 .oh-header__bar .oh-wrap {
