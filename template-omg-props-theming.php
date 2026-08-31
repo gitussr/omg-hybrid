@@ -2,9 +2,9 @@
 /**
  * Template Name: OMG Props & Theming Page
  *
- * PHASE 2: placeholder content so the layout + yellow palette are
- * testable. Phase 6 rebuilds this from the existing OMG Props & Theming
- * website content (static), reusing the shared components.
+ * Static content on the shared components, from the existing OMG Props &
+ * Theming material. Yellow palette via the svc-props body class
+ * (inc/services.php).
  *
  * @package omg-hybrid
  */
@@ -13,75 +13,144 @@ defined( 'ABSPATH' ) || exit;
 
 get_header();
 
-$img = OMG_HYBRID_URI . '/assets/images/';
+$img     = OMG_HYBRID_URI . '/assets/images/';
+$uploads = home_url( '/wp-content/uploads' );
 
 get_template_part( 'template-parts/service-landing', null, array(
 	'hero' => array(
 		'variant'     => 'home',
 		'eyebrow'     => 'OMG Props &amp; Theming',
 		'title'       => 'Set The Scene Before A Single Guest Arrives',
-		'description' => 'Casino props, grand entrances, theme walls, furniture and AV tech — the styling and equipment that transforms your venue.',
+		'description' => 'Casino props, grand entrances, theme walls, furniture and AV tech &mdash; the styling and equipment that sets the scene before a single guest arrives.',
 		'cta'         => array( 'url' => home_url( '/contact/' ), 'label' => 'Get a Free Quote' ),
-		'slides'      => array( array( 'type' => 'image', 'url' => $img . 'omg-studio-golden-bg.jpg' ) ),
+		'slides'      => array( array( 'type' => 'image', 'url' => $img . 'props-custom-new.jpg' ) ),
 	),
-	'rows_heading' => 'Our Props &amp; Theming Services',
 	'rows' => array(
 		array(
-			'id'        => 'casino-props',
-			'title'     => 'Casino Props',
-			'paragraph' => 'Decorative and entertainment props that set the scene — illuminated marquee letters, a programmable Welcome to Vegas LED sign, oversized dice and full themed bundles.',
-			'bullets'   => array( 'Light-up marquee letters & Vegas LED signage', 'Giant dice and card-suit props', 'Themed bundles: carpet, wall & stand-ups' ),
-			'image'     => $img . 'omg-studio-golden-bg-2.jpg',
+			'id'         => 'casino-props',
+			'ribbon'     => 'Casino Props',
+			'title'      => 'Casino Props',
+			'paragraph'  => 'Decorative and entertainment props that set the scene for any casino-themed event &mdash; from illuminated marquee letters and a programmable Welcome to Vegas LED sign to oversized dice and full themed package bundles pairing a red carpet, theme wall and playing-card stand-ups.',
+			'bullets'    => array(
+				'Light-up marquee letters &amp; programmable Vegas LED signage',
+				'Giant dice and card-suit props in James Bond, Gatsby &amp; Vegas themes',
+				'Themed package bundles combining carpet, wall &amp; stand-ups',
+			),
+			'image'      => $img . 'events-custom-new.jpg',
+			'image_alt'  => 'Casino-themed event styled with OMG props',
+			'link_url'   => home_url( '/contact/' ),
+			'link_label' => 'Enquire About Casino Props',
 		),
 		array(
-			'id'        => 'grand-entrance-themes',
-			'title'     => 'Grand Entrance Themes',
-			'paragraph' => 'First impressions set the tone — a red carpet and bollards, a custom entrance sign in a Vegas, James Bond or Gatsby theme, or a directional cinema-style marquee.',
-			'bullets'   => array( 'Red carpet & bollards, plain or branded', 'Vegas, James Bond & Gatsby entrance signage', 'Customisable cinema-style marquee signs' ),
-			'image'     => $img . 'omg-studio-golden-bg-3.jpg',
-			'reverse'   => true,
+			'id'         => 'grand-entrance-themes',
+			'ribbon'     => 'Grand Entrance Themes',
+			'title'      => 'Grand Entrance Themes',
+			'paragraph'  => 'First impressions set the tone. A red carpet and bollards, a custom entrance sign in a Vegas, James Bond or Gatsby theme, or a directional cinema-style marquee &mdash; each one styled to give your guests an upscale arrival experience from the moment they walk in.',
+			'bullets'    => array(
+				'Red carpet &amp; bollards, in plain or OMG-branded finishes',
+				'Vegas, James Bond &amp; Gatsby themed entrance signage',
+				'Customisable cinema-style marquee signs',
+			),
+			'image'      => $img . 'omg-studio-golden-bg-3.jpg',
+			'image_alt'  => 'Illuminated themed entrance styling for an OMG event',
+			'reverse'    => true,
+			'link_url'   => home_url( '/contact/' ),
+			'link_label' => 'Enquire About Grand Entrances',
 		),
 		array(
-			'id'        => 'theme-walls',
-			'title'     => 'Theme Walls',
-			'paragraph' => 'Backlit LED Maxi and Mini theme walls or standard backdrop panels in Casino Royale, 1920s Gatsby, Las Vegas, Moulin Rouge or Hollywood themes.',
-			'bullets'   => array( 'LED Maxi (6m) & Mini (1.4m) backlit walls', 'Standard backdrop panels in five themes', 'A photo-worthy focal point for any event' ),
-			'image'     => $img . 'omg-studio-golden-bg.jpg',
+			'id'         => 'theme-walls',
+			'ribbon'     => 'Statement Backdrops',
+			'title'      => 'Theme Walls',
+			'paragraph'  => 'Backlit LED Maxi and Mini theme walls or standard backdrop panels, styled in Casino Royale, 1920s Gatsby, Las Vegas, Moulin Rouge or Hollywood themes &mdash; the perfect statement backdrop for photos, staging or a full room transformation.',
+			'bullets'    => array(
+				'LED Maxi (6m) &amp; Mini (1.4m) backlit theme walls',
+				'Standard backdrop panels in five signature themes',
+				'A ready-made, photo-worthy focal point for any event',
+			),
+			'image'      => $img . 'props-detail.jpg',
+			'image_alt'  => 'Las Vegas themed backdrop wall with props styled for an event',
+			'link_url'   => home_url( '/contact/' ),
+			'link_label' => 'Enquire About Theme Walls',
 		),
 		array(
-			'id'        => 'furniture',
-			'title'     => 'Furniture',
-			'paragraph' => 'Lounge and cocktail furniture, styling props and display tables — delivered and set up around your chosen theme.',
-			'bullets'   => array( 'Lounge & cocktail furniture styled to your theme', 'Display and prop tables for games or photo areas', 'Delivered, set up and styled as part of your package' ),
-			'image'     => $img . 'our-booth-img-1.jpg',
-			'reverse'   => true,
+			'id'         => 'furniture',
+			'ribbon'     => 'Furniture',
+			'title'      => 'Furniture',
+			'paragraph'  => 'Lounge and cocktail furniture, styling props and display tables that tie your event styling together &mdash; delivered and set up around your chosen theme, whether that&rsquo;s a casino night, a corporate gala or a themed celebration.',
+			'bullets'    => array(
+				'Lounge &amp; cocktail furniture styled to your event theme',
+				'Display and prop tables for casino games or photo areas',
+				'Delivered, set up and styled as part of your package',
+			),
+			'image'      => $img . 'our-booth-img-1.jpg',
+			'image_alt'  => 'Styled event setup with themed props and furniture',
+			'reverse'    => true,
+			'link_url'   => home_url( '/contact/' ),
+			'link_label' => 'Enquire About Furniture',
 		),
 		array(
-			'id'        => 'audio-visual-tech',
-			'title'     => 'Audio / Visual Tech',
-			'paragraph' => 'Clean, reliable sound and screen equipment to back up your styling — PA systems, microphones and display screens that integrate with our DJ and lighting services.',
-			'bullets'   => array( 'PA systems and wireless microphones', 'Display screens for presentations or branding', 'Coordinates with OMG LiVE sound & lighting' ),
-			'image'     => $img . 'our-booth-img-2.jpg',
+			'id'         => 'audio-visual-tech',
+			'ribbon'     => 'Audio / Visual Tech',
+			'title'      => 'Audio / Visual Tech',
+			'paragraph'  => 'Clean, reliable sound and screen equipment to back up your event styling &mdash; PA systems, microphones and display screens that integrate seamlessly with our DJ, lighting and live entertainment services for a fully coordinated event.',
+			'bullets'    => array(
+				'PA systems and wireless microphones for speeches &amp; MCs',
+				'Display screens available for presentations or branding',
+				'Coordinates seamlessly with OMG LiVE sound &amp; lighting',
+			),
+			'image'      => $img . 'events-custom-new.jpg',
+			'image_alt'  => 'AV and lighting equipment set up at a styled OMG event',
+			'link_url'   => home_url( '/contact/' ),
+			'link_label' => 'Enquire About AV Tech',
 		),
 	),
 	'why' => array(
 		'heading' => 'Why Choose OMG Props &amp; Theming?',
-		'bullets' => array( 'A full styling and equipment package', 'Signature themes done properly', 'Delivered, set up and styled for you', 'Coordinates with the rest of the OMG Group', 'Flexible bundles for any budget', 'Trusted across Australia' ),
-		'body'    => 'Let OMG Props & Theming transform your venue.',
-		'buttons' => array( array( 'url' => home_url( '/contact/' ), 'label' => 'Get a Quote' ) ),
+		'bullets' => array(
+			'A full styling and equipment package',
+			'Signature themes done properly',
+			'Delivered, set up and styled for you',
+			'Coordinates with the rest of the OMG Group',
+			'Flexible bundles for any budget',
+			'Trusted across Sydney &amp; regional Australia',
+		),
+		'body'    => 'Let OMG Props &amp; Theming transform your venue.',
+		'buttons' => array(
+			array( 'url' => 'tel:1300300664', 'label' => 'Call Us' ),
+			array( 'url' => home_url( '/contact/' ), 'label' => 'Book an Event' ),
+			array( 'url' => 'mailto:info@OMGgroup.com.au', 'label' => 'Email Us' ),
+		),
 	),
+	'testimonials' => array(
+		'emblem_text' => 'HAPPY CUSTOMERS • HAPPY CUSTOMERS • ',
+		'items' => array(
+			array( 'quote' => 'From the initial planning to the final execution, their team was professional, attentive and truly brought our vision to life. Highly recommend their services for any occasion!', 'cite' => '&mdash; Sorted Photography &amp; Videography' ),
+			array( 'quote' => 'We hired the OMG group for our corporate Christmas party and let me tell you &mdash; everyone had the best night! The styling completely transformed the room.', 'cite' => '&mdash; Elisa Chinnabootr' ),
+			array( 'quote' => 'We hired OMG group for our mid-year office party and their service and quality was excellent.', 'cite' => '&mdash; Aarti Mehra' ),
+		),
+	),
+	'other_heading' => 'Other Services',
 	'other' => array(
-		array( 'image' => $img . 'oos-img-1.png', 'logo' => $img . 'oos-logo-1.png', 'title' => 'OMG Entertainment', 'description' => 'Casino nights, race days, poker & performers.', 'url' => home_url( '/omg-entertainment/' ) ),
-		array( 'image' => $img . 'oos-img-2.png', 'logo' => $img . 'oos-logo-2.png', 'title' => 'OMG Studio', 'description' => 'Photo booths, video booths & photography.', 'url' => home_url( '/omg-studio/' ) ),
-		array( 'image' => $img . 'oos-img-3.png', 'logo' => $img . 'oos-logo-3.png', 'title' => 'OMG LiVE', 'description' => 'Elite DJs, lighting and live bands.', 'url' => home_url( '/omg-live/' ) ),
+		array( 'image' => $img . 'omg-entertainment-banner1.jpg', 'logo' => $img . 'oos-logo-1.png', 'title' => 'OMG Entertainment', 'description' => 'Casino nights, race days, poker &amp; showstopping performers.', 'url' => home_url( '/omg-entertainment/' ), 'link_label' => 'Visit OMG Entertainment' ),
+		array( 'image' => $img . 'omg-studio-display.jpg', 'logo' => $img . 'oos-logo-studio.jpg', 'title' => 'OMG Studio', 'description' => 'Photo booths, video booths, photography &amp; videography.', 'url' => home_url( '/omg-studio/' ), 'link_label' => 'Visit OMG Studio' ),
+		array( 'image' => $img . 'omg-live-hero.jpg', 'logo' => $img . 'oos-logo-2.png', 'title' => 'OMG LiVE', 'description' => 'Elite DJs, atmospheric lighting and unforgettable live bands.', 'url' => home_url( '/omg-live/' ), 'link_label' => 'Visit OMG LiVE' ),
 	),
 	'cta' => array(
 		'title'    => 'Ready To Style Your Event?',
-		'subtitle' => 'Props, theming, furniture or AV — get in touch for a free, no-obligation quote.',
+		'subtitle' => 'Props, theming, furniture or AV &mdash; get in touch for a free, no-obligation quote.',
 	),
 	'marquee' => array(
-		'title' => 'Trusted By',
-		'logos' => array( $img . 'marque-logo1.jpg', $img . 'marque-logo2.jpg', $img . 'marque-logo3.jpg', $img . 'marque-logo4.jpg', $img . 'marque-logo5.jpg', $img . 'marque-logo6.jpg' ),
+		'title' => 'The Best Brands Choose the Best Brand',
+		'logos' => array(
+			$uploads . '/2026/04/logo-1.jpg',  $uploads . '/2026/04/logo-2.jpg',  $uploads . '/2026/04/logo-3.jpg',
+			$uploads . '/2026/04/logo-4.jpg',  $uploads . '/2026/04/logo-5.jpg',  $uploads . '/2026/04/logo-6.jpg',
+			$uploads . '/2026/04/logo-7.jpg',  $uploads . '/2026/04/logo-8.jpg',  $uploads . '/2026/04/logo-9.jpg',
+			$uploads . '/2026/04/logo-10.jpg', $uploads . '/2026/04/logo-11.jpg', $uploads . '/2026/04/logo-12.jpg',
+			$uploads . '/2026/04/logo-13.jpg', $uploads . '/2026/04/logo-14.jpg', $uploads . '/2026/04/logo-15.jpg',
+			$uploads . '/2026/04/logo-16.jpg', $uploads . '/2026/04/logo-17.jpg', $uploads . '/2026/04/logo-18.jpg',
+			$uploads . '/2026/04/logo-19.jpg', $uploads . '/2026/04/logo-20.jpg', $uploads . '/2026/04/logo-21.jpg',
+			$uploads . '/2026/04/logo-22.jpg',
+		),
 	),
 ) );
 
