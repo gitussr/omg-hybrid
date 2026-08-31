@@ -1,0 +1,17 @@
+/*!
+Theme Name: OMG Hybrid
+Theme URI: https://omggroup.com.au/
+Author: OMG Entertainment Group
+Author URI: https://omggroup.com.au/
+Description: One production theme powering the OMG Entertainment site and its four service landing pages (OMG Entertainment, OMG Studio, OMG LiVE, OMG Props & Theming). Shared components, one colour-token system, four palettes. Self-contained: no dependency on any other theme.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 7.4
+License: Private
+License URI: Private
+Text Domain: omg-hybrid
+Tags: custom-theme, custom-logo, custom-menu, featured-images, translation-ready
+*/
+
+/* Runtime styles are enqueued from assets/css/ — see inc/enqueue.php. */
