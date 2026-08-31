@@ -48,13 +48,10 @@ function omg_hybrid_enqueue_assets() {
 	// do not rename it.
 	wp_enqueue_script( 'book-wizard', $uri . '/assets/js/book-wizard.js', array(), $v( '/assets/js/book-wizard.js' ), true );
 
-	// LogoMarquee helper (window.LogoMarquee).
-	wp_enqueue_script( 'omg-hybrid-marquee', $uri . '/assets/js/srdev-marque.js', array(), $v( '/assets/js/srdev-marque.js' ), true );
-
 	wp_enqueue_script(
 		'omg-hybrid',
 		$uri . '/assets/js/theme.js',
-		array( 'book-wizard', 'omg-hybrid-swiper', 'omg-hybrid-marquee' ),
+		array( 'book-wizard', 'omg-hybrid-swiper' ),
 		$v( '/assets/js/theme.js' ),
 		true
 	);
@@ -88,10 +85,12 @@ function omg_hybrid_enqueue_assets() {
 
 	wp_enqueue_script( 'omg-legacy-bootstrap-js', $uri . '/assets/js/legacy/bootstrap.min.js', array(), $v( '/assets/js/legacy/bootstrap.min.js' ), true );
 	wp_enqueue_script( 'omg-legacy-stellarnav-js', $uri . '/assets/js/legacy/stellarnav.min.js', array( 'jquery' ), $v( '/assets/js/legacy/stellarnav.min.js' ), true );
+	// LogoMarquee helper (window.LogoMarquee) — legacy inner-page marquees only.
+	wp_enqueue_script( 'omg-legacy-marquee', $uri . '/assets/js/legacy/srdev-marque.js', array(), $v( '/assets/js/legacy/srdev-marque.js' ), true );
 	wp_enqueue_script(
 		'omg-legacy-custom',
 		$uri . '/assets/js/legacy/custom.js',
-		array( 'jquery', 'omg-hybrid-swiper', 'omg-legacy-stellarnav-js', 'omg-hybrid-marquee' ),
+		array( 'jquery', 'omg-hybrid-swiper', 'omg-legacy-stellarnav-js', 'omg-legacy-marquee' ),
 		$v( '/assets/js/legacy/custom.js' ),
 		true
 	);

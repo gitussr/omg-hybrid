@@ -381,14 +381,7 @@
 		onReady(function () { enhanceAndLink('.book-time-input'); });
 	})();
 
-	/* ------------------------------------------------------------------ */
-	/*  Logo marquee — new component (.oh-marquee)                        */
-	/* ------------------------------------------------------------------ */
-	onReady(function () {
-		if (typeof LogoMarquee === 'undefined') { return; }
-		if (document.querySelector('.oh-marquee .marque-1, .oh-marquee.marque-1')) {
-			LogoMarquee.init([{ selector: '.oh-marquee .marque-1, .oh-marquee.marque-1', direction: 'left', speed: 40 }]);
-		}
-	});
+	/* The new .oh-marquee component is pure CSS — no JS needed. The legacy
+	   inner pages still use window.LogoMarquee via assets/js/legacy/custom.js. */
 
 })();

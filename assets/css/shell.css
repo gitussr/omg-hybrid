@@ -30,7 +30,7 @@
 
 	--wrap: 1294px;
 	--gutter: clamp(16px, 3vw, 32px);
-	--section-y: clamp(48px, 6vw, 104px);
+	--section-y: clamp(44px, 5vw, 88px);
 	--radius: 12px;
 
 	--fs-eyebrow: clamp(13px, 0.9vw, 16px);
