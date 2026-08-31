@@ -184,15 +184,15 @@ get_template_part( 'template-parts/sections/other-services', null, array(
 	'description' => 'Why stop there? Take your event to the next level with our full suite of event services &mdash; from high-energy DJs and live music to booths, photography and full styling, all under one roof.',
 	'cards'       => array(
 		array(
-			'image'       => $img . 'oos-img-1.png',
-			'logo'        => $img . 'oos-logo-1.png',
+			'image'       => $img . 'omg-studio-display.jpg',
+			'logo'        => $img . 'oos-logo-studio.jpg',
 			'title'       => 'OMG Studio',
 			'description' => 'Photo booths, video booths, photography and videography &mdash; every moment of your event, captured.',
 			'url'         => home_url( '/omg-studio/' ),
 			'link_label'  => 'Visit OMG Studio',
 		),
 		array(
-			'image'       => $img . 'oos-img-2.png',
+			'image'       => $img . 'omg-live-hero.jpg',
 			'logo'        => $img . 'oos-logo-2.png',
 			'title'       => 'OMG LiVE',
 			'description' => 'High-energy DJs, expert lighting and professional live music for an immersive, engaging event.',
@@ -200,7 +200,7 @@ get_template_part( 'template-parts/sections/other-services', null, array(
 			'link_label'  => 'Visit OMG LiVE',
 		),
 		array(
-			'image'       => $img . 'oos-img-3.png',
+			'image'       => $img . 'props-custom-new.jpg',
 			'logo'        => $img . 'oos-logo-3.png',
 			'title'       => 'OMG Props &amp; Theming',
 			'description' => 'Casino props, light-up letters and theme walls, plus table, chair and decoration hire.',
