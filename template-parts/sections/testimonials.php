@@ -18,9 +18,10 @@ if ( ! $items ) {
 	return;
 }
 ?>
-<section class="oh-testimonials">
+<section class="oh-testimonials" aria-label="<?php esc_attr_e( 'Testimonials', 'omg-hybrid' ); ?>">
 	<div class="oh-wrap">
-		<div class="oh-emblem-wrap">
+		<h2 class="oh-sr-only"><?php esc_html_e( 'What our customers say', 'omg-hybrid' ); ?></h2>
+		<div class="oh-emblem-wrap" aria-hidden="true">
 			<div class="oh-emblem"><?php echo esc_html( $emblem ); ?></div>
 			<?php omg_hybrid_icon( 'quotes-icon' ); ?>
 		</div>

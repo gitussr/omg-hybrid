@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 
 get_header();
 ?>
-<main id="main" class="oh-page">
+<div class="oh-page">
 	<div class="oh-wrap">
 		<?php while ( have_posts() ) : the_post(); ?>
 			<article <?php post_class(); ?>>
@@ -27,6 +27,6 @@ get_header();
 			</article>
 		<?php endwhile; ?>
 	</div>
-</main>
+</div>
 <?php
 get_footer();

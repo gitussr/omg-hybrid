@@ -42,7 +42,7 @@ if ( ! $cards ) {
 						<?php endif; ?>
 					</span>
 					<span class="oh-other-card__body">
-						<h4><?php echo esc_html( $card['title'] ?? '' ); ?></h4>
+						<h3><?php echo esc_html( $card['title'] ?? '' ); ?></h3>
 						<?php if ( ! empty( $card['description'] ) ) : ?>
 							<span><?php echo wp_kses_post( $card['description'] ); ?></span>
 						<?php endif; ?>

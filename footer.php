@@ -19,6 +19,8 @@ $footer_title = omg_hybrid_option( 'footer_title' );
 $cta_buttons  = omg_hybrid_option( 'cta_buttons' );
 ?>
 
+</main>
+
 <footer class="oh-footer">
 
 	<?php if ( $footer_title || $cta_buttons ) : ?>

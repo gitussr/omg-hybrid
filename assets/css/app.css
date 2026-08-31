@@ -66,28 +66,28 @@
 @keyframes oh-emblem-spin { to { transform: rotate(-360deg); } }
 
 /* ------------------------------------------------------------------ */
-/*  Hero                                                               */
+/*  Hero — media slider behind a single fixed text overlay             */
 /* ------------------------------------------------------------------ */
-.oh-hero { position: relative; }
-.oh-hero .swiper { overflow: hidden; }
-.oh-hero__slide {
+.oh-hero {
 	position: relative;
-	min-height: clamp(420px, 70vh, 760px);
+	min-height: clamp(440px, 72vh, 760px);
 	display: flex; align-items: center;
 	color: #fff;
 	background: #111;
+	overflow: hidden;
 }
-.oh-hero__media,
-.oh-hero__slide > video,
-.oh-hero__slide > img {
-	position: absolute; inset: 0; width: 100%; height: 100%;
-	object-fit: cover; z-index: 0;
+.oh-hero__slider {
+	position: absolute; inset: 0; z-index: 0;
 }
-.oh-hero__slide::after {
-	content: ""; position: absolute; inset: 0; z-index: 1;
-	background: linear-gradient(90deg, rgba(0,0,0,.78), rgba(0,0,0,.45));
+.oh-hero__slider .swiper-slide { overflow: hidden; }
+.oh-hero__media {
+	position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
 }
-.oh-hero__inner { position: relative; z-index: 2; }
+.oh-hero__overlay {
+	position: absolute; inset: 0; z-index: 1;
+	background: linear-gradient(90deg, rgba(0,0,0,.78), rgba(0,0,0,.42));
+}
+.oh-hero__inner { position: relative; z-index: 2; padding-block: clamp(40px, 8vh, 96px); }
 .oh-hero__eyebrow { color: #fff; opacity: .85; }
 .oh-hero h1 {
 	font-family: var(--font-display);
@@ -95,15 +95,16 @@
 	line-height: 1.05;
 	text-transform: uppercase;
 	margin: 0 0 0.35em;
-	max-width: 16ch;
+	max-width: 17ch;
 }
 .oh-hero p { font-size: var(--fs-lead); max-width: 52ch; margin-bottom: 1.4em; }
 .oh-hero .oh-btn--outline { color: #fff; }
-.oh-hero__slide.is-video-off .oh-hero__media { display: none; }
+.oh-hero .swiper-pagination { position: absolute; bottom: 18px; left: 0; right: 0; z-index: 2; margin: 0; }
 
-.oh-hero--inner .oh-hero__slide { min-height: clamp(320px, 46vh, 460px); text-align: center; justify-content: center; }
-.oh-hero--inner .oh-hero__slide::after { background: rgba(0,0,0,.55); }
-.oh-hero--inner h1 { max-width: none; }
+.oh-hero--inner { min-height: clamp(320px, 46vh, 460px); text-align: center; justify-content: center; }
+.oh-hero--inner .oh-hero__overlay { background: rgba(0,0,0,.55); }
+.oh-hero--inner h1 { max-width: none; margin-inline: auto; }
+.oh-hero--inner p { margin-inline: auto; }
 
 /* ------------------------------------------------------------------ */
 /*  Alternating service sections                                       */
@@ -123,12 +124,13 @@
 	display: inline-block; background: var(--color-ink); color: #fff;
 	font-size: 13px; padding: 4px 16px; margin-bottom: 12px;
 }
-.oh-service-row__body h3 {
+.oh-service-row__body h2 {
 	font-family: var(--font-display);
 	font-size: var(--fs-h3);
 	text-transform: uppercase;
 	color: var(--color-primary);
 	margin: 0 0 0.5em;
+	line-height: 1.1;
 }
 .oh-service-row__body ul { margin: 1em 0 1.4em; padding: 0; list-style: none; display: grid; gap: 10px; }
 .oh-service-row__body ul li { position: relative; padding-left: 28px; }
@@ -169,7 +171,7 @@
 }
 .oh-other-card__media .oh-other-card__logo img { position: static; width: auto; height: auto; max-height: 30px; }
 .oh-other-card__body { padding: 20px 22px 24px; }
-.oh-other-card__body h4 { font-size: clamp(17px, 1.3vw, 21px); margin: 0 0 8px; }
+.oh-other-card__body h3 { font-size: clamp(17px, 1.3vw, 21px); margin: 0 0 8px; }
 .oh-other-card__link { margin-top: 14px; display: inline-block; text-transform: uppercase; text-decoration: underline; font-weight: 600; color: var(--color-primary); }
 
 /* ------------------------------------------------------------------ */

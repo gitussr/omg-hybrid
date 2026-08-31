@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 get_header();
 ?>
-<main id="main" class="oh-page">
+<div class="oh-page">
 	<div class="oh-wrap">
 
 		<?php if ( have_posts() ) : ?>
@@ -45,6 +45,6 @@ get_header();
 		<?php endif; ?>
 
 	</div>
-</main>
+</div>
 <?php
 get_footer();

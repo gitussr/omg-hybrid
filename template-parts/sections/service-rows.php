@@ -44,7 +44,7 @@ if ( ! $rows ) {
 					<?php if ( ! empty( $row['ribbon'] ) ) : ?>
 						<span class="oh-ribbon"><?php echo esc_html( $row['ribbon'] ); ?></span>
 					<?php endif; ?>
-					<h3><?php echo wp_kses_post( $row['title'] ?? '' ); ?></h3>
+					<h2><?php echo wp_kses_post( $row['title'] ?? '' ); ?></h2>
 					<?php if ( ! empty( $row['paragraph'] ) ) : ?>
 						<p><?php echo wp_kses_post( $row['paragraph'] ); ?></p>
 					<?php endif; ?>

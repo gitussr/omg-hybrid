@@ -28,6 +28,8 @@ $favicon  = get_option( 'omg_favicon' );
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<a class="oh-skip-link oh-sr-only" href="#main-content"><?php esc_html_e( 'Skip to content', 'omg-hybrid' ); ?></a>
+
 <div id="loader"><div class="spinner"></div></div>
 
 <header id="siteHeader" class="oh-header">
@@ -110,3 +112,5 @@ $favicon  = get_option( 'omg_favicon' );
 	</div>
 
 </header>
+
+<main id="main-content">
