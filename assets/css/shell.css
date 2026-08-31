@@ -184,6 +184,16 @@ body.oh-theme {
 	border-radius: 3px;
 }
 
+/* Base size for every sprite icon so a bare <svg class="srdev-icon">
+   can't render at the SVG default 300x150. Every specific placement
+   below overrides this. */
+.srdev-icon {
+	width: 24px;
+	height: 24px;
+	flex-shrink: 0;
+	fill: currentColor;
+}
+
 /* ------------------------------------------------------------------ */
 /*  Button system                                                      */
 /* ------------------------------------------------------------------ */
@@ -579,17 +589,24 @@ body.oh-theme {
 }
 
 #back-to-top-button span {
-	display: block;
-	font-size: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 3px;
+	font-size: 9px;
+	font-weight: 600;
 	text-transform: uppercase;
 	line-height: 1.1;
+	letter-spacing: 0.04em;
 	color: #fff;
 	text-align: center;
 }
 
 #back-to-top-button .srdev-icon {
+	width: 18px;
+	height: 18px;
 	fill: #fff;
-	transform: rotate(270deg);
+	transform: rotate(-90deg);
 }
 
 /* ========================================================================
