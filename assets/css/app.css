@@ -165,13 +165,16 @@
 	position: absolute;
 	inset: 0;
 	z-index: 1;
-	background: linear-gradient(90deg, rgba(0, 0, 0, .78), rgba(0, 0, 0, .42));
+	background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .6));
 }
 
 .oh-hero__inner {
 	position: relative;
 	z-index: 2;
 	padding-block: clamp(40px, 8vh, 96px);
+	max-width: 820px;
+	margin-inline: auto;
+	text-align: center;
 }
 
 .oh-hero__eyebrow {
@@ -184,14 +187,14 @@
 	font-size: var(--fs-h1);
 	line-height: 1.05;
 	text-transform: uppercase;
-	margin: 0 0 0.35em;
-	max-width: 17ch;
+	margin: 0 auto 0.35em;
+	max-width: 20ch;
 }
 
 .oh-hero p {
 	font-size: var(--fs-lead);
-	max-width: 52ch;
-	margin-bottom: 1.4em;
+	max-width: 56ch;
+	margin: 0 auto 1.4em;
 }
 
 .oh-hero .oh-btn--outline {
@@ -207,23 +210,14 @@
 	margin: 0;
 }
 
+/* Shorter variant for inner landing pages (content is centred by the
+   base .oh-hero__inner rule above). */
 .oh-hero--inner {
 	min-height: clamp(320px, 46vh, 460px);
-	text-align: center;
-	justify-content: center;
-}
-
-.oh-hero--inner .oh-hero__overlay {
-	background: rgba(0, 0, 0, .55);
 }
 
 .oh-hero--inner h1 {
 	max-width: none;
-	margin-inline: auto;
-}
-
-.oh-hero--inner p {
-	margin-inline: auto;
 }
 
 /* ------------------------------------------------------------------ */
