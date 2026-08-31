@@ -44,39 +44,15 @@ function omg_hybrid_security_headers() {
 	header( 'Referrer-Policy: strict-origin-when-cross-origin' );
 }
 
-/* -------------------------------------------------------------------------
- *  Cloudflare / proxy cache-bypass headers.
- *
- *  QUARANTINED, VERBATIM from the previous theme's header.php. It ran on
- *  every front-end request there. Kept identical here so behaviour does
- *  not change during the rebuild.
- *  TODO (post Phase 1): review whether this is still wanted now that
- *  LiteSpeed Cache handles caching — it currently defeats page caching
- *  and sends `Vary: *`.
- * ---------------------------------------------------------------------- */
-add_action( 'send_headers', 'omg_hybrid_legacy_nocache_headers' );
-function omg_hybrid_legacy_nocache_headers() {
-	if ( is_admin() || headers_sent() ) {
-		return;
-	}
-
-	header( 'Cache-Control: no-store, no-cache, must-revalidate, max-age=0, s-maxage=0' );
-	header( 'Cache-Control: post-check=0, pre-check=0', false );
-	header( 'Pragma: no-cache' );
-	header( 'Expires: Sat, 01 Jan 2000 00:00:00 GMT' );
-	header( 'Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
-	header( 'CF-Cache-Status: BYPASS' );
-	header( 'CDN-Cache-Control: no-store' );
-	header( 'Surrogate-Control: no-store' );
-	header_remove( 'ETag' );
-	header( 'ETag: ' . md5( microtime() ) );
-	header( 'Vary: *' );
-	header( 'X-Accel-Expires: 0' );
-	header( 'Cache-Control: no-transform' );
-	header( 'Cloudflare-CDN-Cache-Control: no-cache' );
-	header( 'Cache-Control: private, no-cache, no-store, must-revalidate, max-age=0, s-maxage=0, proxy-revalidate' );
-	header( 'X-UA-Compatible: IE=edge' );
-}
+/*
+ * The previous theme's header.php emitted ~18 Cloudflare / proxy
+ * cache-bypass headers on every front-end request (Cache-Control:
+ * no-store, Vary: *, a randomised ETag, etc.). It was ported here and
+ * quarantined during the rebuild, then removed in Phase 7 — it defeated
+ * page caching site-wide with no clear reason. Caching is handled by
+ * LiteSpeed Cache. If specific pages ever need to bypass cache, do it
+ * surgically there rather than globally.
+ */
 
 /* -------------------------------------------------------------------------
  *  Disable the emoji detection payload

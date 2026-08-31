@@ -48,7 +48,7 @@
                             <div class="col-md-6">
                                 <div class="box">
                                     <h5>
-                                        <svg class="srdev-icon"><use href="/<?php echo get_template_directory_uri(); ?>/assets/icons.svg#chat-icon"></use></svg>
+                                        <svg class="srdev-icon"><use href="<?php echo get_template_directory_uri(); ?>/assets/icons.svg#chat-icon"></use></svg>
                                         <span>Contact Us (24<i>X</i>7)</span>
                                     </h5>
                                     <?php 
@@ -65,7 +65,7 @@
                             <div class="col-md-6">
                                 <div class="box">
                                     <h5>
-                                        <svg class="srdev-icon"><use href="/<?php echo get_template_directory_uri(); ?>/assets/icons.svg#time-icon"></use></svg>
+                                        <svg class="srdev-icon"><use href="<?php echo get_template_directory_uri(); ?>/assets/icons.svg#time-icon"></use></svg>
                                         <span>Contact Us (24<i>X</i>7)</span>
                                     </h5>
                                     <ul>
@@ -104,7 +104,7 @@
                             <div class="col-md-6">
                                 <div class="box">
                                     <h5>
-                                        <svg class="srdev-icon d-none"><use href="<?php //echo get_template_directory_uri(); ?>/assets/icons.svg#chat-icon"></use></svg>
+                                        <svg class="srdev-icon d-none"><use href="<?php echo get_template_directory_uri(); ?>/assets/icons.svg#chat-icon"></use></svg>
                                         <span>Contact Us (24<i>X</i>7)</span>
                                     </h5>
                                     <?php 
@@ -131,7 +131,7 @@
                             <div class="col-md-6">
                                 <div class="box">
                                     <h5>
-                                        <svg class="srdev-icon d-none"><use href="/<?php echo get_template_directory_uri(); ?>/assets/icons.svg#time-icon"></use></svg>
+                                        <svg class="srdev-icon d-none"><use href="<?php echo get_template_directory_uri(); ?>/assets/icons.svg#time-icon"></use></svg>
                                         <span>Contact Us (24<i>X</i>7)</span>
                                     </h5>
                                     <ul>
