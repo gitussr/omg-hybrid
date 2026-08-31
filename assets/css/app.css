@@ -343,6 +343,7 @@
 	border-radius: var(--radius);
 	overflow: hidden;
 	transition: transform .2s ease, box-shadow .2s ease;
+	padding: 10px;
 }
 
 .oh-other-card:hover {
@@ -358,6 +359,7 @@
 	min-height: 210px;
 	overflow: hidden;
 	background: var(--color-secondary);
+	border-radius: var(--radius);
 }
 
 .oh-other-card__media img {
