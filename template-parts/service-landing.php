@@ -9,7 +9,11 @@
  * $args:
  *   hero      array  -> template-parts/sections/hero
  *   cards     array  -> template-parts/sections/service-cards cards[] (framed variant)
- *   rows      array  -> template-parts/sections/service-rows rows[]
+ *   rows      array  -> DORMANT. Reserved for a dedicated services page to
+ *                       be designed later (instruction 2026-09-01). The
+ *                       landing templates still pass the data so the copy /
+ *                       images aren't lost; it is deliberately not rendered
+ *                       here. Do not wire it back without new instruction.
  *   why       array{heading,bullets,body,buttons}
  *   cta       array{title,subtitle,buttons?}
  *   other     array  -> template-parts/sections/other-services cards[]
@@ -33,12 +37,11 @@ if ( ! empty( $args['cards'] ) ) {
 	) );
 }
 
-if ( ! empty( $args['rows'] ) ) {
-	get_template_part( 'template-parts/sections/service-rows', null, array(
-		'heading' => $args['rows_heading'] ?? '',
-		'rows'    => $args['rows'],
-	) );
-}
+/*
+ * $args['rows'] — the alternating image/text "Our Services" detail rows —
+ * is intentionally NOT rendered. That section moves to a dedicated services
+ * page, to be designed later (instruction 2026-09-01).
+ */
 
 if ( ! empty( $args['why'] ) ) {
 	get_template_part( 'template-parts/sections/why-choose', null, $args['why'] );

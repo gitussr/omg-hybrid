@@ -52,6 +52,13 @@ get_template_part( 'template-parts/omg-entertainment/below-hero-2', null, array(
 
 /* ---- Shared sections (identical in both contexts) ---- */
 
+/*
+ * DORMANT (instruction 2026-09-01) — the alternating image/text "Our
+ * Services" detail rows move to a dedicated services page, to be designed
+ * later. Guarded off rather than deleted so the copy / images survive.
+ * Do not re-enable or wire this back without new instruction.
+ */
+if ( false ) :
 get_template_part( 'template-parts/sections/service-rows', null, array(
 	'rows' => array(
 		array(
@@ -149,6 +156,7 @@ get_template_part( 'template-parts/sections/service-rows', null, array(
 		),
 	),
 ) );
+endif;
 
 get_template_part( 'template-parts/sections/why-choose', null, array(
 	'heading' => 'Why Choose OMG Entertainment?',
