@@ -559,6 +559,12 @@ a.oh-service-card:hover {
 	color: var(--on-primary);
 }
 
+.oh-service-cards--framed .oh-service-card h3 {
+	font-family: var(--primary-font);
+	text-transform: uppercase;
+	font-size: clamp(18px, 1.354vw, 26px);
+}
+
 .oh-service-cards--framed .oh-service-card__link {
 	margin-top: auto;
 	padding-top: 18px;
