@@ -18,14 +18,58 @@
 
 	/* ------------------------------------------------------------------ */
 	/*  Loader                                                            */
+	/*  Shown on first paint (CSS), faded out once the page has loaded,   */
+	/*  then re-shown the instant an internal link is clicked so the page */
+	/*  transition — and any open mega menu — is masked while the browser */
+	/*  fetches the next page.                                            */
 	/* ------------------------------------------------------------------ */
-	window.addEventListener('load', function () {
+	(function () {
 		var loader = document.getElementById('loader');
 		if (!loader) { return; }
-		loader.style.transition = 'opacity .4s ease';
-		loader.style.opacity = '0';
-		setTimeout(function () { loader.style.display = 'none'; }, 400);
-	});
+
+		var hideTimer;
+		var hide = function () {
+			window.clearTimeout(hideTimer);
+			loader.style.transition = 'opacity .4s ease';
+			loader.style.opacity = '0';
+			hideTimer = window.setTimeout(function () { loader.style.display = 'none'; }, 400);
+		};
+		var show = function () {
+			window.clearTimeout(hideTimer);
+			window.clearTimeout(loader.__failSafe);
+			loader.style.transition = 'opacity .12s ease';
+			loader.style.display = 'flex';
+			// force reflow so the fade-in actually runs from 0
+			void loader.offsetWidth;
+			loader.style.opacity = '1';
+			// never trap the user if navigation is blocked or aborted
+			loader.__failSafe = window.setTimeout(hide, 12000);
+		};
+
+		window.addEventListener('load', hide);
+		// bfcache restore (back/forward) — the page comes back with the
+		// loader still up; drop it.
+		window.addEventListener('pageshow', function (e) { if (e.persisted) { hide(); } });
+
+		onReady(function () {
+			document.addEventListener('click', function (e) {
+				if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) { return; }
+				var a = e.target.closest && e.target.closest('a[href]');
+				if (!a || (a.target && a.target !== '_self') || a.hasAttribute('download')) { return; }
+
+				var href = a.getAttribute('href');
+				if (!href || href.charAt(0) === '#') { return; }
+
+				var url;
+				try { url = new URL(a.href, window.location.href); } catch (err) { return; }
+				if (url.origin !== window.location.origin) { return; }          // external site
+				if (!/^https?:$/.test(url.protocol)) { return; }                // mailto:, tel:, javascript:
+				if (url.href.split('#')[0] === window.location.href.split('#')[0]) { return; } // same page (hash only)
+
+				show();
+			});
+		});
+	})();
 
 	/* ------------------------------------------------------------------ */
 	/*  Sticky header                                                     */

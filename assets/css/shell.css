@@ -157,6 +157,40 @@ body {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Scrollbars — thin and rounded, site-wide (Firefox + WebKit)        */
+/* ------------------------------------------------------------------ */
+html {
+	scrollbar-width: thin;
+	scrollbar-color: rgba(120, 120, 120, .55) transparent;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgba(120, 120, 120, .5);
+	border-radius: 999px;
+	/* transparent border + padding-box clip = a slim thumb with breathing
+	   room, so it reads as a hairline rather than a bar */
+	border: 3px solid transparent;
+	background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(120, 120, 120, .8);
+}
+
+::-webkit-scrollbar-corner {
+	background: transparent;
+}
+
+/* ------------------------------------------------------------------ */
 /*  Base typography — new component pages only                         */
 /*  (legacy pages keep the old base.css typography untouched)          */
 /* ------------------------------------------------------------------ */
@@ -324,7 +358,9 @@ body.oh-theme {
 #loader {
 	position: fixed;
 	inset: 0;
-	z-index: 999999;
+	/* above the mega menu (max z-index 1000030) so it also masks an open
+	   menu while the browser navigates to the next page */
+	z-index: 1000100;
 	display: flex;
 	align-items: center;
 	justify-content: center;
