@@ -1650,12 +1650,18 @@ footer .bottom-block::after {
   overflow: hidden;
   width: 81px;
   height: 52px;
+  background: #fff;
+  padding: 4px;
 }
 
-.our-others-services-section .box .img-wrapper .logo-wrapper > .img-fluid{
+/* The logo <img> ships without .img-fluid, so it was rendering at natural
+   size (e.g. a 512px logo cropped to the 81px badge). Constrain it and
+   `contain` it so the whole mark shows on the white chip. */
+.our-others-services-section .box .img-wrapper .logo-wrapper > img,
+.our-others-services-section .box .img-wrapper .logo-wrapper > .img-fluid {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
 }
 

@@ -1141,6 +1141,24 @@ body.oh-theme {
 		gap: 10px;
 	}
 
+	/* Once the header sticks, collapse the utility (stars / WhatsApp / Call)
+	   bar so only the logo + nav row stays pinned — it was eating ~1/5 of a
+	   small screen. The 1fr→0fr grid row animates the collapse cleanly. */
+	.oh-header__top {
+		display: grid;
+		grid-template-rows: 1fr;
+		transition: grid-template-rows .3s ease;
+	}
+
+	.oh-header__top > .oh-wrap {
+		overflow: hidden;
+		min-height: 0;
+	}
+
+	.oh-header.is-sticky .oh-header__top {
+		grid-template-rows: 0fr;
+	}
+
 	.book-now-header-btn {
 		display: inline-flex;
 	}
