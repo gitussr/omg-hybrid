@@ -25,33 +25,60 @@ get_template_part( 'template-parts/service-landing', null, array(
 		'cta'         => array( 'url' => home_url( '/contact/' ), 'label' => 'Get a Free Quote' ),
 		'slides'      => array( array( 'type' => 'image', 'url' => $img . 'props-custom-new.jpg' ) ),
 	),
+	'welcome' => array(
+		// TODO: placeholder copy &amp; image — replace with the real Props &amp; Theming welcome content.
+		'heading'     => 'Welcome to OMG Props &amp; Theming',
+		'paragraphs'  => array(
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit. From light-up letters and Vegas signage to full theme walls and grand entrances, we bring the props and styling that turn an ordinary room into the venue everyone talks about.',
+			'Sed do eiusmod tempor incididunt ut labore. Every piece is delivered, set up and styled around your theme, so all you have to do is walk in and enjoy the transformation.',
+		),
+		'bullets'     => array(
+			array( 'label' => 'Signature Themes, Done Properly', 'text' => 'Ut enim ad minim veniam &mdash; Casino Royale, 1920s Gatsby, Las Vegas, Moulin Rouge and Hollywood, styled with real attention to detail.' ),
+			array( 'label' => 'Delivered, Set Up &amp; Styled', 'text' => 'Quis nostrud exercitation ullamco laboris &mdash; our team handles the heavy lifting, the layout and the finishing touches.' ),
+			array( 'label' => 'Flexible Bundles For Any Budget', 'text' => 'Duis aute irure dolor in reprehenderit &mdash; mix and match props, walls, furniture and AV to suit the event and the spend.' ),
+		),
+		'buttons'     => omg_hybrid_cta_buttons(),
+		'image'       => $img . 'props-detail.jpg',
+		'image_alt'   => 'Las Vegas themed backdrop wall styled with OMG casino props',
+		'image_style' => 'photo',
+	),
 	'cards_intro' => 'Five ways to set the scene &mdash; mix and match to transform your venue.',
 	'cards' => array(
 		array(
+			// TODO: placeholder icon — replace with the real Casino Props icon.
+			'icon'        => $img . 'props-svc-casino.svg',
 			'title'       => 'Casino Props',
 			'description' => 'Light-up marquee letters, programmable Vegas signage, giant dice and themed package bundles that set the scene for any casino night.',
 			'url'         => '#casino-props',
 			'link_label'  => 'VISIT US',
 		),
 		array(
+			// TODO: placeholder icon — replace with the real Grand Entrance icon.
+			'icon'        => $img . 'props-svc-entrance.svg',
 			'title'       => 'Grand Entrance Themes',
 			'description' => 'Red carpet and bollards, custom Vegas, James Bond or Gatsby entrance signage and cinema-style marquees for an upscale arrival.',
 			'url'         => '#grand-entrance-themes',
 			'link_label'  => 'VISIT US',
 		),
 		array(
+			// TODO: placeholder icon — replace with the real Theme Walls icon.
+			'icon'        => $img . 'props-svc-walls.svg',
 			'title'       => 'Theme Walls',
 			'description' => 'Backlit LED Maxi and Mini theme walls and backdrop panels in five signature themes &mdash; a ready-made, photo-worthy focal point.',
 			'url'         => '#theme-walls',
 			'link_label'  => 'VISIT US',
 		),
 		array(
+			// TODO: placeholder icon — replace with the real Furniture icon.
+			'icon'        => $img . 'props-svc-furniture.svg',
 			'title'       => 'Furniture',
 			'description' => 'Lounge and cocktail furniture, styling props and display tables, delivered and set up around your chosen theme.',
 			'url'         => '#furniture',
 			'link_label'  => 'VISIT US',
 		),
 		array(
+			// TODO: placeholder icon — replace with the real Audio / Visual Tech icon.
+			'icon'        => $img . 'props-svc-av.svg',
 			'title'       => 'Audio / Visual Tech',
 			'description' => 'Clean, reliable PA systems, microphones and display screens that integrate seamlessly with our DJ, lighting and live services.',
 			'url'         => '#audio-visual-tech',

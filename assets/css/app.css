@@ -334,6 +334,14 @@
 	margin-bottom: 2px;
 }
 
+/* Props' primary (#DEDE6D) is too pale for the welcome heading / the card
+   "VISIT US" links on its own tinted backgrounds — use the dark
+   --on-primary instead. */
+.svc-props .oh-section--secondary .oh-section-title,
+.svc-props .oh-service-cards--framed .oh-service-card__link {
+	color: var(--on-primary);
+}
+
 /* ------------------------------------------------------------------ */
 /*  Other Services (up to 3 cards)                                     */
 /* ------------------------------------------------------------------ */
