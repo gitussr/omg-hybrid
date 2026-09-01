@@ -7,6 +7,9 @@
  *   heading      string
  *   intro        string
  *   cards        array of array{ icon?:string, title:string, description:string, url?:string, link_label?:string }
+ *   variant      string  '' (default) | 'framed' — the centred, primary-bordered,
+ *                circular-badge treatment used on the service landing pages.
+ *                In 'framed' mode a card with no icon gets a numbered badge.
  *
  * @package omg-hybrid
  */
@@ -16,12 +19,18 @@ defined( 'ABSPATH' ) || exit;
 $heading = $args['heading'] ?? '';
 $intro   = $args['intro'] ?? '';
 $cards   = $args['cards'] ?? array();
+$variant = $args['variant'] ?? '';
 
 if ( ! $cards ) {
 	return;
 }
+
+$section_class = 'oh-service-cards';
+if ( 'framed' === $variant ) {
+	$section_class .= ' oh-service-cards--framed';
+}
 ?>
-<section class="oh-service-cards">
+<section class="<?php echo esc_attr( $section_class ); ?>">
 	<div class="oh-wrap">
 		<?php if ( $heading || $intro ) : ?>
 			<div class="oh-service-cards__heading">
@@ -31,13 +40,16 @@ if ( ! $cards ) {
 		<?php endif; ?>
 
 		<div class="oh-service-cards__grid">
-			<?php foreach ( $cards as $card ) :
+			<?php $card_index = 0; foreach ( $cards as $card ) :
+				$card_index++;
 				$url = $card['url'] ?? '';
 				$tag = $url ? 'a' : 'div';
 				?>
 				<<?php echo $tag; ?> class="oh-service-card"<?php if ( $url ) : ?> href="<?php echo esc_url( $url ); ?>"<?php endif; ?>>
 					<?php if ( ! empty( $card['icon'] ) ) : ?>
 						<span class="oh-service-card__icon"><img src="<?php echo esc_url( $card['icon'] ); ?>" alt="" loading="lazy"></span>
+					<?php elseif ( 'framed' === $variant ) : ?>
+						<span class="oh-service-card__icon oh-service-card__icon--num" aria-hidden="true"><?php echo esc_html( $card_index ); ?></span>
 					<?php endif; ?>
 					<h3><?php echo esc_html( $card['title'] ?? '' ); ?></h3>
 					<?php if ( ! empty( $card['description'] ) ) : ?>

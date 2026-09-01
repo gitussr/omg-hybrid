@@ -26,6 +26,27 @@ get_template_part( 'template-parts/service-landing', null, array(
 		'cta'         => array( 'url' => home_url( '/contact/' ), 'label' => 'Check Availability' ),
 		'slides'      => array( array( 'type' => 'image', 'url' => $img . 'omg-live-hero.jpg' ) ),
 	),
+	'cards_intro' => 'Three ways to fill the room with sound and atmosphere.',
+	'cards' => array(
+		array(
+			'title'       => 'DJs &amp; DJ Booth',
+			'description' => 'Open-format DJs who read the room &mdash; from lounge and jazz over cocktails to peak-time dance floors, through club-standard audio and a sleek custom booth.',
+			'url'         => '#djs-dj-booth',
+			'link_label'  => 'VISIT US',
+		),
+		array(
+			'title'       => 'Event Lighting Hire',
+			'description' => 'Atmospheric, cable-free LED uplighting that transforms ordinary venues &mdash; warm tones for a gala, colour-matched washes for a launch.',
+			'url'         => '#event-lighting-hire',
+			'link_label'  => 'VISIT US',
+		),
+		array(
+			'title'       => 'Live Bands &amp; Musicians',
+			'description' => 'Vetted session musicians and powerhouse performers, from acoustic soloists and jazz ensembles to full party bands and specialty acts.',
+			'url'         => '#live-bands',
+			'link_label'  => 'VISIT US',
+		),
+	),
 	'rows' => array(
 		array(
 			'id'         => 'djs-dj-booth',

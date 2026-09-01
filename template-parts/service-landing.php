@@ -8,6 +8,7 @@
  *
  * $args:
  *   hero      array  -> template-parts/sections/hero
+ *   cards     array  -> template-parts/sections/service-cards cards[] (framed variant)
  *   rows      array  -> template-parts/sections/service-rows rows[]
  *   why       array{heading,bullets,body,buttons}
  *   cta       array{title,subtitle,buttons?}
@@ -21,6 +22,15 @@ defined( 'ABSPATH' ) || exit;
 
 if ( ! empty( $args['hero'] ) ) {
 	get_template_part( 'template-parts/sections/hero', null, $args['hero'] );
+}
+
+if ( ! empty( $args['cards'] ) ) {
+	get_template_part( 'template-parts/sections/service-cards', null, array(
+		'heading' => $args['cards_heading'] ?? 'Our Services',
+		'intro'   => $args['cards_intro'] ?? '',
+		'cards'   => $args['cards'],
+		'variant' => 'framed',
+	) );
 }
 
 if ( ! empty( $args['rows'] ) ) {

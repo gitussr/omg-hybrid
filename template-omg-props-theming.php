@@ -25,6 +25,39 @@ get_template_part( 'template-parts/service-landing', null, array(
 		'cta'         => array( 'url' => home_url( '/contact/' ), 'label' => 'Get a Free Quote' ),
 		'slides'      => array( array( 'type' => 'image', 'url' => $img . 'props-custom-new.jpg' ) ),
 	),
+	'cards_intro' => 'Five ways to set the scene &mdash; mix and match to transform your venue.',
+	'cards' => array(
+		array(
+			'title'       => 'Casino Props',
+			'description' => 'Light-up marquee letters, programmable Vegas signage, giant dice and themed package bundles that set the scene for any casino night.',
+			'url'         => '#casino-props',
+			'link_label'  => 'VISIT US',
+		),
+		array(
+			'title'       => 'Grand Entrance Themes',
+			'description' => 'Red carpet and bollards, custom Vegas, James Bond or Gatsby entrance signage and cinema-style marquees for an upscale arrival.',
+			'url'         => '#grand-entrance-themes',
+			'link_label'  => 'VISIT US',
+		),
+		array(
+			'title'       => 'Theme Walls',
+			'description' => 'Backlit LED Maxi and Mini theme walls and backdrop panels in five signature themes &mdash; a ready-made, photo-worthy focal point.',
+			'url'         => '#theme-walls',
+			'link_label'  => 'VISIT US',
+		),
+		array(
+			'title'       => 'Furniture',
+			'description' => 'Lounge and cocktail furniture, styling props and display tables, delivered and set up around your chosen theme.',
+			'url'         => '#furniture',
+			'link_label'  => 'VISIT US',
+		),
+		array(
+			'title'       => 'Audio / Visual Tech',
+			'description' => 'Clean, reliable PA systems, microphones and display screens that integrate seamlessly with our DJ, lighting and live services.',
+			'url'         => '#audio-visual-tech',
+			'link_label'  => 'VISIT US',
+		),
+	),
 	'rows' => array(
 		array(
 			'id'         => 'casino-props',

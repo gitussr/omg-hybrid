@@ -508,6 +508,63 @@ a.oh-service-card:hover {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Service cards — "framed" variant                                   */
+/*  Section class `oh-service-cards--framed`, used on the Entertainment */
+/*  inner landing page and the Studio / LiVE / Props & Theming pages.   */
+/*  Rows are centred so an odd final card sits centred; primary-colour  */
+/*  border, no shadow, circular icon badge, centred content. The home   */
+/*  page keeps the plain variant above, untouched.                      */
+/* ------------------------------------------------------------------ */
+.oh-service-cards--framed .oh-service-cards__grid {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: clamp(16px, 2vw, 28px);
+}
+
+.oh-service-cards--framed .oh-service-card {
+	width: 100%;
+	align-items: center;
+	text-align: center;
+	background: var(--color-secondary);
+	border-color: var(--color-primary);
+	border-radius: 0;
+}
+
+@media (min-width: 640px) {
+	.oh-service-cards--framed .oh-service-card {
+		width: calc(50% - 14px);
+	}
+}
+
+@media (min-width: 940px) {
+	.oh-service-cards--framed .oh-service-card {
+		width: calc(33.333% - 19px);
+	}
+}
+
+.oh-service-cards--framed a.oh-service-card:hover {
+	box-shadow: none;
+}
+
+.oh-service-cards--framed .oh-service-card__icon {
+	border-radius: 50%;
+}
+
+.oh-service-cards--framed .oh-service-card__icon--num {
+	font-family: var(--font-display);
+	font-size: 28px;
+	font-weight: 600;
+	line-height: 1;
+	color: var(--on-primary);
+}
+
+.oh-service-cards--framed .oh-service-card__link {
+	margin-top: auto;
+	padding-top: 18px;
+}
+
+/* ------------------------------------------------------------------ */
 /*  Why Choose Us                                                      */
 /* ------------------------------------------------------------------ */
 .oh-why {
