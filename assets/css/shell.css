@@ -372,7 +372,7 @@ body.oh-theme {
 	align-items: center;
 	justify-content: space-between;
 	gap: 16px;
-	padding-block: 9px;
+	padding-block: 0;
 	flex-wrap: wrap;
 }
 
@@ -416,7 +416,7 @@ body.oh-theme {
 	align-items: center;
 	gap: 7px;
 	padding: 4px 8px;
-	border-radius: 999px;
+	border-radius: 0;
 	color: inherit;
 	text-transform: uppercase;
 	font-weight: 500;
@@ -438,7 +438,7 @@ body.oh-theme {
    palette: a solid --on-primary fill with --color-primary text/icon. This
    keeps it readable and visibly on-theme on all four services. */
 .oh-header__top-actions .oh-call {
-	padding: 5px 14px;
+	padding: 15px 14px;
 	background: var(--on-primary);
 	color: var(--color-primary);
 	font-weight: 600;
