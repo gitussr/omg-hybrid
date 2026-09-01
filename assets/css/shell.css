@@ -581,14 +581,34 @@ body.oh-theme {
 	justify-content: flex-start;
 }
 
+/* The primary-coloured footer band is cut into a "pennant" strip: a
+   continuous zigzag along its top and bottom edges. The teeth are a
+   repeating SVG-triangle mask at a fixed tile size, so the tooth count
+   adapts to the band width — fully responsive, always crisp. Left/right
+   edges stay straight. */
 .oh-footer__grid {
+	--zz-w: 30px; /* tooth width  */
+	--zz-h: 15px; /* tooth height */
+	--zz-up: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='2'%20height='1'%3E%3Cpolygon%20points='0,1%201,0%202,1'%20fill='%23000'/%3E%3C/svg%3E");
+	--zz-down: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='2'%20height='1'%3E%3Cpolygon%20points='0,0%201,1%202,0'%20fill='%23000'/%3E%3C/svg%3E");
+
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	gap: clamp(20px, 3vw, 48px);
-	padding-block: clamp(32px, 4vw, 56px);
+	/* extra block padding keeps the columns clear of the teeth */
+	padding-block: calc(clamp(28px, 3.5vw, 50px) + var(--zz-h));
 	padding-inline: clamp(20px, 3vw, 40px);
 	background: var(--color-primary);
 	color: var(--on-primary);
+
+	-webkit-mask:
+		var(--zz-up) top / var(--zz-w) var(--zz-h) repeat-x,
+		var(--zz-down) bottom / var(--zz-w) var(--zz-h) repeat-x,
+		linear-gradient(#000 0 0) center / 100% calc(100% - 2 * var(--zz-h) + 2px) no-repeat;
+	mask:
+		var(--zz-up) top / var(--zz-w) var(--zz-h) repeat-x,
+		var(--zz-down) bottom / var(--zz-w) var(--zz-h) repeat-x,
+		linear-gradient(#000 0 0) center / 100% calc(100% - 2 * var(--zz-h) + 2px) no-repeat;
 }
 
 .oh-footer__grid a {
@@ -1119,5 +1139,7 @@ body.oh-theme {
 
 	.oh-footer__grid {
 		grid-template-columns: 1fr;
+		--zz-w: 22px;
+		--zz-h: 11px;
 	}
 }
