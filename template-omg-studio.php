@@ -40,30 +40,35 @@ get_template_part( 'template-parts/service-landing', null, array(
 	'cards_intro' => 'Five ways to capture your event &mdash; pick the formats that suit your day best.',
 	'cards' => array(
 		array(
+			'icon'        => $img . 'studio-svc-photobooths.png',
 			'title'       => 'Photo Booths',
 			'description' => 'From the compact Mini-Studio Booth to the DSLR-powered Studio Deluxe &mdash; crisp instant prints and digital sharing for every guest.',
 			'url'         => '#photo-booths',
 			'link_label'  => 'VISIT US',
 		),
 		array(
+			'icon'        => $img . 'studio-svc-video-phone.png',
 			'title'       => 'Video Phone-Booth',
 			'description' => 'A retro-cool alternative to the guestbook &mdash; guests pick up the receiver and record a video message worth keeping.',
 			'url'         => '#video-phone-booth',
 			'link_label'  => 'VISIT US',
 		),
 		array(
+			'icon'        => $img . 'studio-svc-360.png',
 			'title'       => '360 Video Booth',
 			'description' => 'Step on, spin around and go viral with immersive slow-motion HD video, captured from every angle and ready to share.',
 			'url'         => '#360-video-booth',
 			'link_label'  => 'VISIT US',
 		),
 		array(
+			'icon'        => $img . 'studio-svc-photography.png',
 			'title'       => 'Photography',
 			'description' => 'Premium and roaming photographers who skip the forced poses and capture your event as it really happens.',
 			'url'         => '#photography',
 			'link_label'  => 'VISIT US',
 		),
 		array(
+			'icon'        => $img . 'studio-svc-videography.png',
 			'title'       => 'Videography',
 			'description' => 'A cinematic eye on every frame &mdash; highlight reels, wedding films and social-ready cuts that tell the story.',
 			'url'         => '#videography',

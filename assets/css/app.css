@@ -571,7 +571,20 @@ a.oh-service-card:hover {
 }
 
 .oh-service-cards--framed .oh-service-card__icon {
+	width: 100px;
+	height: 100px;
 	border-radius: 50%;
+}
+
+.oh-service-cards--framed .oh-service-card__icon img {
+	width: 50px;
+	height: 50px;
+}
+
+/* Props' primary (#DEDE6D) is too pale for a white icon — keep it dark
+   on that palette (mirrors how the numbered badge uses --on-primary). */
+.svc-props .oh-service-cards--framed .oh-service-card__icon img {
+	filter: brightness(0);
 }
 
 .oh-service-cards--framed .oh-service-card__icon--num {
