@@ -560,7 +560,7 @@ a.oh-service-card:hover {
 }
 
 .oh-service-cards--framed .oh-service-card h3 {
-	font-family: var(--primary-font);
+	font-family: var(--font-display);
 	text-transform: uppercase;
 	font-size: clamp(18px, 1.354vw, 26px);
 }
