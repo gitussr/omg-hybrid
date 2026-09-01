@@ -2,13 +2,12 @@
 /**
  * OMG Entertainment — MODULAR SECTION 1 (directly below the hero).
  *
- * "Welcome to OMG Entertainment" intro. Content mirrors the existing
- * home page's who-we-are block, kept static per the approved plan.
+ * "Welcome to OMG Entertainment" intro, rendered through the shared
+ * template-parts/sections/welcome.php component.
  *
- * The home page and the inner "Our Services → OMG Entertainment" landing
- * page will eventually differ here. For now BOTH render this identically.
- * Do not branch on $args['context'] until the divergence instructions
- * are provided.
+ * DORMANT ON THE HOME PAGE (instruction 2026-09-01): this section renders
+ * only on the inner /omg-entertainment/ landing page. The home page
+ * ($args['context'] === 'home') skips it.
  *
  * $args: context ('home' | 'landing')
  *
@@ -17,22 +16,17 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$img = OMG_HYBRID_URI . '/assets/images';
-?>
-<section class="oh-section oh-section--secondary">
-	<div class="oh-wrap oh-service-row">
-		<div class="oh-service-row__body">
-			<span class="oh-eyebrow">Welcome</span>
-			<h2 class="oh-section-title">Welcome to OMG Entertainment</h2>
-			<p>Planning an event should be exciting, not overwhelming. At OMG Entertainment, we provide professionally managed entertainment experiences designed to engage guests, encourage interaction and create memorable moments.</p>
-			<p>Casino nights, race days, poker tables, showgirls, magicians and legendary tribute acts &mdash; one team, one point of contact, one unforgettable event.</p>
-			<div class="oh-btn-row">
-				<a class="oh-btn oh-btn--solid" href="tel:1300300664">Call Us <?php omg_hybrid_icon( 'fancy-right-arrow-icom' ); ?></a>
-				<a class="oh-btn oh-btn--outline" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Get a Quote <?php omg_hybrid_icon( 'fancy-right-arrow-icom' ); ?></a>
-			</div>
-		</div>
-		<div class="oh-service-row__media">
-			<img src="<?php echo esc_url( $img . '/floating-cards-chips.png' ); ?>" alt="Casino chips and playing cards" loading="lazy">
-		</div>
-	</div>
-</section>
+if ( ( $args['context'] ?? 'home' ) !== 'landing' ) {
+	return;
+}
+
+get_template_part( 'template-parts/sections/welcome', null, array(
+	'heading'    => 'Welcome to OMG Entertainment',
+	'paragraphs' => array(
+		'Planning an event should be exciting, not overwhelming. At OMG Entertainment, we provide professionally managed entertainment experiences designed to engage guests, encourage interaction and create memorable moments.',
+		'Casino nights, race days, poker tables, showgirls, magicians and legendary tribute acts &mdash; one team, one point of contact, one unforgettable event.',
+	),
+	'buttons'    => omg_hybrid_cta_buttons(),
+	'image'      => OMG_HYBRID_URI . '/assets/images/floating-cards-chips.png',
+	'image_alt'  => 'Casino chips and playing cards',
+) );

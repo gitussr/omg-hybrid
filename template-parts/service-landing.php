@@ -8,6 +8,7 @@
  *
  * $args:
  *   hero      array  -> template-parts/sections/hero
+ *   welcome   array  -> template-parts/sections/welcome
  *   cards     array  -> template-parts/sections/service-cards cards[] (framed variant)
  *   rows      array  -> DORMANT. Reserved for a dedicated services page to
  *                       be designed later (instruction 2026-09-01). The
@@ -26,6 +27,10 @@ defined( 'ABSPATH' ) || exit;
 
 if ( ! empty( $args['hero'] ) ) {
 	get_template_part( 'template-parts/sections/hero', null, $args['hero'] );
+}
+
+if ( ! empty( $args['welcome'] ) ) {
+	get_template_part( 'template-parts/sections/welcome', null, $args['welcome'] );
 }
 
 if ( ! empty( $args['cards'] ) ) {

@@ -26,6 +26,17 @@ get_template_part( 'template-parts/service-landing', null, array(
 		'cta'         => array( 'url' => home_url( '/contact/' ), 'label' => 'Get a Free Quote' ),
 		'slides'      => array( array( 'type' => 'image', 'url' => $img . 'omg-studio-display.jpg' ) ),
 	),
+	'welcome' => array(
+		'heading'    => 'Welcome to OMG Studio',
+		'paragraphs' => array(
+			'We believe every event deserves to be unforgettable. We specialise in Photobooth Hire/Sales, Photography, Video Guest Books, and Videography for weddings, corporate events, birthdays, and special celebrations.',
+			'Our mission is simple: To create &ldquo;OMG&rdquo; moments and fun experiences that your guests will remember forever.',
+			'What makes OMG Studio different is our commitment to quality, reliability, and customer experience. We don&rsquo;t just provide services&mdash;we create memories that last a lifetime.',
+		),
+		'buttons'    => omg_hybrid_cta_buttons(),
+		'image'      => $img . 'welcome-studio-filmstrip.jpg',
+		'image_alt'  => 'OMG Studio photo booth prints from weddings and events',
+	),
 	'cards_intro' => 'Five ways to capture your event &mdash; pick the formats that suit your day best.',
 	'cards' => array(
 		array(

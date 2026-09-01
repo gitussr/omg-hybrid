@@ -26,6 +26,22 @@ get_template_part( 'template-parts/service-landing', null, array(
 		'cta'         => array( 'url' => home_url( '/contact/' ), 'label' => 'Check Availability' ),
 		'slides'      => array( array( 'type' => 'image', 'url' => $img . 'omg-live-hero.jpg' ) ),
 	),
+	'welcome' => array(
+		'heading'     => 'Welcome to OMG LiVE',
+		'paragraphs'  => array(
+			'At OMG Group, we specialize in the &ldquo;Wow&rdquo; factor. OMG LiVE is our dedicated division for premium entertainment and essential event lighting. Whether you are looking to hire a DJ for a corporate gala or need a live party band for a milestone celebration, we provide the elite talent and the professional lighting to ensure your event looks and feels spectacular.',
+		),
+		'bullets'     => array(
+			array( 'label' => 'Vetted Entertainers', 'text' => 'We only work with professional artists who have a proven ability to read a room, command a stage, and set the perfect vibe.' ),
+			array( 'label' => 'All-In-One DJ Solutions', 'text' => 'Our DJs come fully equipped with high-end sound and lighting, offering a seamless, &ldquo;plug-and-play&rdquo; experience for any venue.' ),
+			array( 'label' => 'Atmospheric Lighting', 'text' => 'We provide professional LED lighting hire&mdash;including wireless uplights and PAR cans&mdash;designed to transform your space with ease.' ),
+			array( 'label' => 'The OMG Standard', 'text' => 'As part of Australia&rsquo;s leading entertainment group, we guarantee 5-star service and reliability from the first inquiry to the final song.' ),
+		),
+		'buttons'     => omg_hybrid_cta_buttons(),
+		'image'       => $img . 'welcome-live.jpg',
+		'image_alt'   => 'OMG LiVE DJ setup with professional sound and stage lighting',
+		'image_style' => 'photo',
+	),
 	'cards_intro' => 'Three ways to fill the room with sound and atmosphere.',
 	'cards' => array(
 		array(

@@ -140,3 +140,18 @@ function omg_hybrid_option( $key ) {
 	}
 	return null;
 }
+
+/**
+ * The three standard call-to-action buttons used across the site
+ * (Welcome sections, "Why Choose" blocks): Call Us / Book an Event /
+ * Email Us. The first is the primary (solid) action.
+ *
+ * @return array<int,array{url:string,label:string,solid?:bool}>
+ */
+function omg_hybrid_cta_buttons() {
+	return array(
+		array( 'url' => 'tel:1300300664',             'label' => 'Call Us', 'solid' => true ),
+		array( 'url' => home_url( '/contact/' ),       'label' => 'Book an Event' ),
+		array( 'url' => 'mailto:info@OMGgroup.com.au', 'label' => 'Email Us' ),
+	);
+}
