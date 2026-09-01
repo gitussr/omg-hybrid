@@ -543,6 +543,19 @@ body.oh-theme {
 	background: linear-gradient(180deg, rgba(12, 12, 12, .72), rgba(12, 12, 12, .9));
 }
 
+/* On .oh-legacy pages, legacy-styles.css still carries a bare-element
+   `footer` / `footer::after` block written for the old (now removed) footer
+   markup. It leaks onto this shared footer: `footer::after` is an opaque
+   black overlay at z-index:10 that covers and blocks every footer link, and
+   `footer` adds stray top padding. Undo both — .oh-footer is owned here. */
+.oh-footer::after {
+	content: none;
+}
+
+.oh-footer {
+	padding-top: 0;
+}
+
 .oh-footer a {
 	color: #fff;
 }
@@ -558,13 +571,14 @@ body.oh-theme {
 	text-transform: uppercase;
 	margin: 0 0 clamp(20px, 3vw, 40px);
 	text-wrap: balance;
+	text-align: left;
 }
 
 .oh-footer__cta-buttons {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 14px;
-	justify-content: center;
+	justify-content: flex-start;
 }
 
 .oh-footer__grid {
@@ -572,6 +586,7 @@ body.oh-theme {
 	grid-template-columns: repeat(4, 1fr);
 	gap: clamp(20px, 3vw, 48px);
 	padding-block: clamp(32px, 4vw, 56px);
+	padding-inline: clamp(20px, 3vw, 40px);
 	background: var(--color-primary);
 	color: var(--on-primary);
 }
@@ -638,8 +653,10 @@ body.oh-theme {
 	height: 64px;
 	border-radius: 50%;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	gap: 3px;
 	background: #000;
 	border: 1px solid rgba(255, 255, 255, .2);
 	opacity: 0;
@@ -658,14 +675,10 @@ body.oh-theme {
 }
 
 #back-to-top-button span {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 3px;
 	font-size: 9px;
-	font-weight: 600;
+	font-weight: 500;
 	text-transform: uppercase;
-	line-height: 1.1;
+	line-height: 1.2;
 	letter-spacing: 0.04em;
 	color: #fff;
 	text-align: center;
@@ -689,9 +702,9 @@ body.oh-theme {
 	bottom: 44px;
 	right: 110px;
 	z-index: 1002;
-	background: #bf2525;
-	color: #ffffff;
-	border: 1px solid #bf2525;
+	background: var(--color-primary);
+	color: var(--on-primary);
+	border: 1px solid var(--color-primary);
 	border-radius: 100px;
 	padding: 13px 24px;
 	font-family: var(--primary-font);

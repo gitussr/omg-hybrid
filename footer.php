@@ -112,7 +112,8 @@ $cta_buttons  = omg_hybrid_option( 'cta_buttons' );
 </footer>
 
 <a id="back-to-top-button" role="button" aria-label="<?php esc_attr_e( 'Back to top', 'omg-hybrid' ); ?>">
-	<span><?php omg_hybrid_icon( 'fancy-right-arrow-icom' ); ?><br><?php esc_html_e( 'back to top', 'omg-hybrid' ); ?></span>
+	<?php omg_hybrid_icon( 'fancy-right-arrow-icom' ); ?>
+	<span><?php esc_html_e( 'Back to', 'omg-hybrid' ); ?><br><?php esc_html_e( 'top', 'omg-hybrid' ); ?></span>
 </a>
 
 <?php get_template_part( 'template-parts/quick-quote' ); ?>

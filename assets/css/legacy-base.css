@@ -89,38 +89,12 @@ p {
 button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid red; outline-offset: 3px; border-radius: 4px; } */
 
 
-#loader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgb(255, 255, 255);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999999;
-}
-
-.spinner {
-  width: 50px;
-  height: 50px;
-  background: var(--primary-solid-color);
-  clip-path: polygon(50% 0%, 68% 32%, 100% 50%, 68% 68%,
-      50% 100%, 32% 68%, 0% 50%, 32% 32%);
-  animation: sparkle-spin 5s linear infinite;
-}
-
-@keyframes sparkle-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
+/* #loader / .spinner and #back-to-top-button (further down) were removed
+   from this file: both are shared site chrome now owned by shell.css
+   (markup in header.php / footer.php, behaviour in assets/js/theme.js).
+   The old copies here loaded only on legacy pages and, sharing shell's
+   #id selectors, overrode them — which is why the loader and back-to-top
+   button looked different on the ported pages. */
 
 .row {
   --bs-gutter-y: 24px;
@@ -403,62 +377,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 
-#back-to-top-button {
-  display: inline-block;
-  background: #000;
-  width: 70px;
-  height: 70px;
-  text-align: center;
-  border-radius: 50%;
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  transition: background-color .3s,
-    opacity .5s, visibility .5s;
-  opacity: 0;
-  visibility: hidden;
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #ffffff31;
-}
-
-#back-to-top-button:hover {
-  cursor: pointer;
-  background: var(--primary-solid-color);
-}
-
-#back-to-top-button:active {
-  background: var(--primary-solid-color);
-}
-
-#back-to-top-button.show {
-  opacity: 1;
-  visibility: visible;
-}
-
-#back-to-top-button span {
-  display: block;
-  font-size: 11px;
-  text-transform: uppercase;
-  line-height: 13px;
-  color: #fff;
-}
-
-#back-to-top-button svg {
-  fill: var(--light-color-1);
-  transform: rotate(270deg);
-}
-
-#back-to-top-button:hover span {
-  color: var(--dark-color);
-}
-
-#back-to-top-button:hover svg {
-  fill: var(--dark-color);
-}
-
+/* #back-to-top-button removed — see note near the top of this file. */
 
 
 /* Remove default browser arrow */

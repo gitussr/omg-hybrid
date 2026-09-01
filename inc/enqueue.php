@@ -33,20 +33,20 @@ function omg_hybrid_enqueue_assets() {
 	/* --------------------------------------------------------------- */
 	/*  Shared — every page                                            */
 	/* --------------------------------------------------------------- */
-	wp_enqueue_style( 'omg-hybrid-fonts', $uri . '/assets/fonts/style.css', array(), $v( '/assets/fonts/style.css' ) );
+	wp_enqueue_style( 'omg-hybrid-fonts', $uri . '/assets/fonts/style.css', [], $v( '/assets/fonts/style.css' ) );
 	// Swiper's own stylesheet — required wherever a .swiper is initialised
 	// (new hero/testimonials components and the legacy inner-page hero).
-	wp_enqueue_style( 'omg-hybrid-swiper', $uri . '/assets/css/swiper.css', array(), $v( '/assets/css/swiper.css' ) );
-	wp_enqueue_style( 'omg-hybrid-shell', $uri . '/assets/css/shell.css', array( 'omg-hybrid-fonts' ), $v( '/assets/css/shell.css' ) );
+	wp_enqueue_style( 'omg-hybrid-swiper', $uri . '/assets/css/swiper.css', [], $v( '/assets/css/swiper.css' ) );
+	wp_enqueue_style( 'omg-hybrid-shell', $uri . '/assets/css/shell.css', [ 'omg-hybrid-fonts' ], $v( '/assets/css/shell.css' ) );
 
 	// Slider library — used by the new hero/testimonials components and by
 	// the legacy inner-page hero. Vanilla, no jQuery dependency.
-	wp_enqueue_script( 'omg-hybrid-swiper', $uri . '/assets/js/swiper.js', array(), $v( '/assets/js/swiper.js' ), true );
+	wp_enqueue_script( 'omg-hybrid-swiper', $uri . '/assets/js/swiper.js', [], $v( '/assets/js/swiper.js' ), true );
 
 	// Shared 6-step Quick Quote wizard controller. The omg-mega-menu plugin
 	// enqueues its own script with this exact handle as a dependency —
 	// do not rename it.
-	wp_enqueue_script( 'book-wizard', $uri . '/assets/js/book-wizard.js', array(), $v( '/assets/js/book-wizard.js' ), true );
+	wp_enqueue_script( 'book-wizard', $uri . '/assets/js/book-wizard.js', [], $v( '/assets/js/book-wizard.js' ), true );
 
 	wp_enqueue_script(
 		'omg-hybrid',
@@ -74,9 +74,14 @@ function omg_hybrid_enqueue_assets() {
 	// Verbatim copies of the previous theme's stylesheets. Kept at
 	// assets/css/ (not a sub-folder) so their `url('../images/…')` refs
 	// resolve to assets/images/ exactly as they did in the old theme.
+	// Order matters: vendor Bootstrap must load BEFORE legacy-base.css, which
+	// is the old theme's reset/base and was authored to sit on top of it
+	// (e.g. base's `a { text-decoration: none }` and `*/h/p/ul { margin: 0 }`
+	// have to win over Bootstrap 5 Reboot). Deps below enforce that print
+	// order.
 	$legacy_css = array(
-		'omg-legacy-base'       => array( '/assets/css/legacy-base.css', array( 'omg-hybrid-shell' ) ),
-		'omg-legacy-bootstrap'  => array( '/assets/css/legacy-bootstrap.min.css', array() ),
+		'omg-legacy-bootstrap'  => array( '/assets/css/legacy-bootstrap.min.css', array( 'omg-hybrid-shell' ) ),
+		'omg-legacy-base'       => array( '/assets/css/legacy-base.css', array( 'omg-legacy-bootstrap' ) ),
 		'omg-legacy-stellarnav' => array( '/assets/css/legacy-stellarnav.min.css', array() ),
 		'omg-legacy-fa'         => array( '/assets/fontawesome-6/css/all.css', array() ),
 		'omg-legacy-styles'     => array( '/assets/css/legacy-styles.css', array( 'omg-legacy-base' ) ),
