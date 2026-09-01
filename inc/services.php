@@ -45,18 +45,35 @@ function omg_hybrid_services() {
 }
 
 /**
+ * Cross-brand "group" pages that use the slate/gold palette (svc-group)
+ * rather than any single service colour: the home page plus these slugs.
+ *
+ * @return string[]
+ */
+function omg_hybrid_group_page_slugs() {
+	return array( 'contact', 'print-templates' );
+}
+
+/**
  * The service body class for the current request, or '' when the page has
- * no service context (the OMG Entertainment home page counts as
- * 'entertainment').
+ * no service context.
+ *
+ * The home page and the pages in omg_hybrid_group_page_slugs() resolve to
+ * 'svc-group'; the four landing templates resolve to their own class.
  */
 function omg_hybrid_current_service_class() {
 	$services = omg_hybrid_services();
 
 	if ( is_front_page() ) {
-		return $services['entertainment']['body_class'];
+		return 'svc-group';
 	}
 
 	if ( is_page() ) {
+		$obj = get_queried_object();
+		if ( $obj instanceof WP_Post && in_array( $obj->post_name, omg_hybrid_group_page_slugs(), true ) ) {
+			return 'svc-group';
+		}
+
 		$template = get_page_template_slug( get_queried_object_id() );
 		foreach ( $services as $service ) {
 			if ( $service['template'] === $template ) {

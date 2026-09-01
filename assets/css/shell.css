@@ -20,6 +20,8 @@
 	--color-muted: #FFF9F9;
 	--on-primary: #ffffff;
 	/* readable text/icon colour on --color-primary */
+	--color-accent: var(--color-primary);
+	/* secondary highlight; only .svc-group sets it apart from --color-primary */
 
 	--color-ink: #111111;
 	--color-ink-soft: #444444;
@@ -89,6 +91,34 @@
 	--color-secondary: #FFFFCA;
 	--color-muted: #FFFFEB;
 	--on-primary: #3a3a1e;
+}
+
+/* Cross-brand "group" pages: home, /print-templates/, /contact/.
+   A slate-blue + gold palette, not tied to any of the four services.
+   Applied via the svc-group body class (inc/services.php). Also remaps
+   the legacy colour aliases so the two ported pages (contact,
+   print-templates) recolour too, not just the shared header/footer. */
+.svc-group {
+	--color-primary: #4B6587;
+	--color-secondary: #E1D4BB;
+	--color-muted: #EEEEEE;
+	--color-accent: #CBB279;
+	--on-primary: #ffffff;
+
+	/* legacy aliases (used by legacy-*.css on the ported pages) */
+	--primary-solid-color: #4B6587;
+	--primary-gradient-color: linear-gradient(90deg, #4B6587 0%, #5C7AA0 100%);
+	--secondary-color: #CBB279;
+	--light-color-2: #E1D4BB;
+}
+
+/* A few legacy rules hard-code the old pink card fill (#fff0f0 / #fff1f1)
+   instead of a token; on the two svc-group legacy pages swap it for the
+   palette's muted tone. The 1px palette-coloured border already follows. */
+.svc-group .inner-top-section-style-2 .right-block .box,
+.svc-group .our-others-services-section .box,
+.svc-group .who-we-are-section .box-container .box {
+	background-color: var(--color-muted);
 }
 
 /* ------------------------------------------------------------------ */
