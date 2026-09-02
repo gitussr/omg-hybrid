@@ -809,6 +809,10 @@ a.oh-division-card:hover {
 	padding-block: var(--section-y);
 	text-align: center;
 	background: var(--color-secondary);
+	max-width: 1024px;
+	margin-inline: auto;
+	border-radius: var(--radius);
+	margin-bottom: 50px;
 }
 
 .oh-cta h2 {
