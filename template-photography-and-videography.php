@@ -40,7 +40,6 @@ $rows       = array();
 foreach ( (array) ( $categories['cards'] ?? array() ) as $i => $card ) {
 	$rows[] = array(
 		'id'           => 'main-block-' . $i,
-		'ribbon'       => $card['sub_title'] ?? '',
 		'title'        => $card['title'] ?? '',
 		'content_html' => $card['content'] ?? '',
 		'image'        => $card['image']['url'] ?? '',

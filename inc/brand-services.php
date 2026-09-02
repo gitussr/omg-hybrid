@@ -39,7 +39,6 @@ function omg_hybrid_brand_services( $brand ) {
 			'rows' => array(
 				array(
 					'id'         => 'casino-fun-nights',
-					'ribbon'     => 'From $999',
 					'title'      => 'Casino Fun Nights',
 					'paragraph'  => 'Full-sized, professional casino tables and entertainment-skilled croupiers, straight to your venue. Blackjack, Roulette, Poker, Craps and the Money Wheel run on premium Australian-made equipment, with guests playing for fun on unlimited chips &mdash; zero real-money risk.',
 					'bullets'    => array(
@@ -54,7 +53,6 @@ function omg_hybrid_brand_services( $brand ) {
 				),
 				array(
 					'id'         => 'horse-racing-fun-nights',
-					'ribbon'     => 'From $1,650',
 					'title'      => 'Horse Racing Fun Nights',
 					'paragraph'  => 'Skip the racecourse and bring race-day atmosphere straight to your event. Live race simulations, a professional MC and your very own bookies make for a fully customisable, dress-up-friendly experience for guests of every age.',
 					'bullets'    => array(
@@ -69,7 +67,6 @@ function omg_hybrid_brand_services( $brand ) {
 				),
 				array(
 					'id'         => 'poker-tournaments',
-					'ribbon'     => 'From $999',
 					'title'      => 'Poker Tournaments',
 					'paragraph'  => 'Check, raise or fold &mdash; from a casual social game to a full-scale professional tournament, we bring the tables, the cards and the atmosphere. Texas Hold&rsquo;Em is our signature game, with Omaha, 7 Card Stud and HORSE available on request.',
 					'bullets'    => array(
@@ -84,7 +81,6 @@ function omg_hybrid_brand_services( $brand ) {
 				),
 				array(
 					'id'         => 'showgirls',
-					'ribbon'     => 'Showtime Glamour',
 					'title'      => 'Showgirls',
 					'paragraph'  => 'A polished, professional showtime energy for any event &mdash; from a glamorous guest welcome to a full choreographed floor show. Costuming and routines are tailored to your venue, theme and audience.',
 					'bullets'    => array(
@@ -99,7 +95,6 @@ function omg_hybrid_brand_services( $brand ) {
 				),
 				array(
 					'id'         => 'magicians',
-					'ribbon'     => 'From $880',
 					'title'      => 'Magicians',
 					'paragraph'  => 'Light-hearted, jaw-dropping magic that gets every guest talking &mdash; from table-to-table close-up tricks to a polished 30-minute stage show. Family-friendly and built around genuine guest interaction.',
 					'bullets'    => array(
@@ -114,7 +109,6 @@ function omg_hybrid_brand_services( $brand ) {
 				),
 				array(
 					'id'         => 'elvis-mj-impersonators',
-					'ribbon'     => 'Legendary Tributes',
 					'title'      => 'Elvis &amp; MJ Impersonators',
 					'paragraph'  => 'Two of the world&rsquo;s most iconic performers, brought to life for your event. Our Elvis and Michael Jackson tribute performers deliver showstopping vocals, unmistakable costuming and choreography, tailored to your run sheet.',
 					'bullets'    => array(
@@ -145,7 +139,6 @@ function omg_hybrid_brand_services( $brand ) {
 			'rows' => array(
 				array(
 					'id'         => 'djs-dj-booth',
-					'ribbon'     => 'Professional DJ Hire',
 					'title'      => 'DJs &amp; DJ Booth',
 					'paragraph'  => 'More than just a playlist &mdash; our open-format DJs master the art of reading the room, transitioning from sophisticated lounge and jazz during cocktails to energetic dance tracks when the party peaks, all through club-standard audio and a sleek, custom-designed booth.',
 					'bullets'    => array(
@@ -160,7 +153,6 @@ function omg_hybrid_brand_services( $brand ) {
 				),
 				array(
 					'id'         => 'event-lighting-hire',
-					'ribbon'     => 'Atmosphere By Design',
 					'title'      => 'Event Lighting Hire',
 					'paragraph'  => 'We focus on atmospheric lighting, not stadium-scale production &mdash; transforming ordinary venues into extraordinary spaces. From sophisticated warm tones for a formal gala to vibrant, colour-matched washes for a product launch, our clean, modern LED rigs run efficiently in any venue.',
 					'bullets'    => array(
@@ -175,7 +167,6 @@ function omg_hybrid_brand_services( $brand ) {
 				),
 				array(
 					'id'         => 'live-bands',
-					'ribbon'     => 'Australia&rsquo;s Finest Musical Artists',
 					'title'      => 'Live Bands &amp; Musicians',
 					'paragraph'  => 'Nothing replaces the energy of a live performance. Our roster of vetted, professional session musicians and powerhouse performers ranges from acoustic soloists and jazz ensembles to full party bands and specialty performers, suited to everything from intimate dinners to large corporate galas.',
 					'bullets'    => array(
@@ -206,7 +197,6 @@ function omg_hybrid_brand_services( $brand ) {
 			'rows' => array(
 				array(
 					'id'         => 'casino-props',
-					'ribbon'     => 'Casino Props',
 					'title'      => 'Casino Props',
 					'paragraph'  => 'Decorative and entertainment props that set the scene for any casino-themed event &mdash; from illuminated marquee letters and a programmable Welcome to Vegas LED sign to oversized dice and full themed package bundles pairing a red carpet, theme wall and playing-card stand-ups.',
 					'bullets'    => array(
@@ -221,7 +211,6 @@ function omg_hybrid_brand_services( $brand ) {
 				),
 				array(
 					'id'         => 'grand-entrance-themes',
-					'ribbon'     => 'Grand Entrance Themes',
 					'title'      => 'Grand Entrance Themes',
 					'paragraph'  => 'First impressions set the tone. A red carpet and bollards, a custom entrance sign in a Vegas, James Bond or Gatsby theme, or a directional cinema-style marquee &mdash; each one styled to give your guests an upscale arrival experience from the moment they walk in.',
 					'bullets'    => array(
@@ -236,7 +225,6 @@ function omg_hybrid_brand_services( $brand ) {
 				),
 				array(
 					'id'         => 'theme-walls',
-					'ribbon'     => 'Statement Backdrops',
 					'title'      => 'Theme Walls',
 					'paragraph'  => 'Backlit LED Maxi and Mini theme walls or standard backdrop panels, styled in Casino Royale, 1920s Gatsby, Las Vegas, Moulin Rouge or Hollywood themes &mdash; the perfect statement backdrop for photos, staging or a full room transformation.',
 					'bullets'    => array(
@@ -251,7 +239,6 @@ function omg_hybrid_brand_services( $brand ) {
 				),
 				array(
 					'id'         => 'furniture',
-					'ribbon'     => 'Furniture',
 					'title'      => 'Furniture',
 					'paragraph'  => 'Lounge and cocktail furniture, styling props and display tables that tie your event styling together &mdash; delivered and set up around your chosen theme, whether that&rsquo;s a casino night, a corporate gala or a themed celebration.',
 					'bullets'    => array(
@@ -266,7 +253,6 @@ function omg_hybrid_brand_services( $brand ) {
 				),
 				array(
 					'id'         => 'audio-visual-tech',
-					'ribbon'     => 'Audio / Visual Tech',
 					'title'      => 'Audio / Visual Tech',
 					'paragraph'  => 'Clean, reliable sound and screen equipment to back up your event styling &mdash; PA systems, microphones and display screens that integrate seamlessly with our DJ, lighting and live entertainment services for a fully coordinated event.',
 					'bullets'    => array(

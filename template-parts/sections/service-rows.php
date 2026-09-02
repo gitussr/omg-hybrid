@@ -6,7 +6,7 @@
  *   heading   string  optional section heading
  *   intro     string  optional lead paragraph under the heading
  *   rows      array of array{
- *               id?:string, ribbon?:string, title:string, paragraph:string,
+ *               id?:string, title:string, paragraph:string,
  *               bullets?:string[], content_html?:string, image:string,
  *               image_alt?:string, reverse?:bool, link_url?:string,
  *               link_label?:string
@@ -44,9 +44,6 @@ if ( ! $rows ) {
 				<?php if ( $row_id ) : ?>id="<?php echo esc_attr( $row_id ); ?>" style="scroll-margin-top:160px;"<?php endif; ?>>
 
 				<div class="oh-service-row__body">
-					<?php if ( ! empty( $row['ribbon'] ) ) : ?>
-						<span class="oh-ribbon"><?php echo esc_html( $row['ribbon'] ); ?></span>
-					<?php endif; ?>
 					<h2><?php echo wp_kses_post( $row['title'] ?? '' ); ?></h2>
 					<?php if ( ! empty( $row['content_html'] ) ) : ?>
 						<div class="oh-service-row__rte"><?php echo wp_kses_post( $row['content_html'] ); ?></div>

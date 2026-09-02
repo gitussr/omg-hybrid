@@ -252,15 +252,6 @@
 	direction: ltr;
 }
 
-.oh-service-row__body .oh-ribbon {
-	display: inline-block;
-	background: var(--color-ink);
-	color: #fff;
-	font-size: 13px;
-	padding: 4px 16px;
-	margin-bottom: 12px;
-}
-
 .oh-service-row__body h2 {
 	font-family: var(--font-display);
 	font-size: var(--fs-h3);
