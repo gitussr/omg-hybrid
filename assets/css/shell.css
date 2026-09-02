@@ -337,6 +337,16 @@ body.oh-theme {
 	fill: currentColor;
 }
 
+.oh-btn--dark {
+	background: var(--color-ink);
+	color: #fff;
+	border-color: var(--color-ink);
+}
+
+.oh-btn--dark .srdev-icon {
+	fill: currentColor;
+}
+
 .oh-btn--link {
 	padding: 0;
 	border: 0;

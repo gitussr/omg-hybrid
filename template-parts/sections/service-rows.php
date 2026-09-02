@@ -7,9 +7,12 @@
  *   intro     string  optional lead paragraph under the heading
  *   rows      array of array{
  *               id?:string, ribbon?:string, title:string, paragraph:string,
- *               bullets?:string[], image:string, image_alt?:string,
- *               reverse?:bool, link_url?:string, link_label?:string
+ *               bullets?:string[], content_html?:string, image:string,
+ *               image_alt?:string, reverse?:bool, link_url?:string,
+ *               link_label?:string
  *             }
+ *             `content_html` is a pre-formatted WYSIWYG blob (e.g. from an
+ *             SCF field) rendered in place of `paragraph` + `bullets`.
  *
  * @package omg-hybrid
  */
@@ -45,15 +48,19 @@ if ( ! $rows ) {
 						<span class="oh-ribbon"><?php echo esc_html( $row['ribbon'] ); ?></span>
 					<?php endif; ?>
 					<h2><?php echo wp_kses_post( $row['title'] ?? '' ); ?></h2>
-					<?php if ( ! empty( $row['paragraph'] ) ) : ?>
-						<p><?php echo wp_kses_post( $row['paragraph'] ); ?></p>
-					<?php endif; ?>
-					<?php if ( ! empty( $row['bullets'] ) ) : ?>
-						<ul>
-							<?php foreach ( $row['bullets'] as $bullet ) : ?>
-								<li><?php echo wp_kses_post( $bullet ); ?></li>
-							<?php endforeach; ?>
-						</ul>
+					<?php if ( ! empty( $row['content_html'] ) ) : ?>
+						<div class="oh-service-row__rte"><?php echo wp_kses_post( $row['content_html'] ); ?></div>
+					<?php else : ?>
+						<?php if ( ! empty( $row['paragraph'] ) ) : ?>
+							<p><?php echo wp_kses_post( $row['paragraph'] ); ?></p>
+						<?php endif; ?>
+						<?php if ( ! empty( $row['bullets'] ) ) : ?>
+							<ul>
+								<?php foreach ( $row['bullets'] as $bullet ) : ?>
+									<li><?php echo wp_kses_post( $bullet ); ?></li>
+								<?php endforeach; ?>
+							</ul>
+						<?php endif; ?>
 					<?php endif; ?>
 					<?php if ( ! empty( $row['link_url'] ) && ! empty( $row['link_label'] ) ) : ?>
 						<a class="oh-btn oh-btn--solid" href="<?php echo esc_url( $row['link_url'] ); ?>">

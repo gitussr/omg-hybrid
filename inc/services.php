@@ -55,6 +55,21 @@ function omg_hybrid_group_page_slugs() {
 }
 
 /**
+ * OMG Studio inner-page templates that are not the Studio landing template
+ * but still belong to the Studio context, so they take the svc-studio
+ * (cyan) palette. Their page templates live at the theme root and read
+ * their content from Secure Custom Fields.
+ *
+ * @return string[]
+ */
+function omg_hybrid_studio_inner_templates() {
+	return array(
+		'template-our-booths.php',
+		'template-photography-and-videography.php',
+	);
+}
+
+/**
  * The service body class for the current request, or '' when the page has
  * no service context.
  *
@@ -79,6 +94,10 @@ function omg_hybrid_current_service_class() {
 			if ( $service['template'] === $template ) {
 				return $service['body_class'];
 			}
+		}
+
+		if ( in_array( $template, omg_hybrid_studio_inner_templates(), true ) ) {
+			return 'svc-studio';
 		}
 	}
 

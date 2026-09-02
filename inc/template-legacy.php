@@ -27,10 +27,8 @@ function omg_hybrid_legacy_templates() {
 	return array(
 		// Inner pages — out of Phase 1 scope, kept exactly as they were.
 		'template-contact.php',
-		'template-our-booths.php',
 		'template-photography.php',
 		'template-videography.php',
-		'template-photography-and-videography.php',
 		'template-print-templates.php',
 		'template-join-our-team.php',
 		'template-partner-with-us.php',

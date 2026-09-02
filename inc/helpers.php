@@ -142,6 +142,61 @@ function omg_hybrid_option( $key ) {
 }
 
 /**
+ * The "Other Services" bundle stored on the home page (post 7) as the SCF
+ * group `our_others_service_section`. Shared by the OMG Studio inner pages,
+ * which reproduce it verbatim from the old templates. Shaped for
+ * template-parts/sections/other-services.php.
+ *
+ * @return array{heading:string,description:string,cards:array}
+ */
+function omg_hybrid_page7_other_services() {
+	$group = function_exists( 'get_field' ) ? get_field( 'our_others_service_section', 7 ) : array();
+	$group = is_array( $group ) ? $group : array();
+
+	$cards = array();
+	foreach ( (array) ( $group['cards'] ?? array() ) as $card ) {
+		$cards[] = array(
+			'image'       => $card['image']['url'] ?? '',
+			'logo'        => $card['logo']['url'] ?? '',
+			'title'       => $card['title'] ?? '',
+			'description' => $card['description'] ?? '',
+			'url'         => $card['button']['url'] ?? '#',
+			'link_label'  => $card['button']['title'] ?? '',
+		);
+	}
+
+	return array(
+		'heading'     => $group['main_title'] ?? '',
+		'description' => $group['description'] ?? '',
+		'cards'       => $cards,
+	);
+}
+
+/**
+ * The logo-marquee bundle stored on the home page (post 7) as the SCF
+ * group `logo_slider_section`. Shared by the OMG Studio inner pages.
+ * Shaped for template-parts/sections/marquee.php.
+ *
+ * @return array{title:string,logos:string[]}
+ */
+function omg_hybrid_page7_marquee() {
+	$group = function_exists( 'get_field' ) ? get_field( 'logo_slider_section', 7 ) : array();
+	$group = is_array( $group ) ? $group : array();
+
+	$logos = array();
+	foreach ( (array) ( $group['logo_items'] ?? array() ) as $item ) {
+		if ( ! empty( $item['logo_image']['url'] ) ) {
+			$logos[] = $item['logo_image']['url'];
+		}
+	}
+
+	return array(
+		'title' => $group['sec_title'] ?? '',
+		'logos' => $logos,
+	);
+}
+
+/**
  * The three standard call-to-action buttons used across the site
  * (Welcome sections, "Why Choose" blocks): Call Us / Book an Event /
  * Email Us. The first is the primary (solid) action.
