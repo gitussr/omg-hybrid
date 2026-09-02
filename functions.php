@@ -17,6 +17,7 @@ require_once OMG_HYBRID_DIR . '/inc/helpers.php';
 require_once OMG_HYBRID_DIR . '/inc/migrate.php';
 require_once OMG_HYBRID_DIR . '/inc/setup.php';
 require_once OMG_HYBRID_DIR . '/inc/services.php';
+require_once OMG_HYBRID_DIR . '/inc/brand-services.php';
 require_once OMG_HYBRID_DIR . '/inc/template-legacy.php';
 require_once OMG_HYBRID_DIR . '/inc/enqueue.php';
 require_once OMG_HYBRID_DIR . '/inc/nav-menus.php';

@@ -70,6 +70,21 @@ function omg_hybrid_studio_inner_templates() {
 }
 
 /**
+ * Per-brand "Our Services" inner-page templates and the palette they take.
+ * These pages (/omg-{brand}/our-services/) sit under a landing page and
+ * render their brand's service rows; content lives in inc/brand-services.php.
+ *
+ * @return array<string,string> template filename => svc-* body class
+ */
+function omg_hybrid_brand_inner_templates() {
+	return array(
+		'template-entertainment-services.php' => 'svc-entertainment',
+		'template-live-services.php'          => 'svc-live',
+		'template-props-services.php'         => 'svc-props',
+	);
+}
+
+/**
  * The service body class for the current request, or '' when the page has
  * no service context.
  *
@@ -98,6 +113,11 @@ function omg_hybrid_current_service_class() {
 
 		if ( in_array( $template, omg_hybrid_studio_inner_templates(), true ) ) {
 			return 'svc-studio';
+		}
+
+		$brand_inner = omg_hybrid_brand_inner_templates();
+		if ( isset( $brand_inner[ $template ] ) ) {
+			return $brand_inner[ $template ];
 		}
 	}
 

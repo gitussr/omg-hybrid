@@ -48,72 +48,29 @@ get_template_part( 'template-parts/service-landing', null, array(
 			'icon'        => $img . 'live-svc-dj.png',
 			'title'       => 'Professional DJ Hire',
 			'description' => 'The perfect mix of charisma and technical skill. Our professional DJs provide a complete entertainment solution, arriving with premium sound systems and a massive library spanning every genre. From chill lounge vibes to high-octane dance floors, we handle the music and the tech for Corporate, Private, Wedding, and Special Events.',
-			'url'         => '#djs-dj-booth',
+			'url'         => home_url( '/omg-live/our-services/#djs-dj-booth' ),
 			'link_label'  => 'VISIT US',
 		),
 		array(
 			'icon'        => $img . 'live-svc-bands.png',
 			'title'       => 'Live Bands &amp; Musicians',
 			'description' => 'Add the unmistakable energy of live performance to your stage. Choose from acoustic soloists, jazz trios, or full-throttle party bands. We bring you Australia&rsquo;s elite musical acts &mdash; hand-picked performers who don&rsquo;t just play music, they command the stage and captivate every guest in the room.',
-			'url'         => '#live-bands',
+			'url'         => home_url( '/omg-live/our-services/#live-bands' ),
 			'link_label'  => 'VISIT US',
 		),
 		array(
 			'icon'        => $img . 'live-svc-lighting.png',
 			'title'       => 'Event Lighting Hire',
 			'description' => 'Transform your venue with a touch of light. We specialize in essential atmospheric lighting, including wireless LED uplighting and PAR cans. Whether you need to match your corporate branding or create a warm, elegant glow for a gala, our lighting solutions set the perfect mood.',
-			'url'         => '#event-lighting-hire',
+			'url'         => home_url( '/omg-live/our-services/#event-lighting-hire' ),
 			'link_label'  => 'VISIT US',
 		),
 	),
-	'rows' => array(
-		array(
-			'id'         => 'djs-dj-booth',
-			'ribbon'     => 'Professional DJ Hire',
-			'title'      => 'DJs &amp; DJ Booth',
-			'paragraph'  => 'More than just a playlist &mdash; our open-format DJs master the art of reading the room, transitioning from sophisticated lounge and jazz during cocktails to energetic dance tracks when the party peaks, all through club-standard audio and a sleek, custom-designed booth.',
-			'bullets'    => array(
-				'High-fidelity, club-standard PA systems scaled to guest count',
-				'Wireless microphones included for speeches and MC duties',
-				'Sleek, custom-designed booths matching your event aesthetic',
-			),
-			'image'      => $img . 'dj-custom-new.jpg',
-			'image_alt'  => 'DJ performing at an OMG LiVE event',
-			'link_url'   => home_url( '/contact/' ),
-			'link_label' => 'Enquire About DJ Hire',
-		),
-		array(
-			'id'         => 'event-lighting-hire',
-			'ribbon'     => 'Atmosphere By Design',
-			'title'      => 'Event Lighting Hire',
-			'paragraph'  => 'We focus on atmospheric lighting, not stadium-scale production &mdash; transforming ordinary venues into extraordinary spaces. From sophisticated warm tones for a formal gala to vibrant, colour-matched washes for a product launch, our clean, modern LED rigs run efficiently in any venue.',
-			'bullets'    => array(
-				'Wireless, cable-free LED uplighting for walls, pillars &amp; features',
-				'Static and dynamic colour options, including custom colour matching',
-				'Seamless compatibility with our DJ and live band services',
-			),
-			'image'      => $img . 'events-custom-new.jpg',
-			'image_alt'  => 'Coloured LED lighting in use at an OMG LiVE event',
-			'reverse'    => true,
-			'link_url'   => home_url( '/contact/' ),
-			'link_label' => 'Request A Lighting Quote',
-		),
-		array(
-			'id'         => 'live-bands',
-			'ribbon'     => 'Australia&rsquo;s Finest Musical Artists',
-			'title'      => 'Live Bands &amp; Musicians',
-			'paragraph'  => 'Nothing replaces the energy of a live performance. Our roster of vetted, professional session musicians and powerhouse performers ranges from acoustic soloists and jazz ensembles to full party bands and specialty performers, suited to everything from intimate dinners to large corporate galas.',
-			'bullets'    => array(
-				'Acoustic soloists &amp; duos, jazz ensembles, full party bands &amp; specialty acts',
-				'Vetted, seasoned professionals with corporate &amp; luxury event experience',
-				'Versatile, customisable setlists matched to your guest list',
-			),
-			'image'      => $img . 'omg-entertainment-banner1.jpg',
-			'image_alt'  => 'Guests enjoying live entertainment at an OMG LiVE event',
-			'link_url'   => home_url( '/contact/' ),
-			'link_label' => 'Check Artist Availability',
-		),
-	),
+	// The service detail rows are shared with /omg-live/our-services/ and
+	// live in inc/brand-services.php. Not rendered here (service-landing.php
+	// skips 'rows' — dormant since 2026-09-01), passed so the data model
+	// stays in one place.
+	'rows' => omg_hybrid_brand_services( 'live' )['rows'],
 	'why' => array(
 		'heading' => 'Why Choose OMG LiVE?',
 		'bullets' => array(

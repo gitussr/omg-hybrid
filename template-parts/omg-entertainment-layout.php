@@ -53,110 +53,11 @@ get_template_part( 'template-parts/omg-entertainment/below-hero-2', null, array(
 /* ---- Shared sections (identical in both contexts) ---- */
 
 /*
- * DORMANT (instruction 2026-09-01) — the alternating image/text "Our
- * Services" detail rows move to a dedicated services page, to be designed
- * later. Guarded off rather than deleted so the copy / images survive.
- * Do not re-enable or wire this back without new instruction.
+ * The alternating image/text "Our Services" detail rows now live on
+ * their own page — /omg-entertainment/our-services/ — built from
+ * omg_hybrid_brand_services( 'entertainment' ) (inc/brand-services.php).
+ * Nothing services-row is rendered on this landing page.
  */
-if ( false ) :
-get_template_part( 'template-parts/sections/service-rows', null, array(
-	'rows' => array(
-		array(
-			'id'         => 'casino-fun-nights',
-			'ribbon'     => 'From $999',
-			'title'      => 'Casino Fun Nights',
-			'paragraph'  => 'Full-sized, professional casino tables and entertainment-skilled croupiers, straight to your venue. Blackjack, Roulette, Poker, Craps and the Money Wheel run on premium Australian-made equipment, with guests playing for fun on unlimited chips &mdash; zero real-money risk.',
-			'bullets'    => array(
-				'Full-sized tables: Blackjack, Roulette, Poker, Baccarat, Craps, Sic Bo &amp; Money Wheel',
-				'Entertainment-skilled croupiers with 100+ years of combined experience',
-				'Optional awards ceremony to crown your top players',
-			),
-			'image'      => $img . 'omg-entertainment-banner1.jpg',
-			'image_alt'  => 'Guests celebrating at an OMG Entertainment casino night',
-			'link_url'   => home_url( '/contact/' ),
-			'link_label' => 'Enquire About Casino Fun Nights',
-		),
-		array(
-			'id'        => 'horse-racing-fun-nights',
-			'ribbon'    => 'From $1,650',
-			'title'     => 'Horse Racing Fun Nights',
-			'paragraph' => 'Skip the racecourse and bring race-day atmosphere straight to your event. Live race simulations, a professional MC and your very own bookies make for a fully customisable, dress-up-friendly experience for guests of every age.',
-			'bullets'   => array(
-				'Live race simulations with a professional MC race caller',
-				'Your own "bookies" with funny-money betting slips &amp; payouts',
-				'Optional best-dressed &amp; King/Queen of the Track awards',
-			),
-			'image'     => $img . 'omg-studio-golden-bg-2.jpg',
-			'image_alt' => 'Gold sparkle backdrop styled for an OMG Entertainment race night',
-			'reverse'   => true,
-			'link_url'   => home_url( '/contact/' ),
-			'link_label' => 'Enquire About Race Nights',
-		),
-		array(
-			'id'        => 'poker-tournaments',
-			'ribbon'    => 'From $999',
-			'title'     => 'Poker Tournaments',
-			'paragraph' => 'Check, raise or fold &mdash; from a casual social game to a full-scale professional tournament, we bring the tables, the cards and the atmosphere. Texas Hold&rsquo;Em is our signature game, with Omaha, 7 Card Stud and HORSE available on request.',
-			'bullets'   => array(
-				'Texas Hold&rsquo;Em plus Omaha, 7 Card Stud &amp; HORSE on request',
-				'No limits on time or player numbers',
-				'Professional dealers keep every table running smoothly',
-			),
-			'image'     => $img . 'events.jpg',
-			'image_alt' => 'OMG Entertainment poker table with chips and cards',
-			'link_url'   => home_url( '/contact/' ),
-			'link_label' => 'Enquire About Poker Tournaments',
-		),
-		array(
-			'id'        => 'showgirls',
-			'ribbon'    => 'Showtime Glamour',
-			'title'     => 'Showgirls',
-			'paragraph' => 'A polished, professional showtime energy for any event &mdash; from a glamorous guest welcome to a full choreographed floor show. Costuming and routines are tailored to your venue, theme and audience.',
-			'bullets'   => array(
-				'Professional, rehearsed choreography',
-				'Dazzling costuming suited to your event&rsquo;s theme',
-				'Pairs seamlessly with our Casino Fun Nights',
-			),
-			'image'     => $img . 'omg-studio-golden-bg-3.jpg',
-			'image_alt' => 'Glamorous performers at an OMG Entertainment event',
-			'reverse'   => true,
-			'link_url'   => home_url( '/contact/' ),
-			'link_label' => 'Enquire About Showgirls',
-		),
-		array(
-			'id'        => 'magicians',
-			'ribbon'    => 'From $880',
-			'title'     => 'Magicians',
-			'paragraph' => 'Light-hearted, jaw-dropping magic that gets every guest talking &mdash; from table-to-table close-up tricks to a polished 30-minute stage show. Family-friendly and built around genuine guest interaction.',
-			'bullets'   => array(
-				'Roving close-up magic, perfect for mingling events',
-				'A 30-minute magic stage show for the whole room',
-				'Flexible booking, from one hour to a full evening',
-			),
-			'image'     => $img . 'omg-studio-golden-bg.jpg',
-			'image_alt' => 'Gold sparkle backdrop styled for an OMG Entertainment magic show',
-			'link_url'   => home_url( '/contact/' ),
-			'link_label' => 'Enquire About Magicians',
-		),
-		array(
-			'id'        => 'elvis-mj-impersonators',
-			'ribbon'    => 'Legendary Tributes',
-			'title'     => 'Elvis &amp; MJ Impersonators',
-			'paragraph' => 'Two of the world&rsquo;s most iconic performers, brought to life for your event. Our Elvis and Michael Jackson tribute performers deliver showstopping vocals, unmistakable costuming and choreography, tailored to your run sheet.',
-			'bullets'   => array(
-				'The Elvis Experience &mdash; classic costuming &amp; unmistakable vocals',
-				'The Michael Jackson Experience &mdash; iconic choreography',
-				'Sing-along &amp; interactive moments that get guests on the floor',
-			),
-			'image'     => $img . 'roaming-photography.jpg',
-			'image_alt' => 'Tribute performer greeting a guest at an OMG Entertainment event',
-			'reverse'   => true,
-			'link_url'   => home_url( '/contact/' ),
-			'link_label' => 'Enquire About Tribute Acts',
-		),
-	),
-) );
-endif;
 
 get_template_part( 'template-parts/sections/why-choose', null, array(
 	'heading' => 'Why Choose OMG Entertainment?',

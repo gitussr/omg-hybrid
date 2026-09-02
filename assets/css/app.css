@@ -342,6 +342,16 @@
 	color: var(--on-primary);
 }
 
+/* Same problem for the service-row headings + bullet markers on the
+   Props "Our Services" page — pale yellow on white is unreadable. */
+.svc-props .oh-service-row__body h2 {
+	color: var(--on-primary);
+}
+
+.svc-props .oh-service-row__body ul li::before {
+	background: var(--on-primary);
+}
+
 /* ------------------------------------------------------------------ */
 /*  Other Services (up to 3 cards)                                     */
 /* ------------------------------------------------------------------ */
@@ -1196,7 +1206,7 @@ a.oh-division-card:hover {
 	right: 0;
 	bottom: 0;
 	width: min(340px, 30vw);
-	z-index: 1;
+	z-index: 111;
 	pointer-events: none;
 }
 
