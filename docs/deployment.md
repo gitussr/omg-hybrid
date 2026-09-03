@@ -131,9 +131,16 @@ markers (so Permalinks re-saves don't wipe it):
 - `RewriteRule "(^|/)\.(?!well-known)" - [F,L]` — 403s any dot-file / dot-dir,
   so `/wp-content/themes/omg-hybrid/.git/…` is no longer downloadable.
   *OMG-QA-001*
-- `<FilesMatch>` denies `.md .sql .log .bak .wpress …`, plugin/theme
+- denies dumps / backups / editor-swap files (`.sql .bak .wpress .swp …`)
+  everywhere **except** `/wp-content/ai1wm-backups/` (All-in-One WP Migration
+  serves `.wpress` downloads from there; that folder already has `-Indexes`
+  and random filenames). Also denies `.md .log .inc`, plugin/theme
   `readme.(html|txt)`, `changelog.txt`, `license.txt`, `wp-config-sample.php`,
   `master-prompt.md`, `composer.*`, `package*.json`. *OMG-QA-009*
+  → **Delete `.wpress` archives after downloading** and deactivate
+  `aam-wp-migration` when not actively migrating — an undeleted export in
+  `ai1wm-backups/` is a full site+DB dump reachable by anyone who knows the
+  (random) URL.
 
 The production host should enforce the equivalent in the server/vhost config
 too (don't rely on `.htaccess` alone), and **deploy without the `.git`
