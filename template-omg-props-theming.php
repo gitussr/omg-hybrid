@@ -23,7 +23,11 @@ get_template_part( 'template-parts/service-landing', null, array(
 		'title'       => 'Set The Scene Before A Single Guest Arrives',
 		'description' => 'Casino props, grand entrances, theme walls, furniture and AV tech &mdash; the styling and equipment that sets the scene before a single guest arrives.',
 		'cta'         => array( 'url' => home_url( '/contact/' ), 'label' => 'Get a Free Quote' ),
-		'slides'      => array( array( 'type' => 'image', 'url' => $img . 'props-custom-new.jpg' ) ),
+		'slides'      => array(
+			array( 'type' => 'image', 'url' => $img . 'props-custom-new.jpg' ),
+			array( 'type' => 'image', 'url' => $img . 'events-custom-new.jpg' ),
+			array( 'type' => 'image', 'url' => $img . 'hero-bg-2.jpg' ),
+		),
 	),
 	'welcome' => array(
 		// TODO: placeholder copy &amp; image — replace with the real Props &amp; Theming welcome content.

@@ -24,7 +24,11 @@ get_template_part( 'template-parts/service-landing', null, array(
 		'title'       => 'Read The Room. Keep It Moving.',
 		'description' => 'Elite DJs, atmospheric lighting and unforgettable live bands &mdash; club-standard sound and production that reads the room and keeps it moving.',
 		'cta'         => array( 'url' => home_url( '/contact/' ), 'label' => 'Check Availability' ),
-		'slides'      => array( array( 'type' => 'image', 'url' => $img . 'omg-live-hero.jpg' ) ),
+		'slides'      => array(
+			array( 'type' => 'image', 'url' => $img . 'omg-live-hero.jpg' ),
+			array( 'type' => 'image', 'url' => $img . 'welcome-live.jpg' ),
+			array( 'type' => 'image', 'url' => $img . 'dj-custom-new.jpg' ),
+		),
 	),
 	'welcome' => array(
 		'heading'     => 'Welcome to OMG LiVE',

@@ -30,9 +30,10 @@ $multi       = count($slides) > 1;
 
 	<div class="oh-hero__slider swiper" aria-hidden="true">
 		<div class="swiper-wrapper">
-			<?php foreach ($slides as $slide) :
-				$type = ($slide['type'] ?? 'image') === 'video' ? 'video' : 'image';
-				$url  = $slide['url'] ?? '';
+			<?php foreach ($slides as $i => $slide) :
+				$type  = ($slide['type'] ?? 'image') === 'video' ? 'video' : 'image';
+				$url   = $slide['url'] ?? '';
+				$first = 0 === $i;
 			?>
 				<div class="swiper-slide">
 					<?php if ($url && 'video' === $type) : ?>
@@ -41,7 +42,8 @@ $multi       = count($slides) > 1;
 							<source src="<?php echo esc_url($url); ?>" type="video/mp4">
 						</video>
 					<?php elseif ($url) : ?>
-						<img class="oh-hero__media" src="<?php echo esc_url($url); ?>" alt="" loading="eager" fetchpriority="high">
+						<img class="oh-hero__media" src="<?php echo esc_url($url); ?>" alt="" loading="eager"
+							<?php if ($first) : ?>fetchpriority="high"<?php endif; ?>>
 					<?php endif; ?>
 				</div>
 			<?php endforeach; ?>

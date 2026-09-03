@@ -24,7 +24,11 @@ get_template_part( 'template-parts/service-landing', null, array(
 		'title'       => 'Ready? Set? Pose!',
 		'description' => 'We bring the laughter, fun and excitement to every event &mdash; one click at a time. Photo booths, video booths, photography and videography, in whatever format suits your event best.',
 		'cta'         => array( 'url' => home_url( '/contact/' ), 'label' => 'Get a Free Quote' ),
-		'slides'      => array( array( 'type' => 'image', 'url' => $img . 'omg-studio-display.jpg' ) ),
+		'slides'      => array(
+			array( 'type' => 'image', 'url' => $img . 'omg-studio-display.jpg' ),
+			array( 'type' => 'image', 'url' => $img . 'hero-bg-4.jpg' ),
+			array( 'type' => 'image', 'url' => $img . 'omg-studio-golden-bg-3.jpg' ),
+		),
 	),
 	'welcome' => array(
 		'heading'    => 'Welcome to OMG Studio',
