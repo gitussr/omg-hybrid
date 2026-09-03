@@ -161,9 +161,13 @@ plugin count 13 → 12. **Delete the plugin folder before production.**
   Stock file saved at `etc/apache2/_no-default-site/00-default.conf.bak`.
   **Needs an Apache reload to take effect.** *OMG-QA-004*
 - `bin/mysql/mysql-8.4.3-winx64/my.ini` — added `bind-address=127.0.0.1`
-  under `[mysqld]` (was `0.0.0.0:3306`, root / no password, LAN-reachable).
-  **Needs a MySQL restart to take effect.** Also set a `root` password and a
-  least-privilege WP DB user for any non-loopback scenario. *OMG-QA-005*
+  **and** `mysqlx-bind-address=127.0.0.1` under `[mysqld]` (classic protocol
+  was on `0.0.0.0:3306`, X Protocol on `0.0.0.0:33060` — both root / no
+  password, LAN-reachable). Verified 2026-09-03 after reload: 3306 is
+  loopback-only and refuses LAN connections; **33060 still needs one more
+  MySQL restart** to pick up `mysqlx-bind-address`. Also set a `root`
+  password and a least-privilege WP DB user for any non-loopback scenario.
+  *OMG-QA-005*
 
 Still open (Medium+, not yet done): Host-header-derived `WP_HOME`/`WP_SITEURL`
 in `wp-config.php`, user-enumeration lockdown, XML-RPC, pending plugin/core
