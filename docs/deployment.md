@@ -116,6 +116,55 @@ so step 1 alone re-themes the panel headings, links and active markers.
 
 ---
 
+## Security hardening (QA audit 2026-09-03)
+
+A full QA / security audit was run against the local install. High-severity
+fixes applied so far — **carry these to staging / production**:
+
+### Web-root `.htaccess` (`C:\laragon\www\omg-hybrid\.htaccess`, not theme-tracked)
+
+A `# BEGIN OMG Hybrid hardening` block was added **above** the WordPress
+markers (so Permalinks re-saves don't wipe it):
+
+- `Options -Indexes` — kills directory listing everywhere (was exposing
+  `/wp-content/uploads/`, `/wp-includes/`, theme `/assets/`, …). *OMG-QA-002*
+- `RewriteRule "(^|/)\.(?!well-known)" - [F,L]` — 403s any dot-file / dot-dir,
+  so `/wp-content/themes/omg-hybrid/.git/…` is no longer downloadable.
+  *OMG-QA-001*
+- `<FilesMatch>` denies `.md .sql .log .bak .wpress …`, plugin/theme
+  `readme.(html|txt)`, `changelog.txt`, `license.txt`, `wp-config-sample.php`,
+  `master-prompt.md`, `composer.*`, `package*.json`. *OMG-QA-009*
+
+The production host should enforce the equivalent in the server/vhost config
+too (don't rely on `.htaccess` alone), and **deploy without the `.git`
+directory** and without `docs/` / `README.md` / `master-prompt.md`.
+
+### `wp-file-manager` — DEACTIVATED
+
+`deactivate_plugins('wp-file-manager/file_folder_manager.php')` — active
+plugin count 13 → 12. **Delete the plugin folder before production.**
+*OMG-QA-003*
+
+### Local Laragon environment (dev machine only — not part of the app)
+
+- `etc/apache2/sites-enabled/00-default.conf` rewritten: the catch-all
+  `_default_:80` vhost now points at an empty docroot with
+  `Require all denied` instead of serving `C:\laragon\www` with indexing
+  (unknown `Host:` headers were browsing every sibling project + archives).
+  Stock file saved at `etc/apache2/_no-default-site/00-default.conf.bak`.
+  **Needs an Apache reload to take effect.** *OMG-QA-004*
+- `bin/mysql/mysql-8.4.3-winx64/my.ini` — added `bind-address=127.0.0.1`
+  under `[mysqld]` (was `0.0.0.0:3306`, root / no password, LAN-reachable).
+  **Needs a MySQL restart to take effect.** Also set a `root` password and a
+  least-privilege WP DB user for any non-loopback scenario. *OMG-QA-005*
+
+Still open (Medium+, not yet done): Host-header-derived `WP_HOME`/`WP_SITEURL`
+in `wp-config.php`, user-enumeration lockdown, XML-RPC, pending plugin/core
+updates, salts in `wp-config`, `DISALLOW_FILE_EDIT`, response headers. See the
+audit report.
+
+---
+
 ## Service landing pages
 
 | Page | Route | `_wp_page_template` | Palette body class |
