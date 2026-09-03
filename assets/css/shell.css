@@ -858,7 +858,9 @@ body.oh-theme {
 .book-select,
 .book-input {
 	width: 100%;
-	border: 1px solid #d4d4d4;
+	/* Resting border carries a hint of the active service palette so the
+	   form reads as themed (red / cyan / purple / yellow) even at rest. */
+	border: 1px solid color-mix(in srgb, var(--color-primary) 40%, #cfcfcf);
 	border-radius: 7px;
 	padding: 10px 13px;
 	font-family: var(--primary-font);
@@ -867,12 +869,13 @@ body.oh-theme {
 	background: #fff;
 	box-sizing: border-box;
 	outline: none;
-	transition: border-color 0.2s;
+	transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .book-select:focus,
 .book-input:focus {
-	border-color: var(--primary-solid-color);
+	border-color: var(--color-primary);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 22%, transparent);
 }
 
 .book-select {
@@ -892,8 +895,8 @@ body.oh-theme {
 
 .book-btn-primary {
 	width: 100%;
-	background: var(--primary-solid-color);
-	color: #fff;
+	background: var(--color-primary);
+	color: var(--on-primary);
 	border: none;
 	border-radius: 7px;
 	padding: 14px;
@@ -904,11 +907,12 @@ body.oh-theme {
 	letter-spacing: 0.05em;
 	cursor: pointer;
 	margin-top: 6px;
-	transition: background 0.2s;
+	transition: background 0.2s, filter 0.2s;
 }
 
 .book-btn-primary:hover {
-	background: var(--secondary-color);
+	background: var(--color-primary);
+	filter: brightness(0.9);
 }
 
 .book-step2-actions {
@@ -921,7 +925,7 @@ body.oh-theme {
 	flex: 1;
 	background: #fff;
 	color: #333;
-	border: 1.5px solid #ccc;
+	border: 1.5px solid color-mix(in srgb, var(--color-primary) 45%, #cccccc);
 	border-radius: 7px;
 	padding: 13px;
 	font-family: var(--primary-font);
@@ -932,14 +936,14 @@ body.oh-theme {
 }
 
 .book-btn-back:hover {
-	background: #f5f5f5;
-	border-color: #aaa;
+	background: color-mix(in srgb, var(--color-primary) 8%, #ffffff);
+	border-color: var(--color-primary);
 }
 
 .book-btn-submit {
 	flex: 1.5;
-	background: var(--primary-solid-color);
-	color: #fff;
+	background: var(--color-primary);
+	color: var(--on-primary);
 	border: none;
 	border-radius: 7px;
 	padding: 13px;
@@ -949,7 +953,11 @@ body.oh-theme {
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
 	cursor: pointer;
-	transition: background 0.2s;
+	transition: background 0.2s, filter 0.2s;
+}
+
+.book-btn-submit:hover {
+	filter: brightness(0.9);
 }
 
 .book-btn-primary:disabled,
@@ -969,8 +977,8 @@ body.oh-theme {
 .book-spinner {
 	width: 14px;
 	height: 14px;
-	border: 2px solid rgba(255, 255, 255, 0.4);
-	border-top-color: #fff;
+	border: 2px solid color-mix(in srgb, var(--on-primary) 40%, transparent);
+	border-top-color: var(--on-primary);
 	border-radius: 50%;
 	display: inline-block;
 	animation: book-spin 0.7s linear infinite;
@@ -990,8 +998,8 @@ body.oh-theme {
 .book-success-icon {
 	width: 56px;
 	height: 56px;
-	background: var(--primary-solid-color);
-	color: #fff;
+	background: var(--color-primary);
+	color: var(--on-primary);
 	border-radius: 50%;
 	font-size: 26px;
 	display: flex;
@@ -1060,7 +1068,7 @@ body.oh-theme {
 	width: 100%;
 	height: 100%;
 	fill: none;
-	stroke: var(--primary-solid-color);
+	stroke: var(--color-primary);
 	stroke-width: 2;
 	stroke-linecap: round;
 	stroke-linejoin: round;
@@ -1080,9 +1088,9 @@ body.oh-theme {
 	padding: 6px;
 	list-style: none;
 	background: #fff;
-	border: 1px solid var(--primary-solid-color);
+	border: 1px solid var(--color-primary);
 	border-radius: 8px;
-	box-shadow: 0px 9px 20px 0px rgb(191 37 37 / 18%);
+	box-shadow: 0px 9px 20px 0px color-mix(in srgb, var(--color-primary) 18%, transparent);
 	display: none;
 	box-sizing: border-box;
 }
@@ -1103,8 +1111,8 @@ body.oh-theme {
 
 .time-select-list li.is-active,
 .time-select-list li:hover {
-	background-color: var(--primary-solid-color);
-	color: #fff;
+	background-color: var(--color-primary);
+	color: var(--on-primary);
 }
 
 .time-select-list li.is-selected {
@@ -1126,7 +1134,7 @@ body.oh-theme {
 }
 
 .time-select-list::-webkit-scrollbar-thumb {
-	background-color: var(--primary-solid-color);
+	background-color: var(--color-primary);
 	border-radius: 10px;
 }
 
