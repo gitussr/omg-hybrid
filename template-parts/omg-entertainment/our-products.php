@@ -13,6 +13,8 @@
  *   exclude  string[]  card keys to leave out: 'casino' | 'horse-racing' |
  *                      'poker' | 'race-n-roll'. Keys, not URLs — Race 'n'
  *                      Roll shares the horse racing URL but is its own product.
+ *   heading  string    section title (default 'Our Products'). The fun-night
+ *                      pages pass 'Other Products' (client task-014).
  *
  * @package omg-hybrid
  */
@@ -20,6 +22,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $exclude = (array) ( $args['exclude'] ?? array() );
+$heading = $args['heading'] ?? 'Our Products';
 $icon    = OMG_HYBRID_URI . '/assets/images';
 
 $cards = array(
@@ -81,7 +84,7 @@ $cards = array(
 );
 
 get_template_part( 'template-parts/sections/service-cards', null, array(
-	'heading' => 'Our Products',
+	'heading' => $heading,
 	'intro'   => 'Spin the wheel, cheer home a winner, play the final hand or roll the dice in Race \'n\' Roll. Every experience is built to get guests playing. Explore below and book yours today.',
 	'cards'   => array_values( array_diff_key( $cards, array_flip( $exclude ) ) ),
 	'variant' => 'framed',

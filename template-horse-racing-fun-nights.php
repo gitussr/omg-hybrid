@@ -122,9 +122,12 @@
 <!-- =====our products section start===== -->
 <?php
 // "Our Products" from the /omg-entertainment/ landing, minus this page's
-// own card (client task-009, 2026-10-01). Legacy-layer styles: end of
-// legacy-styles.css.
-get_template_part( 'template-parts/omg-entertainment/our-products', null, array( 'exclude' => array( 'horse-racing' ) ) );
+// own card (client task-009, 2026-10-01), titled "Other Products" here
+// (client task-014). Legacy-layer styles: end of legacy-styles.css.
+get_template_part( 'template-parts/omg-entertainment/our-products', null, array(
+	'exclude' => array( 'horse-racing' ),
+	'heading' => 'Other Products',
+) );
 ?>
 <!-- =====our products section end===== -->
 
