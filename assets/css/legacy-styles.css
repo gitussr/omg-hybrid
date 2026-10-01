@@ -262,6 +262,22 @@ header .whatsapp-link svg {
   bottom: var(--swiper-pagination-bottom, 25px);
 }
 
+/* Flat, low-opacity black scrim over a bright banner (client 2026-09-23,
+   horse racing). Separate from .hero-gradient, which is a much heavier
+   bottom-weighted gradient used by the contact/photography heroes — this
+   one only knocks the brightness back so the white heading stays legible.
+   z-index -1 keeps it behind .container, matching .hero-gradient. */
+.hero-section .single-slide.hero-scrim::after {
+  background: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  z-index: -1;
+}
+
 .hero-section .single-slide.hero-gradient::after {
   background: linear-gradient(0,
       rgba(236, 236, 236, 0) 0%,
@@ -400,6 +416,29 @@ header .whatsapp-link svg {
 
 .who-we-are-section .box-container .box {
   color: var(--dark-color);
+}
+
+/* "Perfect For Every Occasion" event-types cards (horse-racing, casino,
+   poker, …): rounded corners like the new-theme cards, and much tighter
+   vertical spacing — the stock icon-wrapper / margins left big empty gaps
+   (client 2026-09-08). */
+.who-we-are-section.event-types-section .heading [class^="title-"] {
+  margin-bottom: clamp(12px, 1.2vw, 20px);
+}
+.who-we-are-section.event-types-section .heading p {
+  margin-bottom: clamp(26px, 3vw, 48px);
+}
+.who-we-are-section.event-types-section .box-container .box {
+  border-radius: 8px;
+}
+.who-we-are-section.event-types-section .box-container .box .icon-wrapper {
+  height: clamp(44px, 3.2vw, 58px);
+}
+.who-we-are-section.event-types-section .box-container .box h3 {
+  margin-top: clamp(10px, 1vw, 16px);
+}
+.who-we-are-section.event-types-section .box-container .box p {
+  margin-top: clamp(8px, 0.9vw, 14px);
 }
 
 .who-we-are-section.omg-studio .box-container .box {
@@ -681,36 +720,63 @@ header .whatsapp-link svg {
 }
 
 /* ----------- CTA Section Start ----------- */
+/* Layout mirrors the hybrid `.oh-cta` band (app.css): a centred, contained
+   card capped at 1024px, 12px radius, section-y padding and a 50px bottom
+   gap, with an fs-h2 serif heading and fs-lead copy. Only the colour stays
+   legacy — the panel keeps the red --primary-solid-color (client request:
+   match oh-cta size/layout, keep the red). shell.css tokens are available
+   here because it loads on these legacy pages too. */
 .cta-section {
-  padding-block: clamp(45px, 5.208vw, 100px);
+  padding-block: var(--section-y, clamp(44px, 5vw, 88px));
 }
 
 .cta-section .main-block {
   background-color: var(--primary-solid-color);
-  padding: clamp(28px, 2.865vw, 55px);
-  border-radius: 4px;
+  padding: var(--section-y, clamp(44px, 5vw, 88px)) clamp(24px, 4vw, 64px);
+  border-radius: var(--radius, 12px);
+  max-width: 1024px;
+  margin-inline: auto;
+  margin-bottom: 50px;
+  text-align: center;
 }
 
 .cta-section [class^="title-"] {
   color: var(--light-color-1, #FFFFFF);
   text-align: center;
-  max-width: 950px;
-  margin: 0 auto;
-  font-size: var(--uc-font-size-30);
-}
-
-.cta-section .btn-group {
-  margin-top: clamp(28px, 2.865vw, 55px);
-  display: flex;
-  justify-content: center;
-  gap: clamp(14px, 1.042vw, 20px);
+  max-width: 55ch;
+  margin: 0 auto 0.4em;
+  font-family: var(--font-display, 'Noto Serif', Georgia, 'Times New Roman', serif);
+  font-size: var(--fs-h2, clamp(28px, 3vw, 50px));
+  text-transform: uppercase;
 }
 
 .cta-section p {
-  font-size: var(--uc-font-size-18);
+  font-size: var(--fs-lead, clamp(17px, 1.3vw, 21px));
   text-align: center;
-  margin-top: clamp(13px, 1.302vw, 25px);
+  max-width: 55ch;
+  margin: 0 auto 1.5em;
   color: var(--light-color-1, #FFFFFF);
+}
+
+.cta-section .btn-group {
+  margin-top: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+/* Pill buttons matching .oh-btn--outline proportions; transparent over the
+   red panel reads the same as the old solid-red fill, just at oh-cta sizing. */
+.cta-section .primary-btn-outline {
+  background: transparent;
+  color: var(--light-color-1, #FFFFFF);
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  gap: 8px;
+  padding: clamp(11px, 0.9vw, 15px) clamp(18px, 1.6vw, 28px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
 /* ----------- CTA Section End ----------- */
@@ -1211,11 +1277,46 @@ footer .bottom-block::after {
 .hero-section.inner-page .single-slide {
   display: flex;
   align-items: center;
+  /* The base rule adds ~70px padding-block on top of the 670px height
+     (content-box), so legacy inner heroes rendered ~125px taller than the
+     new-theme .oh-hero on the home / brand pages. Drop the padding so the
+     height matches (client 2026-09-08); the content is flex-centred so it
+     still has breathing room. */
+  padding-block: 0;
 }
 
 .inner-top-section-style-1 {
   padding-block: clamp(36px, 4.167vw, 80px) clamp(23px, 2.344vw, 45px);
   background-color: var(--light-color-2);
+}
+
+/* Horse Racing Fun Nights: animated racehorse GIF with "Giddy Up" beside it,
+   under the intro heading (client 2026-09-25). GIF kept at its native
+   116x57 so it doesn't blur. */
+.inner-top-section-style-1 .left-block .giddy-up {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: clamp(14px, 1.25vw, 24px);
+}
+
+.inner-top-section-style-1 .left-block .giddy-up img {
+  display: block;
+  width: 116px;
+  height: auto;
+  flex: none;
+  /* The GIF has an opaque white background; multiply lets the section's
+     tint show through the white instead of a white box. */
+  mix-blend-mode: multiply;
+}
+
+.inner-top-section-style-1 .left-block .giddy-up__text {
+  font-family: var(--secondary-font);
+  font-size: clamp(22px, 1.667vw, 32px);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--dark-color);
 }
 
 .inner-top-section-style-1 .left-block p {
@@ -1228,6 +1329,20 @@ footer .bottom-block::after {
   margin-top: clamp(43px, 4.948vw, 75px);
   width: 100%;
   aspect-ratio: 1 / 0.398;
+}
+
+/* Video in that slot instead of a still (client 2026-09-23): the image
+   ratio (1/0.398) is far wider than a 16:9 player, and the iframe has to
+   fill the wrapper rather than keep its own 640x360 attributes. */
+.inner-top-section-style-1 .left-block .img-wrapper--video {
+  aspect-ratio: 16 / 9;
+}
+
+.inner-top-section-style-1 .left-block .img-wrapper--video iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 .inner-top-section-style-1 .right-block ul li h4 {
@@ -1801,14 +1916,64 @@ footer .bottom-block::after {
     display: none;
 }
 
+/* "Choose a service (Required)" heading (HTML field 82) — set in the same
+   font as the other field labels, with "(Required)" matching their red
+   required markers (client 2026-09-25). Uses Gravity Forms' own label
+   variables so it tracks the form theme. */
+.form-section-widget #field_1_82 h3 {
+    color: var(--gf-ctrl-label-color-primary);
+    font-family: var(--gf-ctrl-label-font-family-primary);
+    font-size: var(--gf-ctrl-label-font-size-primary);
+    font-style: var(--gf-ctrl-label-font-style-primary);
+    font-weight: var(--gf-ctrl-label-font-weight-primary);
+    letter-spacing: var(--gf-ctrl-label-letter-spacing-primary);
+    line-height: var(--gf-ctrl-label-line-height-primary);
+    text-transform: none;
+}
+
+/* The heading is its own grid row, so Gravity Forms' full 40px row gap
+   (--gf-form-gap-y) sat between it and the division blocks, where every
+   other label is 8px (--gf-label-space-primary) above its field (client
+   2026-10-01). The 8px is measured to the gold group outline, which is
+   the "field" here: custom.js draws it 16px (its PAD) outside the blocks,
+   hence the + 16px. */
+.form-section-widget #field_1_82 {
+    margin-bottom: calc(var(--gf-label-space-primary, 8px) + 16px - var(--gf-form-gap-y, 40px));
+}
+
+.form-section-widget #field_1_82 h3 > span {
+    display: inline-block;
+    color: var(--gf-ctrl-label-color-req, #c02b0a);
+    font-family: var(--gf-ctrl-label-font-family-req);
+    font-size: var(--gf-ctrl-label-font-size-req);
+    font-style: var(--gf-ctrl-label-font-style-req);
+    font-weight: var(--gf-ctrl-label-font-weight-req);
+    letter-spacing: var(--gf-ctrl-label-letter-spacing-req);
+    line-height: var(--gf-ctrl-label-line-height-req);
+}
+
+/* Each division block is framed in the same darkened tone its checkbox
+   borders already use below, so the fieldset and its contents read as one
+   colour (client 2026-09-22). The tone is derived from that block's own
+   background, matching the light-tint + dark-border treatment the Our
+   Services / Other Services cards carry. */
 .form-section-widget fieldset#field_1_72 {
     background-color: #FFC9C5;
+    border: 1px solid #A32E2E;
     border-radius: 5px;
     padding: 20px;
 }
 
+/* OMG Entertainment fieldset was the only one missing a checkbox-border
+   override, so it fell back to the svc-group gold --primary-solid-color,
+   invisible on the salmon fill (client 2026-09-08). */
+.contact-page-forms .gform-body fieldset#field_1_72 .ginput_container input {
+    border: 1px solid #A32E2E !important;
+}
+
 .form-section-widget fieldset#field_1_66 {
     background-color: #CAFFFF;
+    border: 1px solid #3d8989;
     border-radius: 5px;
     padding: 20px;
 }
@@ -1819,6 +1984,7 @@ footer .bottom-block::after {
 
 .form-section-widget fieldset#field_1_79 {
     background-color: #E4C8E4;
+    border: 1px solid #924b92;
     border-radius: 5px;
     padding: 20px;
 }
@@ -1829,12 +1995,112 @@ footer .bottom-block::after {
 
 .form-section-widget fieldset#field_1_81 {
     background-color: #FFFFCA;
+    border: 1px solid #adad47;
     border-radius: 5px;
     padding: 20px;
 }
 
 .contact-page-forms .gform-body fieldset#field_1_81 .ginput_container input {
     border: 1px solid #adad47 !important;
+}
+
+/* OMG Food & Beverage (field 83, added 2026-09-25). No client hex exists
+   for this division: the fill is the same derived #FFE4C8 tint the F&B
+   division card uses, framed in a darkened tone of its brand orange
+   (#F28C1E) like the other four blocks. Half width like the others; as the
+   odd fifth block it sits alone on its row. */
+.form-section-widget fieldset#field_1_83 {
+    background-color: #FFE4C8;
+    border: 1px solid #b8650f;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.contact-page-forms .gform-body fieldset#field_1_83 .ginput_container input {
+    border: 1px solid #b8650f !important;
+}
+
+/* Gravity Forms' grid would otherwise pull Inquiry Type (field 52) up into
+   the empty half beside the F&B block and shift every field after it out
+   of its pair. Starting it in column 1 puts it on a fresh row. Desktop
+   only: below 640px every field is full width, and this rule was leaving
+   Inquiry Type at half width on phones (fixed 2026-09-30). */
+@media (min-width: 640px) {
+    .gform_wrapper .gform_fields #field_1_52 {
+        grid-column: 1 / span 6;
+    }
+}
+
+/* Mobile field pairs (client task-007, 2026-09-30). Below Gravity Forms'
+   640px breakpoint every field goes full width; these keep a few of them
+   side by side on phones:
+     Start Time (64) | End Time (65)
+     Event Address (69)            full
+     Suburb (70)                   full
+     Event State (57) | Postcode (71)
+   Desktop is unchanged. The grid has no column gap on mobile (every
+   field was full width), so the desktop 16px gap is restored to keep the
+   paired boxes apart. */
+@media (max-width: 639px) {
+    .gform_wrapper .gform_fields#gform_fields_1 {
+        column-gap: 16px;
+    }
+
+    .gform_wrapper .gform_fields #field_1_64,
+    .gform_wrapper .gform_fields #field_1_57 {
+        grid-column: 1 / span 6;
+    }
+
+    .gform_wrapper .gform_fields #field_1_65,
+    .gform_wrapper .gform_fields #field_1_71 {
+        grid-column: 7 / span 6;
+    }
+
+    .gform_wrapper .gform_fields #field_1_69,
+    .gform_wrapper .gform_fields #field_1_70 {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Shared gold outline framing the 5 division fieldsets above as one group
+   (client 2026-09-29). Sized/positioned by JS (legacy/custom.js) from
+   their actual rendered bounding box, not by CSS layout, so it works
+   whatever column count Gravity Forms' own responsive grid collapses to. */
+.oh-division-fields-frame {
+    position: absolute;
+    border: 1px solid #EECD92;
+    box-sizing: border-box;
+    border-radius: 10px;
+    pointer-events: none;
+}
+
+/* The 20px side margins on the 5 division fieldsets only make sense in
+   Gravity Forms' 2-column half-width layout — below its own 640px
+   breakpoint (gravity-forms-theme-framework.min.css) every field goes
+   full-width/stacked, and a one-sided margin there just staggers each
+   box left/right instead of lining them up (client 2026-09-29). */
+@media (min-width: 640px) {
+    .form-section-widget fieldset#field_1_72,
+    .form-section-widget fieldset#field_1_79,
+    .form-section-widget fieldset#field_1_83 {
+        margin-left: 20px;
+    }
+
+    .form-section-widget fieldset#field_1_66,
+    .form-section-widget fieldset#field_1_81 {
+        margin-right: 20px;
+    }
+}
+
+@media (max-width: 639px) {
+    .form-section-widget fieldset#field_1_72,
+    .form-section-widget fieldset#field_1_66,
+    .form-section-widget fieldset#field_1_79,
+    .form-section-widget fieldset#field_1_81,
+    .form-section-widget fieldset#field_1_83 {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
 }
 
 
@@ -2344,7 +2610,7 @@ header .top-bar .main-block .contact-btn {
 }
 
 .privacy-policy .innerPage .heading h1 {
-  font-family: 'Beautique Display';
+  font-family: 'Noto Serif', Georgia, serif;
   font-size: var(--uc-font-size-41);
   font-weight: 700;
   color: var(--dark-color);
@@ -2668,3 +2934,934 @@ header .top-bar .main-block .contact-btn {
 	outline-color: #3788D5 !important;
 }
 
+
+/* ------------------------------------------------------------------ */
+/*  Logo grid (sections/marquee.php) on legacy pages — casino, poker,  */
+/*  horse racing (client 2026-09-17). Mirrors the .oh-logo-grid rules  */
+/*  in app.css, which is not loaded on the legacy layer.               */
+/* ------------------------------------------------------------------ */
+.oh-logo-grid {
+	padding-block: clamp(32px, 4vw, 56px);
+}
+
+.oh-logo-grid h2 {
+	text-align: center;
+	font-family: var(--font-display);
+	font-size: var(--fs-h3);
+	text-transform: unset;
+	margin: 0 0 28px;
+}
+
+.oh-logo-grid__list {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0;
+	padding: 1px 0 0 1px;
+	list-style: none;
+}
+
+.oh-logo-grid__item {
+	box-sizing: border-box;
+	flex: 0 0 calc(100% / 6);
+	min-width: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 150px;
+	margin: -1px 0 0 -1px;
+	padding: 0 35px;
+	border: 1px solid rgb(0 0 0 / 8%);
+}
+
+.oh-logo-grid__logo {
+	display: block;
+	width: 100%;
+	max-width: 150px;
+	height: auto;
+	/* Kept for the un-initialised fallback grid only — inside the slider
+	   Swiper's transformed .swiper-wrapper opens a stacking context, so the
+	   logo has no backdrop to blend with. The client logos are stored with
+	   real transparency instead (background stripped 2026-09-23). */
+	mix-blend-mode: darken;
+	transition: transform .35s ease;
+}
+
+.oh-logo-grid__item:hover .oh-logo-grid__logo {
+	transform: scale(1.1);
+}
+
+@media (max-width: 991px) {
+	.oh-logo-grid__item {
+		flex-basis: 25%;
+	}
+}
+
+@media (max-width: 767px) {
+	.oh-logo-grid__item {
+		flex-basis: 50%;
+		min-height: 120px;
+		padding: 0 20px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.oh-logo-grid__logo {
+		transition: none;
+	}
+}
+
+/* ------------------------------------------------------------------ */
+/*  "Why Choose" band (sections/why-choose.php) on legacy pages —      */
+/*  casino, poker, horse racing (client 2026-09-17). Mirrors the       */
+/*  .oh-why rules in app.css (not loaded on the legacy layer) plus the */
+/*  body.oh-theme base typography it inherits there, so the band       */
+/*  renders identically to the OMG Entertainment landing. Scoped under */
+/*  body.oh-legacy to out-specify legacy-base.css's element resets.    */
+/* ------------------------------------------------------------------ */
+body.oh-legacy .oh-why {
+	padding-block: var(--section-y);
+	background: var(--color-primary);
+	color: var(--on-primary);
+	text-align: center;
+	font-family: var(--font-body);
+	font-size: var(--fs-body);
+	line-height: 1.6;
+}
+
+body.oh-legacy .oh-why h2 {
+	font-family: var(--font-display);
+	font-size: var(--fs-h2);
+	font-weight: 400;
+	line-height: 1.15;
+	text-transform: uppercase;
+	color: inherit;
+	margin: 0 0 clamp(20px, 3vw, 36px);
+}
+
+body.oh-legacy .oh-why__lists {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: clamp(16px, 3vw, 48px);
+	max-width: 900px;
+	margin: 0 auto clamp(24px, 3vw, 36px);
+	text-align: left;
+}
+
+body.oh-legacy .oh-why__lists ul {
+	display: grid;
+	gap: 12px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+body.oh-legacy .oh-why__lists li {
+	position: relative;
+	padding-left: 30px;
+	font-size: inherit;
+	line-height: inherit;
+	color: inherit;
+}
+
+body.oh-legacy .oh-why__lists li::before {
+	content: "\2713";
+	position: absolute;
+	left: 0;
+	font-weight: 700;
+}
+
+body.oh-legacy .oh-why__body {
+	max-width: 60ch;
+	margin: 0 auto 1.4em;
+}
+
+body.oh-legacy .oh-why__body p {
+	margin: 0 0 1em;
+	font-size: inherit;
+	line-height: inherit;
+	color: inherit;
+}
+
+@media (max-width: 860px) {
+	body.oh-legacy .oh-why__lists {
+		grid-template-columns: 1fr;
+		text-align: center;
+	}
+
+	body.oh-legacy .oh-why__lists li {
+		padding-left: 0;
+	}
+
+	body.oh-legacy .oh-why__lists li::before {
+		position: static;
+		margin-right: 8px;
+	}
+}
+
+/* "Why Choose" CTA buttons on legacy pages — mirrors app.css's
+   .oh-btn-row and .oh-why .oh-btn--outline rules (client 2026-09-17).
+   Base .oh-btn / .oh-btn--outline / .srdev-icon come from shell.css. */
+body.oh-legacy .oh-why .oh-btn-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 14px;
+	justify-content: center;
+}
+
+body.oh-legacy .oh-why .oh-btn--outline {
+	background: var(--color-secondary);
+	color: var(--color-ink);
+	border: 1px solid var(--color-ink);
+}
+
+body.oh-legacy .oh-why .oh-btn--outline:hover {
+	transform: translateY(-3px) translateX(3px);
+}
+
+/* ------------------------------------------------------------------ */
+/*  "Other Services" (sections/other-services.php) on legacy pages —   */
+/*  casino, poker, horse racing (client 2026-09-17). Mirrors the       */
+/*  .oh-section-title and .oh-other-* rules in app.css (not loaded on  */
+/*  the legacy layer) plus the body.oh-theme base typography they      */
+/*  inherit there. Scoped under body.oh-legacy to out-specify          */
+/*  legacy-base.css's element resets.                                  */
+/* ------------------------------------------------------------------ */
+body.oh-legacy .oh-other-services {
+	padding-block: var(--section-y);
+	background: var(--color-muted);
+	color: var(--color-ink);
+	font-family: var(--font-body);
+	font-size: var(--fs-body);
+	line-height: 1.6;
+}
+
+body.oh-legacy .oh-other-services__heading {
+	text-align: center;
+	max-width: 55ch;
+	margin: 0 auto clamp(28px, 4vw, 52px);
+}
+
+body.oh-legacy .oh-other-services .oh-section-title {
+	font-family: var(--font-display);
+	font-size: var(--fs-h2);
+	font-weight: 400;
+	line-height: 1.1;
+	text-transform: uppercase;
+	color: inherit;
+	margin: 0 0 0.5em;
+}
+
+body.oh-legacy .oh-other-services__heading p {
+	margin: 0 0 1em;
+	font-size: inherit;
+	line-height: inherit;
+	color: inherit;
+}
+
+body.oh-legacy .oh-other-grid {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 15px;
+	/* 2x2 of home-sized cards, same as the non-legacy pages (app.css,
+	   client 2026-09-25): two home card widths + gap, centred. */
+	max-width: calc(66.667% - 5px);
+	margin-inline: auto;
+}
+
+@media (max-width: 1100px) {
+	body.oh-legacy .oh-other-grid {
+		max-width: none;
+	}
+}
+
+/* 2x2 grid, same as the non-legacy pages (client 2026-09-25). */
+body.oh-legacy .oh-other-card {
+	flex: 0 1 calc(50% - 7.5px);
+	max-width: calc(50% - 7.5px);
+	display: flex;
+	flex-direction: column;
+	background: var(--color-secondary);
+	border: 1px solid var(--color-primary);
+	border-radius: 8px;
+	color: inherit;
+	text-decoration: none;
+	transition: transform .2s ease, box-shadow .2s ease;
+	padding: clamp(24px, 2.6vw, 40px);
+}
+
+body.oh-legacy .oh-other-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 12px 32px rgba(0, 0, 0, .1);
+}
+
+body.oh-legacy .oh-other-card__media {
+	display: block;
+	margin-bottom: clamp(20px, 2.4vw, 32px);
+}
+
+body.oh-legacy .oh-other-card__media img {
+	display: none;
+}
+
+body.oh-legacy .oh-other-card__media .oh-other-card__logo {
+	display: block;
+	max-width: clamp(200px, 24vw, 280px);
+	background: none;
+	padding: 0;
+}
+
+body.oh-legacy .oh-other-card__media .oh-other-card__logo img {
+	display: block;
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 116px;
+	object-fit: contain;
+	object-position: left;
+}
+
+body.oh-legacy .oh-other-card--omg-studio .oh-other-card__logo img,
+body.oh-legacy .oh-other-card--omg-live .oh-other-card__logo img,
+body.oh-legacy .oh-other-card--omg-props-theming .oh-other-card__logo img,
+body.oh-legacy .oh-other-card--omg-food-beverage .oh-other-card__logo img {
+	max-height: 88px;
+}
+
+body.oh-legacy .oh-other-card__body {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	padding: 0;
+}
+
+body.oh-legacy .oh-other-card__body > span:not(.oh-other-card__link) {
+	color: var(--color-ink-soft);
+}
+
+body.oh-legacy .oh-other-card__link {
+	margin-top: auto;
+	padding-top: clamp(16px, 2vw, 24px);
+	align-self: flex-start;
+	text-transform: uppercase;
+	text-decoration: underline;
+	font-weight: 600;
+	/* Black, matching the same link on the non-legacy pages
+	   (client 2026-09-23). */
+	color: #000;
+}
+
+@media (max-width: 860px) {
+	body.oh-legacy .oh-other-card {
+		flex: 0 1 calc(50% - 7.5px);
+		max-width: calc(50% - 7.5px);
+	}
+}
+
+@media (max-width: 560px) {
+	body.oh-legacy .oh-other-card {
+		flex: 0 1 100%;
+		max-width: 100%;
+	}
+
+	body.oh-legacy .oh-other-card__media .oh-other-card__logo {
+		max-width: 150px;
+	}
+
+	body.oh-legacy .oh-other-card__media .oh-other-card__logo img {
+		max-height: 74px;
+	}
+
+	body.oh-legacy .oh-other-card--omg-studio .oh-other-card__logo img,
+	body.oh-legacy .oh-other-card--omg-live .oh-other-card__logo img,
+	body.oh-legacy .oh-other-card--omg-props-theming .oh-other-card__logo img,
+	body.oh-legacy .oh-other-card--omg-food-beverage .oh-other-card__logo img {
+		max-height: 56px;
+	}
+}
+
+
+/* ------------------------------------------------------------------ */
+/*  "Other Services" 5-division grid (home-divisions.php) on legacy    */
+/*  pages — casino, poker, horse racing (client 2026-09-29). Mirrors   */
+/*  the .oh-service-cards / .oh-division-card rules in app.css (not    */
+/*  loaded on the legacy layer). Scoped under body.oh-legacy to        */
+/*  out-specify legacy-base.css's element resets.                      */
+/* ------------------------------------------------------------------ */
+body.oh-legacy .oh-division-card.svc-entertainment {
+	--division-tint: #FFC9C5;
+}
+
+body.oh-legacy .oh-division-card.svc-studio {
+	--division-tint: #CAFFFF;
+}
+
+body.oh-legacy .oh-division-card.svc-live {
+	--division-tint: #E4C8E4;
+}
+
+body.oh-legacy .oh-division-card.svc-props {
+	--division-tint: #FFFFCA;
+}
+
+body.oh-legacy .oh-division-card.svc-foodbeverage {
+	--division-tint: #FFE4C8;
+}
+
+body.oh-legacy .oh-service-cards {
+	padding-block: var(--section-y);
+}
+
+body.oh-legacy .oh-service-cards__heading {
+	text-align: center;
+	max-width: 900px;
+	margin: 0 auto clamp(28px, 4vw, 52px);
+}
+
+body.oh-legacy .oh-service-cards .oh-section-title {
+	font-family: var(--font-display);
+	font-size: var(--fs-h2);
+	font-weight: 400;
+	line-height: 1.1;
+	text-transform: uppercase;
+	color: #000000;
+	margin: 0 0 0.5em;
+}
+
+body.oh-legacy .oh-service-cards__heading p {
+	margin: 0 0 1em;
+	color: var(--color-ink-soft);
+	font-size: var(--fs-body);
+	line-height: 1.6;
+}
+
+body.oh-legacy .oh-service-cards--divisions {
+	width: min(100% - (var(--gutter) * 2), var(--wrap));
+	margin-inline: auto;
+}
+
+/* flex (not grid) so the odd 5th card's row of 2 centres itself instead
+   of sitting flush left under an empty 3rd column. */
+body.oh-legacy .oh-service-cards__grid {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 15px;
+}
+
+body.oh-legacy .oh-division-card {
+	flex: 1 1 calc(33.333% - 10px);
+	max-width: calc(33.333% - 10px);
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	padding: clamp(22px, 2vw, 34px);
+	background: var(--division-tint, var(--color-secondary));
+	border: 1px solid var(--color-primary);
+	border-radius: 8px;
+	color: var(--color-ink);
+	text-decoration: none;
+	transition: transform .2s ease;
+}
+
+@media (max-width: 1100px) {
+	body.oh-legacy .oh-division-card {
+		flex: 1 1 calc(50% - 7.5px);
+		max-width: calc(50% - 7.5px);
+	}
+}
+
+@media (max-width: 620px) {
+	body.oh-legacy .oh-division-card {
+		flex: 1 1 100%;
+		max-width: 100%;
+	}
+}
+
+body.oh-legacy a.oh-division-card:hover {
+	transform: translateY(-4px);
+}
+
+body.oh-legacy .oh-division-card__logo {
+	align-self: flex-start;
+	display: flex;
+	align-items: flex-start;
+	height: 92px;
+}
+
+body.oh-legacy .oh-division-card__logo img {
+	display: block;
+	width: 160px;
+	max-width: 100%;
+	height: auto;
+}
+
+body.oh-legacy .oh-division-card.svc-studio .oh-division-card__logo img {
+	width: 166px;
+}
+
+body.oh-legacy .oh-division-card h3 {
+	font-family: var(--font-display);
+	font-size: clamp(20px, 1.6vw, 28px);
+	line-height: 1.15;
+	margin: 0;
+}
+
+body.oh-legacy .oh-division-card p {
+	margin: 0;
+	color: var(--color-ink-soft);
+	font-size: var(--fs-body);
+	line-height: 1.6;
+}
+
+body.oh-legacy .oh-division-card__link {
+	margin-top: auto;
+	font-weight: 600;
+	text-transform: uppercase;
+	font-size: var(--fs-eyebrow);
+	letter-spacing: 0.04em;
+	color: #000;
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Logo grid as a slider (client 2026-09-23): 6 across x 4 rows = 24  */
+/*  logos per view, autoplay 3s, one page per swipe.                   */
+/*                                                                     */
+/*  Swiper's Grid module wraps the slides into rows by giving each one  */
+/*  an inline height of 25% and letting the wrapper wrap, so the .swiper*/
+/*  itself MUST carry a real height or the whole block collapses to a   */
+/*  couple of pixels. Hence the fixed cell height below -- it is the    */
+/*  same 150px the static grid used as its min-height.                  */
+/*                                                                     */
+/*  The pagination sits OUTSIDE .swiper (a sibling) because .swiper is  */
+/*  overflow:hidden at that fixed height and would clip it.             */
+/*                                                                     */
+/*  Un-initialised (JS off, or before boot) the wrapper stays the       */
+/*  wrapped flex grid, i.e. the pre-slider layout, so the logos are     */
+/*  never hidden behind JS.                                             */
+/* ------------------------------------------------------------------ */
+.oh-logo-grid__slider {
+	--oh-logo-cell-h: 150px;
+	position: relative;
+}
+
+.oh-logo-grid__slider:not(.swiper-initialized) .oh-logo-grid__list {
+	flex-wrap: wrap;
+}
+
+.oh-logo-grid__slider.swiper-initialized {
+	height: calc(var(--oh-logo-cell-h) * 4);
+	/* The 4th row's bottom edge lands 1px past the fixed height and the
+	   .swiper is overflow:hidden, so that border is clipped away. Drawing
+	   it on the container instead puts it back — a border sits on the
+	   element's own box, which overflow never touches. */
+	border-bottom: 1px solid rgb(0 0 0 / 8%);
+}
+
+.oh-logo-grid__slider.swiper-initialized .oh-logo-grid__item {
+	/* Swiper Grid sets the row height inline; don't fight it. */
+	flex: 0 0 auto;
+	min-height: 0;
+}
+
+.oh-logo-grid__pagination.swiper-pagination {
+	position: static;
+	margin-top: 22px;
+}
+
+.oh-logo-grid__pagination .swiper-pagination-bullet {
+	width: 10px;
+	height: 10px;
+	background: var(--color-primary, #941717);
+	opacity: .25;
+	transition: opacity .25s ease, transform .25s ease;
+}
+
+.oh-logo-grid__pagination .swiper-pagination-bullet-active {
+	opacity: 1;
+	transform: scale(1.15);
+}
+
+@media (max-width: 767px) {
+	.oh-logo-grid__slider {
+		--oh-logo-cell-h: 120px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.oh-logo-grid__pagination .swiper-pagination-bullet {
+		transition: none;
+	}
+}
+
+/* Casino, Poker and Horse Racing Fun Nights — section titles, the
+   feature-list h4s and their diamond bullets switch from --secondary-color
+   (#D34821 orange) to the Entertainment brand primary, --color-primary
+   #A32E2E (client 2026-09-25: casino first, then poker + horse racing). */
+body.page-casino-fun-nights .title-dark-1,
+body.page-poker-tournaments .title-dark-1,
+body.page-horse-racing-fun-nights .title-dark-1,
+body.page-casino-fun-nights .inner-top-section-style-1 .right-block ul li h4,
+body.page-poker-tournaments .inner-top-section-style-1 .right-block ul li h4,
+body.page-horse-racing-fun-nights .inner-top-section-style-1 .right-block ul li h4 {
+	color: var(--color-primary);
+}
+
+body.page-casino-fun-nights .inner-top-section-style-1 .right-block ul li h4::before,
+body.page-poker-tournaments .inner-top-section-style-1 .right-block ul li h4::before,
+body.page-horse-racing-fun-nights .inner-top-section-style-1 .right-block ul li h4::before {
+	background-color: var(--color-primary);
+}
+
+/* Casino, Poker and Horse Racing Fun Nights (client 2026-09-25): the
+   three "Why Choose" CTAs (Call / Book / Email) on a solid white fill
+   instead of shell.css's 30% --color-secondary tint. Ink label and
+   border unchanged. :not(.home) matches that shell.css rule's
+   specificity; this file loads after it, so this wins. */
+body.page-casino-fun-nights:not(.home) .oh-why .oh-btn--outline,
+body.page-poker-tournaments:not(.home) .oh-why .oh-btn--outline,
+body.page-horse-racing-fun-nights:not(.home) .oh-why .oh-btn--outline {
+	background: #fff;
+}
+
+/* Contact form "Choose a service" checkboxes (client 2026-09-25): each
+   division's tick is its own fieldset border tone darkened 30% (mixed
+   with black), not Gravity Forms Orbital's default blue (#204ce5). The
+   Orbital theme draws the tick as an icon-font ::before coloured by this
+   variable. Keep in step with the fieldset borders above.
+     72 Entertainment #A32E2E -> #722020   66 Studio #3d8989 -> #2B6060
+     79 LiVE #924b92 -> #663466            81 Props  #adad47 -> #797932
+     83 Food & Beverage #b8650f -> #81470A */
+.contact-page-forms .gform_wrapper.gform-theme {
+	--gf-ctrl-choice-check-color: #000;
+}
+
+.contact-page-forms .gform-body fieldset#field_1_72 { --gf-ctrl-choice-check-color: #722020; }
+.contact-page-forms .gform-body fieldset#field_1_66 { --gf-ctrl-choice-check-color: #2B6060; }
+.contact-page-forms .gform-body fieldset#field_1_79 { --gf-ctrl-choice-check-color: #663466; }
+.contact-page-forms .gform-body fieldset#field_1_81 { --gf-ctrl-choice-check-color: #797932; }
+.contact-page-forms .gform-body fieldset#field_1_83 { --gf-ctrl-choice-check-color: #81470A; }
+
+/* Contact page: "1300 300 664 (OMG)" (client 2026-09-30) kept on a single
+   line. The (OMG) suffix pushed it past the box width at the 30px cap
+   (1920px+) and in the narrow 992-1199px two-column layout. */
+.page-contact .inner-top-section-style-2 .right-block .box ul li a strong {
+    white-space: nowrap;
+    font-size: min(var(--uc-font-size-30), 26px);
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .page-contact .inner-top-section-style-2 .right-block .box ul li a strong {
+        font-size: 17px;
+    }
+}
+
+/* Casino, Poker and Horse Racing Fun Nights (client task-008, 2026-09-30):
+   the CTA panel, now below the logo grid, takes the /omg-entertainment/
+   .oh-cta look instead of the red panel: #F9F0EE fill, ink heading and
+   copy, and the same solid #DFB6B4 pill buttons with an ink border and
+   label (white on the pale fill would be unreadable). */
+body.page-casino-fun-nights .cta-section .main-block,
+body.page-poker-tournaments .cta-section .main-block,
+body.page-horse-racing-fun-nights .cta-section .main-block {
+	background-color: #F9F0EE;
+}
+
+body.page-casino-fun-nights .cta-section [class^="title-"],
+body.page-poker-tournaments .cta-section [class^="title-"],
+body.page-horse-racing-fun-nights .cta-section [class^="title-"],
+body.page-casino-fun-nights .cta-section p,
+body.page-poker-tournaments .cta-section p,
+body.page-horse-racing-fun-nights .cta-section p {
+	color: var(--color-ink, #111);
+}
+
+body.page-casino-fun-nights .cta-section .primary-btn-outline,
+body.page-poker-tournaments .cta-section .primary-btn-outline,
+body.page-horse-racing-fun-nights .cta-section .primary-btn-outline {
+	background: #DFB6B4;
+	color: var(--color-ink, #111);
+	border: 1px solid var(--color-ink, #111);
+}
+
+/* The arrow icons follow the ink label (client 2026-10-01). They were left
+   white by legacy-base.css's .srdev-icon { fill: #fff }, which loads after
+   shell.css's currentColor default. */
+body.page-casino-fun-nights .cta-section .primary-btn-outline .srdev-icon,
+body.page-poker-tournaments .cta-section .primary-btn-outline .srdev-icon,
+body.page-horse-racing-fun-nights .cta-section .primary-btn-outline .srdev-icon {
+	fill: currentColor;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Casino, Poker and Horse Racing Fun Nights (client task-009,        */
+/*  2026-10-01): "Our Products" framed cards and the testimonials      */
+/*  slider, both brought over from /omg-entertainment/. Mirrors the    */
+/*  .oh-service-cards--framed and .oh-testimonials rules in app.css,   */
+/*  which isn't loaded on the legacy layer. The section padding,       */
+/*  heading and flex grid come from the "Other Services" block above.  */
+/*  Scoped under body.oh-legacy to beat legacy-base.css's resets.      */
+/* ------------------------------------------------------------------ */
+
+/* Same sizing as /omg-entertainment/: two cards a row inside a grid
+   capped at two-thirds of the wrap, so the odd third card sits centred
+   on the second row. Full width from 1100px down, one column on phones. */
+body.oh-legacy .oh-service-cards--framed .oh-service-cards__grid {
+	max-width: calc(66.667% - 5px);
+	margin-inline: auto;
+}
+
+body.oh-legacy .oh-service-cards--framed .oh-service-card {
+	flex: 0 1 calc(50% - 7.5px);
+	max-width: calc(50% - 7.5px);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	padding: clamp(22px, 2.4vw, 34px);
+	background: var(--color-secondary);
+	border: 1px solid var(--color-primary);
+	border-radius: 8px;
+	color: var(--color-ink);
+	text-decoration: none;
+	transition: transform .2s ease, border-color .2s ease;
+}
+
+@media (max-width: 1100px) {
+	body.oh-legacy .oh-service-cards--framed .oh-service-cards__grid {
+		max-width: none;
+	}
+}
+
+@media (max-width: 560px) {
+	body.oh-legacy .oh-service-cards--framed .oh-service-card {
+		flex-basis: 100%;
+		max-width: 100%;
+	}
+}
+
+body.oh-legacy .oh-service-cards--framed a.oh-service-card:hover {
+	transform: translateY(-4px);
+}
+
+body.oh-legacy .oh-service-cards--framed .oh-service-card__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 60px;
+	height: 60px;
+	margin-bottom: 18px;
+	border-radius: 16px;
+	overflow: hidden;
+	border: 1px solid #00000005;
+	background: linear-gradient(145deg, #ffffff, color-mix(in srgb, var(--color-primary) 14%, #eef1f4));
+	box-shadow:
+		6px 6px 12px color-mix(in srgb, var(--color-primary) 35%, rgba(150, 160, 180, 0.5)),
+		-6px -6px 12px rgba(255, 255, 255, 0.9),
+		inset 1px 1px 2px rgba(255, 255, 255, 0.6),
+		inset -2px -2px 4px color-mix(in srgb, var(--color-primary) 30%, rgba(150, 160, 180, 0.25));
+}
+
+body.oh-legacy .oh-service-cards--framed .oh-service-card__icon img {
+	width: 100%;
+	height: 100%;
+	padding: 8px;
+	object-fit: contain;
+}
+
+body.oh-legacy .oh-service-cards--framed .oh-service-card h3 {
+	font-family: var(--font-display);
+	font-size: clamp(18px, 1.354vw, 26px);
+	font-weight: 400;
+	line-height: 1.2;
+	text-transform: uppercase;
+	color: var(--color-ink);
+	margin: 0 0 10px;
+}
+
+body.oh-legacy .oh-service-cards--framed .oh-service-card p {
+	margin: 0;
+	color: var(--color-ink-soft);
+	font-size: var(--fs-body);
+	line-height: 1.6;
+}
+
+body.oh-legacy .oh-service-cards--framed .oh-service-card__link {
+	margin-top: auto;
+	padding-top: 18px;
+	font-weight: 600;
+	text-transform: uppercase;
+	font-size: var(--fs-eyebrow);
+	color: #000;
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+/* Testimonials — band in the Entertainment primary (#A32E2E, the :root
+   default these pages resolve to) with white text, as on /omg-entertainment/. */
+body.oh-legacy .oh-testimonials {
+	padding-block: var(--section-y);
+	text-align: center;
+	background-color: var(--color-primary);
+	color: var(--on-primary);
+}
+
+body.oh-legacy .oh-testimonials__title {
+	font-family: var(--font-display);
+	font-size: var(--fs-h3);
+	font-weight: 400;
+	line-height: 1.2;
+	text-transform: uppercase;
+	color: inherit;
+	margin: 0 0 28px;
+}
+
+body.oh-legacy .oh-testimonials .oh-emblem-wrap {
+	position: relative;
+	width: 130px;
+	aspect-ratio: 1;
+	margin: 0 auto clamp(28px, 4vw, 64px);
+}
+
+body.oh-legacy .oh-testimonials .oh-emblem {
+	position: absolute;
+	inset: 0;
+	border-radius: 50%;
+	text-align: center;
+	font-weight: 700;
+	color: var(--on-primary);
+	animation: oh-emblem-spin 20s linear infinite;
+}
+
+body.oh-legacy .oh-testimonials .oh-emblem span {
+	position: absolute;
+	inset: 0;
+	display: inline-block;
+	text-transform: uppercase;
+	font-size: 10px;
+	font-weight: 400;
+}
+
+body.oh-legacy .oh-testimonials .oh-emblem-wrap .srdev-icon {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 46px;
+	height: 46px;
+	fill: var(--on-primary);
+}
+
+@keyframes oh-emblem-spin {
+	to {
+		transform: rotate(-360deg);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	body.oh-legacy .oh-testimonials .oh-emblem {
+		animation: none;
+	}
+}
+
+/* Slider column: the real Bootstrap .col-sm-8 is loaded here, so pin the
+   width and centring explicitly rather than rely on a .row parent. */
+body.oh-legacy .oh-testimonials .col-sm-8 {
+	width: 100%;
+	max-width: none;
+	flex: none;
+	padding-inline: 0;
+	margin-inline: auto;
+}
+
+@media (min-width: 576px) {
+	body.oh-legacy .oh-testimonials .col-sm-8 {
+		width: 66.66666667%;
+	}
+}
+
+body.oh-legacy .oh-testimonials .swiper-slide {
+	height: auto;
+	display: flex;
+	align-items: center;
+}
+
+body.oh-legacy .oh-testimonials__slide {
+	width: 100%;
+	max-width: 100%;
+	margin: 0 auto;
+	padding: 0;
+	border: 0;
+}
+
+body.oh-legacy .oh-testimonials__slide p {
+	font-family: var(--font-display);
+	font-size: clamp(19px, 2vw, 32px);
+	line-height: 1.45;
+	color: inherit;
+	margin: 0 0 18px;
+}
+
+body.oh-legacy .oh-testimonials__slide p::before,
+body.oh-legacy .oh-testimonials__slide p::after {
+	font-size: 1.5em;
+	line-height: 0;
+	vertical-align: -0.15em;
+}
+
+body.oh-legacy .oh-testimonials__slide p::before {
+	content: "\201C";
+	margin-right: 0.05em;
+}
+
+body.oh-legacy .oh-testimonials__slide p::after {
+	content: "\201D";
+	margin-left: 0.05em;
+}
+
+body.oh-legacy .oh-testimonials__slide cite {
+	font-style: normal;
+	font-weight: 600;
+	font-size: var(--fs-body);
+	color: inherit;
+}
+
+body.oh-legacy .oh-testimonials .swiper-pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 7px;
+	position: static;
+	margin-top: 24px;
+}
+
+body.oh-legacy .oh-testimonials .swiper-pagination-bullet {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	width: auto;
+	height: auto;
+	background: none;
+	color: inherit;
+	opacity: 0.45;
+	font-size: 15px;
+	font-weight: 600;
+	border-radius: 0;
+}
+
+body.oh-legacy .oh-testimonials .swiper-pagination-bullet-active {
+	opacity: 1;
+}
+
+body.oh-legacy .oh-testimonials .swiper-pagination-bullet .line {
+	width: 20px;
+	height: 1px;
+	background: currentColor;
+	display: block;
+}
+
+body.oh-legacy .oh-testimonials .swiper-pagination-bullet:last-child .line {
+	display: none;
+}

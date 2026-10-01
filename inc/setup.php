@@ -73,8 +73,24 @@ function omg_hybrid_widgets_init() {
  */
 add_action( 'login_head', 'omg_hybrid_login_logo' );
 function omg_hybrid_login_logo() {
-	$logo = OMG_HYBRID_URI . '/assets/images/logo-2.png';
-	echo '<style>h1 a{background-image:url(' . esc_url( $logo ) . ') !important;background-size:100% auto !important;width:200px !important;height:108px !important;}</style>';
+	// Official OMG Entertainment logo (client 2026-09-19) — logo-2.png was a
+	// client brand logo from the logo grid. 1806x787 source, shown at 240x105.
+	$logo = OMG_HYBRID_URI . '/assets/images/logo-omg-on-light.png';
+	echo '<style>h1 a{background-image:url(' . esc_url( $logo ) . ') !important;background-size:contain !important;background-position:center !important;width:240px !important;height:105px !important;}</style>';
+}
+
+/**
+ * Login logo links to the site homepage instead of wordpress.org, with the
+ * site name as its text (client 2026-09-19).
+ */
+add_filter( 'login_headerurl', 'omg_hybrid_login_logo_url' );
+function omg_hybrid_login_logo_url() {
+	return home_url( '/' );
+}
+
+add_filter( 'login_headertext', 'omg_hybrid_login_logo_text' );
+function omg_hybrid_login_logo_text() {
+	return get_bloginfo( 'name' );
 }
 
 /**

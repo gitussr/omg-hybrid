@@ -134,11 +134,17 @@
 		if (heroEl && !heroEl.classList.contains('swiper-initialized')) {
 			var hero = new Swiper(heroEl, {
 				slidesPerView: 1,
-				loop: heroEl.querySelectorAll('.swiper-slide').length > 1,
+				// rewind, not loop: Swiper 12 loop mode locks up with only
+				// 2 slides (the hero usually has 2). rewind wraps last->first
+				// for both autoplay and the clickable pagination.
+				rewind: true,
 				autoplay: { delay: 5000, disableOnInteraction: false },
 				speed: 900,
 				pagination: {
-					el: heroEl.querySelector('.swiper-pagination'),
+					// pagination lives outside .swiper (as a direct child of
+					// .oh-hero) so its click target isn't trapped under the
+					// overlay / text column — look it up on the section.
+					el: heroEl.closest('.oh-hero').querySelector('.swiper-pagination'),
 					clickable: true,
 					renderBullet: numberedBullet
 				}
@@ -147,12 +153,72 @@
 			heroEl.addEventListener('mouseleave', function () { hero.autoplay && hero.autoplay.start(); });
 		}
 
+		/* Client-logo grid (client 2026-09-23): 6 across x 4 rows per view,
+		   autoplay from data-autoplay (3000ms). Swiper's Grid module has no
+		   loop support, so this rewinds last -> first the way the hero does. */
+		document.querySelectorAll('.oh-logo-grid__slider').forEach(function (el) {
+			if (el.classList.contains('swiper-initialized')) { return; }
+			var delay = parseInt(el.getAttribute('data-autoplay'), 10);
+			if (isNaN(delay)) { delay = 3000; }
+			var logos = new Swiper(el, {
+				// slidesPerGroup mirrors slidesPerView so one swipe (and one
+				// autoplay tick) advances a whole 4x6 page rather than a
+				// single column, which is what Grid snaps to by default.
+				slidesPerView: 2,
+				slidesPerGroup: 2,
+				grid: { rows: 4, fill: 'row' },
+				spaceBetween: 0,
+				rewind: true,
+				speed: 700,
+				autoplay: delay > 0 ? { delay: delay, disableOnInteraction: false } : false,
+				a11y: { enabled: true },
+				pagination: {
+					// outside .swiper — it is overflow:hidden at a fixed height
+					el: el.closest('.oh-logo-grid').querySelector('.oh-logo-grid__pagination'),
+					clickable: true
+				},
+				breakpoints: {
+					768: { slidesPerView: 4, slidesPerGroup: 4, grid: { rows: 4, fill: 'row' } },
+					992: { slidesPerView: 6, slidesPerGroup: 6, grid: { rows: 4, fill: 'row' } }
+				}
+			});
+			if (delay > 0) {
+				el.addEventListener('mouseenter', function () { logos.autoplay && logos.autoplay.stop(); });
+				el.addEventListener('mouseleave', function () { logos.autoplay && logos.autoplay.start(); });
+			}
+		});
+
+		/* Client-logo strip (sections/logo-strip.php, client 2026-10-01):
+		   the single-line phone version of the grid above. Three logos
+		   across (four from 576px), stepping one logo at a time on an
+		   endless loop, delay from data-autoplay (2500ms). No pagination:
+		   66 dots would be noise. */
+		document.querySelectorAll('.oh-logo-strip__slider').forEach(function (el) {
+			if (el.classList.contains('swiper-initialized')) { return; }
+			var delay = parseInt(el.getAttribute('data-autoplay'), 10);
+			if (isNaN(delay)) { delay = 2500; }
+			new Swiper(el, {
+				slidesPerView: 3,
+				spaceBetween: 0,
+				loop: true,
+				speed: 600,
+				autoplay: delay > 0 ? { delay: delay, disableOnInteraction: false } : false,
+				a11y: { enabled: true },
+				breakpoints: {
+					576: { slidesPerView: 4 }
+				}
+			});
+		});
+
 		document.querySelectorAll('.oh-testimonials .swiper').forEach(function (el) {
 			if (el.classList.contains('swiper-initialized')) { return; }
+			// No autoHeight (client 2026-10-01): it resized the section to
+			// each quote, so the footer below jumped up and down as the
+			// slides rotated. The slider now holds the tallest slide's
+			// height at the current width (CSS in app.css).
 			new Swiper(el, {
 				slidesPerView: 1,
 				loop: true,
-				autoHeight: true,
 				autoplay: { delay: 6000, disableOnInteraction: false },
 				pagination: {
 					el: el.querySelector('.swiper-pagination'),
@@ -425,6 +491,82 @@
 		});
 		onReady(function () { enhanceAndLink('.book-time-input'); });
 	})();
+
+	/* ------------------------------------------------------------------ */
+	/*  Contact form: Event Address autocomplete fills the fields below    */
+	/* ------------------------------------------------------------------ */
+	/* The GF Google Address Autocomplete plugin (pcafe) runs Event Address
+	   (form 1, field 69) as a plain text field, so on its own it only writes
+	   the full formatted address back into that one field. Wrapping its
+	   get_location() hands us the parsed place: Suburb, Event State and
+	   Postal Code are filled from it, and Event Address keeps just the street
+	   (client 2026-10-01). The plugin writes the returned .address into the
+	   field after get_location() returns, hence the street goes there. */
+	onReady(function () {
+		if (typeof PCAFE_AAC_Frontend !== 'function') { return; }
+
+		var targets = {
+			'1_69': { suburb: 'input_1_70', state: 'input_1_57', postcode: 'input_1_71' }
+		};
+
+		/* Enter picks the highlighted suggestion, but the browser also takes
+		   it as "submit the form", and Gravity Forms posts the page before
+		   Google has returned the place details. The form went off with the
+		   raw suggestion text, the fields below empty, and GF's required-field
+		   errors (client 2026-10-01). Enter has no other job in a single-line
+		   address field, so its default is blocked there; the autocomplete
+		   still gets the key and selects the place. */
+		document.addEventListener('keydown', function (e) {
+			if (e.key !== 'Enter' || !e.target || !e.target.id) { return; }
+			if (targets[e.target.id.replace(/^input_/, '')]) { e.preventDefault(); }
+		}, true);
+
+		var fire = function (el) {
+			el.dispatchEvent(new Event('input', { bubbles: true }));
+			el.dispatchEvent(new Event('change', { bubbles: true }));
+		};
+
+		var setText = function (id, value) {
+			var el = document.getElementById(id);
+			if (!el) { return; }
+			el.value = value || '';
+			fire(el);
+		};
+
+		var setSelect = function (id, value) {
+			var el = document.getElementById(id);
+			if (!el || !value) { return; }
+			var match = Array.prototype.filter.call(el.options, function (o) {
+				return o.value.toUpperCase() === value.toUpperCase();
+			})[0];
+			if (!match) { return; }
+			el.value = match.value;
+			fire(el);
+		};
+
+		var component = function (place, type) {
+			var found = (place.address_components || []).filter(function (c) {
+				return c.types.indexOf(type) !== -1;
+			})[0];
+			return found ? found.long_name : '';
+		};
+
+		var proto = PCAFE_AAC_Frontend.prototype;
+		var getLocation = proto.get_location;
+
+		proto.get_location = function (place, formId, fieldId) {
+			var data = getLocation.apply(this, arguments);
+			var map = targets[formId + '_' + fieldId];
+			if (!map) { return data; }
+
+			setText(map.suburb, data.city || component(place, 'sublocality') || component(place, 'postal_town'));
+			setSelect(map.state, data.region_code);
+			setText(map.postcode, data.postal_code);
+
+			if (data.street) { data.address = data.street; }
+			return data;
+		};
+	});
 
 	/* The new .oh-marquee component is pure CSS — no JS needed. The legacy
 	   inner pages still use window.LogoMarquee via assets/js/legacy/custom.js. */

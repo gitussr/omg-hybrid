@@ -16,4 +16,8 @@ get_header();
 
 get_template_part( 'template-parts/brand-services-layout', null, omg_hybrid_brand_services( 'entertainment' ) );
 
+// Shared client-logo slider (client 2026-09-23), as on the sibling
+// /omg-live/our-services/ and /omg-props-theming/our-services/ pages.
+get_template_part( 'template-parts/sections/marquee', null, omg_hybrid_page7_marquee() );
+
 get_footer();

@@ -31,17 +31,25 @@ get_template_part( 'template-parts/service-landing', null, array(
 		),
 	),
 	'welcome' => array(
-		'heading'    => 'Welcome to OMG Studio',
+		'heading'    => 'Welcome to OMG STUDIO',
+		'heading_logo' => array( 'url' => $img . 'oos-logo-studio-lg.png', 'alt' => 'OMG Studio' ),
 		'paragraphs' => array(
-			'We believe every event deserves to be unforgettable. We specialise in Photobooth Hire/Sales, Photography, Video Guest Books, and Videography for weddings, corporate events, birthdays, and special celebrations.',
-			'Our mission is simple: To create &ldquo;OMG&rdquo; moments and fun experiences that your guests will remember forever.',
-			'What makes OMG Studio different is our commitment to quality, reliability, and customer experience. We don&rsquo;t just provide services&mdash;we create memories that last a lifetime.',
+			'We believe every event deserves to be unforgettable. We specialise in <strong>Photobooth Hire/Sales, Photography, Video Guest Books, and Videography</strong> for weddings, corporate events, birthdays, and special celebrations.',
+			'Our mission is simple: <strong>To create &ldquo;OMG&rdquo; moments and fun experiences that your guests will remember forever.</strong>',
+			'What makes OMG Studio different is our commitment to <strong>quality, reliability, and customer experience</strong>. We don&rsquo;t just provide services&mdash;we create <strong>memories that last a lifetime.</strong>',
 		),
 		'buttons'    => omg_hybrid_cta_buttons(),
-		'image'      => $img . 'welcome-studio-filmstrip.jpg',
+		'image'      => $img . 'welcome-studio-filmstrip.png',
 		'image_alt'  => 'OMG Studio photo booth prints from weddings and events',
+		'decor'      => array(
+			'script' => $img . 'welcome-script-elegance.png',
+			// Spinning "OMG STUDIO" circular-text badge on the filmstrip's
+			// bottom-right corner (client 2026-09-14).
+			'badge'  => $img . 'circular-text.png',
+		),
 	),
-	'cards_intro' => 'Five ways to capture your event &mdash; pick the formats that suit your day best.',
+	'cards_heading' => 'Our Products',
+	'cards_intro' => '<strong>Your event, in the spotlight</strong>. Snap It, Spin It, Film It and Keep It Forever. <p>Find your favourite way to capture the fun below, and let\'s make your event shine.</p>',
 	'cards' => array(
 		array(
 			'icon'        => $img . 'studio-svc-photobooths.png',
@@ -76,6 +84,13 @@ get_template_part( 'template-parts/service-landing', null, array(
 			'title'       => 'Videography',
 			'description' => 'A cinematic eye on every frame &mdash; highlight reels, wedding films and social-ready cuts that tell the story.',
 			'url'         => home_url( '/photography-videography/#main-block-2' ),
+			'link_label'  => 'VISIT US',
+		),
+		array(
+			'icon'        => $img . 'studio-svc-booth-sales.png',
+			'title'       => 'Booth Sales',
+			'description' => 'Own a professional photo booth, with full setup and ongoing support included.',
+			'url'         => home_url( '/coming-soon/' ),
 			'link_label'  => 'VISIT US',
 		),
 	),
@@ -166,13 +181,13 @@ get_template_part( 'template-parts/service-landing', null, array(
 			'High-end equipment &amp; lighting',
 			'Friendly and experienced team',
 			'Reliable service across Sydney &amp; Australia',
-			'Stunning photos and cinematic videos',
+			'Fully insured $20 million public liability cover',
 		),
 		'body'    => 'Let OMG Studio turn your event into an unforgettable experience.',
 		'buttons' => array(
 			array( 'url' => 'tel:1300300664', 'label' => 'Call Us' ),
 			array( 'url' => home_url( '/contact/' ), 'label' => 'Book an Event' ),
-			array( 'url' => 'mailto:info@OMGgroup.com.au', 'label' => 'Email Us' ),
+			array( 'url' => 'mailto:info@OMGent.com.au', 'label' => 'Email Us' ),
 		),
 	),
 	'testimonials' => array(
@@ -184,17 +199,19 @@ get_template_part( 'template-parts/service-landing', null, array(
 		),
 	),
 	'other_heading' => 'Other Services',
+	'other_description' => 'Why stop at the SnapShots? Round out the night with the full OMG Experience: Casino Tables, Race Nights and Poker, High-Energy DJs and Live Bands, Props and Theming, plus Food, Drinks and Professional Staff. It&rsquo;s everything your event needs, all under one roof.',
 	'other' => array(
-		array( 'image' => $img . 'omg-entertainment-banner1.jpg', 'logo' => $img . 'oos-logo-1.png', 'title' => 'OMG Entertainment', 'description' => 'Casino nights, race days, poker &amp; showstopping performers.', 'url' => home_url( '/omg-entertainment/' ), 'link_label' => 'Visit OMG Entertainment' ),
-		array( 'image' => $img . 'omg-live-hero.jpg', 'logo' => $img . 'oos-logo-2.png', 'title' => 'OMG LiVE', 'description' => 'Elite DJs, atmospheric lighting and unforgettable live bands.', 'url' => home_url( '/omg-live/' ), 'link_label' => 'Visit OMG LiVE' ),
-		array( 'image' => $img . 'props-custom-new.jpg', 'logo' => $img . 'oos-logo-3.png', 'title' => 'OMG Props &amp; Theming', 'description' => 'Casino props, grand entrances, theme walls, furniture &amp; AV.', 'url' => home_url( '/omg-props-theming/' ), 'link_label' => 'Visit OMG Props &amp; Theming' ),
+		array( 'image' => $img . 'omg-entertainment-banner1.jpg', 'logo' => $img . 'oos-logo-entertainment-lg.png', 'title' => 'OMG Entertainment', 'description' => 'Casino nights, race days, poker &amp; showstopping performers.', 'url' => home_url( '/omg-entertainment/' ), 'link_label' => 'Visit OMG Entertainment' ),
+		array( 'image' => $img . 'omg-live-hero.jpg', 'logo' => $img . 'oos-logo-live-lg.png', 'title' => 'OMG LiVE', 'description' => 'Elite DJs, atmospheric lighting and unforgettable live bands.', 'url' => home_url( '/omg-live/' ), 'link_label' => 'Visit OMG LiVE' ),
+		array( 'image' => $img . 'props-custom-new.jpg', 'logo' => $img . 'oos-logo-props-lg.png', 'title' => 'OMG Props &amp; Theming', 'description' => 'Casino props, grand entrances, theme walls, furniture &amp; AV.', 'url' => home_url( '/omg-props-theming/' ), 'link_label' => 'Visit OMG Props &amp; Theming' ),
+		array( 'logo' => $img . 'oos-logo-fnb-2026c.png', 'title' => 'OMG Food &amp; Beverage', 'description' => 'Catering, mobile bars, bartenders &amp; mixologists, plus professional staff hire.', 'url' => home_url( '/coming-soon/' ), 'link_label' => 'Visit OMG Food &amp; Beverage' ),
 	),
 	'cta' => array(
 		'title'    => 'Let&rsquo;s Capture Your Event Perfectly',
 		'subtitle' => 'Booths, photography or videography &mdash; get in touch for a free, no-obligation quote.',
 	),
 	'marquee' => array(
-		'title' => 'The Best Brands Choose the Best Brand',
+		'title' => 'The Best BRANDS CHOOSE THE BEST BRAND',
 		'logos' => array(
 			$uploads . '/2026/04/logo-1.jpg',  $uploads . '/2026/04/logo-2.jpg',  $uploads . '/2026/04/logo-3.jpg',
 			$uploads . '/2026/04/logo-4.jpg',  $uploads . '/2026/04/logo-5.jpg',  $uploads . '/2026/04/logo-6.jpg',

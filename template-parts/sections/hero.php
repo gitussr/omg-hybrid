@@ -48,9 +48,6 @@ $multi       = count($slides) > 1;
 				</div>
 			<?php endforeach; ?>
 		</div>
-		<?php if ($multi) : ?>
-			<div class="swiper-pagination"></div>
-		<?php endif; ?>
 	</div>
 
 	<div class="oh-hero__overlay" aria-hidden="true"></div>
@@ -66,10 +63,14 @@ $multi       = count($slides) > 1;
 			<p><?php echo wp_kses_post($description); ?></p>
 		<?php endif; ?>
 		<?php if (! empty($cta['url']) && ! empty($cta['label'])) : ?>
-			<a class="oh-btn oh-btn--outline" href="<?php echo esc_url($cta['url']); ?>">
+			<a class="oh-btn oh-btn--solid" href="<?php echo esc_url($cta['url']); ?>">
 				<?php echo esc_html($cta['label']); ?>
 				<?php omg_hybrid_icon('fancy-right-arrow-icom'); ?>
 			</a>
 		<?php endif; ?>
 	</div>
+
+	<?php if ($multi) : ?>
+		<div class="swiper-pagination oh-hero__pagination"></div>
+	<?php endif; ?>
 </section>

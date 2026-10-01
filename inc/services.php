@@ -51,7 +51,7 @@ function omg_hybrid_services() {
  * @return string[]
  */
 function omg_hybrid_group_page_slugs() {
-	return array( 'contact', 'print-templates' );
+	return array( 'contact', 'print-templates', 'coming-soon' );
 }
 
 /**

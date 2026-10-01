@@ -18,6 +18,7 @@
  *   why       array{heading,bullets,body,buttons}
  *   cta       array{title,subtitle,buttons?}
  *   other     array  -> template-parts/sections/other-services cards[]
+ *   other_description string (optional) — intro line under the heading
  *   marquee   array{title,logos}
  *
  * @package omg-hybrid
@@ -42,6 +43,15 @@ if ( ! empty( $args['cards'] ) ) {
 	) );
 }
 
+// "Other Services" sits directly under "Our Services" (client request).
+if ( ! empty( $args['other'] ) ) {
+	get_template_part( 'template-parts/sections/other-services', null, array(
+		'heading'     => $args['other_heading'] ?? 'Explore The Rest Of The OMG Group',
+		'description' => $args['other_description'] ?? '',
+		'cards'       => $args['other'],
+	) );
+}
+
 /*
  * $args['rows'] — the alternating image/text "Our Services" detail rows —
  * is intentionally NOT rendered. That section moves to a dedicated services
@@ -52,21 +62,17 @@ if ( ! empty( $args['why'] ) ) {
 	get_template_part( 'template-parts/sections/why-choose', null, $args['why'] );
 }
 
+if ( ! empty( $args['marquee'] ) ) {
+	get_template_part( 'template-parts/sections/marquee', null, $args['marquee'] );
+}
+
+// Testimonials sit below the brands logo grid (client 2026-09-19).
 if ( ! empty( $args['testimonials'] ) ) {
 	get_template_part( 'template-parts/sections/testimonials', null, $args['testimonials'] );
 }
 
-if ( ! empty( $args['other'] ) ) {
-	get_template_part( 'template-parts/sections/other-services', null, array(
-		'heading' => $args['other_heading'] ?? 'Explore The Rest Of The OMG Group',
-		'cards'   => $args['other'],
-	) );
-}
-
+// CTA band is the last section before the footer, after the logo grid and
+// testimonials (client 2026-09-24; previously sat after "Why Choose").
 if ( ! empty( $args['cta'] ) ) {
 	get_template_part( 'template-parts/sections/cta', null, $args['cta'] );
-}
-
-if ( ! empty( $args['marquee'] ) ) {
-	get_template_part( 'template-parts/sections/marquee', null, $args['marquee'] );
 }

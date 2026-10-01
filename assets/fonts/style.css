@@ -1,16 +1,5 @@
-@font-face {
-    font-family: 'Beautique Display';
-    src: url('BeautiqueDisplay-Regular.eot');
-    src: url('BeautiqueDisplay-Regular.eot?#iefix') format('embedded-opentype'),
-        url('BeautiqueDisplay-Regular.woff2') format('woff2'),
-        url('BeautiqueDisplay-Regular.woff') format('woff'),
-        url('BeautiqueDisplay-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-
+/* Beautique Display removed — the display face is now Google's Noto Serif,
+   enqueued as 'omg-hybrid-gfonts' in inc/enqueue.php. */
 
 @font-face {
     font-family: 'Barlow';

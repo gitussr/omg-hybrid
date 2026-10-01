@@ -20,7 +20,7 @@ get_header();
  * ---------------------------------------------------------------------- */
 $banner = get_field( 'banner_section' ) ?: array();
 $hero   = array(
-	'variant'     => 'inner',
+	'variant'     => 'home',
 	'eyebrow'     => 'OMG Studio',
 	'title'       => $banner['banner_title'] ?? get_the_title(),
 	'description' => $banner['banner_subtitle'] ?? '',

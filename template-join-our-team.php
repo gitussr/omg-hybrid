@@ -114,42 +114,15 @@
 
 
 <!-- =====logo marque section start===== -->
-<section class="logoMarqueeSection">
-    <?php 
-       $logo_slider_section=get_field('logo_slider_section', '7');
-       $sec_title=$logo_slider_section['sec_title'];
-    ?>
-    <div class="container" id="logoMarqueeSection">
-        <h3 class="sub-title-dark text-center"><?php echo $sec_title; ?></h3>
-        <div class="default-content-container flex items-center">
-        <div class="default-content-container-inner marquee-wrapper marque-1">
-
-            <div class="marquee">
-
-                <?php if ( ! have_rows( 'logo_slider_section', '7' ) ) {
-                  return false;
-                    }
-                    if ( have_rows( 'logo_slider_section', '7' ) ) : ?>
-                  <?php while ( have_rows( 'logo_slider_section', '7' ) ) : the_row();
-                      if ( have_rows( 'logo_items' ) ) : ?>
-
-                             <?php
-                             while ( have_rows( 'logo_items' ) ) : the_row();
-
-                                 $logo_image = get_sub_field( 'logo_image' );
-                             ?>
-                             
-                            <a><img src="<?php echo $logo_image['url']; ?>" class="marqueelogo"></a>
-                             <?php endwhile; ?> 
-                      <?php endif; ?>
-                  <?php endwhile; ?>
-                <?php endif; ?>
-
-            </div>
-        </div>
-        </div>
-    </div>
-</section>
+<?php
+/*
+ * Shared client-logo slider (client 2026-09-23). This page used to carry its
+ * own static .logoMarqueeSection markup reading the SCF repeater on page 7;
+ * every page now renders the one component, so the logo set and the slider
+ * behaviour live in a single place.
+ */
+get_template_part( 'template-parts/sections/marquee', null, omg_hybrid_page7_marquee() );
+?>
 <!-- =====logo marque section end===== -->
 
 

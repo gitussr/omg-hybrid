@@ -115,7 +115,7 @@
 									   $whatsapp_number	= 	$contact_details['whatsapp_number'];									
                                     ?>
                                     <ul>
-                                        <li><a href="tel:<?php echo $phone_number; ?>"><strong><?php echo $phone_number; ?></strong></a></li>
+                                        <li><a href="tel:<?php echo $phone_number; ?>"><strong><?php echo $phone_number; ?> (OMG)</strong></a></li>
                                         <li><a href="mailto:<?php echo $email_address; ?>"><?php echo $email_address; ?></a></li>
 										<li>
 											<a href="<?php echo $whatsapp_number; ?>" target="_blank" style="display: inline-flex; align-items: center; gap: 5px;">
@@ -174,5 +174,16 @@
 
 
 
+
+<!-- =====logo marque section start===== -->
+<?php
+/*
+ * Shared client-logo slider (client 2026-09-23): every page carries the same
+ * "The Best Brands Choose the Best Brand" block, rendered from the one
+ * component in template-parts/sections/marquee.php.
+ */
+get_template_part( 'template-parts/sections/marquee', null, omg_hybrid_page7_marquee() );
+?>
+<!-- =====logo marque section end===== -->
 
 <?php get_footer(); ?>

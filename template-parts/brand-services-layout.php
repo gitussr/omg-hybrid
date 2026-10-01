@@ -6,7 +6,10 @@
  * service) -> the brand "Ready to…" CTA. Colour comes from the svc-*
  * body class set by inc/services.php; this file never names a colour.
  *
- * $args: the omg_hybrid_brand_services() bundle — { hero, rows, cta }.
+ * $args: the omg_hybrid_brand_services() bundle — { hero, rows, cta },
+ *        plus an optional `other` { heading?, description? } that a
+ *        template can merge in to render the full 5-division "Other
+ *        Services" grid (same component as the home page) before the CTA.
  *
  * @package omg-hybrid
  */
@@ -20,6 +23,13 @@ if ( ! empty( $args['hero'] ) ) {
 if ( ! empty( $args['rows'] ) ) {
 	get_template_part( 'template-parts/sections/service-rows', null, array(
 		'rows' => $args['rows'],
+	) );
+}
+
+if ( ! empty( $args['other'] ) ) {
+	get_template_part( 'template-parts/omg-entertainment/home-divisions', null, array(
+		'heading'     => $args['other']['heading'] ?? 'Other Services',
+		'description' => $args['other']['description'] ?? array(),
 	) );
 }
 

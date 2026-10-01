@@ -26,16 +26,28 @@ $img     = OMG_HYBRID_URI . '/assets/images/';
 $video   = OMG_HYBRID_URI . '/assets/hero.mp4';
 $uploads = home_url( '/wp-content/uploads' );
 
+$hero_slides = array(
+	array( 'type' => 'video', 'url' => $video, 'poster' => $img . 'omg-entertainment-banner1.jpg' ),
+	array( 'type' => 'image', 'url' => $img . 'omg-entertainment-banner1.jpg' ),
+);
+
+// Home page only: the client's new banner leads the slider (2026-09-14).
+// The OMG Entertainment landing page keeps the original two slides.
+if ( 'home' === $context ) {
+	array_unshift( $hero_slides, array( 'type' => 'image', 'url' => $img . 'omg-entertainment-new-banner-01.jpg' ) );
+
+	// Five more event photos appended after the existing slides
+	// (client 2026-09-30, sourced from omggroup.com.au uploads).
+	foreach ( array( '02', '03', '04', '05', '06' ) as $n ) {
+		$hero_slides[] = array( 'type' => 'image', 'url' => $img . 'omg-home-banner-' . $n . '.jpg' );
+	}
+}
+
 get_template_part( 'template-parts/sections/hero', null, array(
 	'variant'     => 'home',
-	'eyebrow'     => 'OMG Entertainment',
-	'title'       => 'Creating Unforgettable Event Experiences Across Australia',
-	'description' => 'Casino nights, race days, poker tables and showstopping performers &mdash; the entertainment that turns any event into the one people are still talking about.',
+	'title'       => 'Creating Unforgettable<br>Event Experiences',
 	'cta'         => array( 'url' => home_url( '/contact/' ), 'label' => 'Get a Free Quote' ),
-	'slides'      => array(
-		array( 'type' => 'video', 'url' => $video, 'poster' => $img . 'omg-entertainment-banner1.jpg' ),
-		array( 'type' => 'image', 'url' => $img . 'omg-entertainment-banner1.jpg' ),
-	),
+	'slides'      => $hero_slides,
 ) );
 
 /* ==================================================================
@@ -49,6 +61,49 @@ get_template_part( 'template-parts/omg-entertainment/below-hero-1', null, array(
  * will eventually differ; identical for now).
  * ================================================================== */
 get_template_part( 'template-parts/omg-entertainment/below-hero-2', null, array( 'context' => $context ) );
+
+
+// "Other Services" runs on the /omg-entertainment/ landing page only —
+// the home page (context 'home') omits it per client request.
+if ( 'home' !== $context ) :
+get_template_part( 'template-parts/sections/other-services', null, array(
+	'heading'     => 'Other Services',
+	'description' => 'Why stop at the tables? Complete the night with our full suite of event services: photo booths and photography, high-energy DJs and live music, props and theming, plus food, drinks and professional staff. It\'s everything your event needs, all under one roof.',
+	'cards'       => array(
+		array(
+			'image'       => $img . 'omg-studio-display.jpg',
+			'logo'        => $img . 'oos-logo-studio-lg.png',
+			'title'       => 'OMG Studio',
+			'description' => 'Photo booths, video booths, photography and videography &mdash; every moment of your event, captured.',
+			'url'         => home_url( '/omg-studio/' ),
+			'link_label'  => 'Visit OMG Studio',
+		),
+		array(
+			'image'       => $img . 'omg-live-hero.jpg',
+			'logo'        => $img . 'oos-logo-live-lg.png',
+			'title'       => 'OMG LiVE',
+			'description' => 'High-energy DJs, expert lighting and professional live music for an immersive, engaging event.',
+			'url'         => home_url( '/omg-live/' ),
+			'link_label'  => 'Visit OMG LiVE',
+		),
+		array(
+			'image'       => $img . 'props-custom-new.jpg',
+			'logo'        => $img . 'oos-logo-props-lg.png',
+			'title'       => 'OMG Props &amp; Theming',
+			'description' => 'Casino props, light-up letters and theme walls, plus table, chair and decoration hire.',
+			'url'         => home_url( '/omg-props-theming/' ),
+			'link_label'  => 'Visit OMG Props &amp; Theming',
+		),
+		array(
+			'logo'        => $img . 'oos-logo-fnb-2026c.png',
+			'title'       => 'OMG Food &amp; Beverage',
+			'description' => 'Catering, mobile bars, bartenders &amp; mixologists, plus professional staff hire.',
+			'url'         => home_url( '/coming-soon/' ),
+			'link_label'  => 'Visit OMG Food &amp; Beverage',
+		),
+	),
+) );
+endif;
 
 /* ---- Shared sections (identical in both contexts) ---- */
 
@@ -64,69 +119,29 @@ get_template_part( 'template-parts/sections/why-choose', null, array(
 	'bullets' => array(
 		'Full-sized, Australian-made casino equipment',
 		'Entertainment-skilled, experienced croupiers',
-		'Transparent, what-you-see-is-what-you-get pricing',
+		'Transparent pricing, no hidden costs',
 		'Fully customisable game &amp; performer selection',
-		'Add-on props, DJ, photo booth &amp; performers available',
-		'Trusted across Sydney, Brisbane, Adelaide, Perth &amp; regional Australia',
+		'Add-on props, DJ, photo booth &amp; performers',
+		'Fully insured $20 million public liability cover',
 	),
-	'body'    => 'Let OMG Entertainment turn your next event into an unforgettable night.',
 	'buttons' => array(
 		array( 'url' => 'tel:1300300664', 'label' => 'Call Us' ),
 		array( 'url' => home_url( '/contact/' ), 'label' => 'Book an Event' ),
-		array( 'url' => 'mailto:info@OMGgroup.com.au', 'label' => 'Email Us' ),
+		array( 'url' => 'mailto:info@OMGent.com.au', 'label' => 'Email Us' ),
 	),
 ) );
 
-get_template_part( 'template-parts/sections/testimonials', null, array(
-	'emblem_text' => 'HAPPY CUSTOMERS • HAPPY CUSTOMERS • ',
-	'items'       => array(
-		array( 'quote' => 'We hired the OMG group for our corporate Christmas party and let me tell you &mdash; everyone had the best night!', 'cite' => '&mdash; Elisa Chinnabootr' ),
-		array( 'quote' => 'Thank you for coming to my husband&rsquo;s 40th casino party. Pablo and the girls were fantastic and very entertaining, explaining everything to new punters. It was lots of fun and got everyone involved.', 'cite' => '&mdash; Jess S., Cobbitty NSW' ),
-		array( 'quote' => 'I wish I could give 6 stars! Everyone had a great time and the party went off without a hitch. Our croupiers were friendly, knowledgeable and made sure even the inexperienced players had a great time.', 'cite' => '&mdash; Danielle G., Cabarita NSW' ),
-		array( 'quote' => 'They were great to deal with all the way. We had the casino tables package for a bucks night and the boys had a great time &mdash; the staff were amazing on the night.', 'cite' => '&mdash; Veronica P., Leumeah NSW' ),
-		array( 'quote' => 'We hired OMG group for our mid-year office party and their service and quality was excellent.', 'cite' => '&mdash; Aarti Mehra' ),
-	),
-) );
 
-get_template_part( 'template-parts/sections/other-services', null, array(
-	'heading'     => 'Other Services',
-	'description' => 'Why stop there? Take your event to the next level with our full suite of event services &mdash; from high-energy DJs and live music to booths, photography and full styling, all under one roof.',
-	'cards'       => array(
-		array(
-			'image'       => $img . 'omg-studio-display.jpg',
-			'logo'        => $img . 'oos-logo-studio.jpg',
-			'title'       => 'OMG Studio',
-			'description' => 'Photo booths, video booths, photography and videography &mdash; every moment of your event, captured.',
-			'url'         => home_url( '/omg-studio/' ),
-			'link_label'  => 'Visit OMG Studio',
-		),
-		array(
-			'image'       => $img . 'omg-live-hero.jpg',
-			'logo'        => $img . 'oos-logo-2.png',
-			'title'       => 'OMG LiVE',
-			'description' => 'High-energy DJs, expert lighting and professional live music for an immersive, engaging event.',
-			'url'         => home_url( '/omg-live/' ),
-			'link_label'  => 'Visit OMG LiVE',
-		),
-		array(
-			'image'       => $img . 'props-custom-new.jpg',
-			'logo'        => $img . 'oos-logo-3.png',
-			'title'       => 'OMG Props &amp; Theming',
-			'description' => 'Casino props, light-up letters and theme walls, plus table, chair and decoration hire.',
-			'url'         => home_url( '/omg-props-theming/' ),
-			'link_label'  => 'Visit OMG Props &amp; Theming',
-		),
-	),
-) );
 
-get_template_part( 'template-parts/sections/cta', null, array(
-	'title'    => 'Ready To Book Your Entertainment?',
-	'subtitle' => 'From casino nights to legendary tribute performances &mdash; get in touch for a free, no-obligation quote.',
-) );
+
 
 get_template_part( 'template-parts/sections/marquee', null, array(
-	'title' => 'The Best Brands Choose the Best Brand',
-	'logos' => array(
+	'title'          => 'THE BEST BRANDS CHOOSE THE BEST BRAND',
+	// /omg-entertainment/ only: on phones marquee.php swaps the grid for
+	// the single-line logo strip (client 2026-10-01). The home page keeps
+	// the grid.
+	'hide_on_mobile' => 'landing' === $context,
+	'logos'          => array(
 		$uploads . '/2026/04/logo-1.jpg',  $uploads . '/2026/04/logo-2.jpg',  $uploads . '/2026/04/logo-3.jpg',
 		$uploads . '/2026/04/logo-4.jpg',  $uploads . '/2026/04/logo-5.jpg',  $uploads . '/2026/04/logo-6.jpg',
 		$uploads . '/2026/04/logo-7.jpg',  $uploads . '/2026/04/logo-8.jpg',  $uploads . '/2026/04/logo-9.jpg',
@@ -136,4 +151,19 @@ get_template_part( 'template-parts/sections/marquee', null, array(
 		$uploads . '/2026/04/logo-19.jpg', $uploads . '/2026/04/logo-20.jpg', $uploads . '/2026/04/logo-21.jpg',
 		$uploads . '/2026/04/logo-22.jpg',
 	),
+) );
+
+// Testimonials sit below the brands logo grid (client 2026-09-19).
+// Quotes live in template-parts/omg-entertainment/testimonials.php, shared
+// with the casino / poker / horse racing pages (client task-009).
+get_template_part( 'template-parts/omg-entertainment/testimonials' );
+
+// CTA band — last section before the footer, below the logo grid and
+// testimonials (client 2026-09-24; previously sat between "Why Choose"
+// and the logo grid). Runs in both contexts: the home page omitted it
+// from 2026-09-17 until the client asked for it back (2026-10-01). Its
+// home colours are set in shell.css (body.home .oh-cta).
+get_template_part( 'template-parts/sections/cta', null, array(
+	'title'    => 'READY TO ROLL THE DICE?',
+	'subtitle' => 'Your Five-Star Event is one call away. Get a free, no-obligation quote today and lock in your date before it\'s gone.',
 ) );

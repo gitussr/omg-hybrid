@@ -30,7 +30,7 @@ foreach ( $hero_sliders as $slide ) {
 }
 
 $hero = array(
-	'variant'     => 'inner',
+	'variant'     => 'home',
 	'eyebrow'     => 'OMG Studio',
 	'title'       => $hero_first['title'] ?? get_the_title(),
 	'description' => $hero_first['description'] ?? '',

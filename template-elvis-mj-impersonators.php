@@ -163,7 +163,7 @@
                         <use href="<?php echo get_template_directory_uri(); ?>/assets/icons.svg#fancy-right-arrow-icom"></use>
                     </svg>
                 </a>
-                <a href="mailto:info@OMGgroup.com.au" class="primary-btn-outline">
+                <a href="mailto:info@OMGent.com.au" class="primary-btn-outline">
                     Email Us
                     <svg class="srdev-icon">
                         <use href="<?php echo get_template_directory_uri(); ?>/assets/icons.svg#fancy-right-arrow-icom"></use>
@@ -175,5 +175,16 @@
 </section>
 <!-- =====Cta section end===== -->
 
+
+<!-- =====logo marque section start===== -->
+<?php
+/*
+ * Shared client-logo slider (client 2026-09-23): every page carries the same
+ * "The Best Brands Choose the Best Brand" block, rendered from the one
+ * component in template-parts/sections/marquee.php.
+ */
+get_template_part( 'template-parts/sections/marquee', null, omg_hybrid_page7_marquee() );
+?>
+<!-- =====logo marque section end===== -->
 
 <?php get_footer(); ?>

@@ -15,10 +15,18 @@ defined( 'ABSPATH' ) || exit;
 
 $img = OMG_HYBRID_URI . '/assets/images/';
 
+$heading     = $args['heading'] ?? 'Our Services';
+$is_other = isset( $args['heading'] );
+$description = $args['description'] ?? array(
+	'Planning a great event can feel like a gamble. You want your guests to have a winning experience, but the logistics often get in the way of the fun. OMG Entertainment Group provides the expertise and services you need to host a flawless celebration. We handle the heavy lifting so you can focus on your guests.',
+	'Our centralized booking system manages every request across our various divisions. You do not have to chase different contractors because we operate as a single, efficient hub for all your event needs.',
+);
+$description = (array) $description;
+
 $divisions = array(
 	array(
 		'svc'         => 'svc-entertainment',
-		'logo'        => $img . 'oos-logo-1.png',
+		'logo'        => $img . 'oos-logo-entertainment-lg.png',
 		'name'        => 'OMG Entertainment',
 		'title'       => 'Event &amp; Entertainment',
 		'description' => 'Provides 5-star Entertainment for events big and small. Specializing in Fun Casino Parties, Fun Horse Racing, Poker Tournament, Props/Themes and more.',
@@ -26,7 +34,7 @@ $divisions = array(
 	),
 	array(
 		'svc'         => 'svc-studio',
-		'logo'        => $img . 'oos-logo-studio.png',
+		'logo'        => $img . 'oos-logo-studio-lg.png',
 		'name'        => 'OMG Studio',
 		'title'       => 'Photobooths &amp; Photography',
 		'description' => 'DSLR Camera Photo-Booths, 360 Video-Booth, Video Phone-Booth, complemented by our professional event Photography &amp; Videography services.',
@@ -34,7 +42,7 @@ $divisions = array(
 	),
 	array(
 		'svc'         => 'svc-live',
-		'logo'        => $img . 'oos-logo-2.png',
+		'logo'        => $img . 'oos-logo-live-lg.png',
 		'name'        => 'OMG LiVE',
 		'title'       => 'DJ &ndash; Music &ndash; Lights',
 		'description' => 'High-Energy DJs, DJ-Booths, Lighting, Karaoke, Live Music and PA Hire. Our dynamic setups guarantee an immersive, engaging experience for any event.',
@@ -42,19 +50,49 @@ $divisions = array(
 	),
 	array(
 		'svc'         => 'svc-props',
-		'logo'        => $img . 'oos-logo-3.png',
+		'logo'        => $img . 'oos-logo-props-lg.png',
 		'name'        => 'OMG Props &amp; Theming',
 		'title'       => 'Props &amp; Theming',
 		'description' => 'Transform your Event with Casino Props, Giant Light-Up Letters, Theme Walls, Grand Entrance, Tables, Chairs, Flower Decorations and more.',
 		'url'         => home_url( '/omg-props-theming/' ),
 	),
+	array(
+		'svc'         => 'svc-foodbeverage',
+		/*
+		 * Six client-supplied F&B wordmarks exist; the right one
+		 * depends entirely on what it sits on:
+		 *
+		 *   oos-logo-fnb-2026c.png — BLACK OMG over a title-case
+		 *     "Food & Beverage" (client 2026-09-25, third supply).
+		 *     Current choice on every F&B card.
+		 *   oos-logo-fnb-2026b.png — same OMG over an all-caps
+		 *     "FOOD & BEVERAGE" (2026-09-24); superseded.
+		 *   oos-logo-fnb-2026.png — same artwork, lighter subline;
+		 *     superseded the same day.
+		 *   oos-logo-fnb-on-light.png — earlier solid BLACK wordmark
+		 *     (client 2026-09-22), superseded by the one above.
+		 *   oos-logo-fnb-lg.png — gold/cream artwork. Reads softly on a
+		 *     near-white tint (~2:1), so it lost this slot.
+		 *   oos-logo-fnb-on-colour.png — "Food & Beverage" set in WHITE
+		 *     under a black OMG. Reads only on a solid coloured fill.
+		 *
+		 * Swap the FILE to suit the background, never recolour any of
+		 * the artwork.
+		 */
+		'logo'        => $img . 'oos-logo-fnb-2026c.png',
+		'name'        => 'OMG Food &amp; Beverage',
+		'title'       => 'Food &amp; Beverage',
+		'description' => 'Catering, mobile bars, bartenders and mixologists, plus professional staff hire &mdash; everything to keep your event fed and flowing.',
+		'url'         => home_url( '/coming-soon/' ),
+	),
 );
 ?>
 <section class="oh-service-cards oh-service-cards--divisions">
 	<div class="oh-service-cards__heading">
-		<h2 class="oh-section-title">Our Services</h2>
-		<p>Planning a great event can feel like a gamble. You want your guests to have a winning experience, but the logistics often get in the way of the fun. OMG Entertainment Group provides the expertise and services you need to host a flawless celebration. We handle the heavy lifting so you can focus on your guests.</p>
-		<p>Our centralized booking system manages every request across our various divisions. You do not have to chase different contractors because we operate as a single, efficient hub for all your event needs.</p>
+		<h2 class="oh-section-title<?php echo $is_other ? ' oh-section-title--other' : ''; ?>"><?php echo esc_html( $heading ); ?></h2>
+		<?php foreach ( $description as $para ) : ?>
+			<p><?php echo wp_kses_post( $para ); ?></p>
+		<?php endforeach; ?>
 	</div>
 
 	<div class="oh-service-cards__grid">

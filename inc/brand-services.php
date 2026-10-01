@@ -30,7 +30,7 @@ function omg_hybrid_brand_services( $brand ) {
 
 		'entertainment' => array(
 			'hero' => array(
-				'variant'     => 'inner',
+				'variant'     => 'home',
 				'eyebrow'     => 'OMG Entertainment',
 				'title'       => 'Creating Unforgettable Event Experiences',
 				'description' => 'Casino nights, race days, poker tables and showstopping performers &mdash; the entertainment that turns any event into the one people are still talking about.',
@@ -130,7 +130,7 @@ function omg_hybrid_brand_services( $brand ) {
 
 		'live' => array(
 			'hero' => array(
-				'variant'     => 'inner',
+				'variant'     => 'home',
 				'eyebrow'     => 'OMG LiVE',
 				'title'       => 'Read The Room. Keep It Moving.',
 				'description' => 'Elite DJs, atmospheric lighting and unforgettable live bands &mdash; club-standard sound and production that reads the room and keeps it moving.',
@@ -188,7 +188,7 @@ function omg_hybrid_brand_services( $brand ) {
 
 		'props' => array(
 			'hero' => array(
-				'variant'     => 'inner',
+				'variant'     => 'home',
 				'eyebrow'     => 'OMG Props &amp; Theming',
 				'title'       => 'Set The Scene Before A Single Guest Arrives',
 				'description' => 'Casino props, grand entrances, theme walls, furniture and AV tech &mdash; the styling and equipment that sets the scene before a single guest arrives.',

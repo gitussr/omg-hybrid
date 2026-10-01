@@ -37,7 +37,7 @@
                         <h3 class="title-dark-1">Check, Raise Or Fold &mdash; It&rsquo;s Your Call</h3>
                         <p>Whether you&rsquo;re after a casual social tournament or a large-scale professional event, our poker nights flex to fit your crowd. Texas Hold&rsquo;Em is our signature game, with Omaha, High/Low, 7 Card Stud and HORSE available on request &mdash; with no limits on time or player numbers.</p>
                         <div class="img-wrapper">
-                            <img src="<?php echo esc_url( home_url( '/wp-content/uploads/2026/04/hero-bg-3.jpg' ) ); ?>" alt="Guests enjoying an OMG Entertainment casino and poker night" class="img-fluid-cover"/>
+                            <img src="<?php echo esc_url( OMG_HYBRID_URI . '/assets/images/poker-sicbo-table.jpg' ); ?>" alt="OMG Entertainment Sic Bo dice table with casino chips" class="img-fluid-cover" width="1200" height="600" loading="lazy"/>
                         </div>
                     </div>
                 </div>
@@ -113,37 +113,82 @@
 </section>
 <!-- =====event types section end===== -->
 
+<!-- =====our products section start===== -->
+<?php
+// "Our Products" from the /omg-entertainment/ landing, minus this page's
+// own card (client task-009, 2026-10-01). Legacy-layer styles: end of
+// legacy-styles.css.
+get_template_part( 'template-parts/omg-entertainment/our-products', null, array( 'exclude' => array( 'poker' ) ) );
+?>
+<!-- =====our products section end===== -->
+
 
 <!-- =====why choose section start===== -->
-<section class="why-choose-section">
-    <div class="container">
-        <h3 class="title-dark-2">Why Choose OMG Entertainment?</h3>
-        <div class="why-choose-grid">
-            <div class="row justify-content-center">
-                <div class="col-md-6 mt-0">
-                    <ul class="why-choose-list">
-                        <li>Texas Hold&rsquo;Em plus Omaha, 7 Card Stud &amp; HORSE on request</li>
-                        <li>No limits on time or player numbers</li>
-                        <li>Experienced, professional dealers</li>
-                    </ul>
-                </div>
-                <div class="col-md-6 mt-0">
-                    <ul class="why-choose-list">
-                        <li>Fully customisable tournament or casual formats</li>
-                        <li>Optional extras for bucks &amp; hens nights</li>
-                        <li>Trusted across Sydney, Brisbane, Adelaide, Perth &amp; regional Australia</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="why-choose-body">
-            <p>Let OMG Entertainment deal you into your next event.</p>
-        </div>
-    </div>
-</section>
+<?php
+// "Why Choose" band copied verbatim from the OMG Entertainment landing
+// (PAGE 1.0 — template-parts/omg-entertainment-layout.php): same heading,
+// bullets and CTA buttons, plus this page's own closing line above the
+// buttons (client 2026-09-17). Legacy-layer styles: end of legacy-styles.css.
+get_template_part( 'template-parts/sections/why-choose', null, array(
+	'heading' => 'Why Choose OMG Entertainment?',
+	'bullets' => array(
+		'Full-sized, Australian-made casino equipment',
+		'Entertainment-skilled, experienced croupiers',
+		'Transparent, what-you-see-is-what-you-get pricing',
+		'Fully customisable game &amp; performer selection',
+		'Add-on props, DJ, photo booth &amp; performers',
+		'Fully insured with $20 million public liability cover',
+	),
+	'body'    => 'Let OMG Entertainment deal you into your next event.',
+	'buttons' => array(
+		array( 'url' => 'tel:1300300664', 'label' => 'Call Us' ),
+		array( 'url' => home_url( '/contact/' ), 'label' => 'Book an Event' ),
+		array( 'url' => 'mailto:info@OMGent.com.au', 'label' => 'Email Us' ),
+	),
+) );
+?>
 <!-- =====why choose section end===== -->
 
 
+<!-- =====other services section start===== -->
+<?php
+// "Other Services" — full 5-division grid, same component/content as the
+// home page (client 2026-09-29 — was a 4-card subset excluding this brand).
+get_template_part( 'template-parts/omg-entertainment/home-divisions', null, array(
+	'heading'     => 'Other Services',
+	'description' => 'Why stop there? Take your event to the next level with our full suite of event services &mdash; from high-energy DJs and live music to booths, photography and full styling, all under one roof.',
+) );
+?>
+<!-- =====other services section end===== -->
+
+
+<?php
+// Logo grid before the footer — matches the OMG Entertainment landing
+// (PAGE 1.0) "Best Brands" block (client 2026-09-17). Styles for the
+// legacy layer live at the end of legacy-styles.css.
+$uploads = home_url( '/wp-content/uploads' );
+get_template_part( 'template-parts/sections/marquee', null, array(
+	'title' => 'The Best BRANDS CHOOSE THE BEST BRAND',
+	'logos' => array(
+		$uploads . '/2026/04/logo-1.jpg',  $uploads . '/2026/04/logo-2.jpg',  $uploads . '/2026/04/logo-3.jpg',
+		$uploads . '/2026/04/logo-4.jpg',  $uploads . '/2026/04/logo-5.jpg',  $uploads . '/2026/04/logo-6.jpg',
+		$uploads . '/2026/04/logo-7.jpg',  $uploads . '/2026/04/logo-8.jpg',  $uploads . '/2026/04/logo-9.jpg',
+		$uploads . '/2026/04/logo-10.jpg', $uploads . '/2026/04/logo-11.jpg', $uploads . '/2026/04/logo-12.jpg',
+		$uploads . '/2026/04/logo-13.jpg', $uploads . '/2026/04/logo-14.jpg', $uploads . '/2026/04/logo-15.jpg',
+		$uploads . '/2026/04/logo-16.jpg', $uploads . '/2026/04/logo-17.jpg', $uploads . '/2026/04/logo-18.jpg',
+		$uploads . '/2026/04/logo-19.jpg', $uploads . '/2026/04/logo-20.jpg', $uploads . '/2026/04/logo-21.jpg',
+		$uploads . '/2026/04/logo-22.jpg',
+	),
+) );
+?>
+
+<?php
+// Testimonials below the logo grid, as on /omg-entertainment/ (client
+// task-009, 2026-10-01).
+get_template_part( 'template-parts/omg-entertainment/testimonials' );
+?>
+
+<!-- CTA moved below the logo grid (client task-008, 2026-09-30). -->
 <!-- =====Cta section start===== -->
 <section class="cta-section">
     <div class="container">
@@ -163,7 +208,7 @@
                         <use href="<?php echo get_template_directory_uri(); ?>/assets/icons.svg#fancy-right-arrow-icom"></use>
                     </svg>
                 </a>
-                <a href="mailto:info@OMGgroup.com.au" class="primary-btn-outline">
+                <a href="mailto:info@OMGent.com.au" class="primary-btn-outline">
                     Email Us
                     <svg class="srdev-icon">
                         <use href="<?php echo get_template_directory_uri(); ?>/assets/icons.svg#fancy-right-arrow-icom"></use>
@@ -174,6 +219,5 @@
     </div>
 </section>
 <!-- =====Cta section end===== -->
-
 
 <?php get_footer(); ?>

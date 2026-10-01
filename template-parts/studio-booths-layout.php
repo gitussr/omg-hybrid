@@ -33,8 +33,11 @@ if ( ! empty( $args['showcase'] ) ) {
 	get_template_part( 'template-parts/sections/booth-showcase' );
 }
 
-if ( ! empty( $args['other']['cards'] ) ) {
-	get_template_part( 'template-parts/sections/other-services', null, $args['other'] );
+if ( ! empty( $args['other'] ) ) {
+	get_template_part( 'template-parts/omg-entertainment/home-divisions', null, array(
+		'heading'     => $args['other']['heading'] ?: 'Other Services',
+		'description' => $args['other']['description'] ?: array(),
+	) );
 }
 
 if ( ! empty( $args['marquee']['logos'] ) ) {

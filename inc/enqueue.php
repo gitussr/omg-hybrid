@@ -34,10 +34,16 @@ function omg_hybrid_enqueue_assets() {
 	/*  Shared — every page                                            */
 	/* --------------------------------------------------------------- */
 	wp_enqueue_style( 'omg-hybrid-fonts', $uri . '/assets/fonts/style.css', [], $v( '/assets/fonts/style.css' ) );
+	// Display face — Google's Noto Serif (replaced the self-hosted Beautique
+	// Display). Body copy stays on the self-hosted Barlow above.
+	wp_enqueue_style( 'omg-hybrid-gfonts', 'https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap', [], null );
+	// Bootstrap Icons font — header top-bar WhatsApp/Call icons (bi-whatsapp,
+	// bi-telephone). Version pinned in the URL, so no ?ver= query.
+	wp_enqueue_style( 'bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css', [], null );
 	// Swiper's own stylesheet — required wherever a .swiper is initialised
 	// (new hero/testimonials components and the legacy inner-page hero).
 	wp_enqueue_style( 'omg-hybrid-swiper', $uri . '/assets/css/swiper.css', [], $v( '/assets/css/swiper.css' ) );
-	wp_enqueue_style( 'omg-hybrid-shell', $uri . '/assets/css/shell.css', [ 'omg-hybrid-fonts' ], $v( '/assets/css/shell.css' ) );
+	wp_enqueue_style( 'omg-hybrid-shell', $uri . '/assets/css/shell.css', [ 'omg-hybrid-fonts', 'omg-hybrid-gfonts' ], $v( '/assets/css/shell.css' ) );
 
 	// Slider library — used by the new hero/testimonials components and by
 	// the legacy inner-page hero. Vanilla, no jQuery dependency.

@@ -142,33 +142,45 @@ function omg_hybrid_option( $key ) {
 }
 
 /**
- * The "Other Services" bundle stored on the home page (post 7) as the SCF
- * group `our_others_service_section`. Shared by the OMG Studio inner pages,
- * which reproduce it verbatim from the old templates. Shaped for
- * template-parts/sections/other-services.php.
+ * The "Other Services" heading stored on the home page (post 7) as the SCF
+ * group `our_others_service_section`. Shared by the OMG Studio inner pages
+ * (template-our-booths.php, template-photography-and-videography.php),
+ * which now render the full 5-division grid (sections/... via
+ * template-parts/omg-entertainment/home-divisions.php) instead of a custom
+ * card subset, so only the heading is still read from the CMS group.
  *
- * @return array{heading:string,description:string,cards:array}
+ * @return array{heading:string,description:string}
  */
 function omg_hybrid_page7_other_services() {
 	$group = function_exists( 'get_field' ) ? get_field( 'our_others_service_section', 7 ) : array();
 	$group = is_array( $group ) ? $group : array();
 
-	$cards = array();
-	foreach ( (array) ( $group['cards'] ?? array() ) as $card ) {
-		$cards[] = array(
-			'image'       => $card['image']['url'] ?? '',
-			'logo'        => $card['logo']['url'] ?? '',
-			'title'       => $card['title'] ?? '',
-			'description' => $card['description'] ?? '',
-			'url'         => $card['button']['url'] ?? '#',
-			'link_label'  => $card['button']['title'] ?? '',
-		);
-	}
-
 	return array(
 		'heading'     => $group['main_title'] ?? '',
-		'description' => $group['description'] ?? '',
-		'cards'       => $cards,
+		'description' => '',
+	);
+}
+
+/**
+ * The shared client-logo set: every PNG in assets/images/client-logos/,
+ * in filename order (client 2026-09-19). The folder is the logo list for
+ * every logo component (sections/marquee.php grid, sections/logo-strip.php);
+ * $fallback is only used if the folder is ever emptied.
+ *
+ * @param string[] $fallback Image URLs to use when the folder has no PNGs.
+ * @return string[] Image URLs.
+ */
+function omg_hybrid_client_logos( $fallback = array() ) {
+	$files = glob( OMG_HYBRID_DIR . '/assets/images/client-logos/*.png' );
+	if ( ! $files ) {
+		return (array) $fallback;
+	}
+	sort( $files );
+	return array_map(
+		static function ( $file ) {
+			return OMG_HYBRID_URI . '/assets/images/client-logos/' . rawurlencode( basename( $file ) );
+		},
+		$files
 	);
 }
 
@@ -207,6 +219,6 @@ function omg_hybrid_cta_buttons() {
 	return array(
 		array( 'url' => 'tel:1300300664',             'label' => 'Call Us', 'solid' => true ),
 		array( 'url' => home_url( '/contact/' ),       'label' => 'Book an Event' ),
-		array( 'url' => 'mailto:info@OMGgroup.com.au', 'label' => 'Email Us' ),
+		array( 'url' => 'mailto:info@OMGent.com.au', 'label' => 'Email Us' ),
 	);
 }

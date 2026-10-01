@@ -16,7 +16,7 @@
   --light-color-2: #F5F0E5;
 
   --primary-font: 'Barlow';
-  --secondary-font: 'Beautique Display';
+  --secondary-font: 'Noto Serif';
 
   --uc-font-size-16: clamp(14px, 0.833vw, 16px);
   --uc-font-size-18: clamp(14px, 0.938vw, 18px);

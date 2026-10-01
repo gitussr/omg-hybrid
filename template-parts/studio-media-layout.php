@@ -34,8 +34,11 @@ if ( ! empty( $args['remarkable'] ) ) {
 	get_template_part( 'template-parts/sections/studio-remarkable' );
 }
 
-if ( ! empty( $args['other']['cards'] ) ) {
-	get_template_part( 'template-parts/sections/other-services', null, $args['other'] );
+if ( ! empty( $args['other'] ) ) {
+	get_template_part( 'template-parts/omg-entertainment/home-divisions', null, array(
+		'heading'     => $args['other']['heading'] ?: 'Other Services',
+		'description' => $args['other']['description'] ?: array(),
+	) );
 }
 
 if ( ! empty( $args['marquee']['logos'] ) ) {

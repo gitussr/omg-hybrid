@@ -167,4 +167,66 @@ jQuery(document).ready(function ($) {
     ]);
   }
 
+
+  // ======================
+  // Contact form — one shared gold outline framing the 5 OMG division
+  // fields as a group (client 2026-09-29), on top of each field's own
+  // brand-coloured box (untouched). Positioned by JS, not layout, so the
+  // fields keep Gravity Forms' own responsive grid unchanged.
+  // ======================
+  (function () {
+    var ids = ['field_1_72', 'field_1_66', 'field_1_79', 'field_1_81', 'field_1_83'];
+    var fields = ids.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+    if (fields.length !== ids.length) return;
+
+    var container = fields[0].closest('.gform_fields') || fields[0].parentElement;
+    if (!container) return;
+
+    var frame = document.createElement('div');
+    frame.className = 'oh-division-fields-frame';
+    // Set position/border inline, not via the stylesheet class — Gravity
+    // Forms' own theme-framework CSS resets child positioning with higher
+    // specificity and was winning the cascade (client 2026-09-29).
+    frame.style.position = 'absolute';
+    frame.style.border = '1px solid #EECD92';
+    frame.style.boxSizing = 'border-box';
+    frame.style.borderRadius = '10px';
+    frame.style.pointerEvents = 'none';
+    if (getComputedStyle(container).position === 'static') {
+      container.style.position = 'relative';
+    }
+    container.appendChild(frame);
+
+    var PAD = 16;
+    function updateFrame() {
+      var cRect = container.getBoundingClientRect();
+      var top = Infinity, left = Infinity, right = -Infinity, bottom = -Infinity;
+      fields.forEach(function (f) {
+        var r = f.getBoundingClientRect();
+        top = Math.min(top, r.top);
+        left = Math.min(left, r.left);
+        right = Math.max(right, r.right);
+        bottom = Math.max(bottom, r.bottom);
+      });
+      // Padding stays inside the container's own box — never pushes the
+      // frame past it (client 2026-09-29, was overflowing left/right).
+      var relTop = Math.max(0, top - cRect.top - PAD);
+      var relLeft = Math.max(0, left - cRect.left - PAD);
+      var relRight = Math.min(cRect.width, right - cRect.left + PAD);
+      var relBottom = Math.min(cRect.height, bottom - cRect.top + PAD);
+      frame.style.top = relTop + 'px';
+      frame.style.left = relLeft + 'px';
+      frame.style.width = (relRight - relLeft) + 'px';
+      frame.style.height = (relBottom - relTop) + 'px';
+    }
+
+    updateFrame();
+    window.addEventListener('load', updateFrame);
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(updateFrame, 150);
+    });
+  })();
+
 });

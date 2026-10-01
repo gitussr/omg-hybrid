@@ -15,9 +15,13 @@
 :root {
 	/* Service palette — default context is OMG Entertainment.
 	   Switched per page by the body class (.svc-*) below. */
-	--color-primary: #BF2525;
-	--color-secondary: #FFF1F1;
-	--color-muted: #FFF9F9;
+	/* Entertainment red softened from #BF2525 — client found the pure
+	   high-saturation red too striking (2026-09-07). #A32E2E is a brick
+	   red: same identity, less glare. Secondary/muted lose most of the
+	   pink tint to match. */
+	--color-primary: #A32E2E;
+	--color-secondary: #F9F0EE;
+	--color-muted: #FBF7F5;
 	--on-primary: #ffffff;
 	/* readable text/icon colour on --color-primary */
 	--color-accent: var(--color-primary);
@@ -28,8 +32,8 @@
 	--color-line: #e2e2e2;
 	--color-surface: #ffffff;
 
-	--font-display: 'Beautique Display', 'Cormorant Garamond', Georgia, serif;
-	--font-body: 'Barlow', 'Helvetica Neue', Arial, sans-serif;
+	--font-display: 'Noto Serif', Georgia, 'Times New Roman', serif;
+	--font-body: Arial, sans-serif;
 
 	--wrap: 1294px;
 	--gutter: clamp(16px, 3vw, 32px);
@@ -47,14 +51,14 @@
 	   any legacy-derived rule references these names. Values match the old
 	   theme's assets/css/base.css exactly. On legacy pages the old base.css
 	   re-declares them (identical) after this file, so nothing shifts. */
-	--primary-solid-color: #BF2525;
+	--primary-solid-color: #A32E2E;
 	--primary-gradient-color: linear-gradient(90deg, #F4870F 0%, #FFA600 100%);
 	--secondary-color: #D34821;
 	--dark-color: #000;
 	--light-color-1: #FFFFFF;
 	--light-color-2: #F5F0E5;
 	--primary-font: 'Barlow';
-	--secondary-font: 'Beautique Display';
+	--secondary-font: 'Noto Serif';
 	--uc-font-size-16: clamp(14px, 0.833vw, 16px);
 	--uc-font-size-18: clamp(14px, 0.938vw, 18px);
 	--uc-font-size-20: clamp(14px, 1.042vw, 20px);
@@ -66,9 +70,9 @@
 }
 
 .svc-entertainment {
-	--color-primary: #BF2525;
-	--color-secondary: #FFF1F1;
-	--color-muted: #FFF9F9;
+	--color-primary: #A32E2E;
+	--color-secondary: #F9F0EE;
+	--color-muted: #FBF7F5;
 	--on-primary: #ffffff;
 }
 
@@ -80,34 +84,54 @@
 }
 
 .svc-live {
-	--color-primary: #BB44F0;
-	--color-secondary: #ECE1FF;
-	--color-muted: #F6F1FF;
+	/* Purple softened from the vivid #BB44F0 to a muted orchid per client
+	   (2026-09-07) — same identity, far less glare, and it now clears AA
+	   as link text on white (the old value did not). White --on-primary
+	   still passes on it. Secondary/muted eased to match. */
+	--color-primary: #9D5BBE;
+	--color-secondary: #EEE6FA;
+	--color-muted: #F7F3FC;
 	--on-primary: #ffffff;
 }
 
 .svc-props {
-	--color-primary: #DEDE6D;
-	--color-secondary: #FFFFCA;
-	--color-muted: #FFFFEB;
+	/* Props gold, retuned across 2026-09-08..09: #F9D601 -> #C99A2E ->
+	   #E5B924 -> #FFBC0D (client-chosen), a bright amber gold. --on-primary
+	   stays dark (~7.7:1 on it); secondary/muted are soft golds, not lemon. */
+	--color-primary: #FFBC0D;
+	--color-secondary: #F7EAC2;
+	--color-muted: #FCF6E2;
 	--on-primary: #3a3a1e;
 }
 
+/* OMG Food & Beverage — new 5th division on the home page (client
+   2026-09-14), no dedicated page yet. Same pattern as the other four:
+   --on-primary dark, ~8:1 on the orange. */
+.svc-foodbeverage {
+	--color-primary: #F28C1E;
+	--color-secondary: #FDEBD8;
+	--color-muted: #FFF6EC;
+	--on-primary: #3a2a10;
+}
+
 /* Cross-brand "group" pages: home, /print-templates/, /contact/.
-   A slate-blue + gold palette, not tied to any of the four services.
-   Applied via the svc-group body class (inc/services.php). Also remaps
-   the legacy colour aliases so the two ported pages (contact,
-   print-templates) recolour too, not just the shared header/footer. */
+   Gold + cream palette matching the real OMG Group brand site
+   (omggroup.com.au), not tied to any of the four services. Applied via
+   the svc-group body class (inc/services.php). Also remaps the legacy
+   colour aliases so the two ported pages (contact, print-templates)
+   recolour too, not just the shared header/footer. --color-primary is
+   a light gold, so --on-primary flips dark (same pattern already used
+   for Studio/LiVE below) instead of white. */
 .svc-group {
-	--color-primary: #4B6587;
+	--color-primary: #EECD92;
 	--color-secondary: #E1D4BB;
-	--color-muted: #EEEEEE;
+	--color-muted: #F5ECD9;
 	--color-accent: #CBB279;
-	--on-primary: #ffffff;
+	--on-primary: #333333;
 
 	/* legacy aliases (used by legacy-*.css on the ported pages) */
-	--primary-solid-color: #4B6587;
-	--primary-gradient-color: linear-gradient(90deg, #4B6587 0%, #5C7AA0 100%);
+	--primary-solid-color: #EECD92;
+	--primary-gradient-color: linear-gradient(90deg, #EECD92 0%, #F4E0B0 100%);
 	--secondary-color: #CBB279;
 	--light-color-2: #E1D4BB;
 }
@@ -138,16 +162,92 @@ body {
 	--omg-on-primary: var(--on-primary);
 }
 
-/* Props' primary (#DEDE6D) is too pale for text on white, so the mega
-   panel's service-column headings use the darkened variant instead.
-   Higher specificity + !important to beat the plugin's own !important. */
-.svc-props .omg-services-col-heading {
-	color: var(--omg-primary-dark) !important;
+/* The mega-menu backdrop uses the group gold on every page, not the active
+   service colour (client request 2026-09-07) — matches how it looks on the
+   home page (svc-group). Body prefix beats the plugin's own
+   var(--omg-primary) rule regardless of stylesheet load order. */
+body .omg-backdrop {
+	background: color-mix(in srgb, #EECD92 67%, transparent);
 }
 
-.svc-props .omg-services-col-heading.is-active::before,
+/* Each "Our Services" column heading keeps its own brand colour no matter
+   which service page is being viewed — the rest of the mega menu still
+   themes to the active page. The column gets a fixed .omg-services-col--*
+   class from the plugin (brand_slug()). Prefixed with .omg-mm-panel so
+   these win over the plugin's own !important rules regardless of
+   stylesheet load order. */
+.omg-mm-panel .omg-services-col--entertainment .omg-services-col-heading {
+	color: #A32E2E !important;
+}
+
+.omg-mm-panel .omg-services-col--studio .omg-services-col-heading {
+	color: #33D5C6 !important;
+}
+
+.omg-mm-panel .omg-services-col--live .omg-services-col-heading {
+	color: #9D5BBE !important;
+}
+
+.omg-mm-panel .omg-services-col--props .omg-services-col-heading {
+	color: #FFBC0D !important;
+}
+
+/* Food & Beverage — new brand, no dedicated page (plugin keys the column
+   class off the heading text). Orange per client (2026-09-07). */
+.omg-mm-panel .omg-services-col--foodbeverage .omg-services-col-heading {
+	color: #F28C1E !important;
+}
+
+.omg-mm-panel .omg-services-col--entertainment .omg-services-col-heading.is-active::before {
+	background: #A32E2E;
+}
+
+.omg-mm-panel .omg-services-col--studio .omg-services-col-heading.is-active::before {
+	background: #33D5C6;
+}
+
+.omg-mm-panel .omg-services-col--live .omg-services-col-heading.is-active::before {
+	background: #9D5BBE;
+}
+
+.omg-mm-panel .omg-services-col--props .omg-services-col-heading.is-active::before {
+	background: #FFBC0D;
+}
+
+.omg-mm-panel .omg-services-col--foodbeverage .omg-services-col-heading.is-active::before {
+	background: #F28C1E;
+}
+
+/* Props sub-item active indicator bar — plain #DEDE6D is invisible on white. */
 .svc-props .omg-services-col-link.is-active::before {
-	background: var(--omg-primary-dark);
+	background: #7A5E1C;
+}
+
+/* Same fixed brand colours for the mobile drawer's accordion triggers —
+   the heading link and its caret toggle button both take the brand hue. */
+.omg-mobile-nav .omg-mob-group--entertainment .omg-mob-trigger,
+.omg-mobile-nav .omg-mob-group--entertainment .omg-mob-caret {
+	color: #A32E2E;
+}
+
+.omg-mobile-nav .omg-mob-group--studio .omg-mob-trigger,
+.omg-mobile-nav .omg-mob-group--studio .omg-mob-caret {
+	color: #33D5C6;
+}
+
+.omg-mobile-nav .omg-mob-group--live .omg-mob-trigger,
+.omg-mobile-nav .omg-mob-group--live .omg-mob-caret {
+	color: #9D5BBE;
+}
+
+.omg-mobile-nav .omg-mob-group--props .omg-mob-trigger,
+.omg-mobile-nav .omg-mob-group--props .omg-mob-caret {
+	color: #FFBC0D;
+}
+
+.omg-mobile-nav .omg-mob-group--foodbeverage .omg-mob-trigger,
+.omg-mobile-nav .omg-mob-group--foodbeverage .omg-mob-caret {
+	color: #F28C1E;
 }
 
 *,
@@ -204,6 +304,17 @@ body.oh-theme {
 	-webkit-font-smoothing: antialiased;
 }
 
+/* Legacy pages keep the old base.css sizing/colour, but body copy and the
+   shared footer use the new body face instead of the old Barlow.
+   body.oh-legacy out-specifies base.css's bare `body` rule even though that
+   file loads after this one. :root --primary-font is left alone on purpose:
+   the mega menu still uses Barlow (the Quick Quote panel re-points it — see
+   #book-now-panel below). */
+body.oh-legacy,
+.oh-footer {
+	font-family: var(--font-body);
+}
+
 /* Zero-specificity element resets (via :where) so component classes like
    .oh-btn--solid always win without needing to out-specify the reset. */
 :where(body.oh-theme) img {
@@ -214,6 +325,7 @@ body.oh-theme {
 :where(body.oh-theme) :is(h1, h2, h3, h4, h5, h6) {
 	margin: 0;
 	line-height: 1.15;
+	font-weight: 400;
 }
 
 :where(body.oh-theme) p {
@@ -407,6 +519,25 @@ body.oh-theme {
 	box-shadow: 0 6px 24px rgba(0, 0, 0, .10);
 }
 
+/* omggroup.com.au: #siteHeader.is-sticky .top-bar { height: 0; } — the
+   star/whatsapp/call utility bar fully hides once the header sticks, on
+   every screen size (not just mobile). The logo+nav bar below shrinks
+   too now: logo max-height and bar padding step down on stick. */
+.oh-header__top {
+	display: grid;
+	grid-template-rows: 1fr;
+	transition: grid-template-rows .3s ease;
+}
+
+.oh-header__top > .oh-wrap {
+	overflow: hidden;
+	min-height: 0;
+}
+
+.oh-header.is-sticky .oh-header__top {
+	grid-template-rows: 0fr;
+}
+
 .oh-header__top {
 	background: var(--color-primary);
 	color: var(--on-primary);
@@ -415,46 +546,43 @@ body.oh-theme {
 
 .oh-header__top .oh-wrap {
 	display: flex;
-	align-items: center;
+	align-items: stretch;
 	justify-content: space-between;
 	gap: 16px;
 	padding-block: 0;
-	flex-wrap: wrap;
 }
 
 .oh-header__rating {
 	display: flex;
 	align-items: center;
-	gap: 10px;
+	gap: 15px;
 	font-weight: 700;
 	text-transform: uppercase;
 }
 
 .oh-header__rating .oh-stars {
 	display: inline-flex;
-	gap: 3px;
+	gap: 4px;
 }
 
 .oh-header__rating .oh-stars .srdev-icon {
-	width: 16px;
-	height: 16px;
+	width: 18px;
+	height: 18px;
 	fill: currentColor;
 }
 
-.oh-header__rating .oh-rating-text {
-	font-weight: 400;
-	text-transform: none;
-}
-
+/* "RATE US" link: bold (client 2026-09-08 — the "5 OUT OF 5." text it used
+   to sit beside is now removed), no underline, inherits the bar colour. */
 .oh-header__rating a {
-	text-decoration: underline;
+	font-weight: 700;
+	text-decoration: none;
 	color: inherit;
 }
 
 .oh-header__top-actions {
 	display: flex;
-	align-items: center;
-	gap: 10px;
+	align-items: stretch;
+	gap: 16px;
 }
 
 .oh-header__top-actions a {
@@ -465,33 +593,70 @@ body.oh-theme {
 	border-radius: 0;
 	color: inherit;
 	text-transform: uppercase;
-	font-weight: 500;
+	font-weight: 700;
+	font-size: 15px;
 	line-height: 1;
 	transition: background-color .2s ease, opacity .2s ease;
 }
 
-.oh-header__top-actions a .srdev-icon {
-	width: 15px;
-	height: 15px;
-	fill: currentColor;
+/* WhatsApp/Call icons are Bootstrap Icons font glyphs (bi-whatsapp,
+   bi-telephone): 24px at every width. ::before goes block to drop the
+   library's vertical-align:-.125em baseline nudge, which would push the
+   glyph off-centre in the flex row. */
+.oh-header__top-actions a .bi {
+	display: block;
+	font-size: 24px;
+	line-height: 1;
+}
+
+.oh-header__top-actions a .bi::before {
+	display: block;
+}
+
+/* WhatsApp = omggroup.com.au's .whatsapp-link: a circular/pill hit area
+   (border-radius 50% on a fixed-height flex row stadiums out around the
+   icon+label), transparent by default so it blends into the bar, filled
+   on hover. Reference hardcodes the hover fill to its own gold (#d0ae70);
+   we darken --color-primary instead (same color-mix trick already used
+   for the mega-menu's dropdown arrow border below) so it still reads as
+   "this page's colour, darkened" on the non-gold brand pages. */
+/* Text/icon colour is var(--on-primary) (readable-on-primary token), not
+   the reference's hardcoded #000 — that's black-on-gold only, invisible
+   on the darker brand bars (e.g. Entertainment's red, on-primary:white). */
+.oh-header__top-actions .oh-whatsapp {
+	justify-content: center;
+	gap: 8px;
+/* 	height: 48px; */
+	border-radius: 50%;
+	color: var(--on-primary);
+	text-transform: none;
+	transition: all 0.3s ease-in-out;
 }
 
 .oh-header__top-actions .oh-whatsapp:hover {
-	opacity: 0.75;
+	background: color-mix(in srgb, var(--color-primary) 80%, black 20%);
 }
 
-/* The top bar itself is --color-primary, so the Call button inverts the
-   palette: a solid --on-primary fill with --color-primary text/icon. This
-   keeps it readable and visibly on-theme on all four services. */
+/* Call = omggroup.com.au's .contact-btn: bg matches the top bar itself
+   (their CSS hardcodes the bar's own gold hex; we use --color-primary so
+   it still blends on the non-gold brand pages), so by default it blends
+   invisibly into the bar and only the hover fill (darkened --color-primary,
+   same technique as WhatsApp's hover) reveals it. */
 .oh-header__top-actions .oh-call {
-	padding: 15px 14px;
-	background: var(--on-primary);
-	color: var(--color-primary);
-	font-weight: 600;
+	background-color: var(--color-primary);
+	color: var(--on-primary);
+	padding: clamp(5px, 0.781vw, 15px) 20px;
+	text-transform: uppercase;
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	line-height: 1;
+	transition: 0.3s ease-in-out;
 }
 
 .oh-header__top-actions .oh-call:hover {
-	filter: brightness(0.94);
+	background-color: color-mix(in srgb, var(--color-primary) 80%, black 20%);
+	color: var(--on-primary);
 }
 
 .oh-header__bar .oh-wrap {
@@ -499,6 +664,7 @@ body.oh-theme {
 	align-items: center;
 	gap: clamp(12px, 2vw, 32px);
 	padding-block: 12px;
+	transition: padding-block .3s ease;
 }
 
 .oh-header__brand {
@@ -510,12 +676,24 @@ body.oh-theme {
 	display: block;
 	width: auto;
 	max-height: clamp(46px, 5vw, 74px);
-	transition: max-height .3s ease;
+	transition: max-height .3s ease, opacity .2s ease;
 }
 
+.oh-header__brand img:hover,
+.oh-header__brand .custom-logo:hover {
+	opacity: 0.6;
+}
+
+/* Scrolled state: the logo steps down about a third and the bar padding
+   tightens with it, so the stuck header gives the page back some height.
+   Both properties carry the .3s transitions declared above. */
 .oh-header.is-sticky .oh-header__brand img,
 .oh-header.is-sticky .oh-header__brand .custom-logo {
-	max-height: 44px;
+	max-height: clamp(34px, 3.4vw, 50px);
+}
+
+.oh-header.is-sticky .oh-header__bar .oh-wrap {
+	padding-block: 8px;
 }
 
 .oh-header__nav {
@@ -532,6 +710,18 @@ body.oh-theme {
 	align-items: center;
 }
 
+/* DORMANT (client 2026-09-24): main menu goes back to the plugin's own
+   font-weight:500. Uncomment to make it bold again.
+   Main menu (OUR SERVICES / PHOTOBOOTH TEMPLATES / JOIN US / CONTACT) —
+   bold, overriding the plugin's own font-weight:500 !important. Extra
+   `.omg-mm-nav`/`.omg-mm-item` classes out-specify it regardless of
+   stylesheet load order (same idiom as the svc-group colour rules below).
+.omg-mm-nav .omg-mm-trigger,
+.omg-mm-nav .omg-mm-item .omg-mm-link {
+	font-weight: 700 !important;
+}
+*/
+
 .oh-header__nav .oh-nav__list a {
 	text-transform: uppercase;
 	font-weight: 500;
@@ -541,6 +731,54 @@ body.oh-theme {
 
 .oh-header__nav .oh-nav__list a:hover {
 	color: var(--color-primary);
+}
+
+/* Group pages: the logo+nav bar gets its own dark damask texture (a
+   mirrored variant of the footer grid band's, so the two don't look
+   identically repeated). Bar is dark now, so nav links go gold
+   (--color-primary, already #EECD92 here) instead of the default dark
+   ink, with white on hover since gold-on-hover would no longer read as
+   a state change. */
+.svc-group .oh-header__bar {
+    background-image: url('../images/header-texture-23-op.png');
+    background-repeat: repeat;
+    background-size: cover;
+    background-color: #1a4e8c;
+}
+
+.svc-group .oh-header__nav .oh-nav__list a {
+	color: var(--color-primary);
+}
+
+/* Mobile hamburger — the plugin hardcodes dark #1a1a1a bars, invisible on
+   the dark svc-group header bar. Recolour to the gold (matches the nav
+   text above). */
+.svc-group .omg-mm-hamburger span {
+	background: var(--color-primary);
+}
+
+.svc-group .oh-header__nav .oh-nav__list a:hover {
+	color: #fff;
+}
+
+/* Mega-menu plugin's own top-level items (Our Services, Photobooth
+   Templates, Join Us, Contact) hardcode a dark #1a1a1a with !important in
+   mega-menu-frontend.css — needs matching specificity to override here on
+   the now-dark svc-group header bar. On the LEGACY pages (contact,
+   print-templates) legacy-styles.css ALSO forces
+   `header .menu-block .stellarnav ul li a { color:#000 !important }`
+   (0,3,3) — which hits .omg-mm-link (an <a>) but not .omg-mm-trigger (a
+   <button>), hence the extra `.omg-mm-nav .omg-mm-item` classes here to
+   out-specify it (0,4,x). */
+.svc-group .omg-mm-nav .omg-mm-trigger,
+.svc-group .omg-mm-nav .omg-mm-item .omg-mm-link {
+	color: var(--color-primary) !important;
+}
+
+.svc-group .omg-mm-nav .omg-mm-trigger:hover,
+.svc-group .omg-mm-nav .omg-mm-item .omg-mm-link:hover,
+.svc-group .omg-mm-nav .omg-mm-trigger[aria-expanded="true"] {
+	color: #fff !important;
 }
 
 /* Quick Quote button in the header bar (desktop). The mega-menu plugin
@@ -576,9 +814,26 @@ body.oh-theme {
 /* ------------------------------------------------------------------ */
 .oh-footer {
 	position: relative;
-	background: #0e0e0e url('../images/footer-bg.jpg') no-repeat top center / cover;
+	background: #0e0e0e url('../images/footer-omg-event-crowd.jpg') no-repeat top center / cover;
 	color: #fff;
 	isolation: isolate;
+}
+
+/* OMG Props & Theming page only (client 2026-09-24): footer background
+   swapped for the race-day guests photo. The dark ::before overlay below
+   still sits over it, so the footer text keeps its contrast. */
+.page-omg-props-theming .oh-footer {
+	background-image: url('../images/footer-props-race-day-guests.jpg');
+}
+
+/* OMG Entertainment page and its three service pages (client 2026-09-24):
+   footer background swapped for the race-day bookies photo. Same dark
+   ::before overlay. */
+.page-omg-entertainment .oh-footer,
+.page-casino-fun-nights .oh-footer,
+.page-poker-tournaments .oh-footer,
+.page-horse-racing-fun-nights .oh-footer {
+	background-image: url('../images/footer-entertainment-race-day-bookies.jpg');
 }
 
 .oh-footer::before {
@@ -599,11 +854,19 @@ body.oh-theme {
 }
 
 .oh-footer {
-	padding-top: 0;
+	padding-top: 300px;
 }
 
 .oh-footer a {
 	color: #fff;
+}
+
+/* .oh-footer a (above) forces every footer link white, which otherwise
+   beats .oh-btn--solid's own var(--on-primary) text colour by
+   specificity — needed so the solid CTA pills read correctly against
+   their own --color-primary fill instead of white-on-gold. */
+.oh-footer .oh-btn--solid {
+	color: var(--on-primary);
 }
 
 .oh-footer__cta {
@@ -613,9 +876,14 @@ body.oh-theme {
 
 .oh-footer__cta h2 {
 	font-family: var(--font-display);
-	font-size: var(--fs-h2);
+	/* Bumped above the shared --fs-h2 (still used elsewhere) per request. */
+	font-size: clamp(32px, 3.6vw, 58px);
 	text-transform: uppercase;
 	margin: 0 0 clamp(20px, 3vw, 40px);
+	/* Footer Title is a plain <input>, can't hold a real line break — a
+	   capped width forces the wrap instead; text-wrap:balance (already
+	   set) then splits it into even lines. */
+	max-width: 25ch;
 	text-wrap: balance;
 	text-align: left;
 }
@@ -627,42 +895,81 @@ body.oh-theme {
 	justify-content: flex-start;
 }
 
-/* The primary-coloured footer band is cut into a "pennant" strip: a
-   continuous zigzag along its top and bottom edges. The teeth are a
-   repeating SVG-triangle mask at a fixed tile size, so the tooth count
-   adapts to the band width — fully responsive, always crisp. Left/right
-   edges stay straight. */
+/* The primary-coloured footer band on the inner pages. It was cut into a
+   zigzag "pennant" strip top and bottom until 2026-09-24, when the client
+   swapped it for the same radial-gradient corner-notch mask the group
+   pages use below: the mask tile is the band's own size, offset -40px, so
+   a 40px quarter-circle is bitten out of all four corners. */
 .oh-footer__grid {
-	--zz-w: 30px; /* tooth width  */
-	--zz-h: 15px; /* tooth height */
-	--zz-up: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='2'%20height='1'%3E%3Cpolygon%20points='0,1%201,0%202,1'%20fill='%23000'/%3E%3C/svg%3E");
-	--zz-down: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='2'%20height='1'%3E%3Cpolygon%20points='0,0%201,1%202,0'%20fill='%23000'/%3E%3C/svg%3E");
+	/* Column gap as a token so the desktop dividers below can sit centred in it. */
+	--footer-gap: clamp(20px, 3vw, 48px);
 
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
-	gap: clamp(20px, 3vw, 48px);
-	/* extra block padding keeps the columns clear of the teeth */
-	padding-block: calc(clamp(28px, 3.5vw, 50px) + var(--zz-h));
+	gap: var(--footer-gap);
+	/* The +15px (the old tooth height) is kept so the columns stay clear
+	   of the 40px corner notches, down to the 20px phone side padding. */
+	padding-block: calc(clamp(28px, 3.5vw, 50px) + 15px);
 	padding-inline: clamp(20px, 3vw, 40px);
 	background: var(--color-primary);
 	color: var(--on-primary);
 
-	-webkit-mask:
-		var(--zz-up) top / var(--zz-w) var(--zz-h) repeat-x,
-		var(--zz-down) bottom / var(--zz-w) var(--zz-h) repeat-x,
-		linear-gradient(#000 0 0) center / 100% calc(100% - 2 * var(--zz-h) + 2px) no-repeat;
-	mask:
-		var(--zz-up) top / var(--zz-w) var(--zz-h) repeat-x,
-		var(--zz-down) bottom / var(--zz-w) var(--zz-h) repeat-x,
-		linear-gradient(#000 0 0) center / 100% calc(100% - 2 * var(--zz-h) + 2px) no-repeat;
+	-webkit-mask: radial-gradient(40px at 40px 40px, #0000 98%, #000) -40px -40px;
+	mask: radial-gradient(40px at 40px 40px, #0000 98%, #000) -40px -40px;
+}
+
+/* Faint divider on the right of every footer column except the last
+   (client 2026-09-14). Desktop only: at <=991px the grid wraps to 2 / 1
+   columns and the dividers would run along row ends. The #menu-footer
+   underline further down stays at every width.
+   The line is drawn by ::after centred in the column gap, not as the
+   column's own border-right: at 1920px the widest Contact Us line ("OMG
+   Entertainment Group (HQ)") fills its column and ran into a border on
+   the column edge. Centring it gives equal space either side without
+   narrowing the columns (so no new text wrapping). */
+@media (min-width: 992px) {
+	.oh-footer__col {
+		position: relative;
+	}
+
+	.oh-footer__col:not(:last-child)::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: calc(var(--footer-gap) / -2);
+		border-right: 1px solid #ffffff21;
+		pointer-events: none;
+	}
+}
+
+/* Group pages (home, /contact/, /print-templates/): the footer grid band
+   swaps the gold pennant panel for a dark damask texture, with the exact
+   corner-notch mask omggroup.com.au uses on its footer .bottom-block
+   panel (single 40px radial-gradient bite, top-left corner). Panel is
+   dark again here, so text/icons go back to white instead of the
+   --on-primary dark used on the gold pennant band elsewhere. */
+.svc-group .oh-footer__grid {
+	padding: clamp(28px, 2.083vw, 40px) clamp(40px, 4.167vw, 80px);
+	/* Deepened from #1a4e8c (client 2026-09-22). The damask texture still
+	   sits on top; this is the base colour showing through it. */
+	background: #0b3362 url('../images/header-texture-23-op.png') no-repeat center / cover;
+	color: #fff;
+
+	-webkit-mask: radial-gradient(40px at 40px 40px, #0000 98%, #000) -40px -40px;
+	mask: radial-gradient(40px at 40px 40px, #0000 98%, #000) -40px -40px;
+}
+
+.svc-group .oh-footer__grid h3 {
+	color: var(--color-primary);
+}
+
+.svc-group .oh-footer__grid a {
+	color: #fff;
 }
 
 .oh-footer__grid a {
 	color: var(--on-primary);
-}
-
-.oh-footer__grid .oh-footer__social svg {
-	fill: var(--on-primary);
 }
 
 .oh-footer__grid h3 {
@@ -679,25 +986,177 @@ body.oh-theme {
 	gap: 8px;
 }
 
+/* omggroup.com.au's .bottom-block ul li a:hover / .social-media li
+   a:hover: just the nudge, no icon zoom. */
 .oh-footer__grid ul a:hover {
-	text-decoration: underline;
+	transform: translate(5px, -2px);
+	transition: 0.3s ease-in-out;
 }
 
-.oh-footer__social a {
+/* The plain footer-menu ("OMG Group Services") and Contact-Us links are
+   inline <a>s, so the translate nudge above is a no-op on them (transform
+   needs a block box). inline-block enables it — same hover as the social
+   links. The WhatsApp line (a.oh-footer__social) keeps its inline-flex. */
+.oh-footer__grid .oh-footer__menu a,
+.oh-footer__grid .oh-footer__contact ul a:not(.oh-footer__social) {
+	display: inline-block;
+	transition: transform 0.3s ease-in-out;
+}
+
+/* "OMG Group Services" footer menu: faint divider under the list (client
+   2026-09-14). The id out-specifies .oh-footer__grid ul's margin/padding 0. */
+ul#menu-footer {
+	border-bottom: 1px solid #ffffff21;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+/* Bright footer bands: the faint white lines above (#ffffff21) vanish on
+   them, so the column dividers and the menu underline go dark instead.
+     - Props landing + its "Our Services" page, pale yellow (2026-09-14)
+     - Studio, cyan #33D5C6 (client 2026-09-21)
+   Studio is keyed off .svc-studio, the palette class that actually sets
+   the band colour, rather than a page-template list — that way every
+   Studio-palette page is covered (/omg-studio/ and /our-booths/ today).
+   The two legacy Studio pages (/photography/, /videography/) carry no
+   .svc-* class and render the legacy footer, so they are unaffected. */
+@media (min-width: 992px) {
+	.page-template-template-omg-props-theming .oh-footer__col:not(:last-child)::after,
+	.page-template-template-props-services .oh-footer__col:not(:last-child)::after,
+	.svc-studio .oh-footer__col:not(:last-child)::after {
+		border-right-color: #00000033;
+	}
+}
+
+.page-template-template-omg-props-theming ul#menu-footer,
+.page-template-template-props-services ul#menu-footer,
+.svc-studio ul#menu-footer {
+	border-bottom-color: #00000033;
+}
+
+/* Matches both cases: .oh-footer__social wrapping a column of <a>s (the
+   "Let's Get Social" column), and .oh-footer__social ON the <a> itself
+   (the WhatsApp line in the Contact Us column) — that one was falling
+   through to the default inline <a>, wrapping icon/number onto 2 lines. */
+.oh-footer__social a,
+a.oh-footer__social {
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
 }
 
+/* After omggroup.com.au's .social-media li a .wrapper .icon: a translucent
+   white tile behind each icon. The glyph takes --on-primary (the
+   readable-on-primary token) because the band it sits on IS
+   --color-primary — tinting the glyph with --color-primary too made it
+   invisible (client report 2026-09-07). Group pages override below.
+   The tile is a rounded square, not a circle (client 2026-09-22) — this
+   rule covers both the "Let's Get Social" icons and the WhatsApp icon in
+   Contact Us, so all four stay in one shape. */
 .oh-footer__social svg {
-	width: 26px;
-	height: 26px;
-	fill: #fff;
+	width: 21px;
+	height: 21px;
+	padding: 9.5px;
+	box-sizing: content-box;
+	border-radius: 10px;
+	/* Was #ffffff10 (~6%), which vanished on every band. 20% reads on the
+	   darker red / purple / navy bands. */
+	background-color: #ffffff33;
+	fill: var(--on-primary);
+	transition: 0.3s ease-in-out;
+}
+
+/* Bright bands — Props yellow and Studio cyan: a white circle has very
+   little contrast against them, so it needs a much stronger alpha to show. */
+.svc-props .oh-footer__social svg,
+.svc-studio .oh-footer__social svg,
+.page-template-template-omg-props-theming .oh-footer__social svg,
+.page-template-template-props-services .oh-footer__social svg {
+	background-color: #ffffff80;
+}
+
+/* Group footer band is the dark navy damask, not the pennant --color-
+   primary fill — the gold --color-primary glyph reads on it, --on-primary
+   (#333) would not. */
+.svc-group .oh-footer__grid .oh-footer__social svg {
+	fill: var(--color-primary);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Footer social — "Let's Get Social" column (client 2026-09-22)      */
+/*  Back to a vertical "[glyph] Facebook" list after a day as a row    */
+/*  of full-colour 3D PNG tiles. The glyphs are inline SVG again, so   */
+/*  every .oh-footer__social svg rule above applies to them — faint    */
+/*  translucent disc, theme-coloured glyph — which is what makes them  */
+/*  match the WhatsApp icon in the Contact Us column (the client's     */
+/*  reference). Nothing here re-states that treatment; these rules     */
+/*  only handle layout and the mobile icons-only row.                  */
+/* ------------------------------------------------------------------ */
+
+/* Inherits the vertical `display: grid` stack from .oh-footer__grid ul.
+   The gap is a touch wider than the 8px text-link default because each
+   row is a 40px disc, not a line of text. */
+.oh-footer__grid .oh-social-list {
+	gap: 12px;
+}
+
+/* Tablet and below (<=991px) — the same width at which the footer grid
+   drops from 4 columns to 2, so the social column is already sharing a
+   row and a vertical list of three labelled discs is a lot of dead
+   height. Labels off, icons only, laid out in a row (client 2026-09-22;
+   extended from the original 600px mobile-only breakpoint the same day).
+   .oh-social-label is hidden rather than removed from the markup so the
+   links keep an accessible name at every width. */
+@media (max-width: 991px) {
+	.oh-footer__grid .oh-social-list {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 14px;
+	}
+
+	.oh-social-list .oh-social-label {
+		display: none;
+	}
+
+	/* The generic footer-link hover is a sideways shove (translate 5px,-2px),
+	   which reads wrong on a row of icons — lift and grow slightly instead. */
+	.oh-footer__grid .oh-social-list a:hover {
+		transform: translateY(-3px) scale(1.06);
+	}
+}
+
+.oh-footer__brand {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Soft light glow pooled behind / under the footer logo (client
+   2026-09-08). Sits behind the mark; on every footer band. */
+.oh-footer__brand::before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: clamp(220px, 26vw, 300px);
+	height: clamp(150px, 18vw, 200px);
+	transform: translate(-50%, -42%);
+	z-index: 0;
 }
 
 .oh-footer__brand img {
+	position: relative;
+	z-index: 1;
 	max-width: 190px;
 	height: auto;
+	transition: 0.2s ease-in-out;
+}
+
+.oh-footer__brand img:hover {
+	opacity: 0.6;
 }
 
 .oh-footer__copyright {
@@ -705,6 +1164,11 @@ body.oh-theme {
 	padding-block: 18px;
 	font-size: 13px;
 	background: rgba(0, 0, 0, .35);
+	transition: opacity .2s ease;
+}
+
+.oh-footer__copyright:hover {
+	opacity: 0.6;
 }
 
 /* ------------------------------------------------------------------ */
@@ -763,14 +1227,30 @@ body.oh-theme {
    Quick Quote form (footer panel + mega-menu modal, which reuses these
    .book-* classes) looks identical on every page.
    ======================================================================== */
+
+/* The floating trigger, the panel, the header's mobile "Start Planning"
+   button and the mega-menu plugin's mobile "Quick Quote" header button use
+   the body face, not Barlow. The .book-* rules here, their verbatim copies
+   in legacy-styles.css / legacy-responsive.css (which load after this file
+   on legacy pages) and the plugin's .omg-quick-quote-btn rule all read
+   var(--primary-font), so re-pointing the variable on these roots switches
+   every title, button, input and select inside, whatever the load order.
+   :root --primary-font stays Barlow for the mega menu itself. */
+#book-now-trigger,
+#book-now-panel,
+.book-now-header-btn,
+.omg-quick-quote-btn {
+	--primary-font: var(--font-body);
+}
+
 #book-now-trigger {
 	position: fixed;
 	bottom: 44px;
 	right: 110px;
 	z-index: 1002;
-	background: var(--color-primary);
+	background: color-mix(in srgb, var(--color-primary) 85%, black 15%);
 	color: var(--on-primary);
-	border: 1px solid var(--color-primary);
+	border: 1px solid color-mix(in srgb, var(--color-primary) 85%, black 15%);
 	border-radius: 100px;
 	padding: 13px 24px;
 	font-family: var(--primary-font);
@@ -1159,22 +1639,32 @@ body.oh-theme {
 		gap: 10px;
 	}
 
-	/* Once the header sticks, collapse the utility (stars / WhatsApp / Call)
-	   bar so only the logo + nav row stays pinned — it was eating ~1/5 of a
-	   small screen. The 1fr→0fr grid row animates the collapse cleanly. */
-	.oh-header__top {
-		display: grid;
-		grid-template-rows: 1fr;
-		transition: grid-template-rows .3s ease;
+	/* Top bar stays a single row down to 320px (no flex-wrap): WhatsApp/Call
+	   go icon-only beside the rating. The text copy is visually hidden, not
+	   display:none, so it still names the links for screen readers. */
+	.oh-header__top .oh-wrap {
+		gap: 8px;
 	}
 
-	.oh-header__top > .oh-wrap {
+	.oh-header__top-actions {
+		flex-shrink: 0;
+		gap: 4px;
+	}
+
+	.oh-header__top-actions .oh-call {
+		padding: 4px 8px;
+	}
+
+	.oh-header__top-actions a > span {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		padding: 0;
 		overflow: hidden;
-		min-height: 0;
-	}
-
-	.oh-header.is-sticky .oh-header__top {
-		grid-template-rows: 0fr;
+		clip-path: inset(50%);
+		white-space: nowrap;
+		border: 0;
 	}
 
 	.book-now-header-btn {
@@ -1197,6 +1687,11 @@ body.oh-theme {
 		max-height: 40px;
 	}
 
+	.oh-header.is-sticky .oh-header__brand img,
+	.oh-header.is-sticky .oh-header__brand .custom-logo {
+		max-height: 30px;
+	}
+
 	.book-now-header-btn,
 	.omg-quick-quote-btn {
 		font-size: 11px;
@@ -1205,13 +1700,538 @@ body.oh-theme {
 }
 
 @media (max-width: 600px) {
-	.oh-header__top .oh-wrap {
-		justify-content: center;
-	}
-
 	.oh-footer__grid {
 		grid-template-columns: 1fr;
-		--zz-w: 22px;
-		--zz-h: 11px;
 	}
+}
+/* Page banners capped at 1860px and centred on wide screens (client
+   2026-09-24). The banner sections themselves stay full width; only the
+   framed slider inside is capped. The new-theme .oh-hero does this in app.css
+   ("Wide screens"). For the legacy .hero-section (ported inner service pages)
+   the cap sits on .main-block, which holds the slider and the two shadow
+   blobs, so the blobs' % geometry follows the capped frame. */
+.hero-section .main-block {
+	max-width: 1860px;
+	margin-inline: auto;
+}
+
+/* Contact banner framed like the home banner (client 2026-09-25): the 15px
+   top gap comes back (legacy-styles.css zeroes .main-block's padding-top
+   for every inner hero) and the full-width section gets the home hero's
+   cream frame colour (#F5ECD9 = --color-muted on svc-group pages), so the
+   gap above and beside the capped slider reads the same as on home.
+   Frame colour changed to a pale blush #FFF9F9 (client 2026-09-25). */
+body.page-contact .hero-section {
+	background-color: #FFF9F9;
+}
+
+body.page-contact .hero-section .main-block {
+	padding-top: 15px;
+}
+
+/* Casino Fun Nights banner overlay at 40% black (client 2026-09-24). The
+   .hero-scrim layer is meant to be rgba(0,0,0,.4), but the later
+   .hero-section.inner-page .single-slide::after rule in legacy-styles.css
+   turns it into #000 at 64% opacity. This page-scoped rule outranks that
+   one. */
+body.page-casino-fun-nights .hero-section .single-slide.hero-scrim::after {
+	background: #000;
+	opacity: .4;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Inner-page CTA buttons at ~30% fill (client 2026-09-24)            */
+/* ------------------------------------------------------------------ */
+/* Every Call Us / Book an Event / Email Us button on the inner pages
+   (everything except the home page) keeps its own fill colour, but at
+   30% alpha, using the same color-mix() the Studio "Why Choose" buttons
+   already use. The Studio "Why Choose" buttons are left alone (already
+   30%). Hero/banner CTAs are not matched by any selector here. Buttons
+   that were already transparent (CTA band outlines, legacy
+   .primary-btn-outline) need nothing.
+   Labels change colour only where the paler fill would make them
+   unreadable. */
+
+/* Welcome section (the four brand landing pages). A 30% brand fill on the
+   pale section tint is light, so the label goes to ink (it was white on
+   Entertainment / LiVE). */
+body:not(.home) .oh-section--secondary .oh-btn-row .oh-btn--solid {
+	background: color-mix(in srgb, var(--color-primary) 30%, transparent);
+	color: var(--color-ink);
+}
+
+/* "Why Choose" band — Studio excluded, already 30% (app.css). */
+body:not(.home):not(.svc-studio) .oh-why .oh-btn--outline {
+	background: color-mix(in srgb, var(--color-secondary) 30%, transparent);
+}
+
+/* /omg-entertainment/ only (client 2026-09-25): "Why Choose" buttons on a
+   solid white fill instead of the 30% tint. Ink label and border are
+   unchanged. :not(.home) is only there so this matches the specificity
+   of the rule above, and it wins by coming after it. */
+body.page-omg-entertainment:not(.home) .oh-why .oh-btn--outline {
+	background: #fff;
+}
+
+/* Footer CTA buttons. The band behind them is the dark crowd photo, so
+   at 30% the fill reads dark and the label goes white (it was the dark
+   --on-primary on Studio / Props / the gold group pages). The border keeps
+   the full brand colour. /contact/ is excluded (client 2026-09-25): it
+   keeps the home page's solid footer CTAs. */
+body:not(.home):not(.page-contact) .oh-footer__cta-buttons .oh-btn--solid {
+	background: color-mix(in srgb, var(--color-primary) 30%, transparent);
+	color: #fff;
+}
+
+/* Exception (client 2026-09-24): the three OMG Entertainment service pages
+   run their footer CTAs as a SOLID fill, not 30% alpha (#BD6868 first, then
+   #DCBEBE; #DFB6B4 since 2026-09-25, the Entertainment banner CTA colour).
+   White on it is too faint, so the label goes to ink. The :not(.home) only
+   matches the specificity of the 30% rule above (0,4,1 since /contact/ was
+   excluded), so this later rule wins; don't strip it. */
+body.page-casino-fun-nights:not(.home) .oh-footer__cta-buttons .oh-btn--solid,
+body.page-poker-tournaments:not(.home) .oh-footer__cta-buttons .oh-btn--solid,
+body.page-horse-racing-fun-nights:not(.home) .oh-footer__cta-buttons .oh-btn--solid {
+	background: #DFB6B4;
+	border-color: #DFB6B4;
+	color: var(--color-ink, #111);
+}
+
+/* OMG LiVE /omg-live/our-services/ (page 955; its page-our-services class
+   isn't unique, so it's scoped by ID): solid #DBCAE3 footer CTAs with an ink
+   label (client 2026-09-25). Same specificity note as above. */
+body.page-id-955:not(.home) .oh-footer__cta-buttons .oh-btn--solid {
+	background: #DBCAE3;
+	border-color: #DBCAE3;
+	color: var(--color-ink, #111);
+}
+
+/* OMG Props & Theming /omg-props-theming/our-services/ (page 956, same
+   non-unique page-our-services class): solid #F4E2B6 footer CTAs with an
+   ink label (client 2026-09-25). */
+body.page-id-956:not(.home) .oh-footer__cta-buttons .oh-btn--solid {
+	background: #F4E2B6;
+	border-color: #F4E2B6;
+	color: var(--color-ink, #111);
+}
+
+/* /coming-soon/ (client 2026-09-25): solid #EECD92 footer CTAs (the group
+   gold, previously at 30%) with an ink label. */
+body.page-coming-soon:not(.home) .oh-footer__cta-buttons .oh-btn--solid {
+	background: #EECD92;
+	border-color: #EECD92;
+	color: var(--color-ink, #111);
+}
+
+/* Studio inner pages (/our-booths/, /photography-videography/): black
+   .oh-btn--dark on the cyan band. At 30% the pill is a darker teal, and
+   the ink label reads better there than white. */
+body:not(.home) .oh-booth-showcase .oh-btn--dark,
+body:not(.home) .oh-studio-remarkable .oh-btn--dark {
+	background: color-mix(in srgb, var(--color-ink) 30%, transparent);
+	color: var(--color-ink);
+}
+
+/* Legacy CTA block (/photography/, /video-phone-booth/): black and white
+   pills on the red panel. The labels still read at 30%, so they are unchanged. */
+body:not(.home) .cta-section .primary-btn-2 {
+	background: color-mix(in srgb, var(--dark-color) 30%, transparent);
+}
+
+body:not(.home) .cta-section .primary-btn {
+	background: color-mix(in srgb, #fff 30%, transparent);
+}
+
+/* Floating Quick Quote button: a solid lighter shade of its own colour
+   (30% of it mixed into white), plus a 1px black border. A see-through
+   fill didn't work on a button that floats over every section, including
+   the dark footer (client 2026-09-24), so this one stays opaque. The label
+   goes to ink to read on the pale shade. /contact/ is excluded (client
+   2026-09-25) and keeps the home page's Quick Quote. */
+body:not(.home):not(.page-contact) #book-now-trigger {
+	background: color-mix(in srgb, color-mix(in srgb, var(--color-primary) 85%, black 15%) 30%, #fff);
+	border: 1px solid #000;
+	color: var(--color-ink);
+}
+
+/* Home and /contact/: solid #F4D6A0 (client 2026-10-01). The label goes to
+   ink, since white doesn't read on the pale fill, and the 1px black border
+   matches every other page's Quick Quote (client 2026-10-01). The body
+   prefix also outranks the legacy stylesheet's flat --color-primary
+   #book-now-trigger, which loads after this file on /contact/. */
+body.home #book-now-trigger,
+body.page-contact #book-now-trigger {
+	background: #F4D6A0;
+	border: 1px solid #000;
+	color: var(--color-ink);
+}
+
+/* Home and /contact/: the mega-menu plugin's mobile header "Quick Quote"
+   button goes from its darkened gold (--omg-primary 85% + black) to solid
+   #EECD92 (client 2026-10-01). White on it would be about 1.5:1, so the
+   label goes to ink, as on the other pale CTAs. The body prefix outranks
+   the plugin's .omg-quick-quote-btn and its :active state. */
+body.home .omg-quick-quote-btn,
+body.page-contact .omg-quick-quote-btn {
+	background: #EECD92;
+	color: var(--color-ink);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Brand landing pages: client-set CTA colours (task-02, 2026-09-25)  */
+/* ------------------------------------------------------------------ */
+/* Solid fills picked by the client. They are all light pastels, so the
+   label goes to ink everywhere (white on Entertainment / LiVE would be
+   under 2:1; ink measures 9:1 or better on all four colours). */
+
+/* Banner CTA (Get a Free Quote / Check Availability), one colour per brand page. */
+body.page-omg-entertainment .oh-hero .oh-btn--solid {
+	--brand-cta: #DFB6B4;
+}
+
+body.page-omg-studio .oh-hero .oh-btn--solid {
+	--brand-cta: #82DED5;
+}
+
+body.page-omg-live .oh-hero .oh-btn--solid {
+	--brand-cta: #D5BCE8;
+}
+
+body.page-omg-props-theming .oh-hero .oh-btn--solid {
+	--brand-cta: #F9DC8B;
+}
+
+body.page-omg-entertainment .oh-hero .oh-btn--solid,
+body.page-omg-studio .oh-hero .oh-btn--solid,
+body.page-omg-live .oh-hero .oh-btn--solid,
+body.page-omg-props-theming .oh-hero .oh-btn--solid {
+	background: var(--brand-cta);
+	border-color: var(--brand-cta);
+	color: var(--color-ink);
+}
+
+/* OMG Studio: the Welcome and "Why Choose" CTAs and the floating Quick
+   Quote are the same #82DED5, solid. Each selector outranks the 30% rule
+   it replaces: the Welcome and Quick Quote rules above, and
+   .svc-studio .oh-why in app.css (which loads later, hence the body
+   prefix). Quick Quote keeps its 1px black border. */
+body.page-omg-studio:not(.home) .oh-section--secondary .oh-btn-row .oh-btn--solid {
+	background: #82DED5;
+	border-color: #82DED5;
+	color: var(--color-ink);
+}
+
+body.page-omg-studio .oh-why .oh-btn--outline {
+	background: #82DED5;
+}
+
+body.page-omg-studio:not(.home) #book-now-trigger {
+	background: #82DED5;
+}
+
+/* OMG Entertainment /omg-entertainment/ (client 2026-09-30): the CTA band
+   buttons (Call Us / Book an Event / Email Us, transparent outlines until
+   now) and the floating Quick Quote take the page's #DFB6B4 banner CTA
+   colour, solid. Borders and ink labels are unchanged. The Quick Quote
+   selector carries :not(.home):not(.page-contact) to match the specificity
+   of the 30% Quick Quote rule above; don't strip it. */
+body.page-omg-entertainment .oh-cta .oh-btn--outline {
+	background: #DFB6B4;
+}
+
+body.page-omg-entertainment:not(.home):not(.page-contact) #book-now-trigger {
+	background: #DFB6B4;
+}
+
+/* Casino, Poker and Horse Racing Fun Nights (client 2026-10-01): the
+   floating Quick Quote takes the same solid #DFB6B4 as their CTA pills and
+   footer CTAs, in place of the 30% shade. Black border and ink label are
+   unchanged. :not(.home):not(.page-contact) keeps it level with the 30%
+   rule's specificity, as above; don't strip it. */
+body.page-casino-fun-nights:not(.home):not(.page-contact) #book-now-trigger,
+body.page-poker-tournaments:not(.home):not(.page-contact) #book-now-trigger,
+body.page-horse-racing-fun-nights:not(.home):not(.page-contact) #book-now-trigger {
+	background: #DFB6B4;
+}
+
+/* Home page CTA band (client 2026-10-01): the /omg-entertainment/ band
+   above in the home palette. The panel is the client's #EFE5CF, a soft
+   cream a step darker than the page's --color-muted (#F5ECD9), in place
+   of the default --color-secondary beige. Its banner-CTA-coloured buttons
+   become home's banner CTA gold (--color-primary, as on .oh-hero
+   .oh-btn--solid). Ink heading, copy, labels and button borders come from
+   the shared rules unchanged. */
+body.home .oh-cta {
+	background: #EFE5CF;
+}
+
+body.home .oh-cta .oh-btn--outline {
+	background: var(--color-primary);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Client-logo skeleton (client 2026-09-24)                           */
+/* ------------------------------------------------------------------ */
+/* marquee.php renders every logo cell with .is-loading, and each img's
+   onload/onerror removes it. While it is set, the cell shows a soft
+   bar in the page's own brand colour (--color-primary, so it follows
+   each brand page) with a slow shimmer, and the logo fades in once it
+   arrives. Lives here, not app.css, because the grid also renders on the
+   legacy templates, which don't load app.css. The selectors carry the
+   item class so they beat the plain .oh-logo-grid__logo transition in
+   app.css / legacy-styles.css, which load later. */
+.oh-logo-grid__item {
+	position: relative;
+}
+
+.oh-logo-grid__item .oh-logo-grid__logo {
+	transition: opacity .4s ease, transform .35s ease;
+}
+
+.oh-logo-grid__item.is-loading .oh-logo-grid__logo {
+	opacity: 0;
+}
+
+.oh-logo-grid__item.is-loading::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: min(150px, 62%);
+	height: 44px;
+	border-radius: 8px;
+	transform: translate(-50%, -50%);
+	background: linear-gradient(100deg,
+		color-mix(in srgb, var(--color-primary, #A32E2E) 9%, transparent) 30%,
+		color-mix(in srgb, var(--color-primary, #A32E2E) 3%, transparent) 50%,
+		color-mix(in srgb, var(--color-primary, #A32E2E) 9%, transparent) 70%);
+	background-size: 250% 100%;
+	animation: oh-logo-shimmer 1.6s ease-in-out infinite;
+	pointer-events: none;
+}
+
+@keyframes oh-logo-shimmer {
+	from { background-position: 100% 0; }
+	to   { background-position: 0 0; }
+}
+
+@media (max-width: 767px) {
+	.oh-logo-grid__item.is-loading::before {
+		height: 36px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.oh-logo-grid__item .oh-logo-grid__logo {
+		transition: none;
+	}
+
+	.oh-logo-grid__item.is-loading::before {
+		animation: none;
+	}
+}
+
+/* ------------------------------------------------------------------ */
+/*  Client-logo strip (client 2026-10-01)                              */
+/* ------------------------------------------------------------------ */
+/* sections/logo-strip.php: the client logos on one line, for phones,
+   where the 4-row grid alone was ~550px of scrolling on the inner
+   service pages. A page swaps them by passing 'hide_on_mobile' => true to
+   the grid and rendering the strip after it; at <=767px the grid hides
+   and the strip shows, and above that the reverse. 767px is the grid's
+   own phone breakpoint. Everything is here, not app.css, because the
+   legacy templates that use it don't load app.css.
+
+   The section shares .oh-logo-grid for its padding and heading; the
+   .oh-logo-strip__* parts below are its own. Swiper sets each slide's
+   width inline (3 across, 4 from 576px, theme.js); the flex-basis is the
+   same layout for the un-booted / no-JS row, clipped to the first few. */
+@media (max-width: 767px) {
+	.oh-logo-grid--hide-mobile {
+		display: none;
+	}
+}
+
+@media (min-width: 768px) {
+	.oh-logo-strip--mobile {
+		display: none;
+	}
+}
+
+.oh-logo-strip__slider {
+	overflow: hidden;
+	border-block: 1px solid rgb(0 0 0 / 8%);
+}
+
+.oh-logo-strip__list {
+	display: flex;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.oh-logo-strip__item {
+	position: relative;
+	box-sizing: border-box;
+	flex: 0 0 calc(100% / 3);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100px;
+	padding: 0 16px;
+	border-right: 1px solid rgb(0 0 0 / 8%);
+}
+
+.oh-logo-strip__logo {
+	display: block;
+	width: 100%;
+	max-width: 110px;
+	height: auto;
+	transition: opacity .4s ease;
+}
+
+@media (min-width: 576px) {
+	.oh-logo-strip__item {
+		flex-basis: 25%;
+	}
+}
+
+/* Loading skeleton, as on the grid cells above (same shimmer keyframes),
+   sized to the smaller strip cell. */
+.oh-logo-strip__item.is-loading .oh-logo-strip__logo {
+	opacity: 0;
+}
+
+.oh-logo-strip__item.is-loading::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: min(110px, 70%);
+	height: 32px;
+	border-radius: 8px;
+	transform: translate(-50%, -50%);
+	background: linear-gradient(100deg,
+		color-mix(in srgb, var(--color-primary, #A32E2E) 9%, transparent) 30%,
+		color-mix(in srgb, var(--color-primary, #A32E2E) 3%, transparent) 50%,
+		color-mix(in srgb, var(--color-primary, #A32E2E) 9%, transparent) 70%);
+	background-size: 250% 100%;
+	animation: oh-logo-shimmer 1.6s ease-in-out infinite;
+	pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.oh-logo-strip__logo {
+		transition: none;
+	}
+
+	.oh-logo-strip__item.is-loading::before {
+		animation: none;
+	}
+}
+
+/* Entertainment service pages: banner frame and the section under it on one
+   light red tint, edge to edge (client 2026-09-25). The full-width
+   .hero-section shows through the 15px side gutters and, above 1860px, the
+   margins beside the capped .main-block. */
+body.page-casino-fun-nights .hero-section,
+body.page-poker-tournaments .hero-section,
+body.page-horse-racing-fun-nights .hero-section,
+body.page-casino-fun-nights .inner-top-section-style-1,
+body.page-poker-tournaments .inner-top-section-style-1,
+body.page-horse-racing-fun-nights .inner-top-section-style-1 {
+	background-color: #F9F0EE;
+}
+
+/* Same pages: 15px tint gap above the banner, matching the home banner and
+   contact (legacy-styles.css zeroes .main-block's padding-top on inner
+   heroes). */
+body.page-casino-fun-nights .hero-section .main-block,
+body.page-poker-tournaments .hero-section .main-block,
+body.page-horse-racing-fun-nights .hero-section .main-block {
+	padding-top: 15px;
+}
+
+/* Mobile drawer brand-group toggles (client 2026-09-30): the plugin's
+   chevron SVG is hidden and a "+" is drawn from two bars in the
+   button's own brand colour (currentColor), which rotates 45deg into an
+   "x" when the group is open. Done here rather than in the plugin so a
+   plugin update can't undo it. */
+.omg-mobile-nav .omg-mob-caret {
+	position: relative;
+}
+
+.omg-mobile-nav .omg-mob-caret .omg-caret {
+	display: none;
+}
+
+.omg-mobile-nav .omg-mob-caret::before,
+.omg-mobile-nav .omg-mob-caret::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 14px;
+	height: 2px;
+	margin: -1px 0 0 -7px;
+	background: currentColor;
+	border-radius: 2px;
+	transition: transform 0.25s ease;
+}
+
+.omg-mobile-nav .omg-mob-caret::after {
+	transform: rotate(90deg);
+}
+
+.omg-mobile-nav .omg-mob-caret[aria-expanded="true"]::before {
+	transform: rotate(45deg);
+}
+
+.omg-mobile-nav .omg-mob-caret[aria-expanded="true"]::after {
+	transform: rotate(135deg);
+}
+
+/* Same "+" -> "x" toggle for the plain accordion groups (JOIN US), whose
+   chevron sits inside the full-width button.omg-mob-trigger rather than a
+   separate caret button. The bars are centred 26px from the right edge so
+   they line up with the 52px brand-group caret buttons above. */
+.omg-mobile-nav button.omg-mob-trigger {
+	position: relative;
+}
+
+.omg-mobile-nav button.omg-mob-trigger .omg-caret {
+	display: none;
+}
+
+.omg-mobile-nav button.omg-mob-trigger::before,
+.omg-mobile-nav button.omg-mob-trigger::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	right: 19px;
+	width: 14px;
+	height: 2px;
+	margin-top: -1px;
+	background: currentColor;
+	border-radius: 2px;
+	transition: transform 0.25s ease;
+}
+
+.omg-mobile-nav button.omg-mob-trigger::after {
+	transform: rotate(90deg);
+}
+
+.omg-mobile-nav button.omg-mob-trigger[aria-expanded="true"]::before {
+	transform: rotate(45deg);
+}
+
+.omg-mobile-nav button.omg-mob-trigger[aria-expanded="true"]::after {
+	transform: rotate(135deg);
+}
+
+/* Floating footer Quick Quote (#book-now-trigger): 600 weight on every
+   page (client 2026-10-01; was 500). The body prefix out-specifies the
+   bare #book-now-trigger rule in legacy-styles.css, which loads later. */
+body #book-now-trigger {
+	font-weight: 600;
 }

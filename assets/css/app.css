@@ -135,18 +135,84 @@
 /* ------------------------------------------------------------------ */
 .oh-hero {
 	position: relative;
-	min-height: clamp(440px, 72vh, 760px);
+	/* Own stacking context so the ::before/::after shadow blobs (z-index:-1,
+	   behind .oh-hero's own frame) still paint ABOVE the next section. On
+	   the home page the section after the hero is transparent so the blobs
+	   showed anyway; every inner page puts an opaque .oh-section--secondary
+	   right after the hero, which was painting over the peek (client
+	   2026-09-08). */
+	z-index: 1;
+	min-height: clamp(480px, 34.896vw, 670px);
 	display: flex;
 	align-items: center;
 	color: #fff;
-	background: #111;
-	overflow: hidden;
+ 	background: var(--color-secondary);
+	padding: 15px 15px 0;
 }
 
+/* omggroup.com.au's own hero shadow (.main-block::before/::after): two
+   blurred, rotated black blobs peeking out from under the bottom
+   corners. Rotation tips part of each blob past .oh-hero's own bottom
+   edge (there's no bottom padding to hold it) — reference site clips
+   overflow on the inner slide only, not on .main-block itself, so the
+   blob is free to spill below the banner instead of being cut off. We
+   do the same: overflow:hidden moved to .oh-hero__slider below.
+   .oh-hero__slider/__overlay are absolutely positioned with inset:0, so
+   their containing block is .oh-hero's padding box — the padding above
+   (verified against the live site's computed styles: 15px top/left/right,
+   0 bottom) already gives the slider its gap on 3 sides, flush at the
+   bottom; these sit at z-index -1, behind the slider, so they only show
+   in that gap. */
+.oh-hero::before,
+.oh-hero::after {
+	content: "";
+	position: absolute;
+	z-index: -1;
+	height: 11.79%;
+	width: 28.36%;
+	bottom: 10.45%;
+	background-color: #000;
+	filter: blur(10px);
+	opacity: 0.5;
+}
+
+.oh-hero::before {
+	left: 1.07%;
+	transform: rotate(-10deg);
+	transform-origin: right bottom;
+}
+
+.oh-hero::after {
+	right: 1.07%;
+	transform: rotate(10deg);
+	transform-origin: left bottom;
+}
+
+/* Phones: on a short, narrow hero the %-based geometry leaves almost no
+   blob peeking below the banner. Push them down and widen so the shadow
+   still reads (client 2026-09-08). */
+@media (max-width: 640px) {
+	.oh-hero::before,
+	.oh-hero::after {
+		width: 38%;
+		height: 40px;
+		bottom: -6px;
+		opacity: 0.3;
+	}
+}
+
+/* inset:0 on an absolutely positioned box is flush with its containing
+   block's padding-box edge, which already includes the padding area —
+   it does NOT get inset by the padding itself. So the slider/overlay
+   need to repeat .oh-hero's own padding explicitly to sit inside it. */
 .oh-hero__slider {
 	position: absolute;
-	inset: 0;
+	top: 15px;
+	right: 15px;
+	bottom: 0;
+	left: 15px;
 	z-index: 0;
+	overflow: hidden;
 }
 
 .oh-hero__slider .swiper-slide {
@@ -163,9 +229,43 @@
 
 .oh-hero__overlay {
 	position: absolute;
-	inset: 0;
+	top: 15px;
+	right: 15px;
+	bottom: 0;
+	left: 15px;
 	z-index: 1;
 	background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .6));
+}
+
+/* Wide screens (client 2026-09-24): the slider/overlay/shadow blobs are
+   capped at the old 1860px banner frame and centred, while .oh-hero itself
+   stays full width so its frame colour fills the whole row. Below 1861px
+   nothing changes. --oh-hero-frame is the capped frame width; the 1.07% /
+   28.36% blob geometry is re-based on it instead of the full hero width. */
+@media (min-width: 1861px) {
+	.oh-hero {
+		--oh-hero-frame: min(100%, 1860px);
+		--oh-hero-gutter: calc((100% - var(--oh-hero-frame)) / 2 + 15px);
+	}
+
+	.oh-hero__slider,
+	.oh-hero__overlay {
+		left: var(--oh-hero-gutter);
+		right: var(--oh-hero-gutter);
+	}
+
+	.oh-hero::before,
+	.oh-hero::after {
+		width: calc(var(--oh-hero-frame) * 0.2836);
+	}
+
+	.oh-hero::before {
+		left: calc(var(--oh-hero-gutter) - 15px + var(--oh-hero-frame) * 0.0107);
+	}
+
+	.oh-hero::after {
+		right: calc(var(--oh-hero-gutter) - 15px + var(--oh-hero-frame) * 0.0107);
+	}
 }
 
 .oh-hero__inner {
@@ -184,11 +284,18 @@
 
 .oh-hero h1 {
 	font-family: var(--font-display);
-	font-size: var(--fs-h1);
+	/* Scoped smaller than the shared --fs-h1 (still used by .oh-page__title
+	   elsewhere) — the hero box is shorter now (clamp(480px, 34.896vw,
+	   670px), matching omggroup.com.au's .single-slide), so a 3-line
+	   headline needs to run smaller to still fit comfortably. */
+	font-size: clamp(28px, 3.4vw, 54px);
 	line-height: 1.05;
 	text-transform: uppercase;
 	margin: 0 auto 0.35em;
-	max-width: 20ch;
+	/* Home title now forces its own 2-line break with <br> (client
+	   2026-09-14) — a ch cap here could re-wrap "Creating Unforgettable"
+	   into a 3rd line, so let each hero's own <br>s (or lack of) decide. */
+	max-width: none;
 }
 
 .oh-hero p {
@@ -206,8 +313,11 @@
 	bottom: 18px;
 	left: 0;
 	right: 0;
-	z-index: 2;
-	margin: 0;
+	/* shrink-wrap + centre so the clickable box only covers the bullets,
+	   not a full-width strip across the bottom of the hero */
+	width: max-content;
+	margin-inline: auto;
+	z-index: 3;
 }
 
 /* Shorter variant for inner landing pages (content is centred by the
@@ -218,6 +328,19 @@
 
 .oh-hero--inner h1 {
 	max-width: none;
+}
+
+/* Home page only (client 2026-09-14): hero frame goes to the pale cream
+   #F5ECD9. The OMG Entertainment landing page also renders .oh-hero--home,
+   so the WordPress front-page body class (.home) scopes it. */
+.home .oh-hero--home {
+	background-color: #F5ECD9;
+}
+
+/* OMG LiVE /omg-live/our-services/ (page 955, client 2026-09-25): banner
+   frame on a paler lilac #F7F3FC instead of the LiVE --color-secondary. */
+body.page-id-955 .oh-hero {
+	background-color: #F7F3FC;
 }
 
 /* ------------------------------------------------------------------ */
@@ -235,9 +358,16 @@
 
 .oh-service-row {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 3fr 1fr;
 	gap: clamp(24px, 4vw, 72px);
 	align-items: center;
+}
+
+/* Matches the text-column width on omgstudio.com.au's own welcome section
+   (client 2026-09-11). */
+.oh-service-row__body {
+	width: 100%;
+	max-width: 838px;
 }
 
 .oh-service-row+.oh-service-row {
@@ -271,7 +401,7 @@
 
 .oh-service-row__body ul li {
 	position: relative;
-	padding-left: 28px;
+	padding-left: 20px;
 }
 
 .oh-service-row__body ul li::before {
@@ -283,6 +413,7 @@
 	height: 14px;
 	border-radius: 50%;
 	background: var(--color-primary);
+	mask: radial-gradient(#0000 71%, #000 72%) 10000% 10000%/99.5% 99.5%;
 }
 
 .oh-service-row__media img {
@@ -291,6 +422,7 @@
 	object-fit: cover;
 	display: block;
 	border: 4px solid #fff;
+	border-radius: 10px;
 	box-shadow: 0 6px 24px rgba(0, 0, 0, .16);
 }
 
@@ -311,6 +443,157 @@
 	max-height: 520px;
 }
 
+/* ------------------------------------------------------------------ */
+/*  Decorative welcome figure — the "just after the hero" intro on the  */
+/*  Entertainment + Studio landing pages, matching the original OMG     */
+/*  sites: an oversized image that breaks out of its column (overlaps   */
+/*  up into the hero, bleeds toward the right edge), a slowly spinning  */
+/*  circular badge, and (Studio only) a script-text accent.            */
+/*  overflow-x:clip on <main> keeps the right bleed from adding a       */
+/*  horizontal scrollbar. Live/Props use the framed welcome-photo       */
+/*  variant and are deliberately excluded.                              */
+/* ------------------------------------------------------------------ */
+main {
+	overflow-x: clip;
+}
+
+@keyframes oh-badge-spin {
+	to { transform: rotate(360deg); }
+}
+
+/* The welcome row's copy centres against the oversized decor figure
+   beside it (client 2026-09-21, for /omg-entertainment/ then extended to
+   /omg-studio/). That is simply .oh-service-row's own `align-items:
+   center`, so the former
+       .oh-hero + .oh-section--secondary:not(.oh-section--welcome-photo)
+       .oh-service-row { align-items: start; }
+   override has been REMOVED rather than fought with a more specific
+   rule. Those two pages were the only ones it ever matched — Live and
+   Props use the --welcome-photo variant its :not() excludes, and no
+   other page pairs .oh-hero with .oh-section--secondary (checked across
+   the site 2026-09-21). Re-add a scoped override here if a future page
+   needs the copy top-aligned again. */
+
+/* min-width:0 stops the oversized figure from widening this grid track,
+   so the text column beside it keeps its full width. The column is a flex
+   row that centres the figure: when the image is wider than the (1fr)
+   column it overflows evenly on both sides, into the empty gap beside the
+   copy rather than over it. */
+.oh-service-row__media--decor {
+	position: relative;
+	align-self: center;
+	pointer-events: auto;
+	min-width: 0;
+	display: flex;
+	justify-content: center;
+}
+
+/* Client 2026-09-14: the welcome image is larger again and overlaps up
+   into the hero banner slightly (reverses the 2026-09-07 "keep it inside
+   the section" request). The negative top margin cancels the section's
+   own top padding (--section-y) and pulls the figure a little (~1.4vw)
+   into the banner — reduced from ~3vw, which pushed it up too far (client
+   2026-09-14); z-index lifts it over the hero. The image is capped by
+   HEIGHT and scales by its own aspect ratio — no width cap, so it can
+   outgrow its column. */
+.oh-service-row__media--decor .oh-welcome-figure {
+	position: relative;
+	flex: 0 0 auto;
+	margin-top: calc(-1 * var(--section-y) - clamp(10px, 1.4vw, 24px));
+	z-index: 2;
+}
+
+.oh-service-row__media--decor .oh-welcome-figure__img {
+	display: block;
+	width: auto;
+	height: auto;
+	max-width: none;
+	max-height: clamp(320px, 34vw, 631px);
+	border: 0;
+	box-shadow: none;
+}
+
+.oh-service-row__media--decor .oh-welcome-figure__badge {
+	position: absolute;
+	right: -16px;
+	bottom: 14px;
+	width: clamp(96px, 9vw, 128px);
+	height: auto;
+	max-height: none;
+	border: 0;
+	box-shadow: none;
+	animation: oh-badge-spin 30s linear infinite;
+}
+
+.oh-service-row__media--decor .oh-welcome-figure__script {
+	position: absolute;
+	right: -70px;
+	top: 0;
+	width: clamp(100px, 9vw, 138px);
+	height: auto;
+	max-height: none;
+	border: 0;
+	box-shadow: none;
+}
+
+/* Entertainment: the floating cards / chips artwork now uses the shared
+   larger size above (client 2026-09-14) — its old 2026-09-08 width/height
+   caps are removed so they don't override it. */
+
+/* Entertainment's image overflows its column and sits right up against the
+   viewport edge, so the default right:-16px would push the spinning badge
+   off-screen (main clips x-overflow). Tuck it inside the image's
+   bottom-right corner instead. */
+.svc-entertainment .oh-service-row__media--decor .oh-welcome-figure__badge {
+	right: 12px;
+}
+
+/* Studio: the filmstrip is narrower than its column even at full size, so
+   it stays right-aligned (where its script accent was designed to sit). */
+.svc-studio .oh-service-row__media--decor {
+	justify-content: flex-end;
+}
+
+/* Studio: the photobooth filmstrip gets the tilted, framed print look. */
+.svc-studio .oh-service-row__media--decor .oh-welcome-figure {
+	max-width: clamp(260px, 30vw, 350px);
+}
+
+.svc-studio .oh-service-row__media--decor .oh-welcome-figure__img {
+	border: 7px solid #fff;
+	box-shadow: 0 16px 40px rgba(0, 0, 0, .20);
+	transform: rotate(4deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.oh-service-row__media--decor .oh-welcome-figure__badge {
+		animation: none;
+	}
+}
+
+/* Tablet + mobile: the decorative welcome image is dropped entirely
+   (client 2026-09-07 — matches omgstudio.com.au, which shows no image
+   beside the "Welcome" copy at these sizes). The row is 1fr 1fr on
+   desktop; with the media column gone it must collapse to one column so
+   the copy fills the width instead of leaving an empty half. */
+@media (max-width: 991px) {
+	.oh-service-row__media--decor {
+		display: none;
+	}
+
+	.oh-section--secondary:not(.oh-section--welcome-photo) .oh-service-row {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Welcome-section CTA buttons get a visible outline ring like
+   omgstudio.com.au (client 2026-09-07). .oh-btn's base border is
+   transparent and .oh-btn--solid re-borders itself in its own fill; this
+   flips it to the ink outline. */
+.oh-section--secondary .oh-btn-row .oh-btn {
+	border-color: var(--color-ink);
+}
+
 /* Welcome section — labelled bullet list (OMG LiVE). Reuses the primary
    dot marker from .oh-service-row__body ul; the label sits on its own line. */
 .oh-service-row__body .oh-welcome__points {
@@ -325,11 +608,11 @@
 	margin-bottom: 2px;
 }
 
-/* Props' primary (#DEDE6D) is too pale for the welcome heading / the card
-   "VISIT US" links on its own tinted backgrounds — use the dark
-   --on-primary instead. */
-.svc-props .oh-section--secondary .oh-section-title,
-.svc-props .oh-service-cards--framed .oh-service-card__link {
+/* Props' primary (#DEDE6D) is too pale for the welcome heading on its own
+   tinted backgrounds — use the dark --on-primary instead. The card
+   "VISIT US" links no longer need the exception: they are black
+   everywhere since 2026-09-23. */
+.svc-props .oh-section--secondary .oh-section-title {
 	color: var(--on-primary);
 }
 
@@ -341,6 +624,20 @@
 
 .svc-props .oh-service-row__body ul li::before {
 	background: var(--on-primary);
+}
+
+/* Colour dormant on the four top-level service pages (client 2026-09-14):
+   the service-row heading takes the row's normal text colour instead of
+   --color-primary / --on-primary above. The "Our Services" sub-pages and
+   the home page keep the coloured heading. Delete this rule to restore.
+   The extra h2.oh-section-title line out-specifies Props' own
+   `.svc-props .oh-section--secondary .oh-section-title` colour rule above. */
+.page-template-template-omg-entertainment .oh-service-row__body h2,
+.page-template-template-omg-studio .oh-service-row__body h2,
+.page-template-template-omg-live .oh-service-row__body h2,
+.page-template-template-omg-props-theming .oh-service-row__body h2,
+.page-template-template-omg-props-theming .oh-service-row__body h2.oh-section-title {
+	color: inherit;
 }
 
 /* ------------------------------------------------------------------ */
@@ -361,21 +658,88 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	gap: clamp(16px, 2vw, 28px);
+	gap: 15px;
+	/* 2x2 of home-sized cards (client 2026-09-25): capped at two home
+	   "Our Services" card widths plus the 15px gap — 2 x (33.333% - 10px)
+	   + 15px — and centred, so each card below (50% - 7.5px of this)
+	   comes out at exactly the home card's 33.333% - 10px. Released at
+	   1100px, where the home cards themselves go two-up full width. */
+	max-width: calc(66.667% - 5px);
+	margin-inline: auto;
 }
 
-/* Two cards per row; a lone third card wraps and centres. */
+@media (max-width: 1100px) {
+	.oh-other-grid {
+		max-width: none;
+	}
+}
+
+/* Vertical card — brand logo at the top, title under it, then the
+   description + link pushed to the bottom edge. Matches omggroup.com.au's
+   "Other Services" block; the brand photo (card['image']) is not shown in
+   this layout. Fixed 1/3-width basis (not a min-width that lets a lone
+   card in the last row grow past the others) so a 4th card wrapping alone
+   stays the same width as the 3 above it (client 2026-09-15). */
+/* ------------------------------------------------------------------ */
+/*  Division tints — shared by the home page's "Our Services" cards and  */
+/*  the inner pages' "Other Services" cards, which show the same five    */
+/*  brands and must look like one system.                                */
+/*                                                                       */
+/*  Client-specified values (2026-09-22). These are NOT each palette's   */
+/*  --color-secondary: they sit a few steps more saturated, and          */
+/*  --color-secondary still drives the CTA band, the framed service      */
+/*  cards and the group pages, so it must not be redefined to get this   */
+/*  look. Food & Beverage was never specified; #FFE4C8 is derived to     */
+/*  sit between the Entertainment and Props tints at the same lightness. */
+/*                                                                       */
+/*  Both card families carry a .svc-* class per card, so a card shows    */
+/*  its OWN division's colour regardless of the page hosting it.         */
+/* ------------------------------------------------------------------ */
+.oh-division-card.svc-entertainment,
+.oh-other-card.svc-entertainment {
+	--division-tint: #FFC9C5;
+}
+
+.oh-division-card.svc-studio,
+.oh-other-card.svc-studio {
+	--division-tint: #CAFFFF;
+}
+
+.oh-division-card.svc-live,
+.oh-other-card.svc-live {
+	--division-tint: #E4C8E4;
+}
+
+.oh-division-card.svc-props,
+.oh-other-card.svc-props {
+	--division-tint: #FFFFCA;
+}
+
+.oh-division-card.svc-foodbeverage,
+.oh-other-card.svc-foodbeverage {
+	--division-tint: #FFE4C8;
+}
+
+/* Light tint + full-strength brand border (client 2026-09-22) — the same
+   treatment the home page's division cards took on the same date, and
+   what these cards had before the 2026-09-21 solid-fill trial. The
+   .svc-* class stays (it arrived with the solid fill and is what lets a
+   card carry its own brand rather than the host page's), so every card
+   here is now its division's pale tint inside its division's edge.
+   Two per row — the four cards sit in a 2x2 grid (client 2026-09-25;
+   was 3 + 1), each the home card's width via the .oh-other-grid cap
+   above. Phones still stack to one column (max-width: 560px). */
 .oh-other-card {
-	flex: 1 1 460px;
-	max-width: 620px;
+	flex: 0 1 calc(50% - 7.5px);
+	max-width: calc(50% - 7.5px);
 	display: flex;
-	flex-direction: row;
-	background: var(--color-secondary);
+	flex-direction: column;
+	background: var(--division-tint, var(--color-secondary));
 	border: 1px solid var(--color-primary);
-	border-radius: var(--radius);
-	overflow: hidden;
+	border-radius: 8px;
+	color: var(--color-ink);
 	transition: transform .2s ease, box-shadow .2s ease;
-	padding: 10px;
+	padding: clamp(24px, 2.6vw, 40px);
 }
 
 .oh-other-card:hover {
@@ -384,70 +748,88 @@
 }
 
 .oh-other-card__media {
-	flex: 0 0 44%;
-	align-self: stretch;
 	display: block;
-	position: relative;
-	min-height: 210px;
-	overflow: hidden;
-	background: var(--color-secondary);
-	border-radius: var(--radius);
+	margin-bottom: clamp(20px, 2.4vw, 32px);
 }
 
 .oh-other-card__media img {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	display: block;
+	display: none;
 }
 
 .oh-other-card__media .oh-other-card__logo {
-	position: absolute;
-	left: 14px;
-	bottom: 14px;
-	max-width: 108px;
-	z-index: 1;
-	background: rgba(255, 255, 255, .94);
-	padding: 6px 10px;
-	border-radius: 6px;
 	display: block;
+	/* Big transparent brand wordmark at the top, like omggroup.com.au's
+	   "Other Services" cards. */
+	max-width: clamp(200px, 24vw, 280px);
+	background: none;
+	padding: 0;
 }
 
 .oh-other-card__media .oh-other-card__logo img {
-	position: static;
+	display: block;
 	width: auto;
 	height: auto;
-	max-height: 30px;
+	max-width: 100%;
+	max-height: 116px;
+	object-fit: contain;
+	object-position: left;
+}
+
+/* The Studio / LiVE / Props / Food & Beverage wordmarks fill their canvas
+   edge to edge; the Entertainment logo's "OMG" is smaller (the mascot eats
+   vertical space). Trim these four so all five read at the same size
+   (client 2026-09-08, extended 2026-09-15 for Food & Beverage). */
+.oh-other-card--omg-studio .oh-other-card__logo img,
+.oh-other-card--omg-live .oh-other-card__logo img,
+.oh-other-card--omg-props-theming .oh-other-card__logo img,
+.oh-other-card--omg-food-beverage .oh-other-card__logo img {
+	max-height: 88px;
+}
+
+/* OMG Studio page (client 2026-09-25): Other Services logos sized like the
+   home page's Our Services cards — 160px wide (see .oh-division-card__logo
+   img), not height-capped. Same PNGs, which fill their canvas edge to edge,
+   so 160px of image = 160px of logo. max-width keeps it inside the 150px
+   phone logo slot. */
+.page-omg-studio .oh-other-card__media .oh-other-card__logo img {
+	width: 160px;
+	max-width: 100%;
+	max-height: none;
+}
+
+@media (max-width: 860px) {
+	.oh-other-card {
+		flex: 0 1 calc(50% - 7.5px);
+		max-width: calc(50% - 7.5px);
+	}
 }
 
 .oh-other-card__body {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	padding: clamp(18px, 2vw, 26px);
+	padding: 0;
 }
 
-.oh-other-card__body h3 {
-	font-family: var(--font-display);
-	font-weight: 400;
-	font-size: clamp(20px, 1.6vw, 26px);
-	margin: 0 0 10px;
-}
-
-.oh-other-card__body h3+span {
+/* Description: first span in the body now that the <h3> title is gone. */
+.oh-other-card__body > span:not(.oh-other-card__link) {
 	color: var(--color-ink-soft);
 }
 
+/* Same darkened brand colour as the home page's division-card link, so
+   the two blocks read as one system. Raw --color-primary is nowhere near
+   legible on these tints (Studio 1.7:1, Props 1.6:1); at 55% every card
+   clears AA. See the .oh-division-card__link rule for the full figures. */
 .oh-other-card__link {
+	/* pins the link to the card's bottom edge */
 	margin-top: auto;
-	padding-top: 14px;
+	padding-top: clamp(16px, 2vw, 24px);
 	align-self: flex-start;
 	text-transform: uppercase;
 	text-decoration: underline;
 	font-weight: 600;
-	color: var(--color-ink);
+	/* Black on every tint (client 2026-09-23) — was the 55% brand mix. */
+	color: #000;
 }
 
 /* ------------------------------------------------------------------ */
@@ -516,7 +898,7 @@ a.oh-service-card:hover {
 	width: 36px;
 	height: 36px;
 	object-fit: contain;
-	filter: brightness(0) invert(1);
+	/*filter: brightness(0) invert(1);*/
 }
 
 .oh-service-card h3 {
@@ -534,7 +916,8 @@ a.oh-service-card:hover {
 	font-weight: 600;
 	text-transform: uppercase;
 	font-size: var(--fs-eyebrow);
-	color: var(--color-primary);
+	/* "Visit Us" reads black on every page (client 2026-09-23). */
+	color: #000;
 	text-decoration: underline;
 	text-underline-offset: 3px;
 }
@@ -560,7 +943,7 @@ a.oh-service-card:hover {
 	text-align: center;
 	background: var(--color-secondary);
 	border-color: var(--color-primary);
-	border-radius: 0;
+	border-radius: 8px;
 }
 
 @media (min-width: 640px) {
@@ -579,21 +962,32 @@ a.oh-service-card:hover {
 	box-shadow: none;
 }
 
+/* Neumorphic soft-UI icon badge, lifted from omg-studio's mega-menu
+   .omg-service-thumb. The cast shadow + gradient tint are mixed with each
+   page's --color-primary so the badge picks up the brand colour. Applies
+   to all four brand landing pages (Entertainment / Studio / LiVE / Props);
+   replaces the old flat circular brand badge. */
 .oh-service-cards--framed .oh-service-card__icon {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	border-radius: 16px;
+	overflow: hidden;
+	border: 1px solid #00000005;
+	background: linear-gradient(145deg, #ffffff, color-mix(in srgb, var(--color-primary) 14%, #eef1f4));
+	box-shadow:
+		6px 6px 12px color-mix(in srgb, var(--color-primary) 35%, rgba(150, 160, 180, 0.5)),
+		-6px -6px 12px rgba(255, 255, 255, 0.9),
+		inset 1px 1px 2px rgba(255, 255, 255, 0.6),
+		inset -2px -2px 4px color-mix(in srgb, var(--color-primary) 30%, rgba(150, 160, 180, 0.25));
 }
 
+/* Source icon files are white line-art (built for a dark tile) — force
+   them dark so they read on the light neumorphic badge. */
 .oh-service-cards--framed .oh-service-card__icon img {
-	width: 50px;
-	height: 50px;
-}
-
-/* Props' primary (#DEDE6D) is too pale for a white icon — keep it dark
-   on that palette (mirrors how the numbered badge uses --on-primary). */
-.svc-props .oh-service-cards--framed .oh-service-card__icon img {
-	filter: brightness(0);
+	width: 100%;
+	height: 100%;
+	padding: 8px;
+	/*filter: brightness(0);*/
 }
 
 .oh-service-cards--framed .oh-service-card__icon--num {
@@ -617,50 +1011,77 @@ a.oh-service-card:hover {
 
 /* ------------------------------------------------------------------ */
 /*  Service cards — "divisions" variant (home page only)               */
-/*  Full-bleed row of the four OMG Group brand cards. No .oh-wrap, so   */
-/*  the section spans the viewport with a 15px gutter each side. Each   */
-/*  card carries a .svc-* class, so var(--color-*) inside it resolves   */
-/*  to that division's palette (red / cyan / purple / yellow).         */
+/*  Row of five OMG Group brand cards, inside the same centred container */
+/*  as the rest of the site (client 2026-09-15 — was full-bleed). Each   */
+/*  card carries a .svc-* class, so var(--color-*) inside it resolves    */
+/*  to that division's palette.                                         */
 /* ------------------------------------------------------------------ */
 .oh-service-cards--divisions {
-	padding-inline: 15px;
+	width: min(100% - (var(--gutter) * 2), var(--wrap));
+	margin-inline: auto;
 }
 
 .oh-service-cards--divisions .oh-service-cards__heading {
 	text-align: center;
-	max-width: 74ch;
+	max-width: 900px;
 	margin: 0 auto clamp(28px, 4vw, 52px);
 }
 
 .oh-service-cards--divisions .oh-section-title {
-	color: var(--color-accent);
+	color: #635035;
 }
 
+/* "Other Services" instances (7 inner pages reusing this component,
+   client 2026-09-29) keep plain black instead of the home page's brown. */
+.oh-service-cards--divisions .oh-section-title--other {
+	color: #000000;
+}
+
+/* flex (not grid) so the odd 5th card's row of 2 centres itself instead
+   of sitting flush left under an empty 3rd column. */
 .oh-service-cards--divisions .oh-service-cards__grid {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 	gap: 15px;
 }
 
+.oh-service-cards--divisions .oh-division-card {
+	flex: 1 1 calc(33.333% - 10px);
+	max-width: calc(33.333% - 10px);
+}
+
 @media (max-width: 1100px) {
-	.oh-service-cards--divisions .oh-service-cards__grid {
-		grid-template-columns: repeat(2, 1fr);
+	.oh-service-cards--divisions .oh-division-card {
+		flex: 1 1 calc(50% - 7.5px);
+		max-width: calc(50% - 7.5px);
 	}
 }
 
 @media (max-width: 620px) {
-	.oh-service-cards--divisions .oh-service-cards__grid {
-		grid-template-columns: 1fr;
+	.oh-service-cards--divisions .oh-division-card {
+		flex: 1 1 100%;
+		max-width: 100%;
 	}
 }
 
+/* Light tint + full-strength brand border (client 2026-09-22) — back to
+   the treatment these cards had before the 2026-09-21 solid-fill trial,
+   and the same shape as the framed service cards and the contact page's
+   .box: a pale wash of the division's colour inside its own edge.
+
+   --division-tint is declared once in the shared "Division tints" block
+   further up, alongside the Other Services cards that use the same five
+   values — see there for the hexes and why --color-secondary is not
+   touched. */
 .oh-division-card {
 	display: flex;
 	flex-direction: column;
 	gap: 18px;
 	padding: clamp(22px, 2vw, 34px);
-	background: var(--color-secondary);
+	background: var(--division-tint, var(--color-secondary));
 	border: 1px solid var(--color-primary);
+	border-radius: 8px;
 	color: var(--color-ink);
 	transition: transform .2s ease;
 }
@@ -669,25 +1090,42 @@ a.oh-division-card:hover {
 	transform: translateY(-4px);
 }
 
-/* The division logos are dark-on-white artwork (some with a baked-in white
-   background), so they sit in a small white chip to read cleanly on every
-   coloured card tint. */
+/* Big transparent brand wordmark, no chip — same treatment as the Other
+   Services cards (client 2026-09-11), title kept underneath. */
+/* Equal-height logo slot so every card's heading starts on the same line
+   (client 2026-09-14, matching omggroup.com.au's Our Services cards: logo
+   top-aligned in a fixed box). 92px = the tallest logo at its set width
+   (Studio, 166px wide). */
 .oh-division-card__logo {
 	align-self: flex-start;
-	display: inline-flex;
-	align-items: center;
-	padding: 10px 16px;
-	background: #fff;
-	border-radius: 8px;
+	display: flex;
+	align-items: flex-start;
+	height: 92px;
 }
 
+/* ~160px of visible logo on every card, like the reference. The artwork
+   fills these PNGs edge to edge, so 160px of image = 160px of logo. */
 .oh-division-card__logo img {
 	display: block;
-	height: 38px;
-	width: auto;
-	max-width: 190px;
-	object-fit: contain;
+	width: 160px;
+	max-width: 100%;
+	height: auto;
 }
+
+/* The Studio PNG carries 10px of transparent margin each side (540px of
+   artwork in a 560px file) — 166px of image renders its logo at ~160px. */
+.oh-division-card.svc-studio .oh-division-card__logo img {
+	width: 166px;
+}
+
+/* NOTE (client 2026-09-21): the division logos render as their original
+   artwork and must stay that way — do NOT add filter/opacity/knockout
+   rules here. A brightness()/invert() knockout was tried to lift their
+   mostly black wordmarks off the solid fills of the day, and was
+   explicitly reverted. The logos are off limits; solve any contrast
+   concern on the card side (fill, padding, logo slot) instead. The pale
+   tints above are precisely that kind of card-side fix — the wordmarks
+   now sit on a near-white wash and need no help. */
 
 .oh-division-card h3 {
 	font-family: var(--font-display);
@@ -703,21 +1141,24 @@ a.oh-division-card:hover {
 	line-height: 1.6;
 }
 
+/* The link carries the division's colour, darkened to 55%. Raw
+   --color-primary on these tints is nowhere near readable — Studio is
+   1.7:1 and Props 1.6:1 against their own washes — and the old build
+   already carried a Props-only darkening for exactly this reason. One
+   uniform mix replaces that exception and clears AA on all five:
+   Entertainment 9.1, LiVE 6.7, Food & Beverage 5.6, Studio 5.1,
+   Props 5.0. The hue still reads as the brand at this depth. */
 .oh-division-card__link {
 	margin-top: auto;
 	font-weight: 600;
 	text-transform: uppercase;
 	font-size: var(--fs-eyebrow);
 	letter-spacing: 0.04em;
-	color: var(--color-primary);
+	/* Black on every tint (client 2026-09-23) — was the 55% brand mix,
+	   which was there for AA; black only improves that (min 12.6:1). */
+	color: #000;
 	text-decoration: underline;
 	text-underline-offset: 3px;
-}
-
-/* Props' yellow primary is too pale for underlined link text on its own
-   tint — darken it just for that card. */
-.oh-division-card.svc-props .oh-division-card__link {
-	color: color-mix(in srgb, var(--color-primary) 60%, #000);
 }
 
 /* ------------------------------------------------------------------ */
@@ -730,8 +1171,39 @@ a.oh-division-card:hover {
 	text-align: center;
 }
 
+/* omggroup.com.au's own "Why Choose" CTAs (.primary-btn-2 /
+   [class^="primary-btn"]): solid cream fill instead of an outline, plus
+   their own hover lift (up-and-right, not the generic .oh-btn hover). */
+/* Default (Entertainment/Studio/LiVE/Props inner pages): each brand's own
+   light --color-secondary tint, not the group page's literal gold below —
+   the "Why Choose" band is --color-primary, so the button needs to be a
+   colour that's actually different from whatever brand is on screen. */
 .oh-why .oh-btn--outline {
-	color: var(--on-primary);
+	background: var(--color-secondary);
+	color: var(--color-ink);
+	border: 1px solid var(--color-ink);
+}
+
+/* Home/group pages only: the literal cream from omggroup.com.au's own
+   .primary-btn-2, requested to match that site exactly. */
+.svc-group .oh-why .oh-btn--outline {
+	background: #F4D6A0;
+}
+
+/* Studio only (client 2026-09-21): its --color-secondary (#E7FFFF) is so
+   close to white that the buttons read as hard white pills on the cyan
+   band. Dropping the fill to 30% opacity lets the band tint through and
+   softens them (was 60%, halved again 2026-09-21). Safe to tune: the
+   label is --color-ink on a light fill
+   either way (13-18:1 across the whole 10-100% range), and the button's
+   solid --color-ink border keeps its shape defined even when the fill is
+   faint — so this value is purely visual, not a contrast constraint. */
+.svc-studio .oh-why .oh-btn--outline {
+	background: color-mix(in srgb, var(--color-secondary) 30%, transparent);
+}
+
+.oh-why .oh-btn--outline:hover {
+	transform: translateY(-3px) translateX(3px);
 }
 
 .oh-why h2 {
@@ -782,10 +1254,46 @@ a.oh-division-card:hover {
 .oh-testimonials {
 	padding-block: var(--section-y);
 	text-align: center;
+	/* Band in the page's theme colour (client 2026-09-19): #EECD92 on the
+	   group/home pages, each service's own primary elsewhere. Text flips to
+	   that service's --on-primary so it stays readable on every colour. */
+	background-color: var(--color-primary);
+	color: var(--on-primary);
+}
+
+/* The emblem's text and quote icon default to ink / --color-primary, which
+   would vanish on a --color-primary band — use --on-primary here instead. */
+.oh-testimonials .oh-emblem {
+	color: var(--on-primary);
+}
+
+.oh-testimonials .oh-emblem-wrap .srdev-icon {
+	fill: var(--on-primary);
+}
+
+/* Visible "Testimonials" heading — matches the logo grid title. */
+.oh-testimonials__title {
+	font-family: var(--font-display);
+	font-size: var(--fs-h3);
+	text-transform: uppercase;
+	margin: 0 0 28px;
+}
+
+/* Fixed-height slider (client 2026-10-01): with Swiper's autoHeight off,
+   the flex row of slides is as tall as the longest quote, and height: auto
+   lets every slide stretch to that row (Swiper's default is 100%). Shorter
+   quotes sit centred in it. The height comes from the content at the
+   current width, not a set value, so phones only get as much as their
+   longest quote needs, and nothing below the section moves as it rotates. */
+.oh-testimonials .swiper-slide {
+	height: auto;
+	display: flex;
+	align-items: center;
 }
 
 .oh-testimonials__slide {
-	max-width: 70ch;
+	width: 100%;
+	max-width: 100%;
 	margin: 0 auto;
 }
 
@@ -796,10 +1304,46 @@ a.oh-division-card:hover {
 	margin: 0 0 18px;
 }
 
+/* Curly open/close quotes around each testimonial (client 2026-09-25).
+   Added in CSS so the quote text itself stays clean. */
+.oh-testimonials__slide p::before,
+.oh-testimonials__slide p::after {
+	/* A bit larger than the text (client 2026-09-25); line-height 0 keeps
+	   the bigger glyph from pushing the lines apart. */
+	font-size: 1.5em;
+	line-height: 0;
+	vertical-align: -0.15em;
+}
+
+.oh-testimonials__slide p::before {
+	content: "\201C";
+	margin-right: 0.05em;
+}
+
+.oh-testimonials__slide p::after {
+	content: "\201D";
+	margin-left: 0.05em;
+}
+
 .oh-testimonials__slide cite {
 	font-style: normal;
 	font-weight: 600;
 	font-size: var(--fs-body);
+}
+
+/* Slider column — same widths as Bootstrap's .col-sm-8 (Bootstrap isn't
+   loaded on these templates): full width below 576px, 8/12 of the wrap
+   from 576px up, centred on the screen. Scoped to the section so it never
+   collides with the real Bootstrap class on legacy pages. */
+.oh-testimonials .col-sm-8 {
+	width: 100%;
+	margin-inline: auto;
+}
+
+@media (min-width: 576px) {
+	.oh-testimonials .col-sm-8 {
+		width: 66.66666667%;
+	}
 }
 
 /* ------------------------------------------------------------------ */
@@ -812,6 +1356,8 @@ a.oh-division-card:hover {
 	max-width: 1024px;
 	margin-inline: auto;
 	border-radius: var(--radius);
+	/* Top margin added to match the bottom (client 2026-09-19). */
+	margin-top: 50px;
 	margin-bottom: 50px;
 }
 
@@ -833,16 +1379,160 @@ a.oh-division-card:hover {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Logo marquee                                                       */
+/*  Logo grid — replaces the marquee (client 2026-09-14), which stays   */
+/*  dormant below. Modelled on omggaming.com.au's logo showcase: 6 per  */
+/*  row (4 at <=991px, 2 at <=767px), 1px cell borders collapsed into   */
+/*  single lines by the -1px margins, full-colour logos, subtle scale   */
+/*  on hover. The heading shares the .oh-marquee h2 rule below.         */
+/* ------------------------------------------------------------------ */
+.oh-logo-grid {
+	padding-block: clamp(32px, 4vw, 56px);
+}
+
+.oh-logo-grid__list {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0;
+	padding: 1px 0 0 1px;
+	list-style: none;
+}
+
+.oh-logo-grid__item {
+	box-sizing: border-box;
+	flex: 0 0 calc(100% / 6);
+	min-width: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 150px;
+	margin: -1px 0 0 -1px;
+	padding: 0 35px;
+	border: 1px solid rgb(0 0 0 / 8%);
+}
+
+.oh-logo-grid__logo {
+	display: block;
+	width: 100%;
+	max-width: 150px;
+	height: auto;
+	/* Kept for the un-initialised fallback grid only. Inside the slider it
+	   is a no-op: Swiper's .swiper-wrapper carries a transform, which opens
+	   a stacking context, and the logo then has no backdrop to blend with —
+	   so white-background logos read as white boxes no matter what this
+	   says. That is why the client logos are stored with real transparency
+	   (background stripped 2026-09-23) rather than relying on the blend. */
+	mix-blend-mode: darken;
+	transition: transform .35s ease;
+}
+
+.oh-logo-grid__item:hover .oh-logo-grid__logo {
+	transform: scale(1.1);
+}
+
+@media (max-width: 991px) {
+	.oh-logo-grid__item {
+		flex-basis: 25%;
+	}
+}
+
+@media (max-width: 767px) {
+	.oh-logo-grid__item {
+		flex-basis: 50%;
+		min-height: 120px;
+		padding: 0 20px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.oh-logo-grid__logo {
+		transition: none;
+	}
+}
+
+/* ------------------------------------------------------------------ */
+/*  Logo grid as a slider (client 2026-09-23): 6 across x 4 rows = 24  */
+/*  logos per view, autoplay 3s, one page per swipe.                   */
+/*                                                                     */
+/*  Swiper's Grid module wraps the slides into rows by giving each one  */
+/*  an inline height of 25% and letting the wrapper wrap, so the .swiper*/
+/*  itself MUST carry a real height or the whole block collapses to a   */
+/*  couple of pixels. Hence the fixed cell height below -- it is the    */
+/*  same 150px the static grid used as its min-height.                  */
+/*                                                                     */
+/*  The pagination sits OUTSIDE .swiper (a sibling) because .swiper is  */
+/*  overflow:hidden at that fixed height and would clip it.             */
+/*                                                                     */
+/*  Un-initialised (JS off, or before boot) the wrapper stays the       */
+/*  wrapped flex grid, i.e. the pre-slider layout, so the logos are     */
+/*  never hidden behind JS.                                             */
+/* ------------------------------------------------------------------ */
+.oh-logo-grid__slider {
+	--oh-logo-cell-h: 150px;
+	position: relative;
+}
+
+.oh-logo-grid__slider:not(.swiper-initialized) .oh-logo-grid__list {
+	flex-wrap: wrap;
+}
+
+.oh-logo-grid__slider.swiper-initialized {
+	height: calc(var(--oh-logo-cell-h) * 4);
+	/* The 4th row's bottom edge lands 1px past the fixed height and the
+	   .swiper is overflow:hidden, so that border is clipped away. Drawing
+	   it on the container instead puts it back — a border sits on the
+	   element's own box, which overflow never touches. */
+	border-bottom: 1px solid rgb(0 0 0 / 8%);
+}
+
+.oh-logo-grid__slider.swiper-initialized .oh-logo-grid__item {
+	/* Swiper Grid sets the row height inline; don't fight it. */
+	flex: 0 0 auto;
+	min-height: 0;
+}
+
+.oh-logo-grid__pagination.swiper-pagination {
+	position: static;
+	margin-top: 22px;
+}
+
+.oh-logo-grid__pagination .swiper-pagination-bullet {
+	width: 10px;
+	height: 10px;
+	background: var(--color-primary, #941717);
+	opacity: .25;
+	transition: opacity .25s ease, transform .25s ease;
+}
+
+.oh-logo-grid__pagination .swiper-pagination-bullet-active {
+	opacity: 1;
+	transform: scale(1.15);
+}
+
+@media (max-width: 767px) {
+	.oh-logo-grid__slider {
+		--oh-logo-cell-h: 120px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.oh-logo-grid__pagination .swiper-pagination-bullet {
+		transition: none;
+	}
+}
+
+/* ------------------------------------------------------------------ */
+/*  Logo marquee (dormant — sections/marquee.php 'layout' => 'marquee')*/
 /* ------------------------------------------------------------------ */
 .oh-marquee {
 	padding-block: clamp(32px, 4vw, 56px);
 }
 
-.oh-marquee h2 {
+.oh-marquee h2,
+.oh-logo-grid h2 {
 	text-align: center;
 	font-family: var(--font-display);
 	font-size: var(--fs-h3);
+	/* All-caps title on every page (client 2026-09-19). */
 	text-transform: uppercase;
 	margin: 0 0 28px;
 }
@@ -884,6 +1574,7 @@ a.oh-division-card:hover {
 	object-fit: contain;
 	filter: grayscale(1);
 	opacity: .6;
+	mix-blend-mode: darken;
 	transition: opacity .2s, filter .2s;
 }
 
@@ -1451,12 +2142,264 @@ a.oh-division-card:hover {
 
 @media (max-width: 560px) {
 	.oh-other-card {
-		flex-direction: column;
+		flex: 0 1 100%;
+		max-width: 100%;
 	}
 
-	.oh-other-card__media {
-		flex-basis: auto;
-		aspect-ratio: 16 / 11;
-		min-height: 0;
+	/* the desktop clamp bottoms out at 200px — too big on a phone card */
+	.oh-other-card__media .oh-other-card__logo {
+		max-width: 150px;
 	}
+
+	.oh-other-card__media .oh-other-card__logo img {
+		max-height: 74px;
+	}
+
+	.oh-other-card--omg-studio .oh-other-card__logo img,
+	.oh-other-card--omg-live .oh-other-card__logo img,
+	.oh-other-card--omg-props-theming .oh-other-card__logo img,
+	.oh-other-card--omg-food-beverage .oh-other-card__logo img {
+		max-height: 56px;
+	}
+}
+/* ------------------------------------------------------------------ */
+/*  Coming Soon page (template-coming-soon.php, client 2026-09-24)     */
+/*  Home-page look: cream hero frame + svc-group gold/cream palette.   */
+/* ------------------------------------------------------------------ */
+.page-coming-soon .oh-hero--home {
+	background-color: #F5ECD9;
+}
+
+.oh-coming-soon {
+	background: var(--color-muted);
+	text-align: center;
+}
+
+.oh-coming-soon__inner {
+	max-width: 1024px;
+}
+
+/* --color-primary is a pale gold on svc-group — too light for small
+   text on cream, so the eyebrow runs in ink with gold rules either side. */
+.oh-coming-soon__eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	color: var(--color-ink-soft);
+}
+
+.oh-coming-soon__eyebrow::before,
+.oh-coming-soon__eyebrow::after {
+	content: "";
+	width: 32px;
+	height: 1px;
+	background: var(--color-accent);
+}
+
+.oh-coming-soon__copy {
+	max-width: 68ch;
+	margin-inline: auto;
+	color: var(--color-ink-soft);
+	font-size: var(--fs-lead);
+	line-height: 1.6;
+}
+
+.oh-coming-soon__copy p {
+	margin: 0 0 1em;
+}
+
+.oh-coming-soon__points {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: clamp(16px, 2vw, 28px);
+	margin: clamp(28px, 3.5vw, 52px) 0;
+}
+
+.oh-coming-soon__point {
+	background: var(--color-surface);
+	border: 1px solid var(--color-accent);
+	border-radius: var(--radius);
+	padding: clamp(20px, 2vw, 32px);
+}
+
+.oh-coming-soon__point h3 {
+	font-family: var(--font-display);
+	font-size: clamp(19px, 1.5vw, 26px);
+	line-height: 1.2;
+	margin: 0 0 0.5em;
+}
+
+.oh-coming-soon__point p {
+	margin: 0;
+	color: var(--color-ink-soft);
+	font-size: var(--fs-body);
+	line-height: 1.6;
+}
+
+.oh-coming-soon__actions {
+	justify-content: center;
+}
+
+.oh-coming-soon__actions .oh-btn--outline {
+	color: var(--color-ink);
+}
+
+@media (max-width: 767px) {
+	.oh-coming-soon__points {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 400px) {
+	.oh-coming-soon__eyebrow::before,
+	.oh-coming-soon__eyebrow::after {
+		width: 16px;
+	}
+
+	.oh-coming-soon__actions .oh-btn {
+		width: 100%;
+	}
+}
+
+/* ------------------------------------------------------------------ */
+/*  Welcome heading "WELCOME TO [LOGO]" (client 2026-09-24)            */
+/* ------------------------------------------------------------------ */
+/* The four brand landing pages pass heading_logo to sections/welcome.php:
+   the heading text is followed by that page's own division logo, shown
+   as its original artwork (no filters — see the logo note above
+   .oh-division-card h3). Wraps the logo under the words on narrow
+   columns. */
+.oh-welcome__title--logo {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	column-gap: 0.45em;
+	row-gap: 0.2em;
+}
+
+.oh-welcome__title-logo {
+	display: block;
+	width: auto;
+	/* Reduced from clamp(60px, 6.5vw, 110px) — read too large (client 2026-09-24). */
+	height: clamp(42px, 4vw, 68px);
+	max-width: 100%;
+	object-fit: contain;
+}
+
+/* ------------------------------------------------------------------ */
+/*  LiVE / Props welcome photo — larger, text block unchanged          */
+/* ------------------------------------------------------------------ */
+/* Only the framed photo variant (.oh-section--welcome-photo, i.e.
+   /omg-live/ and /omg-props-theming/). History (client 2026-09-24): first
+   enlarged ~2.5x with a 1fr:1.6fr row, which squeezed the copy. The copy
+   column is now pinned to exactly its old width, 3/4 of the row (after
+   the gap) capped at the .oh-service-row__body 838px max-width, and the
+   photo takes everything else. On wide screens it gains the ~90px that
+   used to sit empty beside the capped copy (309px -> ~398px at 1440).
+   At <=860px the row is already a single column. */
+@media (min-width: 861px) {
+	.oh-section--welcome-photo .oh-service-row {
+		grid-template-columns: min(838px, calc((100% - clamp(24px, 4vw, 72px)) * 0.75)) minmax(0, 1fr);
+	}
+
+	.oh-section--welcome-photo .oh-service-row__media img {
+		height: auto;
+		max-height: none;
+	}
+}
+
+/* LiVE + Props welcome image fills its column (client 2026-09-24, CSS as
+   supplied). The media box takes the full grid cell, so it matches the
+   height of the copy beside it, and the photo covers it, centre-cropped.
+   The body-class prefix is needed to beat the .oh-section--welcome-photo
+   img rules above (height:auto / max-height). Each page has only this
+   one .oh-service-row__media. */
+.page-omg-live .oh-service-row__media,
+.page-omg-props-theming .oh-service-row__media {
+	width: 100%;
+	height: 100%;
+}
+
+.page-omg-live .oh-service-row__media > img,
+.page-omg-props-theming .oh-service-row__media > img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Entertainment / Studio welcome figure — keep clear of the right     */
+/*  window edge on laptop widths (client 2026-09-24)                   */
+/* ------------------------------------------------------------------ */
+/* The oversized decor figure was centred on its (1fr) column and spilled
+   out evenly both sides. Between 992px and 1599px (1440x900 HiDPI
+   laptops etc.) that pushed it to within ~15px of the window edge, or off
+   it (Studio's script accent sits 70px outside the figure). Here the
+   figure is right-aligned to the content wrap, so it keeps the same margin
+   the text has on the left, and it spills LEFT instead: into the column
+   gap and the empty space beside the 838px-capped copy. Its width is
+   capped to exactly that free space minus 40px, so it scales down rather
+   than ever touching the copy. The copy column itself is untouched.
+   Inside the figure, 100% = the media column (C). The free space to its
+   left = gap + max(0, 3C - 838px), since the copy column is 3C wide. At
+   >=1600px the old centred layout already clears the edge by 70px+. */
+@media (min-width: 992px) and (max-width: 1599px) {
+	.oh-service-row__media--decor {
+		justify-content: flex-end;
+	}
+
+	.oh-service-row__media--decor .oh-welcome-figure {
+		max-width: calc(100% + clamp(24px, 4vw, 72px) + max(0px, 300% - 838px) - 40px);
+	}
+
+	.oh-service-row__media--decor .oh-welcome-figure__img {
+		max-width: 100%;
+	}
+
+	/* Studio: leave room inside the wrap for the script accent that hangs
+	   70px off the figure's right side, and keep its own 260-350px cap. */
+	.svc-studio .oh-service-row__media--decor .oh-welcome-figure {
+		margin-right: 70px;
+		max-width: min(clamp(260px, 30vw, 350px), calc(100% + clamp(24px, 4vw, 72px) + max(0px, 300% - 838px) - 110px));
+	}
+}
+
+/* ------------------------------------------------------------------ */
+/*  /omg-entertainment/ "Our Services" — 2x2 grid (client 2026-09-25), */
+/*  the same sizing as the "Other Services" block: grid capped at two  */
+/*  home-card widths + the 15px gap and centred, so each card lands at */
+/*  33.333% - 10px of the wrap. Released at 1100px (two-up full width), */
+/*  one column on phones. Scoped to this page — the framed variant is  */
+/*  shared with the other service landings.                            */
+/* ------------------------------------------------------------------ */
+.page-template-template-omg-entertainment .oh-service-cards--framed .oh-service-cards__grid {
+	gap: 15px;
+	max-width: calc(66.667% - 5px);
+	margin-inline: auto;
+}
+
+.page-template-template-omg-entertainment .oh-service-cards--framed .oh-service-card {
+	width: auto;
+	flex: 0 1 calc(50% - 7.5px);
+	max-width: calc(50% - 7.5px);
+}
+
+@media (max-width: 1100px) {
+	.page-template-template-omg-entertainment .oh-service-cards--framed .oh-service-cards__grid {
+		max-width: none;
+	}
+}
+
+@media (max-width: 560px) {
+	.page-template-template-omg-entertainment .oh-service-cards--framed .oh-service-card {
+		flex-basis: 100%;
+		max-width: 100%;
+	}
+}
+
+/* Welcome heading: "LiVE" keeps its mixed case inside the uppercase
+   .oh-section-title (client 2026-09-28; span added in sections/welcome.php). */
+.oh-section-title .oh-keep-case {
+	text-transform: none;
 }

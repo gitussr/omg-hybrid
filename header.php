@@ -52,12 +52,10 @@ $favicon  = get_option('omg_favicon');
 								<?php omg_hybrid_icon('start-icon'); ?>
 							<?php endfor; ?>
 						</span>
-						<?php if ($stars_text || $link_text) : ?>
+						<?php // "X out of 5" text dropped per client (2026-09-08) — just the stars + the RATE US link. ?>
+						<?php if ($link_url && $link_text) : ?>
 							<span class="oh-rating-text">
-								<?php echo esc_html($stars_text); ?>
-								<?php if ($link_url && $link_text) : ?>
-									<a href="<?php echo esc_url($link_url); ?>"><?php echo esc_html($link_text); ?></a>
-								<?php endif; ?>
+								<a href="<?php echo esc_url($link_url); ?>"><?php echo esc_html($link_text); ?></a>
 							</span>
 						<?php endif; ?>
 					</div>
@@ -66,14 +64,15 @@ $favicon  = get_option('omg_favicon');
 				<?php endif; ?>
 
 				<div class="oh-header__top-actions">
+					<?php // Bootstrap Icons font (enqueued in inc/enqueue.php). Text copy is visible >991px and visually hidden below (shell.css), so it still names the links for screen readers. ?>
 					<?php if ($whatsapp) : ?>
 						<a href="<?php echo esc_url($whatsapp); ?>" target="_blank" rel="noopener" class="oh-whatsapp">
-							<?php omg_hybrid_icon('whatsapp-omg'); ?><span>WhatsApp</span>
+							<i class="bi bi-whatsapp" aria-hidden="true"></i><span>WhatsApp</span>
 						</a>
 					<?php endif; ?>
 					<?php if ($phone) : ?>
 						<a href="tel:<?php echo esc_attr(preg_replace('/[^\d+]/', '', $phone)); ?>" class="oh-call">
-							<?php omg_hybrid_icon('Phone-icon'); ?><span>Call: <?php echo esc_html($phone); ?></span>
+							<i class="bi bi-telephone" aria-hidden="true"></i><span>Call: <?php echo esc_html($phone); ?></span>
 						</a>
 					<?php endif; ?>
 				</div>
@@ -84,16 +83,22 @@ $favicon  = get_option('omg_favicon');
 			<div class="oh-wrap">
 				<div class="oh-header__brand">
 					<?php
-					if (has_custom_logo()) {
-						the_custom_logo();
-					} else {
-						printf(
-							'<a href="%s"><img src="%s" alt="%s"></a>',
-							esc_url(home_url('/')),
-							esc_url(OMG_HYBRID_URI . '/assets/images/logo.png'),
-							esc_attr(get_bloginfo('name'))
-						);
-					}
+					// Header bar is dark (damask) on svc-group pages — home, contact,
+					// print-templates, coming-soon — and light on every other inner
+					// page, so the logo flips to match (client 2026-09-25): the gold
+					// logo's white "Entertainment" reads on dark; the client-supplied
+					// OMG_ENTERTAINMENT_BLACK artwork (black "Entertainment", only the
+					// transparent margin trimmed) reads on light. Replaces the
+					// customizer logo, which can't carry two variants for one slot.
+					$logo_file = ( 'svc-group' === omg_hybrid_current_service_class() )
+						? 'logo-omg-gold.png'
+						: 'logo-omg-entertainment-black.png';
+					printf(
+						'<a href="%s"><img src="%s" alt="%s"></a>',
+						esc_url(home_url('/')),
+						esc_url(OMG_HYBRID_URI . '/assets/images/' . $logo_file),
+						esc_attr(get_bloginfo('name'))
+					);
 					?>
 				</div>
 

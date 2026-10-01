@@ -31,11 +31,16 @@ get_template_part( 'template-parts/service-landing', null, array(
 		),
 	),
 	'welcome' => array(
-		'heading'     => 'Welcome to OMG LiVE',
+		'heading'     => 'Welcome to',
+		'heading_logo' => array( 'url' => $img . 'oos-logo-live-lg.png', 'alt' => 'OMG LiVE' ),
 		'paragraphs'  => array(
-			'At OMG Group, we specialize in the &ldquo;Wow&rdquo; factor. OMG LiVE is our dedicated division for premium entertainment and essential event lighting. Whether you are looking to hire a DJ for a corporate gala or need a live party band for a milestone celebration, we provide the elite talent and the professional lighting to ensure your event looks and feels spectacular.',
+			'Lights up. Bass drops. Everyone&rsquo;s dancing. That&rsquo;s an OMG Live Party.',
+			'Our DJs roll in with a full DJ-Booth and a Light Show that turns any room into a club. Want the crowd singing? Grab the mic with Karaoke or queue the hits on our Jukebox. Then bring on the showstoppers: Dazzling Showgirls, Live Bands, jaw-dropping Magicians, Elvis and Michael Jackson Impersonators, and Paparazzi who treat every guest like a Celebrity.',
+			'Corporate Function, Charity Gala or Birthday bash, we bring the DJ hire, Lighting and Live Entertainment that keep the party going all night long.',
 		),
-		'bullets'     => array(
+		// DORMANT (client 2026-09-28): the .oh-welcome__points list is hidden.
+		// welcome.php only reads 'bullets' - rename this key back to show it.
+		'bullets_dormant' => array(
 			array( 'label' => 'Vetted Entertainers', 'text' => 'We only work with professional artists who have a proven ability to read a room, command a stage, and set the perfect vibe.' ),
 			array( 'label' => 'All-In-One DJ Solutions', 'text' => 'Our DJs come fully equipped with high-end sound and lighting, offering a seamless, &ldquo;plug-and-play&rdquo; experience for any venue.' ),
 			array( 'label' => 'Atmospheric Lighting', 'text' => 'We provide professional LED lighting hire&mdash;including wireless uplights and PAR cans&mdash;designed to transform your space with ease.' ),
@@ -46,27 +51,31 @@ get_template_part( 'template-parts/service-landing', null, array(
 		'image_alt'   => 'OMG LiVE DJ setup with professional sound and stage lighting',
 		'image_style' => 'photo',
 	),
-	'cards_intro' => 'Three ways to fill the room with sound and atmosphere.',
+	'cards_heading' => 'Our Products',
+	'cards_intro' => '<strong>Your Party, Your Playlist, Your Stars</strong>. Explore our lineup below and get ready for packed dance floors, jaw-dropping light shows and entertainment nobody will forget',
 	'cards' => array(
 		array(
 			'icon'        => $img . 'live-svc-dj.png',
-			'title'       => 'Professional DJ Hire',
-			'description' => 'The perfect mix of charisma and technical skill. Our professional DJs provide a complete entertainment solution, arriving with premium sound systems and a massive library spanning every genre. From chill lounge vibes to high-octane dance floors, we handle the music and the tech for Corporate, Private, Wedding, and Special Events.',
+			'title'       => 'DJs, DJ-Booths &amp; Lighting',
+			'description' => 'Pumping Beats, a sleek DJ-Booth and Dazzling Lights that turn any venue into the hottest dance floor in town.',
 			'url'         => home_url( '/omg-live/our-services/#djs-dj-booth' ),
+			'link_label'  => 'VISIT US',
+		),
+		// live-svc-karaoke.png drawn 2026-09-28 to match the set (512px,
+		// #9D5BBE, 30px round stroke). Our Services has no karaoke section
+		// yet, so this card links to the page top.
+		array(
+			'icon'        => $img . 'live-svc-karaoke.png',
+			'title'       => 'Karaoke &amp; Jukebox',
+			'description' => 'Grab the Mic or pick the next Hit. Our Karaoke and Jukebox hire turns every guest into a Superstar.',
+			'url'         => home_url( '/omg-live/our-services/' ),
 			'link_label'  => 'VISIT US',
 		),
 		array(
 			'icon'        => $img . 'live-svc-bands.png',
-			'title'       => 'Live Bands &amp; Musicians',
-			'description' => 'Add the unmistakable energy of live performance to your stage. Choose from acoustic soloists, jazz trios, or full-throttle party bands. We bring you Australia&rsquo;s elite musical acts &mdash; hand-picked performers who don&rsquo;t just play music, they command the stage and captivate every guest in the room.',
+			'title'       => 'Entertainers &amp; Performers',
+			'description' => 'Showgirls, Live Bands, Magicians, Elvis and Michael Jackson Impersonators, and Paparazzi who make every guest feel like a Celebrity',
 			'url'         => home_url( '/omg-live/our-services/#live-bands' ),
-			'link_label'  => 'VISIT US',
-		),
-		array(
-			'icon'        => $img . 'live-svc-lighting.png',
-			'title'       => 'Event Lighting Hire',
-			'description' => 'Transform your venue with a touch of light. We specialize in essential atmospheric lighting, including wireless LED uplighting and PAR cans. Whether you need to match your corporate branding or create a warm, elegant glow for a gala, our lighting solutions set the perfect mood.',
-			'url'         => home_url( '/omg-live/our-services/#event-lighting-hire' ),
 			'link_label'  => 'VISIT US',
 		),
 	),
@@ -78,18 +87,18 @@ get_template_part( 'template-parts/service-landing', null, array(
 	'why' => array(
 		'heading' => 'Why Choose OMG LiVE?',
 		'bullets' => array(
-			'Club-standard sound and production',
-			'Open-format DJs who read the room',
-			'Clean, modern LED lighting rigs',
-			'Vetted professional musicians',
-			'One team for DJ, lighting &amp; live music',
-			'Trusted across corporate &amp; luxury events',
+			'Handpicked DJs, bands and performers',
+			'DJs arrive with full sound and lighting',
+			'Wireless uplights and LED lighting hire',
+			'Mix and match acts to suit your crowd',
+			'Transparent pricing, no hidden costs',
+			'$20 million public liability cover',
 		),
 		'body'    => 'Let OMG LiVE get your room moving.',
 		'buttons' => array(
 			array( 'url' => 'tel:1300300664', 'label' => 'Call Us' ),
 			array( 'url' => home_url( '/contact/' ), 'label' => 'Book an Event' ),
-			array( 'url' => 'mailto:info@OMGgroup.com.au', 'label' => 'Email Us' ),
+			array( 'url' => 'mailto:info@OMGent.com.au', 'label' => 'Email Us' ),
 		),
 	),
 	'testimonials' => array(
@@ -101,17 +110,19 @@ get_template_part( 'template-parts/service-landing', null, array(
 		),
 	),
 	'other_heading' => 'Other Services',
+	'other_description' => 'Why stop at the Dance Floor? Complete the night with the full OMG Experience: Casino Tables, Race Nights and Poker Tournaments, Photo-Booths and Photography, Props and Theming, plus Food, Drinks and Professional Staff. It&rsquo;s everything your event needs, all under one roof.',
 	'other' => array(
-		array( 'image' => $img . 'omg-entertainment-banner1.jpg', 'logo' => $img . 'oos-logo-1.png', 'title' => 'OMG Entertainment', 'description' => 'Casino nights, race days, poker &amp; showstopping performers.', 'url' => home_url( '/omg-entertainment/' ), 'link_label' => 'Visit OMG Entertainment' ),
-		array( 'image' => $img . 'omg-studio-display.jpg', 'logo' => $img . 'oos-logo-studio.jpg', 'title' => 'OMG Studio', 'description' => 'Photo booths, video booths, photography &amp; videography.', 'url' => home_url( '/omg-studio/' ), 'link_label' => 'Visit OMG Studio' ),
-		array( 'image' => $img . 'props-custom-new.jpg', 'logo' => $img . 'oos-logo-3.png', 'title' => 'OMG Props &amp; Theming', 'description' => 'Casino props, grand entrances, theme walls, furniture &amp; AV.', 'url' => home_url( '/omg-props-theming/' ), 'link_label' => 'Visit OMG Props &amp; Theming' ),
+		array( 'image' => $img . 'omg-entertainment-banner1.jpg', 'logo' => $img . 'oos-logo-entertainment-lg.png', 'title' => 'OMG Entertainment', 'description' => 'Casino nights, race days, poker &amp; showstopping performers.', 'url' => home_url( '/omg-entertainment/' ), 'link_label' => 'Visit OMG Entertainment' ),
+		array( 'image' => $img . 'omg-studio-display.jpg', 'logo' => $img . 'oos-logo-studio-lg.png', 'title' => 'OMG Studio', 'description' => 'Photo booths, video booths, photography &amp; videography.', 'url' => home_url( '/omg-studio/' ), 'link_label' => 'Visit OMG Studio' ),
+		array( 'image' => $img . 'props-custom-new.jpg', 'logo' => $img . 'oos-logo-props-lg.png', 'title' => 'OMG Props &amp; Theming', 'description' => 'Casino props, grand entrances, theme walls, furniture &amp; AV.', 'url' => home_url( '/omg-props-theming/' ), 'link_label' => 'Visit OMG Props &amp; Theming' ),
+		array( 'logo' => $img . 'oos-logo-fnb-2026c.png', 'title' => 'OMG Food &amp; Beverage', 'description' => 'Catering, mobile bars, bartenders &amp; mixologists, plus professional staff hire.', 'url' => home_url( '/coming-soon/' ), 'link_label' => 'Visit OMG Food &amp; Beverage' ),
 	),
 	'cta' => array(
 		'title'    => 'Ready To Get The Room Moving?',
-		'subtitle' => 'DJs, lighting or live music &mdash; get in touch for a free, no-obligation quote.',
+		'subtitle' => 'DJs, Karaoke, Live Bands and Showstopping Performers.<br>Get a free, no-obligation quote today and let&rsquo;s get the party started',
 	),
 	'marquee' => array(
-		'title' => 'The Best Brands Choose the Best Brand',
+		'title' => 'The Best BRANDS CHOOSE THE BEST BRAND',
 		'logos' => array(
 			$uploads . '/2026/04/logo-1.jpg',  $uploads . '/2026/04/logo-2.jpg',  $uploads . '/2026/04/logo-3.jpg',
 			$uploads . '/2026/04/logo-4.jpg',  $uploads . '/2026/04/logo-5.jpg',  $uploads . '/2026/04/logo-6.jpg',
