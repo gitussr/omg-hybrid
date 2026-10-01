@@ -288,6 +288,26 @@
 	visibility: hidden;
 }
 
+/* No dark tint on that first slide either (client 2026-10-01): the scrim
+   is only there to make the text readable, so it fades out with it. */
+.oh-hero--text-off-first .oh-hero__overlay {
+	transition: opacity .5s ease;
+}
+
+.oh-hero.is-text-off .oh-hero__overlay {
+	opacity: 0;
+}
+
+/* Without the scrim the white slide numbers vanish on the light first
+   banner, so they switch to ink there (the lines follow via currentColor). */
+.oh-hero--text-off-first .swiper-pagination {
+	transition: color .5s ease;
+}
+
+.oh-hero.is-text-off .swiper-pagination {
+	color: var(--color-ink);
+}
+
 .oh-hero__eyebrow {
 	color: #fff;
 	opacity: .85;
