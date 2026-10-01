@@ -2307,3 +2307,54 @@ body #book-now-trigger {
 	font-weight: 600;
 	font-size: 16px;
 }
+
+/* ------------------------------------------------------------------ */
+/*  Phone button rows (client task-013, 2026-10-01)                    */
+/* ------------------------------------------------------------------ */
+/* At 575px and under, these rows of Call / Book / Email buttons wrapped
+   2 + 1 at three different widths. Each becomes a one-column grid, so
+   every button is as wide as the widest label. Welcome and "Why Choose"
+   are centred; the booth showcase and "Real Moments" rows stay left-
+   aligned (the client asked for those not to be centred). Same approach
+   as .oh-cta in app.css. Lives here, not app.css, because casino / poker
+   / horse racing are legacy templates that don't load app.css; their
+   selectors carry .oh-legacy to beat legacy-styles.css's
+   body.oh-legacy .oh-why .oh-btn-row flex rule, which loads later. */
+@media (max-width: 575px) {
+	body.page-omg-entertainment .oh-section--secondary .oh-btn-row,
+	body.page-omg-studio .oh-section--secondary .oh-btn-row,
+	body.page-omg-live .oh-section--secondary .oh-btn-row,
+	body.page-omg-props-theming .oh-section--secondary .oh-btn-row,
+	body.page-omg-entertainment .oh-why .oh-btn-row,
+	body.page-omg-studio .oh-why .oh-btn-row,
+	body.page-omg-live .oh-why .oh-btn-row,
+	body.page-omg-props-theming .oh-why .oh-btn-row,
+	body.oh-legacy.page-casino-fun-nights .oh-why .oh-btn-row,
+	body.oh-legacy.page-poker-tournaments .oh-why .oh-btn-row,
+	body.oh-legacy.page-horse-racing-fun-nights .oh-why .oh-btn-row {
+		display: grid;
+		justify-content: center;
+	}
+
+	body.page-our-booths .oh-booth-showcase__btns,
+	body.page-photography-videography .oh-studio-remarkable__cta {
+		display: grid;
+		justify-content: start;
+	}
+
+	body.page-omg-entertainment .oh-section--secondary .oh-btn-row .oh-btn,
+	body.page-omg-studio .oh-section--secondary .oh-btn-row .oh-btn,
+	body.page-omg-live .oh-section--secondary .oh-btn-row .oh-btn,
+	body.page-omg-props-theming .oh-section--secondary .oh-btn-row .oh-btn,
+	body.page-omg-entertainment .oh-why .oh-btn-row .oh-btn,
+	body.page-omg-studio .oh-why .oh-btn-row .oh-btn,
+	body.page-omg-live .oh-why .oh-btn-row .oh-btn,
+	body.page-omg-props-theming .oh-why .oh-btn-row .oh-btn,
+	body.oh-legacy.page-casino-fun-nights .oh-why .oh-btn-row .oh-btn,
+	body.oh-legacy.page-poker-tournaments .oh-why .oh-btn-row .oh-btn,
+	body.oh-legacy.page-horse-racing-fun-nights .oh-why .oh-btn-row .oh-btn,
+	body.page-our-booths .oh-booth-showcase__btns .oh-btn,
+	body.page-photography-videography .oh-studio-remarkable__cta .oh-btn {
+		justify-content: center;
+	}
+}
