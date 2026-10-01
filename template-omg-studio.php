@@ -190,14 +190,9 @@ get_template_part( 'template-parts/service-landing', null, array(
 			array( 'url' => 'mailto:info@OMGent.com.au', 'label' => 'Email Us' ),
 		),
 	),
-	'testimonials' => array(
-		'emblem_text' => 'HAPPY CUSTOMERS • HAPPY CUSTOMERS • ',
-		'items' => array(
-			array( 'quote' => 'The photo booth was an absolute hit! Everyone loved it. Angelique was our attendant and she was an absolute delight. I cannot recommend OMG Studio highly enough &mdash; so professional and friendly. A heartfelt THANK YOU!', 'cite' => '&mdash; Rana D., Seven Hills NSW' ),
-			array( 'quote' => 'Photobooth was a hit at the party. Easy going, really professional and so much fun! Can&rsquo;t wait to use them again!', 'cite' => '&mdash; Khalehla S., Campbelltown NSW' ),
-			array( 'quote' => 'From the initial planning to the final execution, their team was professional, attentive and truly brought our vision to life. Highly recommend their services for any occasion!', 'cite' => '&mdash; Sorted Photography &amp; Videography' ),
-		),
-	),
+	// Quotes shared with /our-booths/ and /photography-videography/
+	// (inc/brand-services.php).
+	'testimonials' => omg_hybrid_brand_testimonials( 'studio' ),
 	'other_heading' => 'Other Services',
 	'other_description' => 'Why stop at the SnapShots? Round out the night with the full OMG Experience: Casino Tables, Race Nights and Poker, High-Energy DJs and Live Bands, Props and Theming, plus Food, Drinks and Professional Staff. It&rsquo;s everything your event needs, all under one roof.',
 	'other' => array(

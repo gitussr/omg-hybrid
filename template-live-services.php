@@ -58,6 +58,9 @@ get_template_part(
 	)
 );
 
+// Testimonials from /omg-live/, after the logo grid (client task-011).
+get_template_part( 'template-parts/sections/testimonials', null, omg_hybrid_brand_testimonials( 'live' ) );
+
 if ( $live_cta ) {
 	get_template_part( 'template-parts/sections/cta', null, $live_cta );
 }

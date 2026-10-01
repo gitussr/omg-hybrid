@@ -276,3 +276,45 @@ function omg_hybrid_brand_services( $brand ) {
 
 	return $data[ $brand ] ?? array();
 }
+
+/**
+ * Testimonials slider content per brand — single source shared by each
+ * brand landing page (via service-landing.php) and its "Our Services"
+ * page (client task-011, 2026-10-01).
+ *
+ * Studio's set is also shown on /our-booths/ and /photography-videography/
+ * (client task-012).
+ *
+ * @param string $brand 'studio' | 'live' | 'props'
+ * @return array{emblem_text:string, items:array} or empty array.
+ */
+function omg_hybrid_brand_testimonials( $brand ) {
+	$data = array(
+		'studio' => array(
+			'emblem_text' => 'HAPPY CUSTOMERS • HAPPY CUSTOMERS • ',
+			'items' => array(
+				array( 'quote' => 'The photo booth was an absolute hit! Everyone loved it. Angelique was our attendant and she was an absolute delight. I cannot recommend OMG Studio highly enough &mdash; so professional and friendly. A heartfelt THANK YOU!', 'cite' => '&mdash; Rana D., Seven Hills NSW' ),
+				array( 'quote' => 'Photobooth was a hit at the party. Easy going, really professional and so much fun! Can&rsquo;t wait to use them again!', 'cite' => '&mdash; Khalehla S., Campbelltown NSW' ),
+				array( 'quote' => 'From the initial planning to the final execution, their team was professional, attentive and truly brought our vision to life. Highly recommend their services for any occasion!', 'cite' => '&mdash; Sorted Photography &amp; Videography' ),
+			),
+		),
+		'live'  => array(
+			'emblem_text' => 'HAPPY CUSTOMERS • HAPPY CUSTOMERS • ',
+			'items' => array(
+				array( 'quote' => 'We hired the OMG group for our corporate Christmas party and let me tell you &mdash; everyone had the best night! The DJ read the room perfectly all night.', 'cite' => '&mdash; Elisa Chinnabootr' ),
+				array( 'quote' => 'The lighting completely transformed the venue and the band kept the floor packed until the very end. Faultless from start to finish.', 'cite' => '&mdash; Corporate Event Manager, Sydney NSW' ),
+				array( 'quote' => 'We hired OMG group for our mid-year office party and their service and quality was excellent.', 'cite' => '&mdash; Aarti Mehra' ),
+			),
+		),
+		'props' => array(
+			'emblem_text' => 'HAPPY CUSTOMERS • HAPPY CUSTOMERS • ',
+			'items' => array(
+				array( 'quote' => 'From the initial planning to the final execution, their team was professional, attentive and truly brought our vision to life. Highly recommend their services for any occasion!', 'cite' => '&mdash; Sorted Photography &amp; Videography' ),
+				array( 'quote' => 'We hired the OMG group for our corporate Christmas party and let me tell you &mdash; everyone had the best night! The styling completely transformed the room.', 'cite' => '&mdash; Elisa Chinnabootr' ),
+				array( 'quote' => 'We hired OMG group for our mid-year office party and their service and quality was excellent.', 'cite' => '&mdash; Aarti Mehra' ),
+			),
+		),
+	);
+
+	return $data[ $brand ] ?? array();
+}

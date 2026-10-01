@@ -61,6 +61,9 @@ get_template_part( 'template-parts/studio-booths-layout', null, array(
 	'marquee'  => omg_hybrid_page7_marquee(),
 ) );
 
+// Testimonials from /omg-studio/, after the brands slider (client task-012).
+get_template_part( 'template-parts/sections/testimonials', null, omg_hybrid_brand_testimonials( 'studio' ) );
+
 // CTA band before the footer, same as /omg-studio/'s (client task-010,
 // 2026-10-01). Buttons fall back to Call / Book / Email from Theme Settings.
 get_template_part( 'template-parts/sections/cta', null, array(

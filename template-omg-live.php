@@ -101,14 +101,8 @@ get_template_part( 'template-parts/service-landing', null, array(
 			array( 'url' => 'mailto:info@OMGent.com.au', 'label' => 'Email Us' ),
 		),
 	),
-	'testimonials' => array(
-		'emblem_text' => 'HAPPY CUSTOMERS • HAPPY CUSTOMERS • ',
-		'items' => array(
-			array( 'quote' => 'We hired the OMG group for our corporate Christmas party and let me tell you &mdash; everyone had the best night! The DJ read the room perfectly all night.', 'cite' => '&mdash; Elisa Chinnabootr' ),
-			array( 'quote' => 'The lighting completely transformed the venue and the band kept the floor packed until the very end. Faultless from start to finish.', 'cite' => '&mdash; Corporate Event Manager, Sydney NSW' ),
-			array( 'quote' => 'We hired OMG group for our mid-year office party and their service and quality was excellent.', 'cite' => '&mdash; Aarti Mehra' ),
-		),
-	),
+	// Quotes shared with /omg-live/our-services/ (inc/brand-services.php).
+	'testimonials' => omg_hybrid_brand_testimonials( 'live' ),
 	'other_heading' => 'Other Services',
 	'other_description' => 'Why stop at the Dance Floor? Complete the night with the full OMG Experience: Casino Tables, Race Nights and Poker Tournaments, Photo-Booths and Photography, Props and Theming, plus Food, Drinks and Professional Staff. It&rsquo;s everything your event needs, all under one roof.',
 	'other' => array(

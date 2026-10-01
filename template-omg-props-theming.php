@@ -118,14 +118,8 @@ get_template_part( 'template-parts/service-landing', null, array(
 			array( 'url' => 'mailto:info@OMGent.com.au', 'label' => 'Email Us' ),
 		),
 	),
-	'testimonials' => array(
-		'emblem_text' => 'HAPPY CUSTOMERS • HAPPY CUSTOMERS • ',
-		'items' => array(
-			array( 'quote' => 'From the initial planning to the final execution, their team was professional, attentive and truly brought our vision to life. Highly recommend their services for any occasion!', 'cite' => '&mdash; Sorted Photography &amp; Videography' ),
-			array( 'quote' => 'We hired the OMG group for our corporate Christmas party and let me tell you &mdash; everyone had the best night! The styling completely transformed the room.', 'cite' => '&mdash; Elisa Chinnabootr' ),
-			array( 'quote' => 'We hired OMG group for our mid-year office party and their service and quality was excellent.', 'cite' => '&mdash; Aarti Mehra' ),
-		),
-	),
+	// Quotes shared with /omg-props-theming/our-services/ (inc/brand-services.php).
+	'testimonials' => omg_hybrid_brand_testimonials( 'props' ),
 	'other_heading' => 'Other Services',
 	'other_description' => 'Why stop at the styling? Complete the night with the full OMG experience: Casino Tables, Race Nights and Poker Tournaments, Photo-Booths and Photography, DJs, Live Bands and Performers, plus Food, Drinks and Professional Staff. It&rsquo;s everything your event needs, all under one roof.',
 	'other' => array(

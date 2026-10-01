@@ -14,13 +14,21 @@ defined( 'ABSPATH' ) || exit;
 
 get_header();
 
+$props_services = omg_hybrid_brand_services( 'props' );
+
+// The "Ready to…" CTA band is rendered last, after the logo grid and
+// testimonials, right before the footer (client 2026-10-01), so it's taken
+// out of the bundle the shared layout would otherwise render.
+$props_cta = $props_services['cta'] ?? array();
+unset( $props_services['cta'] );
+
 // "Other Services" — full 5-division grid, same component/content as the
 // home page (client 2026-09-29 — was a 4-card subset excluding Props).
 get_template_part(
 	'template-parts/brand-services-layout',
 	null,
 	array_merge(
-		omg_hybrid_brand_services( 'props' ),
+		$props_services,
 		array(
 			'other' => array(
 				'heading' => 'Other Services',
@@ -49,5 +57,12 @@ get_template_part(
 		),
 	)
 );
+
+// Testimonials from /omg-props-theming/, after the logo grid (client task-011).
+get_template_part( 'template-parts/sections/testimonials', null, omg_hybrid_brand_testimonials( 'props' ) );
+
+if ( $props_cta ) {
+	get_template_part( 'template-parts/sections/cta', null, $props_cta );
+}
 
 get_footer();
