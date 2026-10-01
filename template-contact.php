@@ -187,3 +187,7 @@ get_template_part( 'template-parts/sections/marquee', null, omg_hybrid_page7_mar
 <!-- =====logo marque section end===== -->
 
 <?php get_footer(); ?>
+
+<style>
+	#field_1_53 {grid-column: span 6;}
+</style>
