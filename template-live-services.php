@@ -13,13 +13,21 @@ defined( 'ABSPATH' ) || exit;
 
 get_header();
 
+$live_services = omg_hybrid_brand_services( 'live' );
+
+// The "Ready to…" CTA band is rendered after the logo grid below, as the
+// last section before the footer (client task-010, 2026-10-01), so it's
+// taken out of the bundle the shared layout would otherwise render.
+$live_cta = $live_services['cta'] ?? array();
+unset( $live_services['cta'] );
+
 // "Other Services" — full 5-division grid, same component/content as the
 // home page (client 2026-09-29 — was a 4-card subset excluding LiVE).
 get_template_part(
 	'template-parts/brand-services-layout',
 	null,
 	array_merge(
-		omg_hybrid_brand_services( 'live' ),
+		$live_services,
 		array(
 			'other' => array(
 				'heading'     => 'Other Services',
@@ -49,5 +57,9 @@ get_template_part(
 		),
 	)
 );
+
+if ( $live_cta ) {
+	get_template_part( 'template-parts/sections/cta', null, $live_cta );
+}
 
 get_footer();

@@ -61,4 +61,11 @@ get_template_part( 'template-parts/studio-booths-layout', null, array(
 	'marquee'  => omg_hybrid_page7_marquee(),
 ) );
 
+// CTA band before the footer, same as /omg-studio/'s (client task-010,
+// 2026-10-01). Buttons fall back to Call / Book / Email from Theme Settings.
+get_template_part( 'template-parts/sections/cta', null, array(
+	'title'    => 'Let&rsquo;s Capture Your Event Perfectly',
+	'subtitle' => 'Booths, photography or videography &mdash; get in touch for a free, no-obligation quote.',
+) );
+
 get_footer();

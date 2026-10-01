@@ -1384,7 +1384,10 @@ a.oh-division-card:hover {
 	padding-block: var(--section-y);
 	text-align: center;
 	background: var(--color-secondary);
-	max-width: 1024px;
+	/* 12px clear of each screen edge below 1048px, like the legacy
+	   .cta-section panel on /casino-fun-nights/ (client task-010,
+	   2026-10-01; was max-width: 1024px, which ran edge to edge). */
+	width: min(100% - 24px, 1024px);
 	margin-inline: auto;
 	border-radius: var(--radius);
 	/* Top margin added to match the bottom (client 2026-09-19). */
@@ -1407,6 +1410,19 @@ a.oh-division-card:hover {
 
 .oh-cta .oh-btn-row {
 	justify-content: center;
+}
+
+/* Phones (client task-010): the buttons stack in one centred column, all
+   as wide as the widest label, instead of wrapping 2 + 1 at three widths. */
+@media (max-width: 575px) {
+	.oh-cta .oh-btn-row {
+		display: grid;
+		justify-content: center;
+	}
+
+	.oh-cta .oh-btn-row .oh-btn {
+		justify-content: center;
+	}
 }
 
 /* ------------------------------------------------------------------ */

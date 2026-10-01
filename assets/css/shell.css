@@ -1970,6 +1970,66 @@ body.home .oh-cta .oh-btn--outline {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Studio / LiVE / Props CTA colours (client task-010, 2026-10-01)    */
+/* ------------------------------------------------------------------ */
+/* Solid brand banner-CTA colours on more buttons. Borders and ink labels
+   stay as they are (the pastels are too light for white). Quick Quote
+   selectors carry :not(.home):not(.page-contact) to match the 30% Quick
+   Quote rule's specificity, and the "Why Choose" ones carry :not(.home)
+   to match theirs; don't strip either. The two "Our Services" pages are
+   scoped by ID because body.page-our-services isn't unique. */
+
+/* Studio #82DED5: the CTA band on /omg-studio/, /our-booths/ and
+   /photography-videography/, plus the black pills in the booth showcase
+   and "Real Moments" sections (30% ink until now). */
+body.page-omg-studio .oh-cta .oh-btn--outline,
+body.page-our-booths .oh-cta .oh-btn--outline,
+body.page-photography-videography .oh-cta .oh-btn--outline {
+	background: #82DED5;
+}
+
+body.page-our-booths:not(.home) .oh-booth-showcase .oh-btn--dark,
+body.page-photography-videography:not(.home) .oh-studio-remarkable .oh-btn--dark {
+	background: #82DED5;
+}
+
+/* LiVE #D5BCE8 (/omg-live/ and /omg-live/our-services/, ID 955). */
+body.page-omg-live:not(.home) .oh-why .oh-btn--outline,
+body.page-omg-live .oh-cta .oh-btn--outline,
+body.page-id-955 .oh-cta .oh-btn--outline {
+	background: #D5BCE8;
+}
+
+body.page-id-955 .oh-services .oh-btn--solid {
+	background: #D5BCE8;
+	border-color: #D5BCE8;
+	color: var(--color-ink);
+}
+
+body.page-omg-live:not(.home):not(.page-contact) #book-now-trigger,
+body.page-id-955:not(.home):not(.page-contact) #book-now-trigger {
+	background: #D5BCE8;
+}
+
+/* Props & Theming #F9DC8B (/omg-props-theming/ and its /our-services/, ID 956). */
+body.page-omg-props-theming:not(.home) .oh-why .oh-btn--outline,
+body.page-omg-props-theming .oh-cta .oh-btn--outline,
+body.page-id-956 .oh-cta .oh-btn--outline {
+	background: #F9DC8B;
+}
+
+body.page-id-956 .oh-services .oh-btn--solid {
+	background: #F9DC8B;
+	border-color: #F9DC8B;
+	color: var(--color-ink);
+}
+
+body.page-omg-props-theming:not(.home):not(.page-contact) #book-now-trigger,
+body.page-id-956:not(.home):not(.page-contact) #book-now-trigger {
+	background: #F9DC8B;
+}
+
+/* ------------------------------------------------------------------ */
 /*  Client-logo skeleton (client 2026-09-24)                           */
 /* ------------------------------------------------------------------ */
 /* marquee.php renders every logo cell with .is-loading, and each img's
