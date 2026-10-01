@@ -3865,3 +3865,18 @@ body.oh-legacy .oh-testimonials .swiper-pagination-bullet .line {
 body.oh-legacy .oh-testimonials .swiper-pagination-bullet:last-child .line {
 	display: none;
 }
+
+/* Contact form (client 2026-10-01): the input labels (First Name, Email
+   Address, Event Date …) go bold. The red "(Required)" marker inside each
+   label keeps its normal 500 weight, and the division fieldset legends
+   (OMG Entertainment, OMG Studio …) are unchanged. "Choose a service" is an
+   <h3> in an HTML field (#field_1_82), not a label, so it is listed too. */
+.contact-page-forms .gform_wrapper.gform-theme label.gfield_label,
+.contact-page-forms .gform_wrapper.gform-theme #field_1_82 h3 {
+	font-weight: 700;
+}
+
+.contact-page-forms .gform_wrapper.gform-theme label.gfield_label .gfield_required,
+.contact-page-forms .gform_wrapper.gform-theme #field_1_82 h3 span {
+	font-weight: 500;
+}
