@@ -1917,7 +1917,8 @@ body.page-omg-props-theming .oh-hero .oh-btn--solid {
    prefix). Quick Quote keeps its 1px black border. */
 body.page-omg-studio:not(.home) .oh-section--secondary .oh-btn-row .oh-btn--solid {
 	background: #82DED5;
-	border-color: #82DED5;
+	/* Black border (client 2026-10-01; was #82DED5, i.e. none visible). */
+	border-color: #000;
 	color: var(--color-ink);
 }
 
@@ -1993,6 +1994,13 @@ body.page-photography-videography:not(.home) .oh-studio-remarkable .oh-btn--dark
 	background: #82DED5;
 }
 
+/* /our-booths/ and /photography-videography/ floating Quick Quote (client
+   2026-10-01). Black border and ink label unchanged. */
+body.page-our-booths:not(.home):not(.page-contact) #book-now-trigger,
+body.page-photography-videography:not(.home):not(.page-contact) #book-now-trigger {
+	background: #82DED5;
+}
+
 /* LiVE #D5BCE8 (/omg-live/ and /omg-live/our-services/, ID 955). */
 body.page-omg-live:not(.home) .oh-why .oh-btn--outline,
 body.page-omg-live .oh-cta .oh-btn--outline,
@@ -2002,7 +2010,8 @@ body.page-id-955 .oh-cta .oh-btn--outline {
 
 body.page-id-955 .oh-services .oh-btn--solid {
 	background: #D5BCE8;
-	border-color: #D5BCE8;
+	/* 1px black border (client task-011, 2026-10-01). */
+	border: 1px solid #000;
 	color: var(--color-ink);
 }
 
@@ -2020,7 +2029,8 @@ body.page-id-956 .oh-cta .oh-btn--outline {
 
 body.page-id-956 .oh-services .oh-btn--solid {
 	background: #F9DC8B;
-	border-color: #F9DC8B;
+	/* 1px black border (client task-011, 2026-10-01). */
+	border: 1px solid #000;
 	color: var(--color-ink);
 }
 
@@ -2289,9 +2299,11 @@ body.page-horse-racing-fun-nights .hero-section .main-block {
 	transform: rotate(135deg);
 }
 
-/* Floating footer Quick Quote (#book-now-trigger): 600 weight on every
-   page (client 2026-10-01; was 500). The body prefix out-specifies the
-   bare #book-now-trigger rule in legacy-styles.css, which loads later. */
+/* Floating footer Quick Quote (#book-now-trigger): 600 weight and 16px
+   text on every page (client 2026-10-01; was 500 / 13px). The body prefix
+   out-specifies the bare #book-now-trigger rule in legacy-styles.css,
+   which loads later. */
 body #book-now-trigger {
 	font-weight: 600;
+	font-size: 16px;
 }
