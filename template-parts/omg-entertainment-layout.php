@@ -48,6 +48,9 @@ get_template_part( 'template-parts/sections/hero', null, array(
 	'title'       => 'Creating Unforgettable<br>Event Experiences',
 	'cta'         => array( 'url' => home_url( '/contact/' ), 'label' => 'Get a Free Quote' ),
 	'slides'      => $hero_slides,
+	// Home page: no title / button over the first slide (client 2026-10-01);
+	// the text shows from slide 2 on. The landing page keeps it on every slide.
+	'hide_text_on_first' => 'home' === $context,
 ) );
 
 /* ==================================================================

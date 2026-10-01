@@ -149,6 +149,17 @@
 					renderBullet: numberedBullet
 				}
 			});
+			// Home hero (client 2026-10-01): the text overlay is hidden while the
+			// first slide shows and fades in from slide 2. hero.php renders the
+			// section with .is-text-off already set.
+			var heroSection = heroEl.closest('.oh-hero');
+			if (heroSection && heroSection.classList.contains('oh-hero--text-off-first')) {
+				var syncHeroText = function () {
+					heroSection.classList.toggle('is-text-off', hero.activeIndex === 0);
+				};
+				hero.on('slideChange', syncHeroText);
+				syncHeroText();
+			}
 			heroEl.addEventListener('mouseenter', function () { hero.autoplay && hero.autoplay.stop(); });
 			heroEl.addEventListener('mouseleave', function () { hero.autoplay && hero.autoplay.start(); });
 		}

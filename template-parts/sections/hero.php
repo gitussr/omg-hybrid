@@ -11,6 +11,8 @@
  *   description string
  *   cta         array{url:string,label:string}
  *   slides      array of array{ type:'image'|'video', url:string, poster?:string }
+ *   hide_text_on_first bool  hide the text overlay while slide 1 shows; it
+ *               fades in from slide 2 (theme.js toggles .is-text-off).
  *               When empty, a single flat-colour slide is rendered.
  *
  * @package omg-hybrid
@@ -25,8 +27,14 @@ $description = $args['description'] ?? '';
 $cta         = $args['cta'] ?? array();
 $slides      = ! empty($args['slides']) ? $args['slides'] : array(array('type' => 'image', 'url' => ''));
 $multi       = count($slides) > 1;
+
+$hero_class = 'oh-hero oh-hero--' . $variant;
+if ($multi && ! empty($args['hide_text_on_first'])) {
+	// Starts hidden in the markup so there is no flash before Swiper runs.
+	$hero_class .= ' oh-hero--text-off-first is-text-off';
+}
 ?>
-<section class="oh-hero oh-hero--<?php echo esc_attr($variant); ?>">
+<section class="<?php echo esc_attr($hero_class); ?>">
 
 	<div class="oh-hero__slider swiper" aria-hidden="true">
 		<div class="swiper-wrapper">

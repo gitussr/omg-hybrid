@@ -277,6 +277,17 @@
 	text-align: center;
 }
 
+.oh-hero--text-off-first .oh-hero__inner {
+	transition: opacity .5s ease, visibility .5s ease;
+}
+
+/* Home hero, first slide (client 2026-10-01): title + button hidden while
+   slide 1 shows; theme.js drops .is-text-off from slide 2 on. */
+.oh-hero.is-text-off .oh-hero__inner {
+	opacity: 0;
+	visibility: hidden;
+}
+
 .oh-hero__eyebrow {
 	color: #fff;
 	opacity: .85;
