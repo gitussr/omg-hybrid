@@ -23,3 +23,4 @@ require_once OMG_HYBRID_DIR . '/inc/enqueue.php';
 require_once OMG_HYBRID_DIR . '/inc/nav-menus.php';
 require_once OMG_HYBRID_DIR . '/inc/theme-options.php';
 require_once OMG_HYBRID_DIR . '/inc/security.php';
+require_once OMG_HYBRID_DIR . '/inc/vsco-workspace.php';

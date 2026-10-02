@@ -190,4 +190,10 @@ get_template_part( 'template-parts/sections/marquee', null, omg_hybrid_page7_mar
 
 <style>
 	#field_1_53 {grid-column: span 6;}
+	@media (max-width: 640px) {
+	  #field_1_53 {grid-column: span 12;}
+		#field_1_65 {display: flex;
+    flex-direction: column;
+    justify-content: space-between;}
+	}
 </style>
