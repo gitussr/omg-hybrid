@@ -171,7 +171,8 @@
 			if (el.classList.contains('swiper-initialized')) { return; }
 			var delay = parseInt(el.getAttribute('data-autoplay'), 10);
 			if (isNaN(delay)) { delay = 3000; }
-			var logos = new Swiper(el, {
+			// Keeps sliding while hovered (client 2026-10-02) — no hover pause.
+			new Swiper(el, {
 				// slidesPerGroup mirrors slidesPerView so one swipe (and one
 				// autoplay tick) advances a whole 4x6 page rather than a
 				// single column, which is what Grid snaps to by default.
@@ -193,10 +194,6 @@
 					992: { slidesPerView: 6, slidesPerGroup: 6, grid: { rows: 4, fill: 'row' } }
 				}
 			});
-			if (delay > 0) {
-				el.addEventListener('mouseenter', function () { logos.autoplay && logos.autoplay.stop(); });
-				el.addEventListener('mouseleave', function () { logos.autoplay && logos.autoplay.start(); });
-			}
 		});
 
 		/* Client-logo strip (sections/logo-strip.php, client 2026-10-01):
