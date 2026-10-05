@@ -2506,12 +2506,31 @@ body #book-now-trigger {
 		white-space: nowrap;
 	}
 
-	/* Legacy CTA card: its 14px label + 18px side padding outruns a
-	   third of the narrower card, so it drops to the .oh-btn 13px. */
+	/* Legacy CTA card ("Ready to deal you in?" etc.): its 14px label + 18px
+	   side padding outruns a third of the narrower card, so it drops to the
+	   .oh-btn 13px. task-016 (2026-10-05): the card's 24px side padding
+	   left each button ~80px wide at a 48px pill height — squashed ovals
+	   with the labels touching the edges — so the card padding drops to
+	   14px, the pills to the 42px .oh-btn height and the Call arrow to 14px. */
+	.cta-section .main-block:has(.oh-mcta) {
+		padding-inline: 14px !important;
+	}
+
 	.cta-section .oh-mcta.oh-mcta .oh-mcta__btn {
+		gap: 5px;
+		padding-block: 11px;
 		padding-inline: 6px;
+		min-height: 0;
+		height: auto;
 		font-size: 13px;
+		line-height: 18px;
 		letter-spacing: .03em;
+	}
+
+	.cta-section .oh-mcta.oh-mcta .oh-mcta__btn .srdev-icon {
+		flex: none;
+		width: 14px;
+		height: 14px;
 	}
 }
 
@@ -2525,5 +2544,10 @@ body #book-now-trigger {
 		padding-inline: 4px;
 		font-size: 12px;
 		letter-spacing: .02em;
+	}
+	/* Narrowest phones: the legacy card's "GET QUOTE" sat against its pill
+	   curve, so it loses the letter-spacing (task-016). */
+	.cta-section .oh-mcta.oh-mcta .oh-mcta__btn {
+		letter-spacing: 0;
 	}
 }
