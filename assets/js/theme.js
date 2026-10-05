@@ -157,6 +157,43 @@
 			var heroNext = heroEl.closest('.oh-hero').querySelector('.oh-hero__nav--next');
 			if (heroPrev) { heroPrev.addEventListener('click', function () { hero.slidePrev(); }); }
 			if (heroNext) { heroNext.addEventListener('click', function () { hero.slideNext(); }); }
+			// Per-slide hero copy (client task-018, 2026-10-05): hero.php puts
+			// each slide's title / text on-off / tint on-off in data-hero-*.
+			// On a slide change the tint follows at once; a new title fades the
+			// text out, swaps it, and fades it back in (straight in when the
+			// text was hidden anyway). Runs before the slide-1 handler below so
+			// it still sees whether the text was showing.
+			var perSlide = heroEl.closest('.oh-hero--per-slide');
+			if (perSlide) {
+				var heroH1 = perSlide.querySelector('.oh-hero__inner h1');
+				var swapTimer = null;
+				var syncSlideCopy = function () {
+					var slide = hero.slides[hero.activeIndex];
+					if (!slide || !slide.dataset.heroTitle) { return; }
+					var wasHidden = perSlide.classList.contains('is-text-off') || perSlide.classList.contains('is-copy-off');
+					var showText = slide.dataset.heroText !== '0';
+					perSlide.classList.toggle('is-overlay-off', slide.dataset.heroOverlay === '0');
+					window.clearTimeout(swapTimer);
+					if (!showText) {
+						perSlide.classList.add('is-copy-off');
+						return;
+					}
+					if (!heroH1 || heroH1.innerHTML === slide.dataset.heroTitle) {
+						perSlide.classList.remove('is-copy-off');
+					} else if (wasHidden) {
+						heroH1.innerHTML = slide.dataset.heroTitle;
+						perSlide.classList.remove('is-copy-off');
+					} else {
+						perSlide.classList.add('is-copy-off');
+						swapTimer = window.setTimeout(function () {
+							heroH1.innerHTML = slide.dataset.heroTitle;
+							perSlide.classList.remove('is-copy-off');
+						}, 450);
+					}
+				};
+				hero.on('slideChange', syncSlideCopy);
+				syncSlideCopy();
+			}
 			// Home hero (client 2026-10-01): the text overlay is hidden while the
 			// first slide shows and fades in from slide 2. hero.php renders the
 			// section with .is-text-off already set.

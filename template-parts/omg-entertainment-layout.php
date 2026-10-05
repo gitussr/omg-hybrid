@@ -43,6 +43,26 @@ if ( 'home' === $context ) {
 	}
 }
 
+// Home page per-slide copy (client task-018, 2026-10-05). Slide numbers
+// as the client counts them (01 = the new banner, which has no text):
+//   02 video        "Play for Fun Casinos"
+//   04 banner 02    "Where Every Game Tell a Story", no dark tint
+//   05 banner 03    no hero text, no tint (client, same day)
+//   06 banner 04    "Don't Just Hear the Music. Feel the Moment", no tint
+//   08 banner 06    "Building Connections Not Just Campaigns"
+// 03 and 07 keep the main title. The h1 is uppercased in CSS. Copy as
+// supplied by the client.
+if ( 'home' === $context && 8 === count( $hero_slides ) ) {
+	$hero_slides[1]['title']   = 'Play for Fun<br>Casinos';
+	$hero_slides[3]['title']   = 'Where Every Game<br>Tell a Story';
+	$hero_slides[3]['overlay'] = false;
+	$hero_slides[4]['text']    = false;
+	$hero_slides[4]['overlay'] = false;
+	$hero_slides[5]['title']   = 'Don&rsquo;t Just Hear the Music.<br>Feel the Moment';
+	$hero_slides[5]['overlay'] = false;
+	$hero_slides[7]['title']   = 'Building Connections<br>Not Just Campaigns';
+}
+
 get_template_part( 'template-parts/sections/hero', null, array(
 	'variant'     => 'home',
 	'title'       => 'Creating Unforgettable<br>Event Experiences',
@@ -140,10 +160,10 @@ get_template_part( 'template-parts/sections/why-choose', null, array(
 
 get_template_part( 'template-parts/sections/marquee', null, array(
 	'title'          => 'THE BEST BRANDS CHOOSE THE BEST BRAND',
-	// /omg-entertainment/ only: on phones marquee.php swaps the grid for
-	// the single-line logo strip (client 2026-10-01). The home page keeps
-	// the grid.
-	'hide_on_mobile' => 'landing' === $context,
+	// Home and /omg-entertainment/ both keep the 4-row grid on phones
+	// (client 2026-10-05; /omg-entertainment/ had the one-row strip from
+	// 2026-10-01).
+	'hide_on_mobile' => false,
 	'logos'          => array(
 		$uploads . '/2026/04/logo-1.jpg',  $uploads . '/2026/04/logo-2.jpg',  $uploads . '/2026/04/logo-3.jpg',
 		$uploads . '/2026/04/logo-4.jpg',  $uploads . '/2026/04/logo-5.jpg',  $uploads . '/2026/04/logo-6.jpg',

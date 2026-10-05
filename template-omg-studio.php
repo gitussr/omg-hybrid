@@ -25,6 +25,10 @@ get_template_part( 'template-parts/service-landing', null, array(
 		'description' => 'We bring the laughter, fun and excitement to every event &mdash; one click at a time. Photo booths, video booths, photography and videography, in whatever format suits your event best.',
 		'cta'         => array( 'url' => home_url( '/contact/' ), 'label' => 'Get a Free Quote' ),
 		'slides'      => array(
+			// Client banner, first slide (task-018, 2026-10-05; from
+			// omggroup.com.au uploads 2026/04). It carries its own text, so
+			// no hero title / button or dark tint over it, as on home slide 1.
+			array( 'type' => 'image', 'url' => $img . 'omg-studio-hero-banner-01.jpg', 'text' => false, 'overlay' => false ),
 			array( 'type' => 'image', 'url' => $img . 'omg-studio-display.jpg' ),
 			array( 'type' => 'image', 'url' => $img . 'hero-bg-4.jpg' ),
 			array( 'type' => 'image', 'url' => $img . 'omg-studio-golden-bg-3.jpg' ),

@@ -318,6 +318,32 @@
 	border-color: currentColor;
 }
 
+/* Per-slide hero copy (client task-018, 2026-10-05; hero.php + theme.js):
+   .is-copy-off hides the title + button for a slide with no text (and
+   briefly while a new title is swapped in), .is-overlay-off drops the
+   dark tint on slides the client wants untinted. Both fade. Without the
+   tint, a soft shadow keeps the white title readable on the photo. */
+.oh-hero--per-slide .oh-hero__inner {
+	transition: opacity .45s ease, visibility .45s ease, text-shadow .5s ease;
+}
+
+.oh-hero.is-copy-off .oh-hero__inner {
+	opacity: 0;
+	visibility: hidden;
+}
+
+.oh-hero--per-slide .oh-hero__overlay {
+	transition: opacity .5s ease;
+}
+
+.oh-hero.is-overlay-off .oh-hero__overlay {
+	opacity: 0;
+}
+
+.oh-hero.is-overlay-off .oh-hero__inner {
+	text-shadow: 0 2px 14px rgb(0 0 0 / 60%);
+}
+
 .oh-hero__eyebrow {
 	color: #fff;
 	opacity: .85;
@@ -2567,4 +2593,13 @@ a.oh-division-card:hover {
    .oh-section-title (client 2026-09-28; span added in sections/welcome.php). */
 .oh-section-title .oh-keep-case {
 	text-transform: none;
+}
+
+/* OMG Booths + Photography & Videography (client task-017, 2026-10-05):
+   the service-row headings ("Mini-Studio Booth", "Event Photography", …)
+   go from the light Studio teal --color-primary #33D5C6 to a deeper teal
+   #10786f. Every row on both pages, not just the first. */
+body.page-our-booths .oh-service-row__body > h2,
+body.page-photography-videography .oh-service-row__body > h2 {
+	color: #10786f;
 }
