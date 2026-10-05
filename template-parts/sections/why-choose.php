@@ -54,6 +54,7 @@ $col_b = array_slice( $bullets, $half );
 					</a>
 				<?php endforeach; ?>
 			</div>
+			<?php get_template_part( 'template-parts/sections/mobile-cta', null, array( 'buttons' => $buttons ) ); ?>
 		<?php endif; ?>
 	</div>
 </section>

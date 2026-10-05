@@ -111,6 +111,7 @@ $categories = array(
 						</a>
 					<?php endforeach; ?>
 				</div>
+				<?php get_template_part( 'template-parts/sections/mobile-cta', null, array( 'buttons' => omg_hybrid_cta_buttons(), 'row_class' => 'oh-booth-showcase__btns', 'btn_class' => 'oh-btn oh-btn--dark' ) ); ?>
 
 				<ul class="oh-booth-showcase__meta">
 					<?php foreach ( $meta as $item ) : ?>

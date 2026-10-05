@@ -109,6 +109,7 @@ if ( ! $heading && ! $paragraphs && ! $bullets ) {
 						</a>
 					<?php endforeach; ?>
 				</div>
+				<?php get_template_part( 'template-parts/sections/mobile-cta', null, array( 'buttons' => $buttons, 'btn_class' => 'oh-btn oh-btn--solid' ) ); ?>
 			<?php endif; ?>
 		</div>
 

@@ -3913,3 +3913,15 @@ body.oh-legacy .oh-testimonials .swiper-pagination-bullet:last-child .line {
 .contact-page-forms .gform_wrapper.gform-theme #field_1_82 h3 span {
 	font-weight: 500;
 }
+
+/* Contact form Event Address (#input_1_69, Google address autocomplete):
+   search icon on the right, in the same ink and position as the select
+   chevrons beside it (client 2026-10-05). Background-image only, so
+   Gravity Forms' field background colour is kept. */
+#gform_1 #input_1_69 {
+	padding-right: 48px;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23112337' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-4.2-4.2'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 14px center;
+	background-size: 20px 20px;
+}

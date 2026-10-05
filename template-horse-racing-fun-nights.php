@@ -224,6 +224,7 @@ get_template_part( 'template-parts/omg-entertainment/testimonials' );
                     </svg>
                 </a>
             </div>
+            <?php get_template_part( 'template-parts/sections/mobile-cta', null, array( 'buttons' => omg_hybrid_cta_buttons(), 'row_class' => 'btn-group', 'btn_class' => 'primary-btn-outline' ) ); ?>
         </div>
     </div>
 </section>

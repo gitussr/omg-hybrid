@@ -43,5 +43,6 @@ if ( ! $buttons ) {
 				</a>
 			<?php endforeach; ?>
 		</div>
+		<?php get_template_part( 'template-parts/sections/mobile-cta', null, array( 'buttons' => $buttons ) ); ?>
 	</div>
 </section>

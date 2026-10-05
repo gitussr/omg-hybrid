@@ -2455,3 +2455,75 @@ body #book-now-trigger {
 		min-height: 235px;
 	}
 }
+
+/* ------------------------------------------------------------------ */
+/*  Mobile CTA row (client task-015, 2026-10-05)                       */
+/* ------------------------------------------------------------------ */
+/* template-parts/sections/mobile-cta.php follows every Call / Book /
+   Email row. At 767px and under it replaces that row: all three buttons
+   on one line, "Call" (with arrow) / "Get Quote" / "Email". It carries
+   the replaced row's wrapper + button classes, so each section keeps its
+   own button colours. Desktop: hidden, original row unchanged.
+   !important because legacy-responsive.css lays out .cta-section
+   .btn-group with !important and loads after this file. */
+.oh-mcta {
+	display: none !important;
+}
+
+@media (max-width: 767px) {
+	.oh-btn-row:has(+ .oh-mcta),
+	.cta-section .btn-group:has(+ .oh-mcta),
+	.oh-booth-showcase__btns:has(+ .oh-mcta),
+	.oh-studio-remarkable__cta:has(+ .oh-mcta) {
+		display: none !important;
+	}
+
+	.oh-mcta.oh-mcta {
+		display: grid !important;
+		grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+		gap: 8px !important;
+		justify-content: stretch;
+		width: 100%;
+		max-width: 420px;
+		margin-inline: auto;
+	}
+
+	/* Booth showcase and "Real Moments" rows stay left-aligned (task-013). */
+	.oh-booth-showcase__btns.oh-mcta,
+	.oh-studio-remarkable__cta.oh-mcta {
+		margin-inline: 0;
+	}
+
+	.oh-mcta.oh-mcta .oh-mcta__btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+		min-width: 0;
+		width: auto;
+		margin: 0;
+		padding-inline: 8px;
+		white-space: nowrap;
+	}
+
+	/* Legacy CTA card: its 14px label + 18px side padding outruns a
+	   third of the narrower card, so it drops to the .oh-btn 13px. */
+	.cta-section .oh-mcta.oh-mcta .oh-mcta__btn {
+		padding-inline: 6px;
+		font-size: 13px;
+		letter-spacing: .03em;
+	}
+}
+
+@media (max-width: 359px) {
+	.oh-mcta.oh-mcta {
+		gap: 6px !important;
+	}
+
+	.oh-mcta.oh-mcta .oh-mcta__btn,
+	.cta-section .oh-mcta.oh-mcta .oh-mcta__btn {
+		padding-inline: 4px;
+		font-size: 12px;
+		letter-spacing: .02em;
+	}
+}

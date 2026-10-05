@@ -97,6 +97,7 @@ $badges = array(
 					</a>
 				<?php endforeach; ?>
 			</div>
+			<?php get_template_part( 'template-parts/sections/mobile-cta', null, array( 'buttons' => $cta, 'row_class' => 'oh-studio-remarkable__cta', 'btn_class' => 'oh-btn oh-btn--dark' ) ); ?>
 
 			<ul class="oh-studio-remarkable__feats">
 				<?php foreach ( $feats as $feat ) : ?>
