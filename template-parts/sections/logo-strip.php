@@ -3,8 +3,9 @@
  * Client logos as a single-line slider (client 2026-10-01).
  *
  * The compact companion to sections/marquee.php's 4-row grid, for phones:
- * one row of logos, three across (four from 576px), autoplaying one logo
- * at a time on an endless loop. Built because the inner service pages had
+ * one row of logos, three across (four from 576px), on an endless loop.
+ * Since 2026-10-05 it glides continuously like the grid (client task-016)
+ * instead of stepping one logo every 2.5s. Built because the inner service pages had
  * grown tall, and the 4-row grid alone was ~550px of scrolling on a phone.
  *
  * Usage: pages normally don't call this directly. sections/marquee.php
@@ -34,7 +35,9 @@
  * $args:
  *   title     string
  *   logos     string[]  fallback image URLs, used only if the folder is empty
- *   autoplay  int       delay between steps in ms (default 2500, 0 = none)
+ *   autoplay  int       0 = no movement; anything else = continuous
+ *                       (default 2500; the old step delay)
+ *   speed     int       ms for one logo to pass (default 2000)
  *   visibility 'mobile' | 'all'  (default 'mobile': shown at <=767px only)
  *
  * @package omg-hybrid
@@ -44,6 +47,7 @@ defined( 'ABSPATH' ) || exit;
 
 $title      = $args['title'] ?? '';
 $autoplay   = isset( $args['autoplay'] ) ? max( 0, (int) $args['autoplay'] ) : 2500;
+$speed      = isset( $args['speed'] ) ? max( 500, (int) $args['speed'] ) : 2000;
 $visibility = ( $args['visibility'] ?? 'mobile' ) === 'all' ? 'all' : 'mobile';
 $logos      = omg_hybrid_client_logos( $args['logos'] ?? array() );
 
@@ -58,7 +62,7 @@ if ( ! $logos ) {
 		<?php if ( $title ) : ?>
 			<h2><?php echo esc_html( $title ); ?></h2>
 		<?php endif; ?>
-		<div class="swiper oh-logo-strip__slider" data-autoplay="<?php echo esc_attr( $autoplay ); ?>">
+		<div class="swiper oh-logo-strip__slider" data-autoplay="<?php echo esc_attr( $autoplay ); ?>" data-speed="<?php echo esc_attr( $speed ); ?>">
 			<ul class="swiper-wrapper oh-logo-strip__list">
 				<?php foreach ( $logos as $logo ) : ?>
 					<li class="swiper-slide oh-logo-strip__item is-loading"><img class="oh-logo-strip__logo" src="<?php echo esc_url( $logo ); ?>" alt="" loading="lazy" onload="this.parentNode.classList.remove('is-loading')" onerror="this.parentNode.classList.remove('is-loading')"></li>

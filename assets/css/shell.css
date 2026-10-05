@@ -2247,6 +2247,12 @@ body.page-id-956:not(.home):not(.page-contact) #book-now-trigger {
 	list-style: none;
 }
 
+/* Continuous glide (client task-016, 2026-10-05): linear, so theme.js's
+   zero-delay autoplay reads as one steady movement, like the grid. */
+.oh-logo-strip__slider .swiper-wrapper {
+	transition-timing-function: linear !important;
+}
+
 .oh-logo-strip__item {
 	position: relative;
 	box-sizing: border-box;

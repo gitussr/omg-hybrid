@@ -77,7 +77,10 @@ $points = array(
 </section>
 <?php
 get_template_part( 'template-parts/sections/marquee', null, array(
-	'title' => 'THE BEST BRANDS CHOOSE THE BEST BRAND',
+	'title'          => 'THE BEST BRANDS CHOOSE THE BEST BRAND',
+	// Keep the 4-row logo slider on phones too, not the one-row strip
+	// (client task-016, 2026-10-05).
+	'hide_on_mobile' => false,
 ) );
 
 get_footer();

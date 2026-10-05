@@ -4,12 +4,16 @@
  * Every page renders this one part; nothing hardcodes its own logo list
  * (client 2026-09-23). Modelled on omggaming.com.au's showcase.
  *
- * Since 2026-09-23 the grid is a Swiper: 6 across x 4 rows = 24 logos per
- * view, autoplaying every 3s. Each logo is one .swiper-slide and Swiper's
- * Grid module lays the rows out, so the page count follows the folder
- * contents by itself. Before Swiper boots — and if JS is off — the
- * wrapper stays a wrapped flex grid, i.e. the pre-slider layout. The
- * pagination is a sibling of .swiper, which is overflow:hidden.
+ * The grid is a Swiper, 4 rows deep and 6 columns across (4 at <=991px,
+ * 2 at <=767px). Since 2026-10-05 (client task-016) it glides
+ * continuously instead of paging every 3s: each .swiper-slide is one
+ * COLUMN of 4 logos, so plain Swiper can loop it endlessly (the Grid
+ * module it used before cannot loop), and theme.js runs it with a zero
+ * autoplay delay on a linear timing curve. The logo list is cut into
+ * columns of 4; the last column is topped up from the start of the list
+ * so every column is full. Before Swiper boots — and if JS is off — the
+ * columns sit in a wrapped flex grid. The pagination dots are DORMANT
+ * (markup kept, hidden in CSS, not wired up in theme.js).
  *
  * The original pure-CSS infinite-scroll marquee is kept DORMANT below: pass
  * 'layout' => 'marquee' to bring it back (its .oh-marquee CSS is untouched).
@@ -20,7 +24,9 @@
  *   title           string
  *   logos           string[]  image URLs
  *   layout          'grid' | 'marquee'   (default 'grid')
- *   autoplay        int       slide delay in ms (default 3000, 0 = no autoplay)
+ *   autoplay        int       0 = no movement; anything else = continuous
+ *                             (default 3000; the old per-page delay)
+ *   speed           int       ms for one column to pass (default 2500)
  *   hide_on_mobile  bool      grid only: on phones (<=767px) hide the grid and
  *                             show sections/logo-strip.php's single-line
  *                             slider instead, rendered right after it.
@@ -37,6 +43,7 @@ defined( 'ABSPATH' ) || exit;
 $title       = $args['title'] ?? '';
 $layout      = ( $args['layout'] ?? 'grid' ) === 'marquee' ? 'marquee' : 'grid';
 $autoplay    = isset( $args['autoplay'] ) ? max( 0, (int) $args['autoplay'] ) : 3000;
+$speed       = isset( $args['speed'] ) ? max( 500, (int) $args['speed'] ) : 2500;
 $hide_mobile = (bool) ( $args['hide_on_mobile'] ?? ! is_front_page() );
 
 // Client logo set shared by every page (client 2026-09-19): every PNG in
@@ -57,13 +64,28 @@ if ( 'grid' === $layout ) :
 		<?php if ( $title ) : ?>
 			<h2><?php echo esc_html( $title ); ?></h2>
 		<?php endif; ?>
-		<div class="swiper oh-logo-grid__slider" data-autoplay="<?php echo esc_attr( $autoplay ); ?>">
+		<?php
+		// One slide per column of 4. Top the last column up from the start
+		// of the list so the loop never shows a half-empty column.
+		$cells = array_values( $logos );
+		$short = ( 4 - count( $cells ) % 4 ) % 4;
+		for ( $i = 0; $i < $short; $i++ ) {
+			$cells[] = $cells[ $i % count( $logos ) ];
+		}
+		$columns = array_chunk( $cells, 4 );
+		?>
+		<div class="swiper oh-logo-grid__slider" data-autoplay="<?php echo esc_attr( $autoplay ); ?>" data-speed="<?php echo esc_attr( $speed ); ?>">
 			<ul class="swiper-wrapper oh-logo-grid__list">
-				<?php foreach ( $logos as $logo ) : ?>
-					<li class="swiper-slide oh-logo-grid__item is-loading"><img class="oh-logo-grid__logo" src="<?php echo esc_url( $logo ); ?>" alt="" loading="lazy" onload="this.parentNode.classList.remove('is-loading')" onerror="this.parentNode.classList.remove('is-loading')"></li>
+				<?php foreach ( $columns as $column ) : ?>
+					<li class="swiper-slide oh-logo-grid__col">
+						<?php foreach ( $column as $logo ) : ?>
+							<div class="oh-logo-grid__item is-loading"><img class="oh-logo-grid__logo" src="<?php echo esc_url( $logo ); ?>" alt="" loading="lazy" onload="this.parentNode.classList.remove('is-loading')" onerror="this.parentNode.classList.remove('is-loading')"></div>
+						<?php endforeach; ?>
+					</li>
 				<?php endforeach; ?>
 			</ul>
 		</div>
+		<?php // Dormant (client task-016): hidden in CSS, not initialised in theme.js. ?>
 		<div class="swiper-pagination oh-logo-grid__pagination"></div>
 	</div>
 </section>

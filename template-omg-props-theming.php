@@ -134,6 +134,9 @@ get_template_part( 'template-parts/service-landing', null, array(
 	),
 	'marquee' => array(
 		'title' => 'The Best BRANDS CHOOSE THE BEST BRAND',
+		// Keep the 4-row logo slider on phones too, not the one-row strip
+		// (client task-016, 2026-10-05).
+		'hide_on_mobile' => false,
 		'logos' => array(
 			$uploads . '/2026/04/logo-1.jpg',  $uploads . '/2026/04/logo-2.jpg',  $uploads . '/2026/04/logo-3.jpg',
 			$uploads . '/2026/04/logo-4.jpg',  $uploads . '/2026/04/logo-5.jpg',  $uploads . '/2026/04/logo-6.jpg',
