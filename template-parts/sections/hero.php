@@ -79,6 +79,13 @@ if ($multi && ! empty($args['hide_text_on_first'])) {
 	</div>
 
 	<?php if ($multi) : ?>
+		<?php // Numbered pagination on desktop; prev/next arrows replace it on mobile (client 2026-10-04). ?>
 		<div class="swiper-pagination oh-hero__pagination"></div>
+		<button type="button" class="oh-hero__nav oh-hero__nav--prev" aria-label="Previous slide">
+			<i class="bi bi-chevron-left" aria-hidden="true"></i>
+		</button>
+		<button type="button" class="oh-hero__nav oh-hero__nav--next" aria-label="Next slide">
+			<i class="bi bi-chevron-right" aria-hidden="true"></i>
+		</button>
 	<?php endif; ?>
 </section>

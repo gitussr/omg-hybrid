@@ -136,7 +136,7 @@
 				slidesPerView: 1,
 				// rewind, not loop: Swiper 12 loop mode locks up with only
 				// 2 slides (the hero usually has 2). rewind wraps last->first
-				// for both autoplay and the clickable pagination.
+				// for autoplay, the clickable pagination and the arrows.
 				rewind: true,
 				autoplay: { delay: 5000, disableOnInteraction: false },
 				speed: 900,
@@ -149,6 +149,14 @@
 					renderBullet: numberedBullet
 				}
 			});
+			// Prev/next arrows (client 2026-10-04): replace the numbered
+			// pagination on mobile only. Like the pagination they live outside
+			// .swiper, as direct children of .oh-hero, so their click target
+			// isn't trapped under the overlay / text column.
+			var heroPrev = heroEl.closest('.oh-hero').querySelector('.oh-hero__nav--prev');
+			var heroNext = heroEl.closest('.oh-hero').querySelector('.oh-hero__nav--next');
+			if (heroPrev) { heroPrev.addEventListener('click', function () { hero.slidePrev(); }); }
+			if (heroNext) { heroNext.addEventListener('click', function () { hero.slideNext(); }); }
 			// Home hero (client 2026-10-01): the text overlay is hidden while the
 			// first slide shows and fades in from slide 2. hero.php renders the
 			// section with .is-text-off already set.
@@ -276,6 +284,53 @@
 			if (e.key === 'Escape' && panel.classList.contains('is-open')) { close(); }
 		});
 	});
+
+	/* ------------------------------------------------------------------ */
+	/*  Quick Quote → contact form (client 2026-10-03)                    */
+	/*  The footer Quick Quote (#book-now-trigger), the header "Start     */
+	/*  Planning" button and the mega-menu plugin's mobile header Quick   */
+	/*  Quote button no longer open a popup: they take the visitor to the */
+	/*  "Leave us a message" form on /contact/ (or scroll to it when      */
+	/*  already there). Both popups are left wired up but dormant — this  */
+	/*  capture-phase listener runs before their click handlers and stops */
+	/*  the click reaching them. Delete this block to bring them back.    */
+	/* ------------------------------------------------------------------ */
+	(function () {
+		var SELECTOR = '#book-now-trigger, .book-now-header-btn, .omg-quick-quote-btn';
+
+		// Lands the heading just below the sticky header. The header drops
+		// its top bar once it sticks, so aim again after that has settled.
+		var scrollToForm = function () {
+			var target = document.getElementById('leave-a-message');
+			if (!target) { return false; }
+			var aim = function () {
+				var header = document.getElementById('siteHeader');
+				var offset = (header ? header.offsetHeight : 0) + 24;
+				window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - offset, behavior: 'instant' });
+			};
+			aim();
+			window.setTimeout(aim, 400);
+			return true;
+		};
+
+		document.addEventListener('click', function (e) {
+			var btn = e.target.closest ? e.target.closest(SELECTOR) : null;
+			if (!btn) { return; }
+			var trigger = document.getElementById('book-now-trigger');
+			var url = trigger && trigger.getAttribute('data-contact-url');
+			if (!url) { return; }
+			e.preventDefault();
+			e.stopPropagation();
+			if (scrollToForm()) { return; }
+			window.location.href = url;
+		}, true);
+
+		// Arriving from another page: the browser's own jump to the hash
+		// happens before the header and banner have their final heights.
+		if (window.location.hash === '#leave-a-message') {
+			window.addEventListener('load', scrollToForm);
+		}
+	})();
 
 	/* ================================================================== */
 	/*  30-minute time dropdown for .book-time-input and GF .native-time  */

@@ -157,7 +157,7 @@
 <section class="form-section-widget">
     <div class="container">
         <div class="main-block">
-            <h3 class="title-dark-2">Leave us a message</h3>
+            <h3 class="title-dark-2" id="leave-a-message">Leave us a message</h3>
             <div class="contact-page-forms">
 				<?php echo do_shortcode('[gravityform id="1" title="false" ajax="true"]'); ?>
             </div>

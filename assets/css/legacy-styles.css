@@ -2034,16 +2034,30 @@ footer .bottom-block::after {
 /* Mobile field pairs (client task-007, 2026-09-30). Below Gravity Forms'
    640px breakpoint every field goes full width; these keep a few of them
    side by side on phones:
+     Event Date (53) | Inquiry Type (52)   (2026-10-03)
      Start Time (64) | End Time (65)
      Event Address (69)            full
      Suburb (70)                   full
      Event State (57) | Postcode (71)
    Desktop is unchanged. The grid has no column gap on mobile (every
    field was full width), so the desktop 16px gap is restored to keep the
-   paired boxes apart. */
+   paired boxes apart.
+   Event Date comes after Inquiry Type in the form, so swapping them needs
+   `dense` packing: without it Event Date (column 1) can't go back to the
+   row Inquiry Type (column 7) is on and drops to a row of its own. Every
+   other mobile row is already full, so dense moves nothing else. */
 @media (max-width: 639px) {
     .gform_wrapper .gform_fields#gform_fields_1 {
         column-gap: 16px;
+        grid-auto-flow: row dense;
+    }
+
+    .gform_wrapper .gform_fields #field_1_53 {
+        grid-column: 1 / span 6;
+    }
+
+    .gform_wrapper .gform_fields #field_1_52 {
+        grid-column: 7 / span 6;
     }
 
     .gform_wrapper .gform_fields #field_1_64,
@@ -2100,6 +2114,28 @@ footer .bottom-block::after {
     .form-section-widget fieldset#field_1_83 {
         margin-left: 20px;
         margin-right: 20px;
+    }
+}
+
+/* 16px between the division blocks both ways (client 2026-10-03). The
+   column gap is already Gravity Forms' 16px; the row gap is the form-wide
+   40px (--gf-form-gap-y), so every block below the first row is pulled up
+   by the 24px difference. Other fields keep their 40px spacing. */
+@media (min-width: 640px) {
+    .form-section-widget fieldset#field_1_79,
+    .form-section-widget fieldset#field_1_81,
+    .form-section-widget fieldset#field_1_83 {
+        margin-top: calc(16px - var(--gf-form-gap-y, 40px));
+    }
+}
+
+/* Stacked on phones: every block after the first sits 16px below the last. */
+@media (max-width: 639px) {
+    .form-section-widget fieldset#field_1_66,
+    .form-section-widget fieldset#field_1_79,
+    .form-section-widget fieldset#field_1_81,
+    .form-section-widget fieldset#field_1_83 {
+        margin-top: calc(16px - var(--gf-form-gap-y, 40px));
     }
 }
 
@@ -3605,17 +3641,13 @@ body.page-horse-racing-fun-nights .cta-section .primary-btn-outline .srdev-icon 
 /*  Scoped under body.oh-legacy to beat legacy-base.css's resets.      */
 /* ------------------------------------------------------------------ */
 
-/* Same sizing as /omg-entertainment/: two cards a row inside a grid
-   capped at two-thirds of the wrap, so the odd third card sits centred
-   on the second row. Full width from 1100px down, one column on phones. */
-body.oh-legacy .oh-service-cards--framed .oh-service-cards__grid {
-	max-width: calc(66.667% - 5px);
-	margin-inline: auto;
-}
-
+/* "Other Products": all three cards in a single row on desktop (client
+   2026-10-04; was two a row like /omg-entertainment/). Two a row from
+   1100px down, one column on phones. 15px grid gap, so each third is
+   33.333% - 10px. */
 body.oh-legacy .oh-service-cards--framed .oh-service-card {
-	flex: 0 1 calc(50% - 7.5px);
-	max-width: calc(50% - 7.5px);
+	flex: 0 1 calc(33.333% - 10px);
+	max-width: calc(33.333% - 10px);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -3630,8 +3662,9 @@ body.oh-legacy .oh-service-cards--framed .oh-service-card {
 }
 
 @media (max-width: 1100px) {
-	body.oh-legacy .oh-service-cards--framed .oh-service-cards__grid {
-		max-width: none;
+	body.oh-legacy .oh-service-cards--framed .oh-service-card {
+		flex-basis: calc(50% - 7.5px);
+		max-width: calc(50% - 7.5px);
 	}
 }
 

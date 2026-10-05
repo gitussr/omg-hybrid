@@ -13,7 +13,12 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<button id="book-now-trigger" aria-label="Open booking form" aria-expanded="false" aria-controls="book-now-panel">
+<?php
+// Quick Quote buttons go to the contact form instead of opening the panel
+// below (client 2026-10-03) — see "Quick Quote → contact form" in theme.js.
+// The panel stays in the markup, dormant.
+?>
+<button id="book-now-trigger" aria-label="Open booking form" aria-expanded="false" aria-controls="book-now-panel" data-contact-url="<?php echo esc_url( home_url( '/contact/#leave-a-message' ) ); ?>">
 	Quick Quote
 </button>
 

@@ -298,14 +298,24 @@
 	opacity: 0;
 }
 
-/* Without the scrim the white slide numbers vanish on the light first
-   banner, so they switch to ink there (the lines follow via currentColor). */
+/* Without the scrim the white slide numbers / arrows vanish on the light
+   first banner, so they switch to ink there (the number lines follow via
+   currentColor). */
 .oh-hero--text-off-first .swiper-pagination {
 	transition: color .5s ease;
 }
 
 .oh-hero.is-text-off .swiper-pagination {
 	color: var(--color-ink);
+}
+
+.oh-hero--text-off-first .oh-hero__nav {
+	transition: color .5s ease, border-color .5s ease;
+}
+
+.oh-hero.is-text-off .oh-hero__nav {
+	color: var(--color-ink);
+	border-color: currentColor;
 }
 
 .oh-hero__eyebrow {
@@ -339,6 +349,8 @@
 	color: #fff;
 }
 
+/* Numbered pagination: desktop only (client 2026-10-04); mobile gets the
+   prev/next arrows below instead. */
 .oh-hero .swiper-pagination {
 	position: absolute;
 	bottom: 18px;
@@ -349,6 +361,48 @@
 	width: max-content;
 	margin-inline: auto;
 	z-index: 3;
+}
+
+/* Prev/next arrows (client 2026-10-04): replace the numbered pagination
+   on mobile only. They sit over the
+   slider's left/right edges (slider is inset 15px from .oh-hero) and
+   centre on its height (padding-top 15px, bottom 0). */
+.oh-hero__nav {
+	display: none;
+	position: absolute;
+	top: calc(50% + 7.5px);
+	transform: translateY(-50%);
+	z-index: 3;
+	width: 36px;
+	height: 36px;
+	padding: 0;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid rgba(255, 255, 255, .7);
+	border-radius: 50%;
+	background: rgba(0, 0, 0, .25);
+	color: #fff;
+	font-size: 16px;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.oh-hero__nav--prev {
+	left: 25px;
+}
+
+.oh-hero__nav--next {
+	right: 25px;
+}
+
+@media (max-width: 767px) {
+	.oh-hero__nav {
+		display: inline-flex;
+	}
+
+	.oh-hero .swiper-pagination {
+		display: none;
+	}
 }
 
 /* Shorter variant for inner landing pages (content is centred by the
@@ -372,6 +426,34 @@
    frame on a paler lilac #F7F3FC instead of the LiVE --color-secondary. */
 body.page-id-955 .oh-hero {
 	background-color: #F7F3FC;
+}
+
+/* Every .oh-hero banner (client 2026-10-05; first done for the three
+   /our-services/ pages 955/956/957 on 2026-10-04): on MOBILE ONLY the
+   banner is ~260px tall with smaller text; desktop keeps the base .oh-hero
+   height. The base inner padding would overflow a box this short, so it's
+   trimmed; the side padding keeps the text clear of the prev/next arrows,
+   and the short description is dropped so the box stays near 260px.
+   Sits after .oh-hero--inner so its min-height wins at equal specificity.
+   Legacy .hero-section pages are already ~250px on mobile
+   (legacy-responsive.css). */
+@media (max-width: 767px) {
+	.oh-hero {
+		min-height: 260px;
+	}
+
+	.oh-hero__inner {
+		padding-block: 24px;
+		padding-inline: 48px;
+	}
+
+	.oh-hero h1 {
+		font-size: clamp(24px, 2.6vw, 42px);
+	}
+
+	.oh-hero p {
+		display: none;
+	}
 }
 
 /* ------------------------------------------------------------------ */

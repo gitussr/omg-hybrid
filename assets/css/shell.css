@@ -733,6 +733,18 @@ body.oh-legacy,
 	color: var(--color-primary);
 }
 
+/* OUR SERVICES / JOIN US / CONTACT US bumped to 16px per client ask.
+   EVENT TYPE / PACKAGES / BLOGS share .omg-mm-link with CONTACT US, so
+   CONTACT US is picked out via the sibling right after the JOIN US
+   dropdown li instead of the shared class. Specificity (0,3,0+) beats
+   the plugin's `.omg-mm-trigger, .omg-mm-link { font-size:14px !important }`
+   regardless of stylesheet order. */
+.omg-mm-nav .omg-has-mega .omg-mm-trigger,
+.omg-mm-nav .omg-has-dropdown .omg-mm-trigger,
+.omg-mm-nav .omg-has-dropdown + li .omg-mm-link {
+	font-size: 16px !important;
+}
+
 /* Group pages: the logo+nav bar gets its own dark damask texture (a
    mirrored variant of the footer grid band's, so the two don't look
    identically repeated). Bar is dark now, so nav links go gold
@@ -1720,9 +1732,13 @@ a.oh-footer__social {
    for every inner hero) and the full-width section gets the home hero's
    cream frame colour (#F5ECD9 = --color-muted on svc-group pages), so the
    gap above and beside the capped slider reads the same as on home.
-   Frame colour changed to a pale blush #FFF9F9 (client 2026-09-25). */
+   Frame colour changed to a pale blush #FFF9F9 (client 2026-09-25).
+   Whole contact page, frame included, moved to the cream #F5ECD9
+   (client 2026-10-03). legacy-base.css paints every legacy page's body
+   #fff9f9; body.page-contact out-specifies that bare `body` rule. */
+body.page-contact,
 body.page-contact .hero-section {
-	background-color: #FFF9F9;
+	background-color: #F5ECD9;
 }
 
 body.page-contact .hero-section .main-block {
@@ -2356,5 +2372,86 @@ body #book-now-trigger {
 	body.page-our-booths .oh-booth-showcase__btns .oh-btn,
 	body.page-photography-videography .oh-studio-remarkable__cta .oh-btn {
 		justify-content: center;
+	}
+}
+
+/* Footer centred on mobile (client 2026-10-03). At <=600px the footer grid
+   is a single column, so every block — CTA heading + buttons, column
+   headings, the link lists, the icons-only social row and the WhatsApp
+   line — is centred instead of hugging the left edge.
+   The 300px photo strip above the footer content is cut to ~52px here
+   (client 2026-10-03). */
+@media (max-width: 600px) {
+	.oh-footer {
+		padding-top: 52px;
+	}
+
+	.oh-footer__cta h2 {
+		text-align: center;
+		margin-inline: auto;
+	}
+
+	.oh-footer__cta-buttons {
+		justify-content: center;
+	}
+
+	.oh-footer__grid {
+		text-align: center;
+	}
+
+	.oh-footer__grid ul {
+		justify-items: center;
+	}
+
+	.oh-footer__grid .oh-social-list {
+		justify-content: center;
+	}
+}
+
+/* Contact form Start / End Time carets (client 2026-10-03): black and the
+   same size and position as the Inquiry Type / Event State select caret
+   (Gravity Forms' 10px chevron, 12px from the right edge). The svg is
+   20px so its 12-unit chevron draws 10px wide; stroke 2.4 units = 2px. The
+   Quick Quote panel's time fields are not touched. */
+.contact-page-forms .time-select-toggle {
+	right: 7px;
+	width: 20px;
+	height: 20px;
+}
+
+.contact-page-forms .time-select-toggle svg {
+	stroke: #000;
+	stroke-width: 2.4;
+}
+
+/* Footer Quick Quote button at 14px on every page (client 2026-10-03).
+   `body` lifts it over the 13px in this file and in legacy-styles.css,
+   which loads after this one on legacy pages. */
+body #book-now-trigger {
+	font-size: 14px;
+}
+
+/* Target of the Quick Quote buttons (see theme.js). Fallback offset for a
+   plain #leave-a-message jump before theme.js re-aims it. */
+#leave-a-message {
+	scroll-margin-top: 90px;
+}
+
+/* Legacy .hero-section banners at ~260px on MOBILE ONLY (client 2026-10-05),
+   matching the new-theme .oh-hero rule in app.css. 260px is the whole
+   section: .main-block keeps its 10px frame (legacy-responsive.css), so the
+   slide is 240px; contact + casino/poker/horse-racing have the 15px top
+   gap, so 235px there. `body` lifts these over legacy-responsive.css's
+   min-height:250px, which loads after this file. */
+@media (max-width: 767px) {
+	body .hero-section.inner-page .single-slide {
+		min-height: 240px;
+	}
+
+	body.page-contact .hero-section.inner-page .single-slide,
+	body.page-casino-fun-nights .hero-section.inner-page .single-slide,
+	body.page-poker-tournaments .hero-section.inner-page .single-slide,
+	body.page-horse-racing-fun-nights .hero-section.inner-page .single-slide {
+		min-height: 235px;
 	}
 }
