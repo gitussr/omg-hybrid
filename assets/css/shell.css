@@ -143,6 +143,7 @@
 .svc-group .our-others-services-section .box,
 .svc-group .who-we-are-section .box-container .box {
 	background-color: var(--color-muted);
+	background-color: #FFF8E9;
 }
 
 /* ------------------------------------------------------------------ */
@@ -844,7 +845,7 @@ body.oh-legacy,
     background-image: url('../images/header-texture-23-op.png');
     background-repeat: repeat;
     background-size: cover;
-    background-color: #1a4e8c;
+    background-color: #0b3362;
 }
 
 .svc-group .oh-header__nav .oh-nav__list a {
