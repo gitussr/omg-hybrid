@@ -278,6 +278,64 @@ body .omg-backdrop {
 	background: #fff9f3;
 }
 
+/* The current sub-page link inside each brand's dropdown (and the tap
+   flash): the plugin hard-codes a light teal #f0faf9 background and takes
+   the bar/text from the page colour, so e.g. Casino Fun Nights showed
+   teal under OMG Entertainment. Each brand now uses its own hue: a tint a
+   step deeper than its panel, darkened brand text (Props uses the same
+   #7A5E1C as the desktop menu, since plain gold fails on light), brand
+   bar (client 2026-10-05). !important to beat the plugin's own. */
+
+.omg-mobile-nav .omg-mob-group--entertainment .omg-mob-link.is-active,
+.omg-mobile-nav .omg-mob-group--entertainment .omg-mob-link:active {
+	color: #A32E2E !important;
+	background: #fbe3e3;
+}
+
+.omg-mobile-nav .omg-mob-group--entertainment .omg-mob-link.is-active::before {
+	background: #A32E2E;
+}
+
+.omg-mobile-nav .omg-mob-group--studio .omg-mob-link.is-active,
+.omg-mobile-nav .omg-mob-group--studio .omg-mob-link:active {
+	color: #1f8f85 !important;
+	background: #d9f7f4;
+}
+
+.omg-mobile-nav .omg-mob-group--studio .omg-mob-link.is-active::before {
+	background: #33D5C6;
+}
+
+.omg-mobile-nav .omg-mob-group--live .omg-mob-link.is-active,
+.omg-mobile-nav .omg-mob-group--live .omg-mob-link:active {
+	color: #7d4499 !important;
+	background: #f1e4f8;
+}
+
+.omg-mobile-nav .omg-mob-group--live .omg-mob-link.is-active::before {
+	background: #9D5BBE;
+}
+
+.omg-mobile-nav .omg-mob-group--props .omg-mob-link.is-active,
+.omg-mobile-nav .omg-mob-group--props .omg-mob-link:active {
+	color: #7A5E1C !important;
+	background: #fdf0c8;
+}
+
+.omg-mobile-nav .omg-mob-group--props .omg-mob-link.is-active::before {
+	background: #FFBC0D;
+}
+
+.omg-mobile-nav .omg-mob-group--foodbeverage .omg-mob-link.is-active,
+.omg-mobile-nav .omg-mob-group--foodbeverage .omg-mob-link:active {
+	color: #b4600b !important;
+	background: #fde8d2;
+}
+
+.omg-mobile-nav .omg-mob-group--foodbeverage .omg-mob-link.is-active::before {
+	background: #F28C1E;
+}
+
 *,
 *::before,
 *::after {
@@ -2494,9 +2552,10 @@ body #book-now-trigger {
 /* ------------------------------------------------------------------ */
 /* template-parts/sections/mobile-cta.php follows every Call / Book /
    Email row. At 767px and under it replaces that row: all three buttons
-   on one line, "Call" (with arrow) / "Get Quote" / "Email". It carries
-   the replaced row's wrapper + button classes, so each section keeps its
-   own button colours. Desktop: hidden, original row unchanged.
+   on one line, "Call" / "Get Quote" / "Email", each with the arrow
+   (client 2026-10-05; at first only Call had it). It carries the
+   replaced row's wrapper + button classes, so each section keeps its own
+   button colours. Desktop: hidden, original row unchanged.
    !important because legacy-responsive.css lays out .cta-section
    .btn-group with !important and loads after this file. */
 .oh-mcta {
@@ -2527,43 +2586,44 @@ body #book-now-trigger {
 		margin-inline: 0;
 	}
 
+	/* A bit smaller than the desktop pills (client 2026-10-05): 1px under
+	   the 13px .oh-btn label, no letter-spacing, 40px tall, 13px arrow. */
 	.oh-mcta.oh-mcta .oh-mcta__btn {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		gap: 6px;
+		gap: 4px;
 		min-width: 0;
 		width: auto;
+		min-height: 0;
+		height: auto;
 		margin: 0;
-		padding-inline: 8px;
+		padding-block: 10px;
+		padding-inline: 6px;
+		font-size: 12px;
+		line-height: 18px;
+		letter-spacing: 0;
 		white-space: nowrap;
 	}
 
-	/* Legacy CTA card ("Ready to deal you in?" etc.): its 14px label + 18px
-	   side padding outruns a third of the narrower card, so it drops to the
-	   .oh-btn 13px. task-016 (2026-10-05): the card's 24px side padding
-	   left each button ~80px wide at a 48px pill height — squashed ovals
-	   with the labels touching the edges — so the card padding drops to
-	   14px, the pills to the 42px .oh-btn height and the Call arrow to 14px. */
+	.oh-mcta.oh-mcta .oh-mcta__btn .srdev-icon {
+		flex: none;
+		width: 13px;
+		height: 13px;
+	}
+
+	/* Legacy CTA card ("Ready to deal you in?" etc., task-016): the card's
+	   24px side padding left each button ~80px wide, so it drops to 14px.
+	   Its own 14px label also gives way to the shared 12px above (the
+	   .cta-section prefix out-ranks legacy-styles.css). */
 	.cta-section .main-block:has(.oh-mcta) {
 		padding-inline: 14px !important;
 	}
 
 	.cta-section .oh-mcta.oh-mcta .oh-mcta__btn {
-		gap: 5px;
-		padding-block: 11px;
-		padding-inline: 6px;
-		min-height: 0;
-		height: auto;
-		font-size: 13px;
-		line-height: 18px;
-		letter-spacing: .03em;
-	}
-
-	.cta-section .oh-mcta.oh-mcta .oh-mcta__btn .srdev-icon {
-		flex: none;
-		width: 14px;
-		height: 14px;
+		padding-inline: 4px;
+		font-size: 12px;
+		letter-spacing: 0;
 	}
 }
 
@@ -2574,13 +2634,18 @@ body #book-now-trigger {
 
 	.oh-mcta.oh-mcta .oh-mcta__btn,
 	.cta-section .oh-mcta.oh-mcta .oh-mcta__btn {
-		padding-inline: 4px;
-		font-size: 12px;
-		letter-spacing: .02em;
+		gap: 3px;
+		padding-inline: 3px;
+		font-size: 11px;
 	}
-	/* Narrowest phones: the legacy card's "GET QUOTE" sat against its pill
-	   curve, so it loses the letter-spacing (task-016). */
-	.cta-section .oh-mcta.oh-mcta .oh-mcta__btn {
-		letter-spacing: 0;
+
+	.oh-mcta.oh-mcta .oh-mcta__btn .srdev-icon {
+		width: 11px;
+		height: 11px;
+	}
+
+	/* 320px: "Get Quote →" overran the legacy card by a pixel at 14px. */
+	.cta-section .main-block:has(.oh-mcta) {
+		padding-inline: 10px !important;
 	}
 }

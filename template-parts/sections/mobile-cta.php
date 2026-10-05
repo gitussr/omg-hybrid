@@ -4,8 +4,8 @@
  *
  * Rendered straight after a desktop Call / Book / Email button row. On
  * phones (<=767px) shell.css hides that row and shows this one instead: all
- * three buttons on one line, labelled "Call" (with the arrow), "Get Quote"
- * and "Email". On desktop this row is hidden and the original is untouched.
+ * three buttons on one line, labelled "Call", "Get Quote" and "Email", each
+ * with the arrow. On desktop this row is hidden and the original is untouched.
  *
  * $args:
  *   buttons   array of array{ url:string, label:string } — the row it
@@ -40,7 +40,7 @@ if ( ! $tel || ! $mail ) {
 }
 
 $items = array(
-	array( 'url' => $tel, 'label' => __( 'Call', 'omg-hybrid' ), 'arrow' => true ),
+	array( 'url' => $tel, 'label' => __( 'Call', 'omg-hybrid' ) ),
 	array( 'url' => home_url( '/contact/#leave-a-message' ), 'label' => __( 'Get Quote', 'omg-hybrid' ) ),
 	array( 'url' => $mail, 'label' => __( 'Email', 'omg-hybrid' ) ),
 );
@@ -49,7 +49,7 @@ $items = array(
 	<?php foreach ( $items as $item ) : ?>
 		<a class="<?php echo esc_attr( $btn_class . ' oh-mcta__btn' ); ?>" href="<?php echo esc_url( $item['url'] ); ?>">
 			<?php echo esc_html( $item['label'] ); ?>
-			<?php if ( ! empty( $item['arrow'] ) ) { omg_hybrid_icon( 'fancy-right-arrow-icom' ); } ?>
+			<?php omg_hybrid_icon( 'fancy-right-arrow-icom' ); ?>
 		</a>
 	<?php endforeach; ?>
 </div>
