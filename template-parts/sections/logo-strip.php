@@ -4,8 +4,9 @@
  *
  * The compact companion to sections/marquee.php's 4-row grid, for phones:
  * one row of logos, three across (four from 576px), on an endless loop.
- * Since 2026-10-05 it glides continuously like the grid (client task-016)
- * instead of stepping one logo every 2.5s. Built because the inner service pages had
+ * Since 2026-10-05 it glides continuously like the grid (client task-016):
+ * the logos are rendered twice in one track and a linear CSS animation
+ * slides it by -50% and repeats. Built because the inner service pages had
  * grown tall, and the 4-row grid alone was ~550px of scrolling on a phone.
  *
  * Usage: pages normally don't call this directly. sections/marquee.php
@@ -28,16 +29,16 @@
  * match the grid it replaces. Its own slider and cells use .oh-logo-strip__*
  * classes, so none of the grid's 4-row rules or JS reach it.
  *
- * Styles: shell.css ("Client-logo strip"), loaded on every template.
- * Slider: assets/js/theme.js. Before Swiper boots (or with JS off) it is a
- * plain clipped row showing the first few logos.
+ * Styles + animation: shell.css ("Client-logo strip"), loaded on every
+ * template. No Swiper and no JS timing; theme.js only switches the logos
+ * to eager loading while the strip is visible.
  *
  * $args:
  *   title     string
  *   logos     string[]  fallback image URLs, used only if the folder is empty
  *   autoplay  int       0 = no movement; anything else = continuous
  *                       (default 2500; the old step delay)
- *   speed     int       ms for one logo to pass (default 2000)
+ *   speed     int       ms for one logo to pass (default 1600)
  *   visibility 'mobile' | 'all'  (default 'mobile': shown at <=767px only)
  *
  * @package omg-hybrid
@@ -47,13 +48,16 @@ defined( 'ABSPATH' ) || exit;
 
 $title      = $args['title'] ?? '';
 $autoplay   = isset( $args['autoplay'] ) ? max( 0, (int) $args['autoplay'] ) : 2500;
-$speed      = isset( $args['speed'] ) ? max( 500, (int) $args['speed'] ) : 2000;
+$speed      = isset( $args['speed'] ) ? max( 500, (int) $args['speed'] ) : 1600;
 $visibility = ( $args['visibility'] ?? 'mobile' ) === 'all' ? 'all' : 'mobile';
 $logos      = omg_hybrid_client_logos( $args['logos'] ?? array() );
 
 if ( ! $logos ) {
 	return;
 }
+
+// One full pass of the track = every logo once.
+$duration = count( $logos ) * $speed / 1000;
 ?>
 <section class="oh-logo-grid oh-logo-strip<?php echo 'mobile' === $visibility ? ' oh-logo-strip--mobile' : ''; ?>">
 	<?php // Skeleton cells (is-loading) are cleared by each img's onload; with JS off nothing would clear them. ?>
@@ -62,12 +66,17 @@ if ( ! $logos ) {
 		<?php if ( $title ) : ?>
 			<h2><?php echo esc_html( $title ); ?></h2>
 		<?php endif; ?>
-		<div class="swiper oh-logo-strip__slider" data-autoplay="<?php echo esc_attr( $autoplay ); ?>" data-speed="<?php echo esc_attr( $speed ); ?>">
-			<ul class="swiper-wrapper oh-logo-strip__list">
-				<?php foreach ( $logos as $logo ) : ?>
-					<li class="swiper-slide oh-logo-strip__item is-loading"><img class="oh-logo-strip__logo" src="<?php echo esc_url( $logo ); ?>" alt="" loading="lazy" onload="this.parentNode.classList.remove('is-loading')" onerror="this.parentNode.classList.remove('is-loading')"></li>
-				<?php endforeach; ?>
-			</ul>
+		<div class="oh-logo-strip__slider<?php echo $autoplay ? ' is-moving' : ''; ?>" style="--oh-logo-dur: <?php echo esc_attr( $duration ); ?>s">
+			<div class="oh-logo-strip__track">
+				<?php for ( $copy = 0; $copy < 2; $copy++ ) : ?>
+					<?php // The second copy is only there for the seamless loop. ?>
+					<ul class="oh-logo-strip__list"<?php echo $copy ? ' aria-hidden="true"' : ''; ?>>
+						<?php foreach ( $logos as $logo ) : ?>
+							<li class="oh-logo-strip__item is-loading"><img class="oh-logo-strip__logo" src="<?php echo esc_url( $logo ); ?>" alt="" loading="lazy" onload="this.parentNode.classList.remove('is-loading')" onerror="this.parentNode.classList.remove('is-loading')"></li>
+						<?php endforeach; ?>
+					</ul>
+				<?php endfor; ?>
+			</div>
 		</div>
 	</div>
 </section>

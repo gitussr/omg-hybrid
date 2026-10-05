@@ -1580,54 +1580,55 @@ a.oh-division-card:hover {
 
 /* ------------------------------------------------------------------ */
 /*  Logo grid as a continuous slider (client task-016, 2026-10-05):    */
-/*  4 rows deep, 6 columns across (4 at <=991px, 2 at <=767px). Each   */
-/*  .swiper-slide is one column of 4 cells (marquee.php), so Swiper    */
-/*  can loop it endlessly; theme.js drives it with a zero autoplay     */
-/*  delay and the wrapper's timing curve is linear, so it glides       */
-/*  instead of paging. (Until 2026-10-05 it was Swiper's Grid module,  */
-/*  6x4 pages every 3s with dots — Grid can't loop.)                   */
+/*  4 rows deep, 6 columns across (4 at <=991px, 2 at <=767px).        */
+/*  marquee.php renders the set of columns twice in one track; the     */
+/*  track slides left by -50% (exactly one set) on a single linear     */
+/*  animation and repeats, so the loop is seamless and runs on the     */
+/*  compositor with no JS. The keyframes (oh-logo-glide) are in        */
+/*  shell.css, shared with the one-row strip. Duration is set inline   */
+/*  by marquee.php: columns x 2s.                                      */
+/*  (Earlier the same day this was a Swiper loop with zero-delay       */
+/*  autoplay; it hitched at every column, so it was replaced. Before   */
+/*  that, Swiper Grid pages every 3s with dots.)                       */
 /*                                                                     */
+/*  Column width is a share of the visible box via container units    */
+/*  (cqw), because the track itself is max-content wide.               */
 /*  Borders: every cell draws its right + bottom edge and the slider   */
-/*  draws the top + left, so lines stay single without the -1px        */
-/*  margins the flat grid uses (margins on slides would throw off      */
-/*  Swiper's width maths).                                             */
-/*                                                                     */
-/*  Un-initialised (JS off, or before boot) the columns sit in the     */
-/*  wrapped flex grid, so the logos are never hidden behind JS.        */
+/*  draws the top + left, so lines stay single.                        */
 /* ------------------------------------------------------------------ */
 .oh-logo-grid__slider {
 	--oh-logo-cell-h: 150px;
+	--oh-logo-cols: 6;
 	position: relative;
+	overflow: hidden;
+	container-type: inline-size;
 	border-top: 1px solid rgb(0 0 0 / 8%);
 	border-left: 1px solid rgb(0 0 0 / 8%);
 }
 
-.oh-logo-grid__slider .oh-logo-grid__list {
-	padding: 0;
-}
-
-.oh-logo-grid__slider:not(.swiper-initialized) .oh-logo-grid__list {
-	flex-wrap: wrap;
-}
-
-/* One row of columns once Swiper runs; the flat grid's wrap would stack
-   them into extra rows. */
-.oh-logo-grid__slider.swiper-initialized .oh-logo-grid__list {
-	flex-wrap: nowrap;
-}
-
-.oh-logo-grid__col {
-	box-sizing: border-box;
-	flex: 0 0 calc(100% / 6);
+.oh-logo-grid__track {
 	display: flex;
-	flex-direction: column;
+	width: max-content;
+}
+
+.oh-logo-grid__slider.is-moving .oh-logo-grid__track {
+	animation: oh-logo-glide var(--oh-logo-dur, 34s) linear infinite;
+	will-change: transform;
+}
+
+.oh-logo-grid__slider .oh-logo-grid__list {
+	flex-wrap: nowrap;
 	margin: 0;
 	padding: 0;
 }
 
-/* Swiper sets each slide's width inline; a flex-basis would override it. */
-.oh-logo-grid__slider.swiper-initialized .oh-logo-grid__col {
-	flex: 0 0 auto;
+.oh-logo-grid__col {
+	box-sizing: border-box;
+	flex: 0 0 calc(100cqw / var(--oh-logo-cols));
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	padding: 0;
 }
 
 .oh-logo-grid__col .oh-logo-grid__item {
@@ -1640,15 +1641,8 @@ a.oh-division-card:hover {
 	border-bottom: 1px solid rgb(0 0 0 / 8%);
 }
 
-/* Linear, so the zero-delay autoplay reads as one steady glide. */
-.oh-logo-grid__slider .swiper-wrapper {
-	transition-timing-function: linear !important;
-}
-
 /* Dots dormant (client task-016): the markup stays in marquee.php but is
-   hidden here and not initialised in theme.js. The styling below is kept
-   so they can come back by deleting this display rule and re-adding the
-   pagination option. */
+   hidden here. The styling below is kept for if they come back. */
 .oh-logo-grid__pagination.swiper-pagination {
 	display: none;
 	position: static;
@@ -1669,22 +1663,23 @@ a.oh-division-card:hover {
 }
 
 @media (max-width: 991px) {
-	.oh-logo-grid__col {
-		flex-basis: 25%;
+	.oh-logo-grid__slider {
+		--oh-logo-cols: 4;
 	}
 }
 
 @media (max-width: 767px) {
 	.oh-logo-grid__slider {
 		--oh-logo-cell-h: 120px;
-	}
-
-	.oh-logo-grid__col {
-		flex-basis: 50%;
+		--oh-logo-cols: 2;
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
+	.oh-logo-grid__slider.is-moving .oh-logo-grid__track {
+		animation: none;
+	}
+
 	.oh-logo-grid__pagination .swiper-pagination-bullet {
 		transition: none;
 	}

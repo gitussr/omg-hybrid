@@ -2220,9 +2220,8 @@ body.page-id-956:not(.home):not(.page-contact) #book-now-trigger {
    legacy templates that use it don't load app.css.
 
    The section shares .oh-logo-grid for its padding and heading; the
-   .oh-logo-strip__* parts below are its own. Swiper sets each slide's
-   width inline (3 across, 4 from 576px, theme.js); the flex-basis is the
-   same layout for the un-booted / no-JS row, clipped to the first few. */
+   .oh-logo-strip__* parts below are its own: 3 logos across the visible
+   box, 4 from 576px. */
 @media (max-width: 767px) {
 	.oh-logo-grid--hide-mobile {
 		display: none;
@@ -2236,8 +2235,32 @@ body.page-id-956:not(.home):not(.page-contact) #book-now-trigger {
 }
 
 .oh-logo-strip__slider {
+	--oh-logo-cols: 3;
 	overflow: hidden;
+	container-type: inline-size;
 	border-block: 1px solid rgb(0 0 0 / 8%);
+}
+
+/* Continuous glide (client task-016, 2026-10-05): logo-strip.php renders
+   the logos twice in one track, which slides by -50% (one set) on a
+   single linear animation and repeats. Duration is set inline: logos x
+   1.6s. Pure CSS, so no per-slide hitch (the Swiper loop tried first that
+   day had one). Cell width is a share of the visible box via container
+   units, since the track is max-content wide. */
+.oh-logo-strip__track {
+	display: flex;
+	width: max-content;
+}
+
+.oh-logo-strip__slider.is-moving .oh-logo-strip__track {
+	animation: oh-logo-glide var(--oh-logo-dur, 105s) linear infinite;
+	will-change: transform;
+}
+
+/* Shared with the 4-row grid (app.css / legacy-styles.css). */
+@keyframes oh-logo-glide {
+	from { transform: translateX(0); }
+	to   { transform: translateX(-50%); }
 }
 
 .oh-logo-strip__list {
@@ -2247,16 +2270,10 @@ body.page-id-956:not(.home):not(.page-contact) #book-now-trigger {
 	list-style: none;
 }
 
-/* Continuous glide (client task-016, 2026-10-05): linear, so theme.js's
-   zero-delay autoplay reads as one steady movement, like the grid. */
-.oh-logo-strip__slider .swiper-wrapper {
-	transition-timing-function: linear !important;
-}
-
 .oh-logo-strip__item {
 	position: relative;
 	box-sizing: border-box;
-	flex: 0 0 calc(100% / 3);
+	flex: 0 0 calc(100cqw / var(--oh-logo-cols));
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -2274,8 +2291,8 @@ body.page-id-956:not(.home):not(.page-contact) #book-now-trigger {
 }
 
 @media (min-width: 576px) {
-	.oh-logo-strip__item {
-		flex-basis: 25%;
+	.oh-logo-strip__slider {
+		--oh-logo-cols: 4;
 	}
 }
 
@@ -2304,6 +2321,10 @@ body.page-id-956:not(.home):not(.page-contact) #book-now-trigger {
 }
 
 @media (prefers-reduced-motion: reduce) {
+	.oh-logo-strip__slider.is-moving .oh-logo-strip__track {
+		animation: none;
+	}
+
 	.oh-logo-strip__logo {
 		transition: none;
 	}

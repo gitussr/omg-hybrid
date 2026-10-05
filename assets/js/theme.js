@@ -172,72 +172,19 @@
 			heroEl.addEventListener('mouseleave', function () { hero.autoplay && hero.autoplay.start(); });
 		}
 
-		/* Client-logo grid: 4 rows deep, 6 columns across (4 from 768px, 2
-		   below). Continuous since 2026-10-05 (client task-016): each slide
-		   is a column of 4 logos (marquee.php), so it can loop, and a zero
-		   autoplay delay with a linear timing curve (CSS) keeps it gliding.
-		   data-speed is the ms one column takes to pass; data-autoplay="0"
-		   stops it. Keeps moving while hovered (client 2026-10-02). The
-		   pagination dots are dormant. Reduced-motion users get a still,
-		   swipeable grid. */
-		var logoReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-		document.querySelectorAll('.oh-logo-grid__slider').forEach(function (el) {
-			if (el.classList.contains('swiper-initialized')) { return; }
-			var delay = parseInt(el.getAttribute('data-autoplay'), 10);
-			var speed = parseInt(el.getAttribute('data-speed'), 10);
-			if (isNaN(delay)) { delay = 3000; }
-			if (isNaN(speed)) { speed = 2500; }
-			var moving = delay > 0 && !logoReduce;
-			// Columns glide in from the right, so a lazy logo would still be a
-			// loading bar as it enters. Fetch them all once the grid is on
-			// screen; a grid hidden on phones (logo strip shown instead) has
-			// no offsetParent and keeps lazy loading, so nothing downloads.
-			if (moving && el.offsetParent !== null) {
-				el.querySelectorAll('img[loading="lazy"]').forEach(function (img) { img.loading = 'eager'; });
-			}
-			new Swiper(el, {
-				slidesPerView: 2,
-				spaceBetween: 0,
-				loop: true,
-				speed: moving ? speed : 600,
-				autoplay: moving ? { delay: 0, disableOnInteraction: false } : false,
-				a11y: { enabled: true },
-				breakpoints: {
-					768: { slidesPerView: 4 },
-					992: { slidesPerView: 6 }
-				}
-			});
-		});
-
-		/* Client-logo strip (sections/logo-strip.php, client 2026-10-01):
-		   the single-line phone version of the grid above. Three logos
-		   across (four from 576px) on an endless loop, gliding
-		   continuously since 2026-10-05 (client task-016) the same way as
-		   the grid: zero autoplay delay, linear timing (CSS), data-speed ms
-		   per logo; data-autoplay="0" stops it. No pagination: 66 dots
-		   would be noise. Logos switch to eager loading only while the
-		   strip is visible (it is hidden above 767px). */
-		document.querySelectorAll('.oh-logo-strip__slider').forEach(function (el) {
-			if (el.classList.contains('swiper-initialized')) { return; }
-			var delay = parseInt(el.getAttribute('data-autoplay'), 10);
-			var speed = parseInt(el.getAttribute('data-speed'), 10);
-			if (isNaN(delay)) { delay = 2500; }
-			if (isNaN(speed)) { speed = 2000; }
-			var moving = delay > 0 && !logoReduce;
-			if (moving && el.offsetParent !== null) {
-				el.querySelectorAll('img[loading="lazy"]').forEach(function (img) { img.loading = 'eager'; });
-			}
-			new Swiper(el, {
-				slidesPerView: 3,
-				spaceBetween: 0,
-				loop: true,
-				speed: moving ? speed : 600,
-				autoplay: moving ? { delay: 0, disableOnInteraction: false } : false,
-				a11y: { enabled: true },
-				breakpoints: {
-					576: { slidesPerView: 4 }
-				}
-			});
+		/* Client-logo grid + one-row strip (marquee.php, logo-strip.php):
+		   both glide on a pure CSS animation since 2026-10-05 (client
+		   task-016), so there is no slider to boot here. A Swiper loop with
+		   zero-delay autoplay was tried first that day and hitched at every
+		   slide boundary. The only job left is loading: the logos glide in
+		   from off-screen, and lazy ones would arrive as loading bars, so a
+		   VISIBLE slider fetches them all up front. A slider hidden at the
+		   current width (the grid on phones on inner pages, the strip on
+		   desktop) has no offsetParent and keeps lazy loading, so it
+		   downloads nothing. */
+		document.querySelectorAll('.oh-logo-grid__slider.is-moving, .oh-logo-strip__slider.is-moving').forEach(function (el) {
+			if (el.offsetParent === null) { return; }
+			el.querySelectorAll('img[loading="lazy"]').forEach(function (img) { img.loading = 'eager'; });
 		});
 
 		document.querySelectorAll('.oh-testimonials .swiper').forEach(function (el) {
