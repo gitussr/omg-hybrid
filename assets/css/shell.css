@@ -250,6 +250,34 @@ body .omg-backdrop {
 	color: #F28C1E;
 }
 
+/* Mobile drawer only (client task-016, 2026-10-05): each brand's open
+   dropdown panel, and its caret while open, take a pale brand tint
+   instead of the plugin's grey #f7f9f9 / #f9f9f9. */
+.omg-mobile-nav .omg-mob-group--entertainment .omg-mob-panel,
+.omg-mobile-nav .omg-mob-group--entertainment .omg-mob-caret[aria-expanded="true"] {
+	background: #fff4f4;
+}
+
+.omg-mobile-nav .omg-mob-group--studio .omg-mob-panel,
+.omg-mobile-nav .omg-mob-group--studio .omg-mob-caret[aria-expanded="true"] {
+	background: #effffe;
+}
+
+.omg-mobile-nav .omg-mob-group--live .omg-mob-panel,
+.omg-mobile-nav .omg-mob-group--live .omg-mob-caret[aria-expanded="true"] {
+	background: #fcf5ff;
+}
+
+.omg-mobile-nav .omg-mob-group--props .omg-mob-panel,
+.omg-mobile-nav .omg-mob-group--props .omg-mob-caret[aria-expanded="true"] {
+	background: #fffbf0;
+}
+
+.omg-mobile-nav .omg-mob-group--foodbeverage .omg-mob-panel,
+.omg-mobile-nav .omg-mob-group--foodbeverage .omg-mob-caret[aria-expanded="true"] {
+	background: #fff9f3;
+}
+
 *,
 *::before,
 *::after {
@@ -675,7 +703,8 @@ body.oh-legacy,
 .oh-header__brand .custom-logo {
 	display: block;
 	width: auto;
-	max-height: clamp(46px, 5vw, 74px);
+	/* Was clamp(46px, 5vw, 74px); larger (client 2026-10-05, asked twice). */
+	max-height: clamp(58px, 6.3vw, 94px);
 	transition: max-height .3s ease, opacity .2s ease;
 }
 
@@ -684,12 +713,14 @@ body.oh-legacy,
 	opacity: 0.6;
 }
 
-/* Scrolled state: the logo steps down about a third and the bar padding
-   tightens with it, so the stuck header gives the page back some height.
-   Both properties carry the .3s transitions declared above. */
+/* Scrolled state: the logo steps down and the bar padding tightens with
+   it, so the stuck header gives the page back some height. Both
+   properties carry the .3s transitions declared above. The step was about
+   a third (to clamp(34px, 3.4vw, 50px)), which left the logo too small;
+   it now only drops ~20% (client 2026-10-05). */
 .oh-header.is-sticky .oh-header__brand img,
 .oh-header.is-sticky .oh-header__brand .custom-logo {
-	max-height: clamp(34px, 3.4vw, 50px);
+	max-height: clamp(50px, 5vw, 76px);
 }
 
 .oh-header.is-sticky .oh-header__bar .oh-wrap {
@@ -1694,14 +1725,16 @@ a.oh-footer__social {
 
 @media (max-width: 560px) {
 
+	/* Was 40px / 30px stuck (client 2026-10-05: larger, and less shrink
+	   on scroll). */
 	.oh-header__brand img,
 	.oh-header__brand .custom-logo {
-		max-height: 40px;
+		max-height: 52px;
 	}
 
 	.oh-header.is-sticky .oh-header__brand img,
 	.oh-header.is-sticky .oh-header__brand .custom-logo {
-		max-height: 30px;
+		max-height: 46px;
 	}
 
 	.book-now-header-btn,
