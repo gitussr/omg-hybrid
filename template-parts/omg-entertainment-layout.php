@@ -47,20 +47,32 @@ if ( 'home' === $context ) {
 // as the client counts them (01 = the new banner, which has no text):
 //   02 video        "Play for Fun Casinos"
 //   04 banner 02    "Where Every Game Tell a Story", no dark tint
-//   05 banner 03    no hero text, no tint (client, same day)
+//   05 banner 03    no title, no tint (client, same day)
 //   06 banner 04    "Don't Just Hear the Music. Feel the Moment", no tint
+//   07 banner 05    "Big Props. Bold Themes. Best Night Ever." (task-021)
 //   08 banner 06    "Building Connections Not Just Campaigns"
-// 03 and 07 keep the main title. The h1 is uppercased in CSS. Copy as
-// supplied by the client.
+// 03 keeps the main title. The h1 is uppercased in CSS. Copy as supplied
+// by the client.
+//
+// Per-slide buttons (client task-021, 2026-10-06), each linking to its
+// division; 03 and 04 keep the main "Get a Free Quote". 05 shows the
+// button alone (it had no text since task-018). 08 goes to the site's
+// Marketing & Promotions link (as in the footer menu), in a new tab.
 if ( 'home' === $context && 8 === count( $hero_slides ) ) {
 	$hero_slides[1]['title']   = 'Play for Fun<br>Casinos';
+	$hero_slides[1]['cta']     = array( 'url' => home_url( '/omg-entertainment/' ), 'label' => 'OMG ENTERTAINMENT' );
 	$hero_slides[3]['title']   = 'Where Every Game<br>Tell a Story';
 	$hero_slides[3]['overlay'] = false;
-	$hero_slides[4]['text']    = false;
+	$hero_slides[4]['title']   = '';
 	$hero_slides[4]['overlay'] = false;
+	$hero_slides[4]['cta']     = array( 'url' => home_url( '/omg-studio/' ), 'label' => 'OMG STUDIO' );
 	$hero_slides[5]['title']   = 'Don&rsquo;t Just Hear the Music.<br>Feel the Moment';
 	$hero_slides[5]['overlay'] = false;
+	$hero_slides[5]['cta']     = array( 'url' => home_url( '/omg-live/' ), 'label' => 'DJ-MUSIC-LIGHTS' );
+	$hero_slides[6]['title']   = 'Big Props. Bold Themes.<br>Best Night Ever.';
+	$hero_slides[6]['cta']     = array( 'url' => home_url( '/omg-props-theming/' ), 'label' => 'Props & Theming' );
 	$hero_slides[7]['title']   = 'Building Connections<br>Not Just Campaigns';
+	$hero_slides[7]['cta']     = array( 'url' => 'https://omgspin2win.com.au/', 'label' => 'OMG MARKETING', 'new_tab' => true );
 }
 
 get_template_part( 'template-parts/sections/hero', null, array(

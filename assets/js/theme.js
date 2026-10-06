@@ -163,13 +163,57 @@
 			// text out, swaps it, and fades it back in (straight in when the
 			// text was hidden anyway). Runs before the slide-1 handler below so
 			// it still sees whether the text was showing.
+			// Per-slide button (client task-021, 2026-10-06): the button's
+			// link, label and new-tab target come from data-hero-cta-* and
+			// swap with the title; an empty title leaves the button alone.
 			var perSlide = heroEl.closest('.oh-hero--per-slide');
 			if (perSlide) {
 				var heroH1 = perSlide.querySelector('.oh-hero__inner h1');
+				var heroBtn = perSlide.querySelector('.oh-hero__inner .oh-btn');
 				var swapTimer = null;
+				// The label is the button's first non-blank text node (the
+				// arrow icon after it is left untouched).
+				var btnLabelNode = function () {
+					if (!heroBtn) { return null; }
+					for (var n = heroBtn.firstChild; n; n = n.nextSibling) {
+						if (n.nodeType === 3 && n.nodeValue.trim() !== '') { return n; }
+					}
+					return null;
+				};
+				var sameCopy = function (slide) {
+					var d = slide.dataset;
+					if (heroH1 && heroH1.innerHTML !== d.heroTitle) { return false; }
+					if (heroBtn && d.heroCtaUrl !== undefined) {
+						var label = btnLabelNode();
+						if (heroBtn.getAttribute('href') !== d.heroCtaUrl) { return false; }
+						if (label && label.nodeValue.trim() !== d.heroCtaLabel) { return false; }
+						if ((heroBtn.getAttribute('target') || '') !== (d.heroCtaTarget || '')) { return false; }
+					}
+					return true;
+				};
+				var applyCopy = function (slide) {
+					var d = slide.dataset;
+					if (heroH1) {
+						heroH1.innerHTML = d.heroTitle;
+						heroH1.style.display = d.heroTitle === '' ? 'none' : '';
+					}
+					if (heroBtn && d.heroCtaUrl !== undefined) {
+						var label = btnLabelNode();
+						heroBtn.style.display = (d.heroCtaUrl && d.heroCtaLabel) ? '' : 'none';
+						heroBtn.setAttribute('href', d.heroCtaUrl);
+						if (label) { label.nodeValue = ' ' + d.heroCtaLabel + ' '; }
+						if (d.heroCtaTarget) {
+							heroBtn.setAttribute('target', d.heroCtaTarget);
+							heroBtn.setAttribute('rel', 'noopener');
+						} else {
+							heroBtn.removeAttribute('target');
+							heroBtn.removeAttribute('rel');
+						}
+					}
+				};
 				var syncSlideCopy = function () {
 					var slide = hero.slides[hero.activeIndex];
-					if (!slide || !slide.dataset.heroTitle) { return; }
+					if (!slide || slide.dataset.heroTitle === undefined) { return; }
 					var wasHidden = perSlide.classList.contains('is-text-off') || perSlide.classList.contains('is-copy-off');
 					var showText = slide.dataset.heroText !== '0';
 					perSlide.classList.toggle('is-overlay-off', slide.dataset.heroOverlay === '0');
@@ -178,15 +222,15 @@
 						perSlide.classList.add('is-copy-off');
 						return;
 					}
-					if (!heroH1 || heroH1.innerHTML === slide.dataset.heroTitle) {
+					if (sameCopy(slide)) {
 						perSlide.classList.remove('is-copy-off');
 					} else if (wasHidden) {
-						heroH1.innerHTML = slide.dataset.heroTitle;
+						applyCopy(slide);
 						perSlide.classList.remove('is-copy-off');
 					} else {
 						perSlide.classList.add('is-copy-off');
 						swapTimer = window.setTimeout(function () {
-							heroH1.innerHTML = slide.dataset.heroTitle;
+							applyCopy(slide);
 							perSlide.classList.remove('is-copy-off');
 						}, 450);
 					}
