@@ -1873,12 +1873,14 @@ body:not(.home):not(.svc-studio) .oh-why .oh-btn--outline {
 	background: color-mix(in srgb, var(--color-secondary) 30%, transparent);
 }
 
-/* /omg-entertainment/ only (client 2026-09-25): "Why Choose" buttons on a
-   solid white fill instead of the 30% tint. Ink label and border are
+/* /omg-entertainment/ only: "Why Choose" buttons on a solid #DFB6B4 fill
+   (client 2026-10-06; solid white from 2026-09-25) instead of the 30% tint.
+   Also covers the phone Call / Get Quote / Email row (mobile-cta.php), which
+   carries the same .oh-btn--outline class. Ink label and border are
    unchanged. :not(.home) is only there so this matches the specificity
    of the rule above, and it wins by coming after it. */
 body.page-omg-entertainment:not(.home) .oh-why .oh-btn--outline {
-	background: #fff;
+	background: #DFB6B4;
 }
 
 /* Footer CTA buttons. The band behind them is the dark crowd photo, so
