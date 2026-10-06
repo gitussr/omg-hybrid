@@ -2147,6 +2147,13 @@ body.page-id-956:not(.home):not(.page-contact) #book-now-trigger {
 	background: #F9DC8B;
 }
 
+/* OMG Food & Beverage /omg-food-beverage/ (task-019, client 2026-10-06):
+   solid #F5A956 floating Quick Quote. Black border and ink label come from
+   the 30% rule; :not(.home):not(.page-contact) matches its specificity. */
+body.page-omg-food-beverage:not(.home):not(.page-contact) #book-now-trigger {
+	background: #F5A956;
+}
+
 /* ------------------------------------------------------------------ */
 /*  Client-logo skeleton (client 2026-09-24)                           */
 /* ------------------------------------------------------------------ */
