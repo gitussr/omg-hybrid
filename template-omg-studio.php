@@ -200,10 +200,10 @@ get_template_part( 'template-parts/service-landing', null, array(
 	'other_heading' => 'Other Services',
 	'other_description' => 'Why stop at the SnapShots? Round out the night with the full OMG Experience: Casino Tables, Race Nights and Poker, High-Energy DJs and Live Bands, Props and Theming, plus Food, Drinks and Professional Staff. It&rsquo;s everything your event needs, all under one roof.',
 	'other' => array(
-		array( 'image' => $img . 'omg-entertainment-banner1.jpg', 'logo' => $img . 'oos-logo-entertainment-lg.png', 'title' => 'OMG Entertainment', 'description' => 'Casino nights, race days, poker &amp; showstopping performers.', 'url' => home_url( '/omg-entertainment/' ), 'link_label' => 'Visit OMG Entertainment' ),
-		array( 'image' => $img . 'omg-live-hero.jpg', 'logo' => $img . 'oos-logo-live-lg.png', 'title' => 'OMG LiVE', 'description' => 'Elite DJs, atmospheric lighting and unforgettable live bands.', 'url' => home_url( '/omg-live/' ), 'link_label' => 'Visit OMG LiVE' ),
-		array( 'image' => $img . 'props-custom-new.jpg', 'logo' => $img . 'oos-logo-props-lg.png', 'title' => 'OMG Props &amp; Theming', 'description' => 'Casino props, grand entrances, theme walls, furniture &amp; AV.', 'url' => home_url( '/omg-props-theming/' ), 'link_label' => 'Visit OMG Props &amp; Theming' ),
-		array( 'logo' => $img . 'oos-logo-fnb-2026c.png', 'title' => 'OMG Food &amp; Beverage', 'description' => 'Catering, mobile bars, bartenders &amp; mixologists, plus professional staff hire.', 'url' => home_url( '/omg-food-beverage/' ), 'link_label' => 'Visit OMG Food &amp; Beverage' ),
+		array( 'image' => $img . 'omg-entertainment-banner1.jpg', 'logo' => $img . 'oos-logo-entertainment-lg.png', 'title' => 'OMG Entertainment', 'description' => omg_hybrid_division_blurb( 'entertainment' ), 'url' => home_url( '/omg-entertainment/' ), 'link_label' => 'Visit OMG Entertainment' ),
+		array( 'image' => $img . 'omg-live-hero.jpg', 'logo' => $img . 'oos-logo-live-lg.png', 'title' => 'OMG LiVE', 'description' => omg_hybrid_division_blurb( 'live' ), 'url' => home_url( '/omg-live/' ), 'link_label' => 'Visit OMG LiVE' ),
+		array( 'image' => $img . 'props-custom-new.jpg', 'logo' => $img . 'oos-logo-props-lg.png', 'title' => 'OMG Props &amp; Theming', 'description' => omg_hybrid_division_blurb( 'props' ), 'url' => home_url( '/omg-props-theming/' ), 'link_label' => 'Visit OMG Props &amp; Theming' ),
+		array( 'logo' => $img . 'oos-logo-fnb-2026c.png', 'title' => 'OMG Food &amp; Beverage', 'description' => omg_hybrid_division_blurb( 'foodbeverage' ), 'url' => home_url( '/omg-food-beverage/' ), 'link_label' => 'Visit OMG Food &amp; Beverage' ),
 	),
 	'cta' => array(
 		'title'    => 'Let&rsquo;s Capture Your Event Perfectly',

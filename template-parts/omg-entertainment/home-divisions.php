@@ -29,7 +29,7 @@ $divisions = array(
 		'logo'        => $img . 'oos-logo-entertainment-lg.png',
 		'name'        => 'OMG Entertainment',
 		'title'       => 'Event &amp; Entertainment',
-		'description' => 'Provides 5-star Entertainment for events big and small. Specializing in Fun Casino Parties, Fun Horse Racing, Poker Tournament, Props/Themes and more.',
+		'description' => omg_hybrid_division_blurb( 'entertainment' ),
 		'url'         => home_url( '/omg-entertainment/' ),
 	),
 	array(
@@ -37,7 +37,7 @@ $divisions = array(
 		'logo'        => $img . 'oos-logo-studio-lg.png',
 		'name'        => 'OMG Studio',
 		'title'       => 'Photobooths &amp; Photography',
-		'description' => 'DSLR Camera Photo-Booths, 360 Video-Booth, Video Phone-Booth, complemented by our professional event Photography &amp; Videography services.',
+		'description' => omg_hybrid_division_blurb( 'studio' ),
 		'url'         => home_url( '/omg-studio/' ),
 	),
 	array(
@@ -45,7 +45,7 @@ $divisions = array(
 		'logo'        => $img . 'oos-logo-live-lg.png',
 		'name'        => 'OMG LiVE',
 		'title'       => 'DJ &ndash; Music &ndash; Lights',
-		'description' => 'High-Energy DJs, DJ-Booths, Lighting, Karaoke, Live Music and PA Hire. Our dynamic setups guarantee an immersive, engaging experience for any event.',
+		'description' => omg_hybrid_division_blurb( 'live' ),
 		'url'         => home_url( '/omg-live/' ),
 	),
 	array(
@@ -53,7 +53,7 @@ $divisions = array(
 		'logo'        => $img . 'oos-logo-props-lg.png',
 		'name'        => 'OMG Props &amp; Theming',
 		'title'       => 'Props &amp; Theming',
-		'description' => 'Transform your Event with Casino Props, Giant Light-Up Letters, Theme Walls, Grand Entrance, Tables, Chairs, Flower Decorations and more.',
+		'description' => omg_hybrid_division_blurb( 'props' ),
 		'url'         => home_url( '/omg-props-theming/' ),
 	),
 	array(
@@ -82,7 +82,7 @@ $divisions = array(
 		'logo'        => $img . 'oos-logo-fnb-2026c.png',
 		'name'        => 'OMG Food &amp; Beverage',
 		'title'       => 'Food &amp; Beverage',
-		'description' => 'Catering, mobile bars, bartenders and mixologists, plus professional staff hire &mdash; everything to keep your event fed and flowing.',
+		'description' => omg_hybrid_division_blurb( 'foodbeverage' ),
 		'url'         => home_url( '/omg-food-beverage/' ),
 	),
 );

@@ -222,3 +222,23 @@ function omg_hybrid_cta_buttons() {
 		array( 'url' => 'mailto:info@OMGent.com.au', 'label' => 'Email Us' ),
 	);
 }
+
+/**
+ * Short description of each OMG division, as shown on the home page
+ * "Our Services" cards. Single source for those cards and for the "Other
+ * Services" cards on the brand landing pages (client task-020, 2026-10-06).
+ *
+ * @param string $division entertainment | studio | live | props | foodbeverage
+ * @return string
+ */
+function omg_hybrid_division_blurb( $division ) {
+	$blurbs = array(
+		'entertainment' => 'Provides 5-star Entertainment for events big and small. Specializing in Fun Casino Parties, Fun Horse Racing, Poker Tournament, Props/Themes and more.',
+		'studio'        => 'DSLR Camera Photo-Booths, 360 Video-Booth, Video Phone-Booth, complemented by our professional event Photography &amp; Videography services.',
+		'live'          => 'High-Energy DJs, DJ-Booths, Lighting, Karaoke, Live Music and PA Hire. Our dynamic setups guarantee an immersive, engaging experience for any event.',
+		'props'         => 'Transform your Event with Casino Props, Giant Light-Up Letters, Theme Walls, Grand Entrance, Tables, Chairs, Flower Decorations and more.',
+		'foodbeverage'  => 'Catering, mobile bars, bartenders and mixologists, plus professional staff hire &mdash; everything to keep your event fed and flowing.',
+	);
+
+	return $blurbs[ $division ] ?? '';
+}
