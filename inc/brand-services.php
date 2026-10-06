@@ -314,6 +314,16 @@ function omg_hybrid_brand_testimonials( $brand ) {
 				array( 'quote' => 'We hired OMG group for our mid-year office party and their service and quality was excellent.', 'cite' => '&mdash; Aarti Mehra' ),
 			),
 		),
+		// OMG Food & Beverage (task-019): group-wide quotes, verbatim from
+		// the Entertainment / Studio sets, until F&B has its own reviews.
+		'foodbeverage' => array(
+			'emblem_text' => 'HAPPY CUSTOMERS • HAPPY CUSTOMERS • ',
+			'items' => array(
+				array( 'quote' => 'We hired the OMG group for our corporate Christmas party and let me tell you &mdash; everyone had the best night!', 'cite' => '&mdash; Elisa Chinnabootr' ),
+				array( 'quote' => 'From the initial planning to the final execution, their team was professional, attentive and truly brought our vision to life. Highly recommend their services for any occasion!', 'cite' => '&mdash; Sorted Photography &amp; Videography' ),
+				array( 'quote' => 'We hired OMG group for our mid-year office party and their service and quality was excellent.', 'cite' => '&mdash; Aarti Mehra' ),
+			),
+		),
 	);
 
 	return $data[ $brand ] ?? array();

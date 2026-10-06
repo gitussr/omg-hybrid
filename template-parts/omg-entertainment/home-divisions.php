@@ -83,7 +83,7 @@ $divisions = array(
 		'name'        => 'OMG Food &amp; Beverage',
 		'title'       => 'Food &amp; Beverage',
 		'description' => 'Catering, mobile bars, bartenders and mixologists, plus professional staff hire &mdash; everything to keep your event fed and flowing.',
-		'url'         => home_url( '/coming-soon/' ),
+		'url'         => home_url( '/omg-food-beverage/' ),
 	),
 );
 ?>

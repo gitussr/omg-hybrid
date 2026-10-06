@@ -2603,3 +2603,13 @@ body.page-our-booths .oh-service-row__body > h2,
 body.page-photography-videography .oh-service-row__body > h2 {
 	color: #10786f;
 }
+
+/* ------------------------------------------------------------------ */
+/*  OMG Food & Beverage page (template-omg-food-beverage.php, task-019) */
+/* ------------------------------------------------------------------ */
+/* The Coming Soon intro's eyebrow rules and point-card borders use
+   --color-accent, which :root resolves to the Entertainment red; give it
+   the F&B orange on this page. */
+body.svc-foodbeverage .oh-coming-soon {
+	--color-accent: var(--color-primary);
+}

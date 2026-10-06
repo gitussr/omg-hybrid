@@ -121,7 +121,7 @@ get_template_part( 'template-parts/sections/other-services', null, array(
 			'logo'        => $img . 'oos-logo-fnb-2026c.png',
 			'title'       => 'OMG Food &amp; Beverage',
 			'description' => 'Catering, mobile bars, bartenders &amp; mixologists, plus professional staff hire.',
-			'url'         => home_url( '/coming-soon/' ),
+			'url'         => home_url( '/omg-food-beverage/' ),
 			'link_label'  => 'Visit OMG Food &amp; Beverage',
 		),
 	),

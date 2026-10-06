@@ -36,14 +36,15 @@ if ( ! $cards ) {
 				// logo sizes (some wordmarks fill their canvas, some don't).
 				$oc_seg  = array_filter( explode( '/', (string) wp_parse_url( $card['url'] ?? '', PHP_URL_PATH ) ) );
 				$oc_slug = '';
-				foreach ( array( 'omg-entertainment', 'omg-studio', 'omg-live', 'omg-props-theming' ) as $oc_b ) {
+				foreach ( array( 'omg-entertainment', 'omg-studio', 'omg-live', 'omg-props-theming', 'omg-food-beverage' ) as $oc_b ) {
 					if ( in_array( $oc_b, $oc_seg, true ) ) {
 						$oc_slug = $oc_b;
 						break;
 					}
 				}
-				// Food & Beverage has no page yet (url is #) — key it off the
-				// title instead, same fallback the mega menu uses.
+				// Fallback for a Food & Beverage card that doesn't link to
+				// /omg-food-beverage/ (its page since task-019): key it off the
+				// title, same fallback the mega menu uses.
 				if ( '' === $oc_slug && false !== stripos( $card['title'] ?? '', 'food' ) ) {
 					$oc_slug = 'omg-food-beverage';
 				}

@@ -28,6 +28,7 @@ if ( is_page_template( array(
 	'template-omg-studio.php',
 	'template-omg-live.php',
 	'template-omg-props-theming.php',
+	'template-omg-food-beverage.php', // task-019
 ) ) ) {
 	$cta_buttons = array();
 }

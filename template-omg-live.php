@@ -109,7 +109,7 @@ get_template_part( 'template-parts/service-landing', null, array(
 		array( 'image' => $img . 'omg-entertainment-banner1.jpg', 'logo' => $img . 'oos-logo-entertainment-lg.png', 'title' => 'OMG Entertainment', 'description' => 'Casino nights, race days, poker &amp; showstopping performers.', 'url' => home_url( '/omg-entertainment/' ), 'link_label' => 'Visit OMG Entertainment' ),
 		array( 'image' => $img . 'omg-studio-display.jpg', 'logo' => $img . 'oos-logo-studio-lg.png', 'title' => 'OMG Studio', 'description' => 'Photo booths, video booths, photography &amp; videography.', 'url' => home_url( '/omg-studio/' ), 'link_label' => 'Visit OMG Studio' ),
 		array( 'image' => $img . 'props-custom-new.jpg', 'logo' => $img . 'oos-logo-props-lg.png', 'title' => 'OMG Props &amp; Theming', 'description' => 'Casino props, grand entrances, theme walls, furniture &amp; AV.', 'url' => home_url( '/omg-props-theming/' ), 'link_label' => 'Visit OMG Props &amp; Theming' ),
-		array( 'logo' => $img . 'oos-logo-fnb-2026c.png', 'title' => 'OMG Food &amp; Beverage', 'description' => 'Catering, mobile bars, bartenders &amp; mixologists, plus professional staff hire.', 'url' => home_url( '/coming-soon/' ), 'link_label' => 'Visit OMG Food &amp; Beverage' ),
+		array( 'logo' => $img . 'oos-logo-fnb-2026c.png', 'title' => 'OMG Food &amp; Beverage', 'description' => 'Catering, mobile bars, bartenders &amp; mixologists, plus professional staff hire.', 'url' => home_url( '/omg-food-beverage/' ), 'link_label' => 'Visit OMG Food &amp; Beverage' ),
 	),
 	'cta' => array(
 		'title'    => 'Ready To Get The Room Moving?',

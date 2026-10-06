@@ -41,6 +41,14 @@ function omg_hybrid_services() {
 			'template'   => 'template-omg-props-theming.php',
 			'palette'    => array( 'primary' => '#DEDE6D', 'secondary' => '#FFFFCA', 'muted' => '#FFFFEB' ),
 		),
+		// Fifth division (client task-019, 2026-10-06). The live colours are
+		// the .svc-foodbeverage block in shell.css.
+		'foodbeverage' => array(
+			'label'      => 'OMG Food & Beverage',
+			'body_class' => 'svc-foodbeverage',
+			'template'   => 'template-omg-food-beverage.php',
+			'palette'    => array( 'primary' => '#F28C1E', 'secondary' => '#FDEBD8', 'muted' => '#FFF6EC' ),
+		),
 	);
 }
 
