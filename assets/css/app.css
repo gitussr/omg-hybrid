@@ -2618,3 +2618,18 @@ body.svc-foodbeverage .oh-coming-soon {
 body.svc-foodbeverage .oh-coming-soon__point {
 	background: #fff1e1;
 }
+
+/* Home slide 07 heading on one line (client 2026-10-06). It is wider than
+   the 820px .oh-hero__inner box but always narrower than the banner, so
+   on desktop the line runs past the box, centred, at the normal h1 size.
+   Phones wrap it as usual (one line there would need ~13px text). */
+@media (min-width: 768px) {
+	.oh-hero h1 .oh-hero__one-line {
+		display: block;
+		width: max-content;
+		position: relative;
+		left: 50%;
+		transform: translateX(-50%);
+		white-space: nowrap;
+	}
+}

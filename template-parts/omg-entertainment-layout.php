@@ -49,7 +49,9 @@ if ( 'home' === $context ) {
 //   04 banner 02    "Where Every Game Tell a Story", no dark tint
 //   05 banner 03    no title, no tint (client, same day)
 //   06 banner 04    "Don't Just Hear the Music. Feel the Moment", no tint
-//   07 banner 05    "Big Props. Bold Themes. Best Night Ever." (task-021)
+//   07 banner 05    "Big Props. Bold Themes. Best Night Ever." (task-021,
+//                   one line on desktop since 2026-10-06, see
+//                   .oh-hero__one-line in app.css)
 //   08 banner 06    "Building Connections Not Just Campaigns"
 // 03 keeps the main title. The h1 is uppercased in CSS. Copy as supplied
 // by the client.
@@ -69,10 +71,19 @@ if ( 'home' === $context && 8 === count( $hero_slides ) ) {
 	$hero_slides[5]['title']   = 'Don&rsquo;t Just Hear the Music.<br>Feel the Moment';
 	$hero_slides[5]['overlay'] = false;
 	$hero_slides[5]['cta']     = array( 'url' => home_url( '/omg-live/' ), 'label' => 'DJ-MUSIC-LIGHTS' );
-	$hero_slides[6]['title']   = 'Big Props. Bold Themes.<br>Best Night Ever.';
+	$hero_slides[6]['title']   = '<span class="oh-hero__one-line">Big Props. Bold Themes. Best Night Ever.</span>';
 	$hero_slides[6]['cta']     = array( 'url' => home_url( '/omg-props-theming/' ), 'label' => 'Props & Theming' );
 	$hero_slides[7]['title']   = 'Building Connections<br>Not Just Campaigns';
 	$hero_slides[7]['cta']     = array( 'url' => 'https://omgspin2win.com.au/', 'label' => 'OMG MARKETING', 'new_tab' => true );
+
+	// Slide 03 (omg-entertainment-banner1.jpg) DORMANT on the home page
+	// (client 2026-10-06). Removed after the copy above so the slide
+	// numbers there stay as the client counts them. Set to false to bring
+	// it back. The OMG Entertainment landing page still shows it.
+	$home_slide_03_dormant = true;
+	if ( $home_slide_03_dormant ) {
+		array_splice( $hero_slides, 2, 1 );
+	}
 }
 
 get_template_part( 'template-parts/sections/hero', null, array(
