@@ -2613,3 +2613,8 @@ body.page-photography-videography .oh-service-row__body > h2 {
 body.svc-foodbeverage .oh-coming-soon {
 	--color-accent: var(--color-primary);
 }
+
+/* Point cards on a light orange fill (client 2026-10-06; were white). */
+body.svc-foodbeverage .oh-coming-soon__point {
+	background: #fff1e1;
+}
