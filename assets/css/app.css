@@ -1632,9 +1632,14 @@ a.oh-division-card:hover {
 	border-left: 1px solid rgb(0 0 0 / 8%);
 }
 
+/* Explicit width, not max-content (Safari/iPhone fix, 2026-10-07): WebKit
+   sized the max-content track before the cqw columns had a width, so
+   translateX(-50%) resolved to 0 and the grid stood still until something
+   forced a relayout (e.g. opening Web Inspector). --oh-logo-n is the
+   column count of ONE copy, set inline by marquee.php; the track holds 2. */
 .oh-logo-grid__track {
 	display: flex;
-	width: max-content;
+	width: calc(100cqw / var(--oh-logo-cols) * var(--oh-logo-n) * 2);
 }
 
 .oh-logo-grid__slider.is-moving .oh-logo-grid__track {
@@ -1643,6 +1648,7 @@ a.oh-division-card:hover {
 }
 
 .oh-logo-grid__slider .oh-logo-grid__list {
+	flex: none;
 	flex-wrap: nowrap;
 	margin: 0;
 	padding: 0;

@@ -66,7 +66,7 @@ $duration = count( $logos ) * $speed / 1000;
 		<?php if ( $title ) : ?>
 			<h2><?php echo esc_html( $title ); ?></h2>
 		<?php endif; ?>
-		<div class="oh-logo-strip__slider<?php echo $autoplay ? ' is-moving' : ''; ?>" style="--oh-logo-dur: <?php echo esc_attr( $duration ); ?>s">
+		<div class="oh-logo-strip__slider<?php echo $autoplay ? ' is-moving' : ''; ?>" style="--oh-logo-dur: <?php echo esc_attr( $duration ); ?>s; --oh-logo-n: <?php echo (int) count( $logos ); ?>">
 			<div class="oh-logo-strip__track">
 				<?php for ( $copy = 0; $copy < 2; $copy++ ) : ?>
 					<?php // The second copy is only there for the seamless loop. ?>

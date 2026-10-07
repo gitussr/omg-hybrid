@@ -76,7 +76,7 @@ if ( 'grid' === $layout ) :
 		// One full pass of the track = every column once.
 		$duration = count( $columns ) * $speed / 1000;
 		?>
-		<div class="oh-logo-grid__slider<?php echo $autoplay ? ' is-moving' : ''; ?>" style="--oh-logo-dur: <?php echo esc_attr( $duration ); ?>s">
+		<div class="oh-logo-grid__slider<?php echo $autoplay ? ' is-moving' : ''; ?>" style="--oh-logo-dur: <?php echo esc_attr( $duration ); ?>s; --oh-logo-n: <?php echo (int) count( $columns ); ?>">
 			<div class="oh-logo-grid__track">
 				<?php for ( $copy = 0; $copy < 2; $copy++ ) : ?>
 					<?php // The second copy is only there for the seamless loop. ?>

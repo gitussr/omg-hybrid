@@ -2261,9 +2261,12 @@ body.page-omg-food-beverage:not(.home):not(.page-contact) #book-now-trigger {
    1.6s. Pure CSS, so no per-slide hitch (the Swiper loop tried first that
    day had one). Cell width is a share of the visible box via container
    units, since the track is max-content wide. */
+/* Explicit width, not max-content (Safari/iPhone fix, 2026-10-07): with
+   max-content WebKit resolved -50% against a not-yet-sized track and the
+   strip stood still. --oh-logo-n = logos in ONE copy (inline, logo-strip.php). */
 .oh-logo-strip__track {
 	display: flex;
-	width: max-content;
+	width: calc(100cqw / var(--oh-logo-cols) * var(--oh-logo-n) * 2);
 }
 
 .oh-logo-strip__slider.is-moving .oh-logo-strip__track {
@@ -2278,6 +2281,7 @@ body.page-omg-food-beverage:not(.home):not(.page-contact) #book-now-trigger {
 }
 
 .oh-logo-strip__list {
+	flex: none;
 	display: flex;
 	margin: 0;
 	padding: 0;
