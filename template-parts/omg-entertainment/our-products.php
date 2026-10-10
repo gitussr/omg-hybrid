@@ -4,15 +4,16 @@
  *
  * Single source for the product cards. Rendered by:
  *   - below-hero-2.php (the /omg-entertainment/ landing) — all four cards
- *   - template-{casino-fun-nights,poker-tournaments,horse-racing-fun-nights}.php
+ *   - template-{casino-fun-nights,poker-tournaments,horse-racing-fun-nights,
+ *     race-n-roll-fun-nights}.php
  *     below "Perfect For Every Occasion" (client task-009, 2026-10-01),
  *     each one dropping its own card so three remain. Legacy-layer styles
  *     for those pages are at the end of legacy-styles.css.
  *
  * $args:
  *   exclude  string[]  card keys to leave out: 'casino' | 'horse-racing' |
- *                      'poker' | 'race-n-roll'. Keys, not URLs — Race 'n'
- *                      Roll shares the horse racing URL but is its own product.
+ *                      'poker' | 'race-n-roll'. Race 'n' Roll links to its
+ *                      own /race-n-roll-fun-nights/ page (task001, 2026-10-07).
  *   heading  string    section title (default 'Our Products'). The fun-night
  *                      pages pass 'Other Products' (client task-014).
  *
@@ -51,7 +52,7 @@ $cards = array(
 		'icon'        => $icon . '/dice.png',
 		'title'       => 'Race &rsquo;n&rsquo; Roll Fun Nights',
 		'description' => 'Roll the dice, back your horse and cheer it home &mdash; fast-paced race-day fun where every guest has a runner in the field.',
-		'url'         => home_url( '/horse-racing-fun-nights/' ),
+		'url'         => home_url( '/race-n-roll-fun-nights/' ),
 		'link_label'  => 'VISIT US',
 	),
 	/*

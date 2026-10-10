@@ -3581,27 +3581,32 @@ body.oh-legacy .oh-division-card__link {
 body.page-casino-fun-nights .title-dark-1,
 body.page-poker-tournaments .title-dark-1,
 body.page-horse-racing-fun-nights .title-dark-1,
+body.page-race-n-roll-fun-nights .title-dark-1,
 body.page-casino-fun-nights .inner-top-section-style-1 .right-block ul li h4,
 body.page-poker-tournaments .inner-top-section-style-1 .right-block ul li h4,
-body.page-horse-racing-fun-nights .inner-top-section-style-1 .right-block ul li h4 {
+body.page-horse-racing-fun-nights .inner-top-section-style-1 .right-block ul li h4,
+body.page-race-n-roll-fun-nights .inner-top-section-style-1 .right-block ul li h4 {
 	color: var(--color-primary);
 }
 
 body.page-casino-fun-nights .inner-top-section-style-1 .right-block ul li h4::before,
 body.page-poker-tournaments .inner-top-section-style-1 .right-block ul li h4::before,
-body.page-horse-racing-fun-nights .inner-top-section-style-1 .right-block ul li h4::before {
+body.page-horse-racing-fun-nights .inner-top-section-style-1 .right-block ul li h4::before,
+body.page-race-n-roll-fun-nights .inner-top-section-style-1 .right-block ul li h4::before {
 	background-color: var(--color-primary);
 }
 
-/* Casino, Poker and Horse Racing Fun Nights (client 2026-09-25): the
-   three "Why Choose" CTAs (Call / Book / Email) on a solid white fill
-   instead of shell.css's 30% --color-secondary tint. Ink label and
-   border unchanged. :not(.home) matches that shell.css rule's
+/* Casino, Poker and Horse Racing Fun Nights: the three "Why Choose"
+   CTAs (Call / Book / Email, plus the phone Call / Get Quote / Email row)
+   on a solid #DFB6B4 fill (client 2026-10-07; solid white from
+   2026-09-25) instead of shell.css's 30% --color-secondary tint. Ink
+   label and border unchanged. :not(.home) matches that shell.css rule's
    specificity; this file loads after it, so this wins. */
 body.page-casino-fun-nights:not(.home) .oh-why .oh-btn--outline,
 body.page-poker-tournaments:not(.home) .oh-why .oh-btn--outline,
-body.page-horse-racing-fun-nights:not(.home) .oh-why .oh-btn--outline {
-	background: #fff;
+body.page-horse-racing-fun-nights:not(.home) .oh-why .oh-btn--outline,
+body.page-race-n-roll-fun-nights:not(.home) .oh-why .oh-btn--outline {
+	background: #DFB6B4;
 }
 
 /* Contact form "Choose a service" checkboxes (client 2026-09-25): each
@@ -3643,22 +3648,26 @@ body.page-horse-racing-fun-nights:not(.home) .oh-why .oh-btn--outline {
    label (white on the pale fill would be unreadable). */
 body.page-casino-fun-nights .cta-section .main-block,
 body.page-poker-tournaments .cta-section .main-block,
-body.page-horse-racing-fun-nights .cta-section .main-block {
+body.page-horse-racing-fun-nights .cta-section .main-block,
+body.page-race-n-roll-fun-nights .cta-section .main-block {
 	background-color: #F9F0EE;
 }
 
 body.page-casino-fun-nights .cta-section [class^="title-"],
 body.page-poker-tournaments .cta-section [class^="title-"],
 body.page-horse-racing-fun-nights .cta-section [class^="title-"],
+body.page-race-n-roll-fun-nights .cta-section [class^="title-"],
 body.page-casino-fun-nights .cta-section p,
 body.page-poker-tournaments .cta-section p,
-body.page-horse-racing-fun-nights .cta-section p {
+body.page-horse-racing-fun-nights .cta-section p,
+body.page-race-n-roll-fun-nights .cta-section p {
 	color: var(--color-ink, #111);
 }
 
 body.page-casino-fun-nights .cta-section .primary-btn-outline,
 body.page-poker-tournaments .cta-section .primary-btn-outline,
-body.page-horse-racing-fun-nights .cta-section .primary-btn-outline {
+body.page-horse-racing-fun-nights .cta-section .primary-btn-outline,
+body.page-race-n-roll-fun-nights .cta-section .primary-btn-outline {
 	background: #DFB6B4;
 	color: var(--color-ink, #111);
 	border: 1px solid var(--color-ink, #111);
@@ -3669,7 +3678,8 @@ body.page-horse-racing-fun-nights .cta-section .primary-btn-outline {
    shell.css's currentColor default. */
 body.page-casino-fun-nights .cta-section .primary-btn-outline .srdev-icon,
 body.page-poker-tournaments .cta-section .primary-btn-outline .srdev-icon,
-body.page-horse-racing-fun-nights .cta-section .primary-btn-outline .srdev-icon {
+body.page-horse-racing-fun-nights .cta-section .primary-btn-outline .srdev-icon,
+body.page-race-n-roll-fun-nights .cta-section .primary-btn-outline .srdev-icon {
 	fill: currentColor;
 }
 
@@ -3966,4 +3976,76 @@ body.oh-legacy .oh-testimonials .swiper-pagination-bullet:last-child .line {
 	background-repeat: no-repeat;
 	background-position: right 14px center;
 	background-size: 20px 20px;
+}
+
+/* Race 'n' Roll Fun Nights (client task001, 2026-10-07): the Coming Soon
+   page's "We're working on it" eyebrow above the intro heading. Mirrors
+   .oh-eyebrow + .oh-coming-soon__eyebrow in app.css, which the legacy
+   layer doesn't load: small uppercase label between two hairlines. */
+body.page-race-n-roll-fun-nights .inner-top-section-style-1 .rnr-eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 14px;
+	font-size: var(--fs-eyebrow, 13px);
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	line-height: 1.4;
+	text-transform: uppercase;
+	color: var(--color-ink-soft, #555);
+}
+
+body.page-race-n-roll-fun-nights .inner-top-section-style-1 .rnr-eyebrow::before,
+body.page-race-n-roll-fun-nights .inner-top-section-style-1 .rnr-eyebrow::after {
+	content: "";
+	width: 32px;
+	height: 1px;
+	background: var(--color-primary);
+}
+
+/* Section titles: one size + all caps on every page, matching the logo
+   grid heading (client 2026-10-09). Mirrors the block at the end of
+   app.css. Covers the shared oh-* sections and the legacy title-dark-*
+   headings; .size-2 sub-headings and the footer keep their own sizes. */
+body.oh-legacy .oh-section-title,
+body.oh-legacy .oh-other-services .oh-section-title,
+body.oh-legacy .oh-service-cards .oh-section-title,
+body.oh-legacy .oh-why h2,
+body.oh-legacy .oh-testimonials__title,
+body.oh-legacy .oh-cta h2,
+body.oh-legacy .oh-logo-grid h2,
+body.oh-legacy main :is(.title-dark-1, .title-dark-2):not(.size-2),
+body.oh-legacy section :is(.title-dark-1, .title-dark-2):not(.size-2) {
+	font-size: var(--fs-section-title, clamp(1.5rem, 1.3148rem + 0.9877vw, 2.5rem));
+	text-transform: uppercase;
+}
+
+/* Casino, Poker, Horse Racing and Race 'n' Roll: the pre-footer CTA panel
+   sits 50px clear of the testimonials above and the footer below, 15px on
+   phones, like .oh-cta on the home page (client task-022, 2026-10-09).
+   The section's own padding was adding 72px above and 72px + the 50px
+   panel margin below. */
+body.page-casino-fun-nights .cta-section,
+body.page-poker-tournaments .cta-section,
+body.page-horse-racing-fun-nights .cta-section,
+body.page-race-n-roll-fun-nights .cta-section {
+	padding-block: 0;
+}
+
+body.page-casino-fun-nights .cta-section .main-block,
+body.page-poker-tournaments .cta-section .main-block,
+body.page-horse-racing-fun-nights .cta-section .main-block,
+body.page-race-n-roll-fun-nights .cta-section .main-block {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+@media (max-width: 575px) {
+	body.page-casino-fun-nights .cta-section .main-block,
+	body.page-poker-tournaments .cta-section .main-block,
+	body.page-horse-racing-fun-nights .cta-section .main-block,
+	body.page-race-n-roll-fun-nights .cta-section .main-block {
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
 }

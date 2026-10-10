@@ -55,7 +55,7 @@ $favicon  = get_option('omg_favicon');
 						<?php // "X out of 5" text dropped per client (2026-09-08) — just the stars + the RATE US link. ?>
 						<?php if ($link_url && $link_text) : ?>
 							<span class="oh-rating-text">
-								<a href="<?php echo esc_url($link_url); ?>"><?php echo esc_html($link_text); ?></a>
+								<a href="<?php echo esc_url($link_url); ?>" target="_blank" rel="noopener"><?php echo esc_html($link_text); ?></a>
 							</span>
 						<?php endif; ?>
 					</div>
@@ -93,6 +93,11 @@ $favicon  = get_option('omg_favicon');
 					$logo_file = ( 'svc-group' === omg_hybrid_current_service_class() )
 						? 'logo-omg-gold.png'
 						: 'logo-omg-entertainment-black.png';
+					// Home + contact only: the plain gold "OMG" mark (task-022).
+					// Print-templates / coming-soon keep logo-omg-gold.png.
+					if ( is_front_page() || is_page( 'contact' ) ) {
+						$logo_file = 'logo.png';
+					}
 					printf(
 						'<a href="%s"><img src="%s" alt="%s"></a>',
 						esc_url(home_url('/')),

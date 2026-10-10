@@ -35,6 +35,7 @@ function omg_hybrid_legacy_templates() {
 		// Standalone service pages — layout instructions come later.
 		'template-casino-fun-nights.php',
 		'template-horse-racing-fun-nights.php',
+		'template-race-n-roll-fun-nights.php', // task001, 2026-10-07
 		'template-poker-tournaments.php',
 		'template-showgirls.php',
 		'template-magicians.php',

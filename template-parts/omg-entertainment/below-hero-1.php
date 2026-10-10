@@ -21,7 +21,7 @@ if ( ( $args['context'] ?? 'home' ) !== 'landing' ) {
 }
 
 get_template_part( 'template-parts/sections/welcome', null, array(
-	'heading'    => 'Welcome to OMG EVENTS & ENTERTAINMENT',
+	'heading'    => 'Welcome to OMG ENTERTAINMENT',
 	'heading_logo' => array( 'url' => OMG_HYBRID_URI . '/assets/images/oos-logo-entertainment-lg.png', 'alt' => 'OMG Entertainment' ),
 	'paragraphs' => array(
 		'Planning an event should be exciting, not overwhelming. <strong>OMG Entertainment</strong> delivers five-star entertainment that turns any function into the night of the year. We run the show from the first

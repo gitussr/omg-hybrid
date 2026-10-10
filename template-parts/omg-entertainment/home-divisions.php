@@ -17,8 +17,12 @@ $img = OMG_HYBRID_URI . '/assets/images/';
 
 $heading     = $args['heading'] ?? 'Our Services';
 $is_other = isset( $args['heading'] );
+// Home-page default only (not the "Other Services" reuse on the 7 inner
+// pages): an extra "Welcome to..." heading + paragraph above "Our
+// Services" (client 2026-10-07).
+$welcome_heading = 'WELCOME TO <strong>OMG</strong><br class="oh-section-title__mobile-break"> EVENT &amp; ENTERTAINMENT';
+$welcome_para    = 'Planning a great event can feel like a gamble. You want your guests to have a winning experience, but the logistics often get in the way of the fun. OMG Event &amp; Entertainment provides the expertise and services you need to host a flawless celebration. We handle the heavy lifting so you can focus on your guests.';
 $description = $args['description'] ?? array(
-	'Planning a great event can feel like a gamble. You want your guests to have a winning experience, but the logistics often get in the way of the fun. OMG Entertainment Group provides the expertise and services you need to host a flawless celebration. We handle the heavy lifting so you can focus on your guests.',
 	'Our centralized booking system manages every request across our various divisions. You do not have to chase different contractors because we operate as a single, efficient hub for all your event needs.',
 );
 $description = (array) $description;
@@ -89,6 +93,10 @@ $divisions = array(
 ?>
 <section class="oh-service-cards oh-service-cards--divisions">
 	<div class="oh-service-cards__heading">
+		<?php if ( ! $is_other ) : ?>
+			<h2 class="oh-section-title oh-section-title--welcome"><?php echo wp_kses_post( $welcome_heading ); ?></h2>
+			<p><?php echo wp_kses_post( $welcome_para ); ?></p>
+		<?php endif; ?>
 		<h2 class="oh-section-title<?php echo $is_other ? ' oh-section-title--other' : ''; ?>"><?php echo esc_html( $heading ); ?></h2>
 		<?php foreach ( $description as $para ) : ?>
 			<p><?php echo wp_kses_post( $para ); ?></p>

@@ -82,7 +82,9 @@ if ( ! $heading && ! $paragraphs && ! $bullets ) {
 			<?php elseif ( $heading ) : ?><h2 class="oh-section-title"><?php
 				// The title is uppercased by CSS; the brand is spelt "LiVE" (client
 				// 2026-09-28), so that word is wrapped to opt out of the transform.
-				echo str_replace( 'LiVE', '<span class="oh-keep-case">LiVE</span>', esc_html( $heading ) );
+				// Only the brand word "OMG" is bold (client task001, 2026-10-07).
+				$heading_html = str_replace( 'LiVE', '<span class="oh-keep-case">LiVE</span>', esc_html( $heading ) );
+				echo preg_replace( '/\bOMG\b/', '<strong class="oh-welcome__brand">OMG</strong>', $heading_html, 1 );
 			?></h2><?php endif; ?>
 
 			<?php foreach ( $paragraphs as $paragraph ) : ?>
