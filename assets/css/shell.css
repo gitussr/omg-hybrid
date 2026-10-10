@@ -233,6 +233,13 @@ body .omg-backdrop {
 	content: none;
 }
 
+/* ...and the same dark text as the other columns' links instead of the
+   active orange (client 2026-10-10). :not(:hover) keeps the plugin's
+   hover colour; !important because the plugin's colours use it. */
+.omg-mm-panel .omg-services-col--foodbeverage .omg-services-col-link.is-active:not(:hover) {
+	color: #333 !important;
+}
+
 /* Props sub-item active indicator bar — plain #DEDE6D is invisible on white. */
 .svc-props .omg-services-col-link.is-active::before {
 	background: #7A5E1C;
@@ -583,7 +590,16 @@ body.oh-legacy,
 /* ------------------------------------------------------------------ */
 #loader {
 	position: fixed;
-	inset: 0;
+	/* Sized to the whole window, not inset: 0 (client 2026-10-10). An
+	   inset: 0 box is the viewport minus scrollbars, and the scrollbars
+	   only appear as the page streams in, so the centred spinner jumped
+	   up/left mid-load. vw / svh ignore scrollbars and don't change while
+	   loading (svh is the phone viewport with the URL bar showing). */
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	height: 100svh;
 	/* above the mega menu (max z-index 1000030) so it also masks an open
 	   menu while the browser navigates to the next page */
 	z-index: 1000100;

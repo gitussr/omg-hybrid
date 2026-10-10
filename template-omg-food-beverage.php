@@ -31,7 +31,11 @@ get_template_part( 'template-parts/sections/hero', null, array(
 	),
 ) );
 
-get_template_part( 'template-parts/sections/coming-soon' );
+// Own heading on the Coming Soon intro (client 2026-10-10); the rest of
+// the section keeps the shared copy.
+get_template_part( 'template-parts/sections/coming-soon', null, array(
+	'heading' => 'Welcome to <strong>OMG</strong> Food &amp; Beverage',
+) );
 
 get_template_part( 'template-parts/sections/other-services', null, array(
 	'heading'     => 'Other Services',

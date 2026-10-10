@@ -37,7 +37,7 @@ get_template_part( 'template-parts/sections/hero', null, $hero );
 
 get_template_part( 'template-parts/sections/coming-soon', null, array(
 	'eyebrow' => 'Coming soon',
-	'heading' => 'Own Your Own Photo Booth',
+	'heading' => 'Welcome to <strong>OMG</strong> Booth Sales',
 	'copy'    => array(
 		'We&rsquo;re getting ready to offer the professional photo booths our team runs at events for sale, with full setup and ongoing support included. Booth options and pricing are being finalised now.',
 		'Get in touch to register your interest and we&rsquo;ll let you know as soon as Booth Sales launches. In the meantime, every OMG Studio booth is available to hire for your next event.',
@@ -60,7 +60,10 @@ get_template_part( 'template-parts/service-landing', null, array(
 	'other_description' => $studio['other_description'],
 	'other'             => $studio['other'],
 	'why'               => $studio['why'],
-	'marquee'           => $studio['marquee'],
+	// Logo grid as on the sibling Studio pages (/our-booths/,
+	// /photography-videography/): one-row strip on phones, not the
+	// /omg-studio/ 4-row grid (client 2026-10-10).
+	'marquee'           => omg_hybrid_page7_marquee(),
 	'testimonials'      => $studio['testimonials'],
 	'cta'               => $studio['cta'],
 ) );

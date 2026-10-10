@@ -13,8 +13,9 @@
             <div class="swiper-wrapper">
                 <?php // Client 2026-10-10: "5 Star Entertainment" banner leads every inner service banner. ?>
                 <?php omg_hybrid_legacy_lead_slide(); ?>
+                <?php // Slide 2 image replaced by the client's new banner (2026-10-10; was uploads/2026/09/horse-racing-fun-night-page-banner.jpg). ?>
                 <div class="swiper-slide">
-                    <div class="single-slide hero-scrim" style="background: url('<?php echo esc_url( home_url( '/wp-content/uploads/2026/09/horse-racing-fun-night-page-banner.jpg' ) ); ?>') no-repeat; background-size: cover; background-position: center;">
+                    <div class="single-slide hero-scrim" style="background: url('<?php echo esc_url( OMG_HYBRID_URI . '/assets/images/horse-racing-fun-night-page-banner-new.jpg' ); ?>') no-repeat; background-size: cover; background-position: center;">
                         <div class="container">
                             <h1>Horse Racing Fun Nights</h1>
                             <p>Bring the thrill of the track to your venue &mdash; live race simulations, a professional MC and your very own bookies, with zero need for an actual racecourse.</p>

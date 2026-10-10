@@ -2707,11 +2707,14 @@ body.svc-foodbeverage .oh-coming-soon__point {
 	text-transform: uppercase;
 }
 
-/* Other Services intro wider on /omg-studio/, /omg-live/ and
-   /omg-food-beverage/ (client 2026-10-10); 55ch elsewhere. */
+/* Other Services intro wider on the five brand pages: /omg-studio/,
+   /omg-live/, /omg-food-beverage/, /omg-props-theming/ and
+   /omg-entertainment/ (client 2026-10-10); 55ch elsewhere. */
 body.page-omg-studio .oh-other-services__heading,
 body.page-omg-live .oh-other-services__heading,
-body.page-omg-food-beverage .oh-other-services__heading {
+body.page-omg-food-beverage .oh-other-services__heading,
+body.page-omg-props-theming .oh-other-services__heading,
+body.page-omg-entertainment .oh-other-services__heading {
 	max-width: 80ch;
 }
 
@@ -2737,10 +2740,51 @@ body.page-booth-sales .oh-coming-soon__point {
 	background: #E4FCFC;
 }
 
-/* /omg-entertainment/: no top padding on Other Services on phones
-   (client 2026-10-10). */
+/* /omg-entertainment/ and /omg-live/: no top padding on Other Services on
+   phones (client 2026-10-10). */
 @media (max-width: 767px) {
-	body.page-omg-entertainment .oh-other-services {
+	body.page-omg-entertainment .oh-other-services,
+	body.page-omg-live .oh-other-services {
 		padding-top: 0;
+	}
+}
+
+/* Banner CTA a little see-through on phones so it covers less of the
+   banner image (client 2026-10-10). Every page's .oh-hero button; the
+   slide fades still run on .oh-hero__inner, so they multiply with this. */
+@media (max-width: 767px) {
+	.oh-hero .oh-hero__inner .oh-btn {
+		opacity: .8;
+	}
+}
+
+/* Home "WELCOME TO OMG EVENT & ENTERTAINMENT" (client 2026-10-10): one
+   line from 768px up, never wrapped. At the section-title size it is
+   wider than the 900px heading box on large screens, so it is centred on
+   the box and runs past it, as .oh-hero__one-line does. Phones (767px and
+   under) break after "OMG" via the existing
+   <br class="oh-section-title__mobile-break">. */
+@media (min-width: 768px) {
+	.oh-service-cards--divisions .oh-section-title--welcome {
+		width: max-content;
+		max-width: none;
+		position: relative;
+		left: 50%;
+		transform: translateX(-50%);
+		white-space: nowrap;
+	}
+}
+
+@media (max-width: 767px) {
+	.oh-section-title__mobile-break {
+		display: inline;
+	}
+}
+
+/* Under 360px "EVENT & ENTERTAINMENT" overran the 16px gutters at the
+   section-title size and wrapped to a third line; scale it to fit. */
+@media (max-width: 359px) {
+	.oh-service-cards--divisions .oh-section-title--welcome {
+		font-size: calc((100vw - 34px) / 13.2);
 	}
 }
