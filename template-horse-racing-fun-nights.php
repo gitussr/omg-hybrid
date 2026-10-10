@@ -11,6 +11,8 @@
     <div class="main-block">
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
+                <?php // Client 2026-10-10: "5 Star Entertainment" banner leads every inner service banner. ?>
+                <?php omg_hybrid_legacy_lead_slide(); ?>
                 <div class="swiper-slide">
                     <div class="single-slide hero-scrim" style="background: url('<?php echo esc_url( home_url( '/wp-content/uploads/2026/09/horse-racing-fun-night-page-banner.jpg' ) ); ?>') no-repeat; background-size: cover; background-position: center;">
                         <div class="container">
@@ -203,7 +205,7 @@ get_template_part( 'template-parts/omg-entertainment/testimonials' );
     <div class="container">
         <div class="main-block">
             <h3 class="title-dark-2">Ready To Hit The Track?</h3>
-            <p>Horse Racing Fun Nights start from $1,650 &mdash; get in touch for a free, no-obligation quote.</p>
+            <p>Get in touch for a free, no-obligation quote.</p>
             <div class="btn-group">
                 <a href="tel:1300300664" class="primary-btn-outline">
                     Call Us

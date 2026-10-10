@@ -29,6 +29,7 @@ if ( is_page_template( array(
 	'template-omg-live.php',
 	'template-omg-props-theming.php',
 	'template-omg-food-beverage.php', // task-019
+	'template-booth-sales.php', // 2026-10-10, ends on the Studio CTA band
 ) ) ) {
 	$cta_buttons = array();
 }
@@ -181,8 +182,9 @@ if ( is_page_template( array(
 			// Studio pages /our-booths/ and /photography-videography/, use the
 			// client's dark-subtitle version of the same lockup
 			// (footer-logo-omg-hq-on-light.png, client 2026-09-25) on their
-			// bright cyan / amber footer bands.
-			$footer_logo = is_page( array( 'omg-studio', 'omg-props-theming', 'our-booths', 'photography-videography' ) )
+			// bright cyan / amber footer bands. /omg-food-beverage/ uses it
+			// too on its orange band (client 2026-10-10).
+			$footer_logo = is_page( array( 'omg-studio', 'omg-props-theming', 'our-booths', 'photography-videography', 'booth-sales', 'omg-food-beverage' ) )
 				? 'footer-logo-omg-hq-on-light.png'
 				: 'footer-logo-omg-hq.png';
 			// Logo links to the OMG Group HQ site on every page (client 2026-09-14).

@@ -24,6 +24,8 @@ get_template_part( 'template-parts/service-landing', null, array(
 		'description' => 'Casino props, grand entrances, theme walls, furniture and AV tech &mdash; the styling and equipment that sets the scene before a single guest arrives.',
 		'cta'         => array( 'url' => home_url( '/contact/' ), 'label' => 'Get a Free Quote' ),
 		'slides'      => array(
+			// Client 2026-10-10: "5 Star Entertainment" banner leads the slider.
+			omg_hybrid_lead_banner_slide(),
 			array( 'type' => 'image', 'url' => $img . 'props-custom-new.jpg' ),
 			array( 'type' => 'image', 'url' => $img . 'events-custom-new.jpg' ),
 			array( 'type' => 'image', 'url' => $img . 'hero-bg-2.jpg' ),

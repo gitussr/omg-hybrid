@@ -18,6 +18,8 @@ $hero_sliders = get_field('hero_sliders');
 
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
+                <?php // Client 2026-10-10: "5 Star Entertainment" banner leads every inner service banner. ?>
+                <?php omg_hybrid_legacy_lead_slide(); ?>
 
                 <?php if($hero_sliders): ?>
                     <?php foreach($hero_sliders as $hero_slider): 

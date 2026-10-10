@@ -22,7 +22,8 @@ get_header();
  * ---------------------------------------------------------------------- */
 $hero_sliders = get_field( 'hero_sliders' ) ?: array();
 $hero_first   = $hero_sliders[0] ?? array();
-$hero_slides  = array();
+// Client 2026-10-10: "5 Star Entertainment" banner leads the slider.
+$hero_slides  = array( omg_hybrid_lead_banner_slide() );
 foreach ( $hero_sliders as $slide ) {
 	if ( ! empty( $slide['image']['url'] ) ) {
 		$hero_slides[] = array( 'type' => 'image', 'url' => $slide['image']['url'] );

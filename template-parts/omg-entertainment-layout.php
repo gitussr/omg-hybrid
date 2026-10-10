@@ -32,7 +32,12 @@ $hero_slides = array(
 );
 
 // Home page only: the client's new banner leads the slider (2026-09-14).
-// The OMG Entertainment landing page keeps the original two slides.
+// The OMG Entertainment landing page leads with the same banner since
+// 2026-10-10 (client: first slide on every inner service page), with the
+// title / button and tint off it like the other inner pages.
+if ( 'landing' === $context ) {
+	array_unshift( $hero_slides, omg_hybrid_lead_banner_slide() );
+}
 if ( 'home' === $context ) {
 	array_unshift( $hero_slides, array( 'type' => 'image', 'url' => $img . 'omg-entertainment-new-banner-01.jpg' ) );
 
@@ -72,8 +77,10 @@ if ( 'home' === $context && 8 === count( $hero_slides ) ) {
 	$hero_slides[5]['overlay'] = false;
 	$hero_slides[5]['cta']     = array( 'url' => home_url( '/omg-live/' ), 'label' => 'DJ-MUSIC-LIGHTS' );
 	$hero_slides[6]['title']   = '<span class="oh-hero__one-line">Big Props. Bold Themes. Best Night Ever.</span>';
+	$hero_slides[6]['overlay'] = false; // Client 2026-10-09: no tint on the Props slide (shown as 06).
 	$hero_slides[6]['cta']     = array( 'url' => home_url( '/omg-props-theming/' ), 'label' => 'Props & Theming' );
 	$hero_slides[7]['title']   = 'Building Connections<br>Not Just Campaigns';
+	$hero_slides[7]['overlay'] = false; // Client 2026-10-09: no tint on the Marketing slide (shown as 07).
 	$hero_slides[7]['cta']     = array( 'url' => 'https://omgspin2win.com.au/', 'label' => 'OMG MARKETING', 'new_tab' => true );
 
 	// Slide 03 (omg-entertainment-banner1.jpg) DORMANT on the home page

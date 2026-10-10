@@ -7,12 +7,25 @@
  * keeps this section until the division launches. Styles: the "Coming Soon
  * page" block in app.css; colours come from the page's palette.
  *
+ * Optional $args (2026-10-10, for /booth-sales/), each falling back to the
+ * generic copy below:
+ *   eyebrow string, heading string, copy string[] (paragraphs),
+ *   points array{title,text}[], back array{url,label} (outline button).
+ *
  * @package omg-hybrid
  */
 
 defined( 'ABSPATH' ) || exit;
 
-$points = array(
+$eyebrow = $args['eyebrow'] ?? 'We&rsquo;re working on it';
+$heading = $args['heading'] ?? 'Putting the Finishing Touches On Something Special';
+$copy    = $args['copy'] ?? array(
+	'This part of OMG is still being prepared behind the scenes. We&rsquo;re busy shaping the details, lining up the right people and making sure it meets the standard our clients expect before we open the doors.',
+	'In the meantime, our team is ready to help you plan your next event. Get in touch and we&rsquo;ll let you know what&rsquo;s available now &mdash; and be the first to hear when this launches.',
+);
+$back    = $args['back'] ?? array( 'url' => home_url( '/' ), 'label' => 'Back to Home' );
+
+$points = $args['points'] ?? array(
 	array(
 		'title' => 'The OMG Standard',
 		'text'  => 'The same professional, fully managed service our clients already trust across every OMG division.',
@@ -29,11 +42,12 @@ $points = array(
 ?>
 <section class="oh-section oh-coming-soon">
 	<div class="oh-wrap oh-coming-soon__inner">
-		<span class="oh-eyebrow oh-coming-soon__eyebrow">We&rsquo;re working on it</span>
-		<h2 class="oh-section-title">Putting the Finishing Touches On Something Special</h2>
+		<span class="oh-eyebrow oh-coming-soon__eyebrow"><?php echo wp_kses_post( $eyebrow ); ?></span>
+		<h2 class="oh-section-title"><?php echo wp_kses_post( $heading ); ?></h2>
 		<div class="oh-coming-soon__copy">
-			<p>This part of OMG is still being prepared behind the scenes. We&rsquo;re busy shaping the details, lining up the right people and making sure it meets the standard our clients expect before we open the doors.</p>
-			<p>In the meantime, our team is ready to help you plan your next event. Get in touch and we&rsquo;ll let you know what&rsquo;s available now &mdash; and be the first to hear when this launches.</p>
+			<?php foreach ( $copy as $para ) : ?>
+				<p><?php echo wp_kses_post( $para ); ?></p>
+			<?php endforeach; ?>
 		</div>
 
 		<ul class="oh-coming-soon__points">
@@ -50,8 +64,8 @@ $points = array(
 				Enquire Now
 				<?php omg_hybrid_icon( 'fancy-right-arrow-icom' ); ?>
 			</a>
-			<a class="oh-btn oh-btn--outline" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-				Back to Home
+			<a class="oh-btn oh-btn--outline" href="<?php echo esc_url( $back['url'] ); ?>">
+				<?php echo esc_html( $back['label'] ); ?>
 				<?php omg_hybrid_icon( 'fancy-right-arrow-icom' ); ?>
 			</a>
 		</div>

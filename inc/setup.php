@@ -125,6 +125,12 @@ function omg_hybrid_body_classes( $classes ) {
 		$classes[] = 'oh-theme';
 	}
 
+	// /booth-sales/ follows the /omg-studio/ page (2026-10-10), so it also
+	// takes that page's class and the Studio button colours scoped to it.
+	if ( is_page_template( 'template-booth-sales.php' ) ) {
+		$classes[] = 'page-omg-studio';
+	}
+
 	$svc = omg_hybrid_current_service_class();
 	if ( $svc ) {
 		$classes[] = $svc;

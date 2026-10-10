@@ -46,6 +46,8 @@
 	--fs-h3: clamp(24px, 2.2vw, 40px);
 	--fs-h2: clamp(28px, 3vw, 50px);
 	--fs-h1: clamp(34px, 4.2vw, 66px);
+	/* Every section title below the banner (client 2026-10-09). */
+	--fs-section-title: clamp(1.5rem, 1.3148rem + 0.9877vw, 2.5rem);
 
 	/* Legacy aliases — the ported Quick Quote / time-picker CSS below and
 	   any legacy-derived rule references these names. Values match the old
@@ -219,6 +221,18 @@ body .omg-backdrop {
 	background: #F28C1E;
 }
 
+/* F&B sub-links all point at the one /omg-food-beverage/ page, so the
+   plugin marks every one of them active there. Keep the active bar on the
+   column heading only: no bar and no 12px indent on the sub-links
+   (client 2026-10-10). */
+.omg-mm-panel .omg-services-col--foodbeverage .omg-services-col-link.is-active {
+	padding-left: 0;
+}
+
+.omg-mm-panel .omg-services-col--foodbeverage .omg-services-col-link.is-active::before {
+	content: none;
+}
+
 /* Props sub-item active indicator bar — plain #DEDE6D is invisible on white. */
 .svc-props .omg-services-col-link.is-active::before {
 	background: #7A5E1C;
@@ -333,8 +347,11 @@ body .omg-backdrop {
 	background: #fde8d2;
 }
 
+/* No active bar on the F&B drawer sub-links: they all share the one
+   /omg-food-beverage/ URL, so every one is marked active there (client
+   2026-10-10, same as the desktop mega menu above). */
 .omg-mobile-nav .omg-mob-group--foodbeverage .omg-mob-link.is-active::before {
-	background: #F28C1E;
+	content: none;
 }
 
 *,
@@ -639,22 +656,24 @@ body.oh-legacy,
 	padding-block: 0;
 }
 
+/* Stars 18px -> 15px and gap 15px -> 8px so RATE US sits closer to
+   them (client task-022, 2026-10-09). */
 .oh-header__rating {
 	display: flex;
 	align-items: center;
-	gap: 15px;
+	gap: 8px;
 	font-weight: 700;
 	text-transform: uppercase;
 }
 
 .oh-header__rating .oh-stars {
 	display: inline-flex;
-	gap: 4px;
+	gap: 3px;
 }
 
 .oh-header__rating .oh-stars .srdev-icon {
-	width: 18px;
-	height: 18px;
+	width: 15px;
+	height: 15px;
 	fill: currentColor;
 }
 
@@ -664,6 +683,13 @@ body.oh-legacy,
 	font-weight: 700;
 	text-decoration: none;
 	color: inherit;
+	text-underline-offset: 3px;
+}
+
+/* Plain underline on hover, no button fill (client task-022, 2026-10-09). */
+.oh-header__rating a:hover,
+.oh-header__rating a:focus-visible {
+	text-decoration: underline;
 }
 
 .oh-header__top-actions {
@@ -934,7 +960,8 @@ body.oh-legacy,
 .page-omg-entertainment .oh-footer,
 .page-casino-fun-nights .oh-footer,
 .page-poker-tournaments .oh-footer,
-.page-horse-racing-fun-nights .oh-footer {
+.page-horse-racing-fun-nights .oh-footer,
+.page-race-n-roll-fun-nights .oh-footer {
 	background-image: url('../images/footer-entertainment-race-day-bookies.jpg');
 }
 
@@ -1846,7 +1873,8 @@ body.page-contact .hero-section .main-block {
    .hero-section.inner-page .single-slide::after rule in legacy-styles.css
    turns it into #000 at 64% opacity. This page-scoped rule outranks that
    one. */
-body.page-casino-fun-nights .hero-section .single-slide.hero-scrim::after {
+body.page-casino-fun-nights .hero-section .single-slide.hero-scrim::after,
+body.page-race-n-roll-fun-nights .hero-section .single-slide.hero-scrim::after {
 	background: #000;
 	opacity: .4;
 }
@@ -1905,7 +1933,8 @@ body:not(.home):not(.page-contact) .oh-footer__cta-buttons .oh-btn--solid {
    excluded), so this later rule wins; don't strip it. */
 body.page-casino-fun-nights:not(.home) .oh-footer__cta-buttons .oh-btn--solid,
 body.page-poker-tournaments:not(.home) .oh-footer__cta-buttons .oh-btn--solid,
-body.page-horse-racing-fun-nights:not(.home) .oh-footer__cta-buttons .oh-btn--solid {
+body.page-horse-racing-fun-nights:not(.home) .oh-footer__cta-buttons .oh-btn--solid,
+body.page-race-n-roll-fun-nights:not(.home) .oh-footer__cta-buttons .oh-btn--solid {
 	background: #DFB6B4;
 	border-color: #DFB6B4;
 	color: var(--color-ink, #111);
@@ -2065,7 +2094,8 @@ body.page-omg-entertainment:not(.home):not(.page-contact) #book-now-trigger {
    rule's specificity, as above; don't strip it. */
 body.page-casino-fun-nights:not(.home):not(.page-contact) #book-now-trigger,
 body.page-poker-tournaments:not(.home):not(.page-contact) #book-now-trigger,
-body.page-horse-racing-fun-nights:not(.home):not(.page-contact) #book-now-trigger {
+body.page-horse-racing-fun-nights:not(.home):not(.page-contact) #book-now-trigger,
+body.page-race-n-roll-fun-nights:not(.home):not(.page-contact) #book-now-trigger {
 	background: #DFB6B4;
 }
 
@@ -2158,6 +2188,18 @@ body.page-id-956:not(.home):not(.page-contact) #book-now-trigger {
    the 30% rule; :not(.home):not(.page-contact) matches its specificity. */
 body.page-omg-food-beverage:not(.home):not(.page-contact) #book-now-trigger {
 	background: #F5A956;
+}
+
+/* Solid buttons on /omg-food-beverage/ (banner "Get a Free Quote",
+   "Enquire Now"): #F5A956 fill with a #0E0C09 border (client 2026-10-10).
+   The banner CTA keeps no visible border (re-bordered in its own fill). */
+body.page-omg-food-beverage .oh-btn--solid {
+	background: #F5A956;
+	border-color: #0E0C09;
+}
+
+body.page-omg-food-beverage .oh-hero .oh-btn--solid {
+	border-color: #F5A956;
 }
 
 /* ------------------------------------------------------------------ */
@@ -2359,9 +2401,11 @@ body.page-omg-food-beverage:not(.home):not(.page-contact) #book-now-trigger {
 body.page-casino-fun-nights .hero-section,
 body.page-poker-tournaments .hero-section,
 body.page-horse-racing-fun-nights .hero-section,
+body.page-race-n-roll-fun-nights .hero-section,
 body.page-casino-fun-nights .inner-top-section-style-1,
 body.page-poker-tournaments .inner-top-section-style-1,
-body.page-horse-racing-fun-nights .inner-top-section-style-1 {
+body.page-horse-racing-fun-nights .inner-top-section-style-1,
+body.page-race-n-roll-fun-nights .inner-top-section-style-1 {
 	background-color: #F9F0EE;
 }
 
@@ -2370,7 +2414,8 @@ body.page-horse-racing-fun-nights .inner-top-section-style-1 {
    heroes). */
 body.page-casino-fun-nights .hero-section .main-block,
 body.page-poker-tournaments .hero-section .main-block,
-body.page-horse-racing-fun-nights .hero-section .main-block {
+body.page-horse-racing-fun-nights .hero-section .main-block,
+body.page-race-n-roll-fun-nights .hero-section .main-block {
 	padding-top: 15px;
 }
 
@@ -2483,7 +2528,8 @@ body #book-now-trigger {
 	body.page-omg-props-theming .oh-why .oh-btn-row,
 	body.oh-legacy.page-casino-fun-nights .oh-why .oh-btn-row,
 	body.oh-legacy.page-poker-tournaments .oh-why .oh-btn-row,
-	body.oh-legacy.page-horse-racing-fun-nights .oh-why .oh-btn-row {
+	body.oh-legacy.page-horse-racing-fun-nights .oh-why .oh-btn-row,
+	body.oh-legacy.page-race-n-roll-fun-nights .oh-why .oh-btn-row {
 		display: grid;
 		justify-content: center;
 	}
@@ -2505,6 +2551,7 @@ body #book-now-trigger {
 	body.oh-legacy.page-casino-fun-nights .oh-why .oh-btn-row .oh-btn,
 	body.oh-legacy.page-poker-tournaments .oh-why .oh-btn-row .oh-btn,
 	body.oh-legacy.page-horse-racing-fun-nights .oh-why .oh-btn-row .oh-btn,
+	body.oh-legacy.page-race-n-roll-fun-nights .oh-why .oh-btn-row .oh-btn,
 	body.page-our-booths .oh-booth-showcase__btns .oh-btn,
 	body.page-photography-videography .oh-studio-remarkable__cta .oh-btn {
 		justify-content: center;
@@ -2592,7 +2639,8 @@ body #book-now-trigger {
 	body.page-contact .hero-section.inner-page .single-slide,
 	body.page-casino-fun-nights .hero-section.inner-page .single-slide,
 	body.page-poker-tournaments .hero-section.inner-page .single-slide,
-	body.page-horse-racing-fun-nights .hero-section.inner-page .single-slide {
+	body.page-horse-racing-fun-nights .hero-section.inner-page .single-slide,
+	body.page-race-n-roll-fun-nights .hero-section.inner-page .single-slide {
 		min-height: 235px;
 	}
 }
@@ -2622,9 +2670,11 @@ body #book-now-trigger {
 
 	.oh-mcta.oh-mcta {
 		display: grid !important;
-		grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+		/* Each button as wide as its label, not equal thirds, so "Get
+		   Quote" isn't cramped (client 2026-10-10). */
+		grid-template-columns: repeat(3, max-content) !important;
 		gap: 8px !important;
-		justify-content: stretch;
+		justify-content: center;
 		width: 100%;
 		max-width: 420px;
 		margin-inline: auto;
@@ -2634,22 +2684,26 @@ body #book-now-trigger {
 	.oh-booth-showcase__btns.oh-mcta,
 	.oh-studio-remarkable__cta.oh-mcta {
 		margin-inline: 0;
+		justify-content: start;
 	}
 
 	/* A bit smaller than the desktop pills (client 2026-10-05): 1px under
-	   the 13px .oh-btn label, no letter-spacing, 40px tall, 13px arrow. */
+	   the 13px .oh-btn label, no letter-spacing, 40px tall, 13px arrow.
+	   Side padding 20px (client 2026-10-10), shrinking with the viewport
+	   where three 20px buttons wouldn't fit (under ~365px here, ~420px in
+	   the legacy CTA card below), floor 3px. */
 	.oh-mcta.oh-mcta .oh-mcta__btn {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		gap: 4px;
 		min-width: 0;
-		width: auto;
+		width: max-content;
 		min-height: 0;
 		height: auto;
 		margin: 0;
 		padding-block: 10px;
-		padding-inline: 6px;
+		padding-inline: clamp(3px, calc((100vw - 260px) / 6), 20px);
 		font-size: 12px;
 		line-height: 18px;
 		letter-spacing: 0;
@@ -2671,7 +2725,7 @@ body #book-now-trigger {
 	}
 
 	.cta-section .oh-mcta.oh-mcta .oh-mcta__btn {
-		padding-inline: 4px;
+		padding-inline: clamp(3px, calc((100vw - 316px) / 6), 20px);
 		font-size: 12px;
 		letter-spacing: 0;
 	}
@@ -2685,8 +2739,12 @@ body #book-now-trigger {
 	.oh-mcta.oh-mcta .oh-mcta__btn,
 	.cta-section .oh-mcta.oh-mcta .oh-mcta__btn {
 		gap: 3px;
-		padding-inline: 3px;
+		padding-inline: clamp(3px, calc((100vw - 260px) / 6), 20px);
 		font-size: 11px;
+	}
+
+	.cta-section .oh-mcta.oh-mcta .oh-mcta__btn {
+		padding-inline: clamp(3px, calc((100vw - 278px) / 6), 20px);
 	}
 
 	.oh-mcta.oh-mcta .oh-mcta__btn .srdev-icon {
@@ -2698,4 +2756,15 @@ body #book-now-trigger {
 	.cta-section .main-block:has(.oh-mcta) {
 		padding-inline: 10px !important;
 	}
+}
+
+/* ------------------------------------------------------------------ */
+/*  Lead "5 Star Entertainment" banner on legacy inner heroes          */
+/*  (client 2026-10-10, omg_hybrid_legacy_lead_slide() in helpers.php) */
+/* ------------------------------------------------------------------ */
+/* The banner carries its own text, so no dark layer over it. The body
+   prefix outranks .hero-section.inner-page .single-slide::after and the
+   page-scoped .hero-scrim rules above. */
+body .hero-section .single-slide.hero-lead-banner::after {
+	content: none;
 }

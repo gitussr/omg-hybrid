@@ -74,6 +74,7 @@ function omg_hybrid_studio_inner_templates() {
 	return array(
 		'template-our-booths.php',
 		'template-photography-and-videography.php',
+		'template-booth-sales.php', // /booth-sales/, 2026-10-10
 	);
 }
 

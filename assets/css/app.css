@@ -344,6 +344,30 @@
 	text-shadow: 0 2px 14px rgb(0 0 0 / 60%);
 }
 
+/* The soft shadow alone let the white title sink into bright, busy photos
+   (home slides 03-07, client 2026-10-09): a tight dark edge plus stacked
+   wide glows build a soft dark halo behind the letters on any image. */
+.oh-hero--per-slide h1 {
+	transition: text-shadow .5s ease;
+}
+
+.oh-hero.is-overlay-off h1 {
+	text-shadow:
+		0 0 1px #000,
+		0 0 2px #000,
+		0 2px 4px rgb(0 0 0 / 90%),
+		0 0 12px rgb(0 0 0 / 90%),
+		0 0 22px rgb(0 0 0 / 80%),
+		0 0 22px rgb(0 0 0 / 80%),
+		0 0 40px rgb(0 0 0 / 70%);
+}
+
+/* The CTA button sits on its own solid fill, so it doesn't need the
+   shadow it inherits from .oh-hero__inner (client 2026-10-09). */
+.oh-hero.is-overlay-off .oh-hero__inner .oh-btn {
+	text-shadow: none;
+}
+
 .oh-hero__eyebrow {
 	color: #fff;
 	opacity: .85;
@@ -1176,6 +1200,25 @@ a.oh-service-card:hover {
 	color: #000000;
 }
 
+/* "Welcome to OMG..." heading above "Our Services" (home page only,
+   client 2026-10-07). Smaller than the shared --fs-h2 so the longer
+   phrase stays on one line on desktop; mobile forces a 2-line break via
+   the <br class="oh-section-title__mobile-break"> in the markup. */
+.oh-service-cards--divisions .oh-section-title--welcome {
+	font-size: clamp(22px, 2.6vw, 38px);
+	margin-bottom: 0.4em;
+}
+
+.oh-section-title__mobile-break {
+	display: none;
+}
+
+@media (max-width: 600px) {
+	.oh-section-title__mobile-break {
+		display: inline;
+	}
+}
+
 /* flex (not grid) so the odd 5th card's row of 2 centres itself instead
    of sitting flush left under an empty 3rd column. */
 .oh-service-cards--divisions .oh-service-cards__grid {
@@ -1530,6 +1573,13 @@ a.oh-division-card:hover {
 
 	.oh-cta .oh-btn-row .oh-btn {
 		justify-content: center;
+	}
+
+	/* Phone: shrink the 50px top/bottom margin, too much dead space above
+	   and below the panel on small screens (client 2026-10-07). */
+	.oh-cta {
+		margin-top: 15px;
+		margin-bottom: 15px;
 	}
 }
 
@@ -2638,4 +2688,51 @@ body.svc-foodbeverage .oh-coming-soon__point {
 		transform: translateX(-50%);
 		white-space: nowrap;
 	}
+}
+
+/* Section titles: one size + all caps on every page, matching the logo
+   grid heading (client 2026-10-09). Header, footer and banner keep their
+   own sizes. Mirrored for the legacy layer at the end of legacy-styles.css. */
+.oh-section-title,
+.oh-service-cards--divisions .oh-section-title--welcome,
+.oh-service-row__body h2,
+.oh-why h2,
+.oh-testimonials__title,
+.oh-cta h2,
+.oh-marquee h2,
+.oh-logo-grid h2,
+.oh-booth-showcase__title,
+.oh-studio-remarkable__title {
+	font-size: var(--fs-section-title, clamp(1.5rem, 1.3148rem + 0.9877vw, 2.5rem));
+	text-transform: uppercase;
+}
+
+/* Other Services intro wider on /omg-studio/, /omg-live/ and
+   /omg-food-beverage/ (client 2026-10-10); 55ch elsewhere. */
+body.page-omg-studio .oh-other-services__heading,
+body.page-omg-live .oh-other-services__heading,
+body.page-omg-food-beverage .oh-other-services__heading {
+	max-width: 80ch;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Booth Sales /booth-sales/ (template-booth-sales.php, 2026-10-10)   */
+/* ------------------------------------------------------------------ */
+/* Coming Soon intro in the Studio palette: eyebrow rules and card
+   borders in the Studio teal (--color-accent is the Entertainment red at
+   :root), and "Enquire Now" in the Studio #82DED5 with the black border
+   the Studio welcome buttons use. */
+body.page-booth-sales .oh-coming-soon {
+	--color-accent: var(--color-primary);
+}
+
+body.page-booth-sales .oh-coming-soon .oh-btn--solid {
+	background: #82DED5;
+	border-color: #000;
+	color: var(--color-ink);
+}
+
+/* Point cards on a light teal fill (client 2026-10-10; were white). */
+body.page-booth-sales .oh-coming-soon__point {
+	background: #E4FCFC;
 }

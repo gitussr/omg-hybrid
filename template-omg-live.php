@@ -25,6 +25,8 @@ get_template_part( 'template-parts/service-landing', null, array(
 		'description' => 'Elite DJs, atmospheric lighting and unforgettable live bands &mdash; club-standard sound and production that reads the room and keeps it moving.',
 		'cta'         => array( 'url' => home_url( '/contact/' ), 'label' => 'Check Availability' ),
 		'slides'      => array(
+			// Client 2026-10-10: "5 Star Entertainment" banner leads the slider.
+			omg_hybrid_lead_banner_slide(),
 			array( 'type' => 'image', 'url' => $img . 'omg-live-hero.jpg' ),
 			array( 'type' => 'image', 'url' => $img . 'welcome-live.jpg' ),
 			array( 'type' => 'image', 'url' => $img . 'dj-custom-new.jpg' ),

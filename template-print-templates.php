@@ -19,6 +19,8 @@
         <!-- Swiper slider -->
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
+                <?php // Client 2026-10-10: "5 Star Entertainment" banner leads every inner service banner. ?>
+                <?php omg_hybrid_legacy_lead_slide(); ?>
                 <div class="swiper-slide">
                     <div class="single-slide hero-gradient" style="background: url('<?php echo $page_thumbnail['url']; ?>') no-repeat; background-size: cover; background-position: center;">
                         <div class="container">

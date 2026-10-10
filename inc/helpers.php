@@ -242,3 +242,34 @@ function omg_hybrid_division_blurb( $division ) {
 
 	return $blurbs[ $division ] ?? '';
 }
+
+/**
+ * The client's "5 Star Entertainment" banner, first slide on every inner
+ * service and sub-service page banner (client 2026-10-10). It carries its
+ * own text, so the page title / button and the dark tint stay off it; the
+ * page's own slides follow with their usual copy.
+ *
+ * @return array Slide for template-parts/sections/hero.php.
+ */
+function omg_hybrid_lead_banner_slide() {
+	return array(
+		'type'    => 'image',
+		'url'     => OMG_HYBRID_URI . '/assets/images/omg-entertainment-new-banner-01.jpg',
+		'text'    => false,
+		'overlay' => false,
+	);
+}
+
+/**
+ * The same lead banner as a slide for the legacy inner hero
+ * (.hero-section .mySwiper). No heading over it, and .hero-lead-banner
+ * drops the dark ::after layer (end of shell.css).
+ */
+function omg_hybrid_legacy_lead_slide() {
+	$slide = omg_hybrid_lead_banner_slide();
+	?>
+	<div class="swiper-slide">
+		<div class="single-slide hero-lead-banner" style="background: url('<?php echo esc_url( $slide['url'] ); ?>') no-repeat center center / cover;" role="img" aria-label="OMG 5 Star Entertainment"></div>
+	</div>
+	<?php
+}

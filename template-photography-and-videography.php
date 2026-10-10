@@ -24,9 +24,10 @@ $hero   = array(
 	'eyebrow'     => 'OMG Studio',
 	'title'       => $banner['banner_title'] ?? get_the_title(),
 	'description' => $banner['banner_subtitle'] ?? '',
+	// Client 2026-10-10: "5 Star Entertainment" banner leads the slider.
 	'slides'      => ! empty( $banner['banner_image']['url'] )
-		? array( array( 'type' => 'image', 'url' => $banner['banner_image']['url'] ) )
-		: array(),
+		? array( omg_hybrid_lead_banner_slide(), array( 'type' => 'image', 'url' => $banner['banner_image']['url'] ) )
+		: array( omg_hybrid_lead_banner_slide() ),
 );
 
 /* ---------------------------------------------------------------------- *

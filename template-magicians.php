@@ -11,6 +11,8 @@
     <div class="main-block">
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
+                <?php // Client 2026-10-10: "5 Star Entertainment" banner leads every inner service banner. ?>
+                <?php omg_hybrid_legacy_lead_slide(); ?>
                 <div class="swiper-slide">
                     <div class="single-slide" style="background: url('<?php echo esc_url( home_url( '/wp-content/uploads/2026/08/omg-entertainment-banner1.jpg' ) ); ?>') no-repeat; background-size: cover; background-position: center;">
                         <div class="container">
