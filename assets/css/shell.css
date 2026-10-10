@@ -2768,3 +2768,21 @@ body #book-now-trigger {
 body .hero-section .single-slide.hero-lead-banner::after {
 	content: none;
 }
+
+/* ------------------------------------------------------------------ */
+/*  Home + Contact background #fdf7eb (client 2026-10-10)              */
+/* ------------------------------------------------------------------ */
+/* Home banner frame and the <main id="main-content"> area on the home and
+   contact pages only. Replaces the #F5ECD9 cream there (.home
+   .oh-hero--home in app.css, body.page-contact .hero-section above); the
+   contact banner frame follows so it still matches home. Sections with
+   their own fill keep it. The body prefix outranks app.css, which loads
+   later. The body follows too (client, same day). */
+body.home,
+body.page-contact,
+body.home #main-content,
+body.home .oh-hero--home,
+body.page-contact #main-content,
+body.page-contact .hero-section {
+	background-color: #fdf7eb;
+}

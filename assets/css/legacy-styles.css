@@ -4049,3 +4049,12 @@ body.page-race-n-roll-fun-nights .cta-section .main-block {
 		margin-bottom: 15px;
 	}
 }
+
+/* Contact intro: "We are at your service 7 days a week!" is the section
+   title above the notice and the two boxes (client 2026-10-10). The
+   section's 1.83 line-height suited the old one-line h3; tighter here
+   because the uppercase title wraps on phones. */
+body.page-contact .inner-top-section-style-2 .main-block .contact-intro-title {
+	line-height: 1.2;
+	margin: 0 0 clamp(16px, 1.5vw, 28px);
+}

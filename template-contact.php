@@ -95,11 +95,12 @@
 <section class="inner-top-section-style-2">
     <div class="container">
         <div class="main-block">
-            <p class="text-center"><?php echo get_field('notice'); ?></p>
+            <?php // Section title first, then the notice, then the two boxes (client 2026-10-10; the note was a small h4 above the boxes). ?>
+            <h3 class="title-dark-2 text-center contact-intro-title"><?php echo get_field('note'); ?></h3>
+            <?php echo get_field('notice'); ?>
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="right-block">
-                        <h4 class="text-center"><?php echo get_field('note'); ?></h4>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="box">

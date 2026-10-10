@@ -2736,3 +2736,11 @@ body.page-booth-sales .oh-coming-soon .oh-btn--solid {
 body.page-booth-sales .oh-coming-soon__point {
 	background: #E4FCFC;
 }
+
+/* /omg-entertainment/: no top padding on Other Services on phones
+   (client 2026-10-10). */
+@media (max-width: 767px) {
+	body.page-omg-entertainment .oh-other-services {
+		padding-top: 0;
+	}
+}
