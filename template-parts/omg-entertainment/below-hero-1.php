@@ -40,4 +40,7 @@ call to the final pack-down, so you can enjoy it with your guests.',
 	// 	'badge' => OMG_HYBRID_URI . '/assets/images/circular-text-entertainment.png',
 	// ),
 	'decor'      => true,
+	// Spinning "OMG ENTERTAINMENT" badge is back as inline SVG (client
+	// 2026-10-15), see omg_hybrid_circular_badge().
+	'badge_text' => 'OMG Entertainment',
 ) );

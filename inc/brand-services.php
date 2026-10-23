@@ -374,9 +374,11 @@ function omg_hybrid_studio_landing_args() {
 			'decor'      => array(
 				'script' => $img . 'welcome-script-elegance.png',
 				// Spinning "OMG STUDIO" circular-text badge on the filmstrip's
-				// bottom-right corner (client 2026-09-14).
+				// bottom-right corner (client 2026-09-14). Was circular-text.png;
+				// inline SVG since 2026-10-15 (badge_text below wins over it).
 				'badge'  => $img . 'circular-text.png',
 			),
+			'badge_text' => 'OMG Studio',
 		),
 		'cards_heading' => 'Our Products',
 		'cards_intro' => '<strong>Your event, in the spotlight</strong>. Snap It, Spin It, Film It and Keep It Forever. <p>Find your favourite way to capture the fun below, and let\'s make your event shine.</p>',

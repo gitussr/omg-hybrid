@@ -1959,7 +1959,8 @@ body.page-race-n-roll-fun-nights:not(.home) .oh-footer__cta-buttons .oh-btn--sol
 /* OMG LiVE /omg-live/our-services/ (page 955; its page-our-services class
    isn't unique, so it's scoped by ID): solid #DBCAE3 footer CTAs with an ink
    label (client 2026-09-25). Same specificity note as above. */
-body.page-id-955:not(.home) .oh-footer__cta-buttons .oh-btn--solid {
+body.page-id-955:not(.home) .oh-footer__cta-buttons .oh-btn--solid,
+body.page-template-template-live-coming-soon:not(.home) .oh-footer__cta-buttons .oh-btn--solid {
 	background: #DBCAE3;
 	border-color: #DBCAE3;
 	color: var(--color-ink, #111);
@@ -2164,7 +2165,8 @@ body.page-photography-videography:not(.home):not(.page-contact) #book-now-trigge
 /* LiVE #D5BCE8 (/omg-live/ and /omg-live/our-services/, ID 955). */
 body.page-omg-live:not(.home) .oh-why .oh-btn--outline,
 body.page-omg-live .oh-cta .oh-btn--outline,
-body.page-id-955 .oh-cta .oh-btn--outline {
+body.page-id-955 .oh-cta .oh-btn--outline,
+body.page-template-template-live-coming-soon .oh-cta .oh-btn--outline {
 	background: #D5BCE8;
 }
 
@@ -2176,7 +2178,8 @@ body.page-id-955 .oh-services .oh-btn--solid {
 }
 
 body.page-omg-live:not(.home):not(.page-contact) #book-now-trigger,
-body.page-id-955:not(.home):not(.page-contact) #book-now-trigger {
+body.page-id-955:not(.home):not(.page-contact) #book-now-trigger,
+body.page-template-template-live-coming-soon:not(.home):not(.page-contact) #book-now-trigger {
 	background: #D5BCE8;
 }
 
@@ -2801,4 +2804,232 @@ body.home .oh-hero--home,
 body.page-contact #main-content,
 body.page-contact .hero-section {
 	background-color: #fdf7eb;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Photo gallery + lightbox (template-parts/sections/gallery.php,     */
+/*  assets/js/gallery.js; client 2026-10-15)                           */
+/* ------------------------------------------------------------------ */
+/* Like the omggaming.com.au Essential Grid: 4:3 tiles, five across with
+   10px gaps, a dark overlay + round magnifier on hover / focus. Three
+   across on tablets, two on phones. In shell.css so the component works
+   on legacy and new-theme pages alike. */
+.oh-gallery-section {
+	padding-block: 0 clamp(48px, 5vw, 90px);
+}
+
+.oh-gallery {
+	display: grid;
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+	gap: 10px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+@media (max-width: 991px) {
+	.oh-gallery {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 575px) {
+	.oh-gallery {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 8px;
+	}
+}
+
+.oh-gallery__cell {
+	margin: 0;
+	padding: 0;
+}
+
+/* Two rows only (client 2026-10-15): 10 tiles at 5 across, 6 at 3, 4 at
+   2. The hidden ones stay in the markup, so the lightbox still steps
+   through every photo in the folder. */
+.oh-gallery__cell:nth-child(n+11) {
+	display: none;
+}
+
+@media (max-width: 991px) {
+	.oh-gallery__cell:nth-child(n+7) {
+		display: none;
+	}
+}
+
+@media (max-width: 575px) {
+	.oh-gallery__cell:nth-child(n+5) {
+		display: none;
+	}
+}
+
+.oh-gallery__item {
+	position: relative;
+	display: block;
+	aspect-ratio: 4 / 3;
+	overflow: hidden;
+	background: #222;
+}
+
+.oh-gallery__item img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform .5s ease;
+}
+
+.oh-gallery__item::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, .55);
+	opacity: 0;
+	transition: opacity .3s ease;
+}
+
+.oh-gallery__zoom {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 1;
+	display: grid;
+	place-items: center;
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	background: #fff;
+	color: var(--color-primary, #A32E2E);
+	font-size: 18px;
+	opacity: 0;
+	transform: translate(-50%, -50%) scale(.6);
+	transition: opacity .3s ease .1s, transform .3s ease .1s;
+}
+
+.oh-gallery__item:hover img,
+.oh-gallery__item:focus-visible img {
+	transform: scale(1.06);
+}
+
+.oh-gallery__item:hover::after,
+.oh-gallery__item:focus-visible::after,
+.oh-gallery__item:hover .oh-gallery__zoom,
+.oh-gallery__item:focus-visible .oh-gallery__zoom {
+	opacity: 1;
+}
+
+.oh-gallery__item:hover .oh-gallery__zoom,
+.oh-gallery__item:focus-visible .oh-gallery__zoom {
+	transform: translate(-50%, -50%) scale(1);
+}
+
+/* Lightbox: full-screen native <dialog>. */
+html.oh-lightbox-open {
+	overflow: hidden;
+}
+
+.oh-lightbox {
+	width: 100vw;
+	height: 100vh;
+	height: 100svh;
+	max-width: none;
+	max-height: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: #fff;
+}
+
+.oh-lightbox::backdrop {
+	background: rgba(0, 0, 0, .9);
+}
+
+.oh-lightbox__figure {
+	display: grid;
+	place-items: center;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 56px clamp(12px, 6vw, 96px);
+	box-sizing: border-box;
+}
+
+.oh-lightbox__img {
+	display: block;
+	/* Viewport-based caps: a % max-height doesn't resolve inside the
+	   auto-height grid cell, so tall photos ran off the bottom. 112px =
+	   the figure's top + bottom padding. */
+	max-width: 100%;
+	max-height: calc(100vh - 112px);
+	max-height: calc(100svh - 112px);
+	width: auto;
+	height: auto;
+	object-fit: contain;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, .5);
+}
+
+.oh-lightbox__count {
+	position: absolute;
+	top: 16px;
+	left: 20px;
+	margin: 0;
+	font-size: 14px;
+	letter-spacing: .08em;
+	color: rgba(255, 255, 255, .8);
+}
+
+.oh-lightbox__btn {
+	position: absolute;
+	display: grid;
+	place-items: center;
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, .12);
+	color: #fff;
+	font-size: 20px;
+	cursor: pointer;
+	transition: background-color .2s ease;
+}
+
+.oh-lightbox__btn:hover,
+.oh-lightbox__btn:focus-visible {
+	background: rgba(255, 255, 255, .28);
+}
+
+.oh-lightbox__close {
+	top: 8px;
+	right: 12px;
+}
+
+.oh-lightbox__prev,
+.oh-lightbox__next {
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.oh-lightbox__prev {
+	left: clamp(6px, 1.5vw, 24px);
+}
+
+.oh-lightbox__next {
+	right: clamp(6px, 1.5vw, 24px);
+}
+
+.oh-lightbox.is-single .oh-lightbox__prev,
+.oh-lightbox.is-single .oh-lightbox__next,
+.oh-lightbox.is-single .oh-lightbox__count {
+	display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.oh-gallery__item img,
+	.oh-gallery__item::after,
+	.oh-gallery__zoom {
+		transition: none;
+	}
 }

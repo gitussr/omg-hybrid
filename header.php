@@ -93,10 +93,12 @@ $favicon  = get_option('omg_favicon');
 					$logo_file = ( 'svc-group' === omg_hybrid_current_service_class() )
 						? 'logo-omg-gold.png'
 						: 'logo-omg-entertainment-black.png';
-					// Home + contact only: the plain gold "OMG" mark (task-022).
+					// Home + contact only (task-022): the client's gold "OMG" logo,
+					// omg-logo-ent.png since 2026-10-10 (was logo.png; same
+					// proportions, so the logo sizing CSS is unchanged).
 					// Print-templates / coming-soon keep logo-omg-gold.png.
 					if ( is_front_page() || is_page( 'contact' ) ) {
-						$logo_file = 'logo.png';
+						$logo_file = 'omg-logo-ent.png';
 					}
 					printf(
 						'<a href="%s"><img src="%s" alt="%s"></a>',

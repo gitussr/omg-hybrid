@@ -89,6 +89,7 @@ function omg_hybrid_brand_inner_templates() {
 	return array(
 		'template-entertainment-services.php' => 'svc-entertainment',
 		'template-live-services.php'          => 'svc-live',
+		'template-live-coming-soon.php'       => 'svc-live', // 2026-10-15
 		'template-props-services.php'         => 'svc-props',
 	);
 }

@@ -40,7 +40,7 @@ $divisions = array(
 		'svc'         => 'svc-studio',
 		'logo'        => $img . 'oos-logo-studio-lg.png',
 		'name'        => 'OMG Studio',
-		'title'       => 'Photobooths &amp; Photography',
+		'title'       => 'Photobooth &amp; Photography',
 		'description' => omg_hybrid_division_blurb( 'studio' ),
 		'url'         => home_url( '/omg-studio/' ),
 	),

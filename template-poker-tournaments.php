@@ -73,7 +73,7 @@
 
 
 <!-- =====event types section start===== -->
-<section class="who-we-are-section event-types-section">
+<section class="who-we-are-section event-types-section event-types-section--titles-only">
     <div class="container">
         <div class="heading">
             <h3 class="title-dark-1 text-center">Perfect For Every Occasion</h3>
@@ -84,28 +84,28 @@
                 <div class="col-sm-6 col-lg-3">
                     <div class="box">
                         <div class="icon-wrapper"><i class="fa-solid fa-briefcase fa-2x" style="color: var(--primary-solid-color);"></i></div>
-                        <h3>Corporate Events</h3>
+                        <h3>Corporate</h3>
                         <p>After-work tournaments, team building and friendly competitor challenges.</p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <div class="box">
                         <div class="icon-wrapper"><i class="fa-solid fa-hand-holding-heart fa-2x" style="color: var(--primary-solid-color);"></i></div>
-                        <h3>Fundraisers &amp; Charity Nights</h3>
+                        <h3>Private</h3>
                         <p>A unique, money-raising alternative to traditional fundraising formats.</p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <div class="box">
                         <div class="icon-wrapper"><i class="fa-solid fa-dice fa-2x" style="color: var(--primary-solid-color);"></i></div>
-                        <h3>Bucks &amp; Hens Nights</h3>
+                        <h3>Fundraisers</h3>
                         <p>Customisable entertainment packages tailored to the guest of honour.</p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <div class="box">
                         <div class="icon-wrapper"><i class="fa-solid fa-champagne-glasses fa-2x" style="color: var(--primary-solid-color);"></i></div>
-                        <h3>Weddings &amp; Parties</h3>
+                        <h3>Weddings</h3>
                         <p>Run a full tournament or set up casual tables guests can drop in and out of.</p>
                     </div>
                 </div>
@@ -114,19 +114,16 @@
     </div>
 </section>
 <!-- =====event types section end===== -->
-
-<!-- =====our products section start===== -->
+<!-- =====gallery section start===== -->
 <?php
-// "Our Products" from the /omg-entertainment/ landing, minus this page's
-// own card (client task-009, 2026-10-01), titled "Other Products" here
-// (client task-014). Legacy-layer styles: end of legacy-styles.css.
-get_template_part( 'template-parts/omg-entertainment/our-products', null, array(
-	'exclude' => array( 'poker' ),
-	'heading' => 'Other Products',
+// Photo gallery like omggaming.com.au's Essential Grid (client
+// 2026-10-15). Photos: assets/images/gallery/poker/.
+get_template_part( 'template-parts/sections/gallery', null, array(
+	'folder' => 'poker',
+	'label'  => 'Poker tournament photos',
 ) );
 ?>
-<!-- =====our products section end===== -->
-
+<!-- =====gallery section end===== -->
 
 <!-- =====why choose section start===== -->
 <?php
@@ -153,6 +150,19 @@ get_template_part( 'template-parts/sections/why-choose', null, array(
 ) );
 ?>
 <!-- =====why choose section end===== -->
+
+
+<!-- =====our products section start===== -->
+<?php
+// "Our Products" from the /omg-entertainment/ landing, minus this page's
+// own card (client task-009, 2026-10-01), titled "Other Products" here
+// (client task-014). Legacy-layer styles: end of legacy-styles.css.
+get_template_part( 'template-parts/omg-entertainment/our-products', null, array(
+	'exclude' => array( 'poker' ),
+	'heading' => 'Other Products',
+) );
+?>
+<!-- =====our products section end===== -->
 
 
 <!-- =====other services section start===== -->

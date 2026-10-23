@@ -474,7 +474,8 @@
 
 /* OMG LiVE /omg-live/our-services/ (page 955, client 2026-09-25): banner
    frame on a paler lilac #F7F3FC instead of the LiVE --color-secondary. */
-body.page-id-955 .oh-hero {
+body.page-id-955 .oh-hero,
+body.page-template-template-live-coming-soon .oh-hero {
 	background-color: #F7F3FC;
 }
 
@@ -1298,6 +1299,15 @@ a.oh-division-card:hover {
    artwork in a 560px file) — 166px of image renders its logo at ~160px. */
 .oh-division-card.svc-studio .oh-division-card__logo img {
 	width: 166px;
+}
+
+
+/* Entertainment (red card) logo larger than the others: 199px wide
+   (client omg-task-02, 2026-10-12). ~100px tall, so it runs ~7.5px past
+   the 92px slot into the 18px gap; the slot keeps its height so the card
+   headings stay level across the row. Other logos unchanged. */
+.oh-division-card.svc-entertainment .oh-division-card__logo img {
+	width: 199px;
 }
 
 /* NOTE (client 2026-09-21): the division logos render as their original
@@ -2787,4 +2797,142 @@ body.page-booth-sales .oh-coming-soon__point {
 	.oh-service-cards--divisions .oh-section-title--welcome {
 		font-size: calc((100vw - 34px) / 13.2);
 	}
+}
+
+/* Brand-page "WELCOME TO OMG / [SERVICE]" titles (client omg-task-01,
+   2026-10-12): /omg-entertainment/, /omg-studio/, /omg-live/,
+   /omg-props-theming/ and /omg-food-beverage/ use the home page's markup
+   (oh-section-title--welcome + the "OMG" mobile break, shown at 767px and
+   under by the rule above) and are centred on phones. */
+@media (max-width: 767px) {
+	.oh-section .oh-section-title.oh-section-title--welcome {
+		text-align: center;
+	}
+}
+
+/* /omg-entertainment/ service cards: the horse-racing icon fills its badge
+   with no inset (client, 2026-10-15). Other icons keep the 8px padding. */
+.page-omg-entertainment .oh-service-cards--framed .oh-service-card__icon img[src$="/horse-racing-1.png"] {
+	padding: 0;
+}
+
+/* /omg-entertainment/ Other Services: Food & Beverage logo 158.95px wide
+   (client, 2026-10-15). Width-led like the Studio page rule, so the 88px
+   height cap is lifted; max-width keeps it inside the 150px phone slot. */
+.page-omg-entertainment .oh-other-card--omg-food-beverage .oh-other-card__logo img {
+	width: 158.95px;
+	max-width: 100%;
+	max-height: none;
+}
+
+/* /omg-live/, /omg-props-theming/, /omg-food-beverage/ Other Services:
+   every logo 158.95px wide, matching the /omg-entertainment/ F&B logo
+   above (client, 2026-10-15). Lifts the 88px / 116px height caps;
+   max-width keeps them inside the 150px phone slot. */
+.page-omg-live .oh-other-card .oh-other-card__logo img,
+.page-omg-props-theming .oh-other-card .oh-other-card__logo img,
+.page-omg-food-beverage .oh-other-card .oh-other-card__logo img {
+	width: 158.95px;
+	max-width: 100%;
+	max-height: none;
+}
+
+/* Home Our Services: "Photobooth & Photography" (OMG Studio card) stays on
+   one line (client, 2026-10-15). Other card headings wrap as before.
+   The line is ~12.85em wide, which outgrows the card at 320px, ~621-660px
+   and 1440px+, so the font is also capped at 7.5cqi of the card's content
+   width (~96% fill); elsewhere it keeps the normal clamp size. */
+.home .oh-division-card.svc-studio {
+	container-type: inline-size;
+}
+
+.home .oh-division-card.svc-studio h3 {
+	white-space: nowrap;
+	font-size: min(clamp(20px, 1.6vw, 28px), 7.5cqi);
+}
+
+/* Same three pages: the first card (Entertainment) logo is 195px wide, as
+   its mascot takes part of the width (client, 2026-10-15). The other logos
+   stay at 158.95px; max-width still holds it to the 150px phone slot. */
+.page-omg-live .oh-other-card--omg-entertainment .oh-other-card__logo img,
+.page-omg-props-theming .oh-other-card--omg-entertainment .oh-other-card__logo img,
+.page-omg-food-beverage .oh-other-card--omg-entertainment .oh-other-card__logo img {
+	width: 195px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Spinning circular-text badge (client 2026-10-15)                    */
+/* ------------------------------------------------------------------ */
+/* Inline SVG from omg_hybrid_circular_badge(): "OMG ENTERTAINMENT" /
+   "OMG STUDIO" on the decor figure (position + spin from the
+   .oh-welcome-figure__badge rules above), "OMG PROPS & THEMING" over the
+   bottom-right edge of the Props welcome photo. Text in the body face,
+   ink colour, like the old circular-text PNGs. No disc behind it (the
+   Props one had a white disc on bottom-left until the client moved it
+   right without the background, same day). */
+.oh-welcome-badge {
+	display: block;
+	aspect-ratio: 1;
+	overflow: visible;
+	color: var(--color-ink);
+}
+
+.oh-welcome-badge__disc {
+	fill: none;
+}
+
+.oh-welcome-badge__text {
+	fill: currentColor;
+	font-family: var(--font-body);
+	font-weight: 700;
+}
+
+.oh-service-row__media--badge {
+	position: relative;
+}
+
+.oh-welcome-photo__badge {
+	position: absolute;
+	right: clamp(12px, 2vw, 28px);
+	bottom: calc(clamp(96px, 9vw, 128px) * -0.35);
+	z-index: 2;
+	width: clamp(96px, 9vw, 128px);
+	height: auto;
+	animation: oh-badge-spin 30s linear infinite;
+}
+
+@media (max-width: 860px) {
+	.oh-welcome-photo__badge {
+		width: 88px;
+		bottom: -30px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.oh-welcome-photo__badge {
+		animation: none;
+	}
+}
+
+/* ------------------------------------------------------------------ */
+/*  OMG LiVE coming-soon pages (template-live-coming-soon.php,         */
+/*  2026-10-15): /omg-live/karaoke-jukebox/, /entertainers-performers/ */
+/* ------------------------------------------------------------------ */
+/* Coming Soon intro in the LiVE palette, as Booth Sales does for Studio:
+   eyebrow rules and card borders in the LiVE purple (--color-accent is
+   the Entertainment red at :root); "Enquire Now" in the #D5BCE8 + black
+   border of the /omg-live/our-services/ row buttons; point cards on that
+   page's #F7F3FC banner lilac. */
+body.page-template-template-live-coming-soon .oh-coming-soon {
+	--color-accent: var(--color-primary);
+}
+
+body.page-template-template-live-coming-soon .oh-coming-soon .oh-btn--solid {
+	background: #D5BCE8;
+	border: 1px solid #000;
+	color: var(--color-ink);
+}
+
+body.page-template-template-live-coming-soon .oh-coming-soon__point {
+	background: #F7F3FC;
 }

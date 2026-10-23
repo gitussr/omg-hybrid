@@ -3436,6 +3436,15 @@ body.oh-legacy .oh-division-card.svc-studio .oh-division-card__logo img {
 	width: 166px;
 }
 
+
+/* Entertainment (red card) logo larger than the others: 199px wide
+   (client omg-task-02, 2026-10-12). ~100px tall, so it runs ~7.5px past
+   the 92px slot into the 18px gap; the slot keeps its height so the card
+   headings stay level across the row. Other logos unchanged. */
+body.oh-legacy .oh-division-card.svc-entertainment .oh-division-card__logo img {
+	width: 199px;
+}
+
 body.oh-legacy .oh-division-card h3 {
 	font-family: var(--font-display);
 	font-size: clamp(20px, 1.6vw, 28px);
@@ -4057,4 +4066,22 @@ body.page-race-n-roll-fun-nights .cta-section .main-block {
 body.page-contact .inner-top-section-style-2 .main-block .contact-intro-title {
 	line-height: 1.2;
 	margin: 0 0 clamp(16px, 1.5vw, 28px);
+}
+
+/* Event-types cards, titles only (client 2026-10-15, casino / poker /
+   horse-racing): .event-types-section--titles-only hides each card's
+   icon and paragraph (DORMANT, markup kept). Remove the modifier class
+   from the template to bring them back. The h3 then sits centred in the
+   card with no top margin. */
+.who-we-are-section.event-types-section--titles-only .box-container .box .icon-wrapper,
+.who-we-are-section.event-types-section--titles-only .box-container .box p {
+  display: none;
+}
+.who-we-are-section.event-types-section--titles-only .box-container .box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.who-we-are-section.event-types-section--titles-only .box-container .box h3 {
+  margin: 0;
 }

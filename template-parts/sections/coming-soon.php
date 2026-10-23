@@ -43,7 +43,7 @@ $points = $args['points'] ?? array(
 <section class="oh-section oh-coming-soon">
 	<div class="oh-wrap oh-coming-soon__inner">
 		<span class="oh-eyebrow oh-coming-soon__eyebrow"><?php echo wp_kses_post( $eyebrow ); ?></span>
-		<h2 class="oh-section-title"><?php echo wp_kses_post( $heading ); ?></h2>
+		<h2 class="oh-section-title<?php echo ! empty( $args['heading_class'] ) ? ' ' . esc_attr( $args['heading_class'] ) : ''; ?>"><?php echo wp_kses_post( $heading ); ?></h2>
 		<div class="oh-coming-soon__copy">
 			<?php foreach ( $copy as $para ) : ?>
 				<p><?php echo wp_kses_post( $para ); ?></p>

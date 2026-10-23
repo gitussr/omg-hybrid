@@ -52,13 +52,16 @@ get_template_part( 'template-parts/service-landing', null, array(
 		'image'       => $img . 'welcome-live.jpg',
 		'image_alt'   => 'OMG LiVE DJ setup with professional sound and stage lighting',
 		'image_style' => 'photo',
+		// Spinning circular-text badge over the photo's bottom-right edge
+		// (client 2026-10-15), see omg_hybrid_circular_badge().
+		'badge_text'  => 'OMG LiVE',
 	),
 	'cards_heading' => 'Our Products',
 	'cards_intro' => '<strong>Your Party, Your Playlist, Your Stars</strong>. Explore our lineup below and get ready for packed dance floors, jaw-dropping light shows and entertainment nobody will forget',
 	'cards' => array(
 		array(
 			'icon'        => $img . 'live-svc-dj.png',
-			'title'       => 'DJs, DJ-Booths &amp; Lighting',
+			'title'       => 'DJ, DJ-Booths &amp; Lighting',
 			'description' => 'Pumping Beats, a sleek DJ-Booth and Dazzling Lights that turn any venue into the hottest dance floor in town.',
 			'url'         => home_url( '/omg-live/our-services/#djs-dj-booth' ),
 			'link_label'  => 'VISIT US',

@@ -78,15 +78,54 @@
 <!-- =====intro section end===== -->
 
 
-<!-- =====our products section start===== -->
+<!-- =====event types section start===== -->
 <?php
-// "Other Products", as on the casino page, minus this page's own card.
-get_template_part( 'template-parts/omg-entertainment/our-products', null, array(
-	'exclude' => array( 'race-n-roll' ),
-	'heading' => 'Other Products',
+// "Perfect For Every Occasion" cards, titles only, as on the casino / poker /
+// horse-racing pages (client 2026-10-15). Same four occasions as horse racing.
+?>
+<section class="who-we-are-section event-types-section event-types-section--titles-only">
+    <div class="container">
+        <div class="heading">
+            <h3 class="title-dark-1 text-center">Perfect For Every Occasion</h3>
+            <p>From the office to the backyard, we bring the race-day buzz to your event.</p>
+        </div>
+        <div class="box-container">
+            <div class="row justify-content-center">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="box">
+                        <h3>Corporate</h3>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="box">
+                        <h3>Private</h3>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="box">
+                        <h3>Fundraisers</h3>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="box">
+                        <h3>Weddings</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- =====event types section end===== -->
+<!-- =====gallery section start===== -->
+<?php
+// Photo gallery (client 2026-10-15). No Race 'n' Roll photos yet, so it
+// shares the horse-racing set: assets/images/gallery/horse-racing/.
+get_template_part( 'template-parts/sections/gallery', null, array(
+	'folder' => 'horse-racing',
+	'label'  => 'Race night photos',
 ) );
 ?>
-<!-- =====our products section end===== -->
+<!-- =====gallery section end===== -->
 
 
 <!-- =====why choose section start===== -->
@@ -112,6 +151,17 @@ get_template_part( 'template-parts/sections/why-choose', null, array(
 ) );
 ?>
 <!-- =====why choose section end===== -->
+
+
+<!-- =====our products section start===== -->
+<?php
+// "Other Products", as on the casino page, minus this page's own card.
+get_template_part( 'template-parts/omg-entertainment/our-products', null, array(
+	'exclude' => array( 'race-n-roll' ),
+	'heading' => 'Other Products',
+) );
+?>
+<!-- =====our products section end===== -->
 
 
 <!-- =====other services section start===== -->

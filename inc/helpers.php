@@ -273,3 +273,63 @@ function omg_hybrid_legacy_lead_slide() {
 	</div>
 	<?php
 }
+
+/**
+ * Spinning circular-text badge, e.g. "OMG STUDIO • OMG STUDIO • …" set on
+ * a circle (client 2026-10-15). Inline SVG rather than an <img> so the
+ * text renders in the page's own font and any service name can be used;
+ * replaces the per-brand circular-text PNGs. The spin is CSS
+ * (oh-badge-spin, app.css). The name repeats to fill the ring (2-4 times
+ * depending on its length) and textLength spreads it evenly round the
+ * circle. The bullet's spaces are non-breaking, as SVG collapses a
+ * trailing normal space; and since textLength adds no spacing after the
+ * last character, it is shortened by one gap (estimated from Arial Bold
+ * advance widths) so the seam matches the other separators.
+ *
+ * @param string $text  Service name, e.g. 'OMG Studio'. Uppercased.
+ * @param string $class Extra classes for the <svg>.
+ * @return string
+ */
+function omg_hybrid_circular_badge( $text, $class = '' ) {
+	$text = strtoupper( trim( wp_strip_all_tags( $text ) ) );
+	if ( '' === $text ) {
+		return '';
+	}
+
+	$id      = wp_unique_id( 'oh-badge-path-' );
+	$radius  = 62;
+	$circ    = round( 2 * M_PI * $radius, 2 );
+	$segment = $text . "\u{00A0}•\u{00A0}";
+	$repeat  = max( 2, min( 4, (int) round( 40 / mb_strlen( $segment ) ) ) );
+	$chars   = mb_strlen( $segment ) * $repeat;
+	// ~0.74em per uppercase character incl. tracking; capped so short
+	// names don't balloon.
+	$size    = round( min( 14, $circ / ( $chars * 0.74 ) ), 2 );
+
+	// Natural width of the ring text (Arial Bold advances, 1/1000 em).
+	$advance = array(
+		'A' => 722, 'B' => 722, 'C' => 722, 'D' => 722, 'E' => 667, 'F' => 611, 'G' => 778,
+		'H' => 722, 'I' => 278, 'J' => 556, 'K' => 722, 'L' => 611, 'M' => 833, 'N' => 722,
+		'O' => 778, 'P' => 667, 'Q' => 778, 'R' => 722, 'S' => 667, 'T' => 611, 'U' => 722,
+		'V' => 667, 'W' => 944, 'X' => 667, 'Y' => 667, 'Z' => 611, ' ' => 278,
+		"\u{00A0}" => 278, '&' => 722, '•' => 350,
+	);
+	$natural = 0;
+	foreach ( preg_split( '//u', $segment, -1, PREG_SPLIT_NO_EMPTY ) as $glyph ) {
+		$natural += $advance[ $glyph ] ?? 667;
+	}
+	$natural = $natural * $repeat * $size / 1000;
+	$length  = round( $circ - ( $circ - $natural ) / $chars, 2 );
+
+	ob_start();
+	?>
+	<svg class="oh-welcome-badge <?php echo esc_attr( $class ); ?>" viewBox="0 0 160 160" aria-hidden="true" focusable="false">
+		<defs>
+			<path id="<?php echo esc_attr( $id ); ?>" d="M80,80 m-<?php echo (int) $radius; ?>,0 a<?php echo (int) $radius; ?>,<?php echo (int) $radius; ?> 0 1,1 <?php echo (int) ( 2 * $radius ); ?>,0 a<?php echo (int) $radius; ?>,<?php echo (int) $radius; ?> 0 1,1 -<?php echo (int) ( 2 * $radius ); ?>,0"/>
+		</defs>
+		<circle class="oh-welcome-badge__disc" cx="80" cy="80" r="78"/>
+		<text class="oh-welcome-badge__text" font-size="<?php echo esc_attr( $size ); ?>"><textPath href="#<?php echo esc_attr( $id ); ?>" textLength="<?php echo esc_attr( $length ); ?>" lengthAdjust="spacing"><?php echo esc_html( str_repeat( $segment, $repeat ) ); ?></textPath></text>
+	</svg>
+	<?php
+	return trim( ob_get_clean() );
+}

@@ -52,6 +52,9 @@ get_template_part( 'template-parts/service-landing', null, array(
 		'image'       => $img . 'welcome-props-casino-table.jpg',
 		'image_alt'   => 'OMG-branded roulette table with stacks of casino chips at an event',
 		'image_style' => 'photo',
+		// Spinning circular-text badge over the photo's bottom-left edge
+		// (client 2026-10-15), see omg_hybrid_circular_badge().
+		'badge_text'  => 'OMG Props & Theming',
 	),
 	'cards_heading' => 'Our Products',
 	'cards_intro' => '<strong>Dream It, Theme It, Live It</strong>. Explore the collection below and book the Props, Lighting and Styling that turn your venue into the place everyone wants to be.',

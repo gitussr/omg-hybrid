@@ -25,6 +25,10 @@
  *               "breaks out of the column" figure from the original OMG
  *               sites. A `badge` / `script` image only renders if its URL
  *               is given in the array form.
+ *   badge_text  string    optional. Service name for the spinning
+ *               circular-text badge (omg_hybrid_circular_badge()), e.g.
+ *               'OMG Studio'. Sits on the decor figure's corner, or on the
+ *               photo variant's bottom-left edge. Wins over decor[badge].
  *   reverse     bool      image on the left when true
  *
  * @package omg-hybrid
@@ -48,6 +52,8 @@ $is_photo   = ( $args['image_style'] ?? 'plain' ) === 'photo';
 $decor        = ! empty( $args['decor'] );
 $decor_badge  = is_array( $args['decor'] ?? null ) ? ( $args['decor']['badge']  ?? '' ) : '';
 $decor_script = is_array( $args['decor'] ?? null ) ? ( $args['decor']['script'] ?? '' ) : '';
+
+$badge_text = $args['badge_text'] ?? '';
 
 $reverse    = ! empty( $args['reverse'] );
 
@@ -79,12 +85,19 @@ if ( ! $heading && ! $paragraphs && ! $bullets ) {
 					<span><?php echo esc_html( $heading ); ?></span>
 					<img class="oh-welcome__title-logo" src="<?php echo esc_url( $head_logo['url'] ); ?>" alt="<?php echo esc_attr( $head_logo['alt'] ?? '' ); ?>">
 				</h2>
-			<?php elseif ( $heading ) : ?><h2 class="oh-section-title"><?php
+			<?php elseif ( $heading ) :
+				// "Welcome to OMG …" headings follow the home page's
+				// "WELCOME TO OMG / EVENT & ENTERTAINMENT" (client omg-task-01,
+				// 2026-10-12): oh-section-title--welcome, and on phones a break
+				// after "OMG" and the title centred (end of app.css).
+				$is_welcome = (bool) preg_match( '/^\s*welcome\s+to\s+OMG\b/i', $heading );
+				?><h2 class="oh-section-title<?php echo $is_welcome ? ' oh-section-title--welcome' : ''; ?>"><?php
 				// The title is uppercased by CSS; the brand is spelt "LiVE" (client
 				// 2026-09-28), so that word is wrapped to opt out of the transform.
 				// Only the brand word "OMG" is bold (client task001, 2026-10-07).
 				$heading_html = str_replace( 'LiVE', '<span class="oh-keep-case">LiVE</span>', esc_html( $heading ) );
-				echo preg_replace( '/\bOMG\b/', '<strong class="oh-welcome__brand">OMG</strong>', $heading_html, 1 );
+				$brand_html   = '<strong class="oh-welcome__brand">OMG</strong>' . ( $is_welcome ? '<br class="oh-section-title__mobile-break">' : '' );
+				echo preg_replace( '/\bOMG\b/', $brand_html, $heading_html, 1 );
 			?></h2><?php endif; ?>
 
 			<?php foreach ( $paragraphs as $paragraph ) : ?>
@@ -122,14 +135,19 @@ if ( ! $heading && ! $paragraphs && ! $bullets ) {
 					<?php if ( $decor_script ) : ?>
 						<img class="oh-welcome-figure__script" src="<?php echo esc_url( $decor_script ); ?>" alt="" aria-hidden="true" loading="lazy">
 					<?php endif; ?>
-					<?php if ( $decor_badge ) : ?>
+					<?php if ( $badge_text ) : ?>
+						<?php echo omg_hybrid_circular_badge( $badge_text, 'oh-welcome-figure__badge' ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside ?>
+					<?php elseif ( $decor_badge ) : ?>
 						<img class="oh-welcome-figure__badge" src="<?php echo esc_url( $decor_badge ); ?>" alt="" aria-hidden="true" loading="lazy">
 					<?php endif; ?>
 				</div>
 			</div>
 		<?php elseif ( $image ) : ?>
-			<div class="oh-service-row__media">
+			<div class="oh-service-row__media<?php echo $badge_text ? ' oh-service-row__media--badge' : ''; ?>">
 				<img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" loading="lazy">
+				<?php if ( $badge_text ) : ?>
+					<?php echo omg_hybrid_circular_badge( $badge_text, 'oh-welcome-photo__badge' ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside ?>
+				<?php endif; ?>
 			</div>
 		<?php endif; ?>
 	</div>

@@ -34,7 +34,9 @@ get_template_part( 'template-parts/sections/hero', null, array(
 // Own heading on the Coming Soon intro (client 2026-10-10); the rest of
 // the section keeps the shared copy.
 get_template_part( 'template-parts/sections/coming-soon', null, array(
-	'heading' => 'Welcome to <strong>OMG</strong> Food &amp; Beverage',
+	'heading' => 'Welcome to <strong>OMG</strong><br class="oh-section-title__mobile-break"> Food &amp; Beverage',
+	// Home-style welcome title: break after "OMG" + centred on phones (omg-task-01).
+	'heading_class' => 'oh-section-title--welcome',
 ) );
 
 get_template_part( 'template-parts/sections/other-services', null, array(
